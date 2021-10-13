@@ -18,5 +18,6 @@ const TransactSdk = NativeModules.TransactSdk
     );
 
 export function multiply(a: number, b: number): Promise<number> {
+  console.log('HI');
   return TransactSdk.multiply(a, b);
 }
