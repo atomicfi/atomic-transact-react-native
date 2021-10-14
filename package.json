@@ -1,6 +1,6 @@
 {
   "name": "react-native-transact-sdk",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "React Native bridge for the Transact SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
