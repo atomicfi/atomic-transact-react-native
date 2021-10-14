@@ -1,13 +1,17 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-transact-sdk';
+import { presentTransact } from 'react-native-transact-sdk';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  const [result, setResult] = React.useState<string | undefined>();
 
   React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+    presentTransact({
+      // sdk parameters
+    })
+    .then(result => setResult(JSON.stringify(result)))
+    .catch(err => console.log(err));
   }, []);
 
   return (
