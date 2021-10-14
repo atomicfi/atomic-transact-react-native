@@ -17,6 +17,6 @@ const TransactSdk = NativeModules.TransactSdk
       }
     );
 
-export function presentTransact(atomicConfig): Promise<Object> {
+export function presentTransact(atomicConfig: Object): Promise<Object> {
   return TransactSdk.presentTransact(atomicConfig);
 }
