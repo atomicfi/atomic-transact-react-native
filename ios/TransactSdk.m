@@ -4,6 +4,7 @@
 @interface RCT_EXTERN_MODULE(TransactSdk, NSObject)
 
 RCT_EXTERN_METHOD(presentTransact:(NSDictionary *)atomicConfig
+				  transactURL:NSString
 				  withResolver:(RCTPromiseResolveBlock)resolve
 				  withRejecter:(RCTPromiseRejectBlock)reject)
 

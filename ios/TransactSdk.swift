@@ -4,11 +4,11 @@ import UIKit
 @objc(TransactSdk)
 class TransactSdk: NSObject {
 
-	@objc(presentTransact:withResolver:withRejecter:)
-	func presentTransact(atomicConfig: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+	@objc(presentTransact:transactURL:withResolver:withRejecter:)
+	func presentTransact(atomicConfig: [String: Any], transactURL: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		DispatchQueue.main.async {
 			guard let source = RCTPresentedViewController() else { return }
-
+			
 			let decoder = JSONDecoder()
 			
 			do {
@@ -21,7 +21,7 @@ class TransactSdk: NSObject {
 				
 				let config = try decoder.decode(AtomicConfig.self, from: data)
 						
-				Atomic.presentTransact(from: source, config: config) { result in
+				Atomic.presentTransact(from: source, config: config, transactURL: .custom(path: transactURL)) { result in
 					switch result {
 					case .finished(let response):
 						resolve(response.data)

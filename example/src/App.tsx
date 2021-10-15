@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { presentTransact } from 'react-native-transact-sdk';
+import { presentTransact, TransactURL } from 'react-native-transact-sdk';
 
 export default function App() {
   const [result, setResult] = React.useState<string | undefined>();

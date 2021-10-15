@@ -17,10 +17,13 @@ import { presentTransact } from "@atomicfi/react-native-transact-sdk";
 
 try {
     const response = await presentTransact({
-        product: "deposit",
-        publicToken: "ac14f174-8cf7-40e7-89ee-d933e0f5332f"
+        atomicConfig: {
+            product: "deposit",
+            publicToken: "ac14f174-8cf7-40e7-89ee-d933e0f5332f"
+        },
+        transactURL: "https://transact.atomicfi.com"
     });
-    console.log(response.taskId)
+    console.log(response)
 }
 catch (err) {
     console.log(err)

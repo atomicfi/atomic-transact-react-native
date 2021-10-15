@@ -17,6 +17,12 @@ const TransactSdk = NativeModules.TransactSdk
       }
     );
 
-export function presentTransact(atomicConfig: Object): Promise<Object> {
-  return TransactSdk.presentTransact(atomicConfig);
+export enum TransactURL {
+  Production = "https://transact.atomicfi.com",
+  Sandbox = "https://transact-sandbox.atomicfi.com"
+}
+
+export function presentTransact({ atomicConfig, transactURL }: { atomicConfig: Object, transactURL?: TransactURL }): Promise<Object> {
+  transactURL = transactURL || TransactURL.Production
+  return TransactSdk.presentTransact(atomicConfig, transactURL);
 }
