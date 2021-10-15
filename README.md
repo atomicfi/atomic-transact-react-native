@@ -4,14 +4,23 @@ React Native bridge for the Transact SDK
 
 ## Installation
 
-```sh
-npm install @atomicfi/react-native-transact-sdk
+Update your `.yarnrc` file to include Atomic's scoped registry.
+
+```bash
+"@atomicfi:registry" "https://npm.pkg.github.com"
+```
+
+Install the SDK package.
+
+```bash
+$ yarn add @atomicfi/react-native-transact-sdk
+$ npx pod-install
 ```
 
 ## Usage
 
 ```js
-import { presentTransact } from "@atomicfi/react-native-transact-sdk";
+import { presentTransact, TransactURL } from "@atomicfi/react-native-transact-sdk";
 
 // ...
 
@@ -21,7 +30,7 @@ try {
             product: "deposit",
             publicToken: "ac14f174-8cf7-40e7-89ee-d933e0f5332f"
         },
-        transactURL: "https://transact.atomicfi.com"
+        transactURL: TransactURL.Sandbox
     });
     console.log(response)
 }
