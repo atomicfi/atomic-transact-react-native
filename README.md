@@ -20,28 +20,27 @@ $ npx pod-install
 ## Usage
 
 ```js
-import { presentTransact, TransactURL } from "@atomicfi/react-native-transact-sdk";
+import { Atomic, TransactURL } from "@atomicfi/react-native-transact-sdk";
 
 // ...
 
-try {
-    const response = await presentTransact({
-        atomicConfig: {
-            product: "deposit",
-            publicToken: "ac14f174-8cf7-40e7-89ee-d933e0f5332f"
-        },
-        transactURL: TransactURL.Sandbox
-    });
-    console.log(response)
-}
-catch (err) {
-    console.log(err)
-}
+Atomic.transact({
+  transactConfig: {
+    product: "deposit",
+    publicToken: "ad786554-544d-449a-ab43-aad33003ea4d"
+  },
+  transactURL: TransactURL.Production,
+  onInteraction: interaction => {
+    console.log('Interaction event:', interaction)
+  },
+  onFinish: data => {
+    console.log('Finish event:', data)
+  },
+  onClose: data => {
+    console.log('Close event:', data)
+  }
+})
 ```
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
 
 ## License
 

@@ -185,7 +185,7 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-transact-sdk (0.1.0):
+  - react-native-transact-sdk (1.1.1):
     - React-Core
     - TransactiOSSDK
   - React-RCTActionSheet (0.63.4):
@@ -248,7 +248,7 @@ PODS:
     - React-Core (= 0.63.4)
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
-  - TransactiOSSDK (1.0.1)
+  - TransactiOSSDK (1.1.1)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -360,7 +360,7 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-transact-sdk: 82dd21959f97376826619abd42af021314aa94b3
+  react-native-transact-sdk: cfe25f673038ae88117f0eb5547a7d43a92db2c5
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
@@ -371,9 +371,9 @@ SPEC CHECKSUMS:
   React-RCTText: 5c51df3f08cb9dedc6e790161195d12bac06101c
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
-  TransactiOSSDK: 4572f5a9e5237c4709a9547a0e00264568d3bf17
+  TransactiOSSDK: 42abe4374406a41e278ba0ce3662b35c3d9c10c4
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
-PODFILE CHECKSUM: 5ecd502b61ed060c2601701c952a86932d57c53f
+PODFILE CHECKSUM: c945df20c10d385a30a25ff522ae4382cb8809f0
 
 COCOAPODS: 1.11.2
