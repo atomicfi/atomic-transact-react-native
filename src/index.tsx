@@ -25,11 +25,15 @@ export enum TransactURL {
 }
 
 export const Atomic = {
-  transact({ transactConfig, transactURL, onInteraction, onFinish, onClose } : { transactConfig: Object, transactURL?: TransactURL, onInteraction?: Function, onFinish?: Function, onClose?: Function }) : void {
+  transact({ transactConfig, transactURL, onInteraction, onFinish, onDataRequest, onClose } : { transactConfig: Object, transactURL?: TransactURL, onInteraction?: Function, onDataRequest?: Function, onFinish?: Function, onClose?: Function }) : void {
     transactURL = transactURL || TransactURL.Production
 
     if (onInteraction) {
       TransactSdkEvents.addListener('onInteraction', interaction => onInteraction(interaction))
+    }
+
+    if (onDataRequest) {
+      TransactSdkEvents.addListener('onDataRequest', request => onDataRequest(request))
     }
 
     TransactSdk.presentTransact(transactConfig, transactURL).then((event: any) => {

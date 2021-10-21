@@ -23,6 +23,8 @@ class TransactSdk: RCTEventEmitter {
 						
 				Atomic.presentTransact(from: source, config: config, transactURL: .custom(path: transactURL), onInteraction: { interaction in
 					self.sendEvent(withName: "onInteraction", body: ["name": interaction.name, "value": interaction.data])
+				}, onDataRequest: { request in
+					self.sendEvent(withName: "onDataRequest", body: request.data)
 				}, onCompletion: { result in
 					switch result {
 					case .finished(let response):
@@ -41,6 +43,6 @@ class TransactSdk: RCTEventEmitter {
     }
 	
 	@objc override func supportedEvents() -> [String] {
-		return ["onInteraction"]
+		return ["onInteraction", "onDataRequest"]
 	}
 }

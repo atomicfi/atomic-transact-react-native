@@ -248,7 +248,7 @@ PODS:
     - React-Core (= 0.63.4)
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
-  - TransactiOSSDK (1.1.1)
+  - TransactiOSSDK (1.1.2)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -280,12 +280,12 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - "TransactiOSSDK (from `git@github.com:atomicfi/TransactiOSSDK.git`, branch `main`)"
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
     - boost-for-react-native
-    - TransactiOSSDK
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -340,8 +340,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  TransactiOSSDK:
+    :branch: main
+    :git: "git@github.com:atomicfi/TransactiOSSDK.git"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
+
+CHECKOUT OPTIONS:
+  TransactiOSSDK:
+    :commit: 34f14e97e975c91298f692154c101a546d784855
+    :git: "git@github.com:atomicfi/TransactiOSSDK.git"
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
@@ -371,9 +379,9 @@ SPEC CHECKSUMS:
   React-RCTText: 5c51df3f08cb9dedc6e790161195d12bac06101c
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
-  TransactiOSSDK: 42abe4374406a41e278ba0ce3662b35c3d9c10c4
+  TransactiOSSDK: 88c1a54bd58d02f5e039e4b4412e6f8f7f4f386e
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
-PODFILE CHECKSUM: c945df20c10d385a30a25ff522ae4382cb8809f0
+PODFILE CHECKSUM: e687b54d453a950e1b5cdf5775ef5d4a5b140af4
 
 COCOAPODS: 1.11.2

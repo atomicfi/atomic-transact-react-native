@@ -12,6 +12,8 @@ target 'TransactSdkExample' do
 
   pod 'react-native-transact-sdk', :path => '../..'
 
+  pod 'TransactiOSSDK', :git => 'git@github.com:atomicfi/TransactiOSSDK.git', :branch => 'main'
+
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
