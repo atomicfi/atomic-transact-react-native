@@ -1,4 +1,6 @@
-import { NativeModules, NativeEventEmitter, Platform } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
+import { AtomicIOS } from './ios';
+import { AtomicAndroid } from './android';
 
 const LINKING_ERROR =
   `The package 'react-native-transact-sdk' doesn't seem to be linked. Make sure: \n\n` +
@@ -17,38 +19,54 @@ const TransactSdk = NativeModules.TransactSdk
       }
     );
 
-const TransactSdkEvents = new NativeEventEmitter(TransactSdk)
-
 export enum Product {
   DEPOSIT = 'deposit',
   VERIFY = 'verify',
   IDENTIFY = 'identify',
-  WITHHOLD = 'withhold'
+  WITHHOLD = 'withhold',
 }
 
 export enum Environment {
-  PRODUCTION = "https://transact.atomicfi.com",
-  SANDBOX = "https://transact-sandbox.atomicfi.com"
+  Production = 'https://transact.atomicfi.com',
+  Sandbox = 'https://transact-sandbox.atomicfi.com',
 }
 
 export const Atomic = {
-  transact({ config, environment, onInteraction, onFinish, onDataRequest, onClose } : { config: Object, environment?: Environment, onInteraction?: Function, onDataRequest?: Function, onFinish?: Function, onClose?: Function }) : void {
-    environment = environment || Environment.PRODUCTION
+  transact({
+    config,
+    environment,
+    onInteraction,
+    onFinish,
+    onDataRequest,
+    onClose,
+  }: {
+    config: Object;
+    environment?: Environment;
+    onInteraction?: Function;
+    onDataRequest?: Function;
+    onFinish?: Function;
+    onClose?: Function;
+  }): void {
+    environment = environment || Environment.Production;
+    const args = {
+      TransactSdk,
+      config,
+      environment,
+      onInteraction,
+      onFinish,
+      onDataRequest,
+      onClose,
+    };
 
-    if (onInteraction) {
-      TransactSdkEvents.addListener('onInteraction', interaction => onInteraction(interaction))
+    switch (Platform.OS) {
+      case 'ios':
+        AtomicIOS.transact(args);
+        break;
+      case 'android':
+        AtomicAndroid.transact(args);
+        break;
+      default:
+        throw new Error(`Unsupported OS: ${Platform.OS}`);
     }
-
-    if (onDataRequest) {
-      TransactSdkEvents.addListener('onDataRequest', request => onDataRequest(request))
-    }
-
-    TransactSdk.presentTransact(config, environment).then((event: any) => {
-      if (event.finished && onFinish) {
-        onFinish(event.finished)
-      } else if (event.closed && onClose) {
-        onClose(event.closed)
-      }
-    });
-  }
-}
+  },
+};
