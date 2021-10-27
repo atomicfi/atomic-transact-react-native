@@ -1,4 +1,4 @@
-package com.reactnativetransactsdk
+package financial.atomic.transact.reactnative
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
