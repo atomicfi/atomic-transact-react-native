@@ -1,6 +1,6 @@
 {
   "name": "@atomicfi/react-native-transact-sdk",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "React Native bridge for the Transact SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -79,9 +79,6 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "release-it": {
     "git": {

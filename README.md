@@ -4,12 +4,6 @@ React Native bridge for the Transact SDK
 
 ## Installation
 
-Update your `.yarnrc` file to include Atomic's scoped registry.
-
-```bash
-"@atomicfi:registry" "https://npm.pkg.github.com"
-```
-
 Install the SDK package.
 
 ```bash
