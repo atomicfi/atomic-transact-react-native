@@ -185,7 +185,7 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-transact-sdk (1.1.1):
+  - react-native-transact-sdk (1.1.4):
     - React-Core
     - TransactiOSSDK
   - React-RCTActionSheet (0.63.4):
@@ -248,7 +248,7 @@ PODS:
     - React-Core (= 0.63.4)
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
-  - TransactiOSSDK (1.1.2)
+  - TransactiOSSDK (1.1.8)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -348,7 +348,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   TransactiOSSDK:
-    :commit: 34f14e97e975c91298f692154c101a546d784855
+    :commit: 4a6d71ed17b61f267a6aa54fa57f685e515ec011
     :git: "git@github.com:atomicfi/TransactiOSSDK.git"
 
 SPEC CHECKSUMS:
@@ -368,7 +368,7 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-transact-sdk: cfe25f673038ae88117f0eb5547a7d43a92db2c5
+  react-native-transact-sdk: 795a5ec2ca024134301f1c65bbd46df28da30cfe
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
@@ -379,7 +379,7 @@ SPEC CHECKSUMS:
   React-RCTText: 5c51df3f08cb9dedc6e790161195d12bac06101c
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
-  TransactiOSSDK: 88c1a54bd58d02f5e039e4b4412e6f8f7f4f386e
+  TransactiOSSDK: e3f6b873f0e6a18a2123e3d5cc44ac908e16a445
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
 PODFILE CHECKSUM: e687b54d453a950e1b5cdf5775ef5d4a5b140af4

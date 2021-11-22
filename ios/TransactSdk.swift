@@ -3,25 +3,25 @@ import UIKit
 
 @objc(TransactSdk)
 class TransactSdk: RCTEventEmitter {
-	
-	@objc(presentTransact:transactURL:withResolver:withRejecter:)
-	func presentTransact(atomicConfig: [String: Any], transactURL: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+
+	@objc(presentTransact:environment:withResolver:withRejecter:)
+	func presentTransact(config: [String: Any], environment: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		DispatchQueue.main.async {
 			guard let source = RCTPresentedViewController() else { return }
-			
+
 			let decoder = JSONDecoder()
-			
+
 			do {
-				var json = atomicConfig
+				var json = config
 				if json["language"] == nil {
 					json["language"] = "en"
 				}
-				
+
 				guard let data = try? JSONSerialization.data(withJSONObject: json, options: []) else { return }
-				
+
 				let config = try decoder.decode(AtomicConfig.self, from: data)
-						
-				Atomic.presentTransact(from: source, config: config, transactURL: .custom(path: transactURL), onInteraction: { interaction in
+
+				Atomic.presentTransact(from: source, config: config, environment: .custom(path: environment), onInteraction: { interaction in
 					self.sendEvent(withName: "onInteraction", body: ["name": interaction.name, "value": interaction.data])
 				}, onDataRequest: { request in
 					self.sendEvent(withName: "onDataRequest", body: request.data)
@@ -41,7 +41,7 @@ class TransactSdk: RCTEventEmitter {
 			}
 		}
     }
-	
+
 	@objc override func supportedEvents() -> [String] {
 		return ["onInteraction", "onDataRequest"]
 	}

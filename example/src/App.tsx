@@ -1,16 +1,16 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Button } from 'react-native';
-import { Atomic, TransactURL } from '@atomicfi/react-native-transact-sdk';
+import { Atomic, Product, Environment } from '@atomicfi/react-native-transact-sdk';
 
 export default function App() {
   function presentTransact() {
     Atomic.transact({
-      transactConfig: {
-        product: "deposit",
-        publicToken: "2e9347ac-30a5-45cf-bb58-e8e9a7bebeb7"
+      config: {
+        product: Product.DEPOSIT,
+        publicToken: "b3807174-a724-46d2-8ba5-d7fd9eb6645d"
       },
-      transactURL: TransactURL.PRODUCTION,
+      environment: Environment.PRODUCTION,
       onInteraction: interaction => {
         console.log('Interaction event:', interaction)
       },

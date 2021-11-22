@@ -19,14 +19,21 @@ const TransactSdk = NativeModules.TransactSdk
 
 const TransactSdkEvents = new NativeEventEmitter(TransactSdk)
 
-export enum TransactURL {
+export enum Product {
+  DEPOSIT = 'deposit',
+  VERIFY = 'verify',
+  IDENTIFY = 'identify',
+  WITHHOLD = 'withhold'
+}
+
+export enum Environment {
   PRODUCTION = "https://transact.atomicfi.com",
   SANDBOX = "https://transact-sandbox.atomicfi.com"
 }
 
 export const Atomic = {
-  transact({ transactConfig, transactURL, onInteraction, onFinish, onDataRequest, onClose } : { transactConfig: Object, transactURL?: TransactURL, onInteraction?: Function, onDataRequest?: Function, onFinish?: Function, onClose?: Function }) : void {
-    transactURL = transactURL || TransactURL.PRODUCTION
+  transact({ config, environment, onInteraction, onFinish, onDataRequest, onClose } : { config: Object, environment?: Environment, onInteraction?: Function, onDataRequest?: Function, onFinish?: Function, onClose?: Function }) : void {
+    environment = environment || Environment.PRODUCTION
 
     if (onInteraction) {
       TransactSdkEvents.addListener('onInteraction', interaction => onInteraction(interaction))
@@ -36,7 +43,7 @@ export const Atomic = {
       TransactSdkEvents.addListener('onDataRequest', request => onDataRequest(request))
     }
 
-    TransactSdk.presentTransact(transactConfig, transactURL).then((event: any) => {
+    TransactSdk.presentTransact(config, environment).then((event: any) => {
       if (event.finished && onFinish) {
         onFinish(event.finished)
       } else if (event.closed && onClose) {
