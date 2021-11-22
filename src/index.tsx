@@ -20,13 +20,13 @@ const TransactSdk = NativeModules.TransactSdk
 const TransactSdkEvents = new NativeEventEmitter(TransactSdk)
 
 export enum TransactURL {
-  Production = "https://transact.atomicfi.com",
-  Sandbox = "https://transact-sandbox.atomicfi.com"
+  PRODUCTION = "https://transact.atomicfi.com",
+  SANDBOX = "https://transact-sandbox.atomicfi.com"
 }
 
 export const Atomic = {
   transact({ transactConfig, transactURL, onInteraction, onFinish, onDataRequest, onClose } : { transactConfig: Object, transactURL?: TransactURL, onInteraction?: Function, onDataRequest?: Function, onFinish?: Function, onClose?: Function }) : void {
-    transactURL = transactURL || TransactURL.Production
+    transactURL = transactURL || TransactURL.PRODUCTION
 
     if (onInteraction) {
       TransactSdkEvents.addListener('onInteraction', interaction => onInteraction(interaction))

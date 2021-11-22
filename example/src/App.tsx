@@ -8,9 +8,9 @@ export default function App() {
     Atomic.transact({
       transactConfig: {
         product: "deposit",
-        publicToken: "98bb193d-3553-4182-8e13-595edabd1ba3"
+        publicToken: "2e9347ac-30a5-45cf-bb58-e8e9a7bebeb7"
       },
-      transactURL: TransactURL.Production,
+      transactURL: TransactURL.PRODUCTION,
       onInteraction: interaction => {
         console.log('Interaction event:', interaction)
       },
