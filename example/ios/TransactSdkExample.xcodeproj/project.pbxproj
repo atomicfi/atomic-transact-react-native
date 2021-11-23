@@ -411,7 +411,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-TransactSdkExample/Pods-TransactSdkExample-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/TransactiOSSDK/AtomicTransact.framework/AtomicTransact",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/AtomicSDK/AtomicTransact.framework/AtomicTransact",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Button } from 'react-native';
-import { Atomic, Product, Environment } from '@atomicfi/react-native-transact-sdk';
+import { Atomic, Product, Environment } from '@atomicfi/transact-react-native';
 
 export default function App() {
   function presentTransact() {

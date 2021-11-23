@@ -10,9 +10,9 @@ target 'TransactSdkExample' do
 
   use_react_native!(:path => config["reactNativePath"])
 
-  pod 'react-native-transact-sdk', :path => '../..'
+  pod 'transact-react-native', :path => '../..'
 
-  pod 'TransactiOSSDK', :git => 'git@github.com:atomicfi/TransactiOSSDK.git', :branch => 'main'
+  pod 'AtomicSDK', :git => 'git@github.com:atomicfi/atomic-transact-ios.git', :branch => 'main'
 
   # Enables Flipper.
   #

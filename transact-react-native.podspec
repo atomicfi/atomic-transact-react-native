@@ -3,7 +3,7 @@ require "json"
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
 Pod::Spec.new do |s|
-  s.name         = "react-native-transact-sdk"
+  s.name         = "transact-react-native"
   s.version      = package["version"]
   s.summary      = package["description"]
   s.homepage     = package["homepage"]
@@ -11,10 +11,10 @@ Pod::Spec.new do |s|
   s.authors      = package["author"]
 
   s.platforms    = { :ios => "10.0" }
-  s.source       = { :git => "https://github.com/atomicfi/react-native-transact-sdk.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/atomicfi/atomic-transact-react-native.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
 
   s.dependency "React-Core"
-  s.dependency "TransactiOSSDK"
+  s.dependency "AtomicSDK"
 end

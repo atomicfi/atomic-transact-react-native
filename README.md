@@ -1,4 +1,4 @@
-# @atomicfi/react-native-transact-sdk
+# @atomicfi/transact-react-native
 
 React Native bridge for the Transact SDK
 

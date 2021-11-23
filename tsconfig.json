@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "react-native-transact-sdk": ["./src/index"]
+      "atomic-transact-ios": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

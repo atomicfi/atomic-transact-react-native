@@ -1,4 +1,5 @@
 PODS:
+  - AtomicSDK (1.0.0)
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.63.4)
@@ -185,9 +186,6 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-transact-sdk (1.1.4):
-    - React-Core
-    - TransactiOSSDK
   - React-RCTActionSheet (0.63.4):
     - React-Core/RCTActionSheetHeaders (= 0.63.4)
   - React-RCTAnimation (0.63.4):
@@ -248,10 +246,13 @@ PODS:
     - React-Core (= 0.63.4)
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
-  - TransactiOSSDK (1.1.8)
+  - transact-react-native (0.0.1):
+    - AtomicSDK
+    - React-Core
   - Yoga (1.14.0)
 
 DEPENDENCIES:
+  - "AtomicSDK (from `git@github.com:atomicfi/atomic-transact-ios.git`, branch `main`)"
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
@@ -269,7 +270,6 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
-  - react-native-transact-sdk (from `../..`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -280,7 +280,7 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - "TransactiOSSDK (from `git@github.com:atomicfi/TransactiOSSDK.git`, branch `main`)"
+  - transact-react-native (from `../..`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -288,6 +288,9 @@ SPEC REPOS:
     - boost-for-react-native
 
 EXTERNAL SOURCES:
+  AtomicSDK:
+    :branch: main
+    :git: "git@github.com:atomicfi/atomic-transact-ios.git"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -318,8 +321,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
-  react-native-transact-sdk:
-    :path: "../.."
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -340,18 +341,18 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  TransactiOSSDK:
-    :branch: main
-    :git: "git@github.com:atomicfi/TransactiOSSDK.git"
+  transact-react-native:
+    :path: "../.."
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 CHECKOUT OPTIONS:
-  TransactiOSSDK:
-    :commit: 4a6d71ed17b61f267a6aa54fa57f685e515ec011
-    :git: "git@github.com:atomicfi/TransactiOSSDK.git"
+  AtomicSDK:
+    :commit: 7837872dfb89f8a3e44b45ea1338692f95c46a84
+    :git: "git@github.com:atomicfi/atomic-transact-ios.git"
 
 SPEC CHECKSUMS:
+  AtomicSDK: 5d038453b3c38388623a62711cb3aadedc4a32c6
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   FBLazyVector: 3bb422f41b18121b71783a905c10e58606f7dc3e
@@ -368,7 +369,6 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-transact-sdk: 795a5ec2ca024134301f1c65bbd46df28da30cfe
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
@@ -379,9 +379,9 @@ SPEC CHECKSUMS:
   React-RCTText: 5c51df3f08cb9dedc6e790161195d12bac06101c
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
-  TransactiOSSDK: e3f6b873f0e6a18a2123e3d5cc44ac908e16a445
+  transact-react-native: 48b54e495043dd37be46b42629110a09d8217348
   Yoga: 4bd86afe9883422a7c4028c00e34790f560923d6
 
-PODFILE CHECKSUM: e687b54d453a950e1b5cdf5775ef5d4a5b140af4
+PODFILE CHECKSUM: f2eb5feb1a1dd8605982855a9b92788d2a460381
 
 COCOAPODS: 1.11.2
