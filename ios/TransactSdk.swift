@@ -13,9 +13,6 @@ class TransactSdk: RCTEventEmitter {
 
 			do {
 				var json = config
-				if json["language"] == nil {
-					json["language"] = "en"
-				}
 
 				guard let data = try? JSONSerialization.data(withJSONObject: json, options: []) else { return }
 

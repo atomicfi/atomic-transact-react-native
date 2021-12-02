@@ -1,4 +1,4 @@
-import { NativeModules, Platform } from 'react-native';
+import { Appearance, NativeModules, Platform } from 'react-native';
 import { AtomicIOS } from './ios';
 import { AtomicAndroid } from './android';
 
@@ -48,6 +48,13 @@ export const Atomic = {
     onClose?: Function;
   }): void {
     environment = environment || Environment.Production;
+
+    config.language = config.language || 'en'
+    config.theme = config.theme || {}
+    config.theme.dark = config.theme.dark !== undefined
+      ? config.theme.dark
+      : Appearance.getColorScheme() === 'dark'
+
     const args = {
       TransactSdk,
       config,
