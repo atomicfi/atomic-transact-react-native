@@ -1,12 +1,12 @@
-import { Appearance, NativeModules, Platform } from 'react-native';
-import { AtomicIOS } from './ios';
-import { AtomicAndroid } from './android';
+import { Appearance, NativeModules, Platform } from 'react-native'
+import { AtomicIOS } from './ios'
+import { AtomicAndroid } from './android'
 
 const LINKING_ERROR =
   `The package 'transact-react-native' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
   '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo managed workflow\n';
+  '- You are not using Expo managed workflow\n'
 
 const TransactSdk = NativeModules.TransactSdk
   ? NativeModules.TransactSdk
@@ -14,21 +14,42 @@ const TransactSdk = NativeModules.TransactSdk
       {},
       {
         get() {
-          throw new Error(LINKING_ERROR);
-        },
+          throw new Error(LINKING_ERROR)
+        }
       }
-    );
+    )
+
+interface Theme {
+  brandColor?: String
+  overlayColor?: String
+  dark?: Boolean
+}
+
+interface Config {
+  publicToken: String
+  product: String
+  additionalProduct?: String
+  linkedAccount?: String
+  theme?: Theme
+  distribution?: Object
+  language?: String
+  deeplink?: Object
+  metadata?: Object
+  search?: Object
+  handoff?: String
+  experiments?: Object
+}
 
 export enum Product {
   DEPOSIT = 'deposit',
   VERIFY = 'verify',
   IDENTIFY = 'identify',
-  WITHHOLD = 'withhold',
+  WITHHOLD = 'withhold'
 }
 
 export enum Environment {
   Production = 'https://transact.atomicfi.com',
-  Sandbox = 'https://transact-sandbox.atomicfi.com',
+  Sandbox = 'https://transact-sandbox.atomicfi.com'
 }
 
 export const Atomic = {
@@ -38,22 +59,23 @@ export const Atomic = {
     onInteraction,
     onFinish,
     onDataRequest,
-    onClose,
+    onClose
   }: {
-    config: Object;
-    environment?: Environment;
-    onInteraction?: Function;
-    onDataRequest?: Function;
-    onFinish?: Function;
-    onClose?: Function;
+    config: Config
+    environment?: Environment
+    onInteraction?: Function
+    onDataRequest?: Function
+    onFinish?: Function
+    onClose?: Function
   }): void {
-    environment = environment || Environment.Production;
+    environment = environment || Environment.Production
 
     config.language = config.language || 'en'
     config.theme = config.theme || {}
-    config.theme.dark = config.theme.dark !== undefined
-      ? config.theme.dark
-      : Appearance.getColorScheme() === 'dark'
+    config.theme.dark =
+      config.theme.dark !== undefined
+        ? config.theme.dark
+        : Appearance.getColorScheme() === 'dark'
 
     const args = {
       TransactSdk,
@@ -62,18 +84,18 @@ export const Atomic = {
       onInteraction,
       onFinish,
       onDataRequest,
-      onClose,
-    };
+      onClose
+    }
 
     switch (Platform.OS) {
       case 'ios':
-        AtomicIOS.transact(args);
-        break;
+        AtomicIOS.transact(args)
+        break
       case 'android':
-        AtomicAndroid.transact(args);
-        break;
+        AtomicAndroid.transact(args)
+        break
       default:
-        throw new Error(`Unsupported OS: ${Platform.OS}`);
+        throw new Error(`Unsupported OS: ${Platform.OS}`)
     }
-  },
-};
+  }
+}

@@ -1,23 +1,23 @@
-import { Buffer } from 'buffer';
+import { Buffer } from 'buffer'
 
-import { DeviceEventEmitter } from 'react-native';
-import { Environment } from '.';
+import { DeviceEventEmitter } from 'react-native'
+import { Environment } from '.'
 
 const ENVIRONMENT = {
   [Environment.Production]: 'PRODUCTION',
-  [Environment.Sandbox]: 'SANDBOX',
-};
+  [Environment.Sandbox]: 'SANDBOX'
+}
 
 function _eventHandler(request: string, func: Function) {
-  return func(JSON.parse(request));
+  return func(JSON.parse(request))
 }
 
 function _addEventListener(event: string, func: Function | undefined) {
-  DeviceEventEmitter.removeAllListeners(event);
+  DeviceEventEmitter.removeAllListeners(event)
   if (func) {
     DeviceEventEmitter.addListener(event, (request) =>
       _eventHandler(request, func)
-    );
+    )
   }
 }
 
@@ -29,26 +29,26 @@ export const AtomicAndroid = {
     onInteraction,
     onFinish,
     onDataRequest,
-    onClose,
+    onClose
   }: {
-    TransactSdk: any;
-    config: Object;
-    environment?: Environment;
-    onInteraction?: Function;
-    onDataRequest?: Function;
-    onFinish?: Function;
-    onClose?: Function;
+    TransactSdk: any
+    config: Object
+    environment?: Environment
+    onInteraction?: Function
+    onDataRequest?: Function
+    onFinish?: Function
+    onClose?: Function
   }): void {
-    _addEventListener('onClose', onClose);
-    _addEventListener('onFinish', onFinish);
-    _addEventListener('onInteraction', onInteraction);
-    _addEventListener('onDataRequest', onDataRequest);
+    _addEventListener('onClose', onClose)
+    _addEventListener('onFinish', onFinish)
+    _addEventListener('onInteraction', onInteraction)
+    _addEventListener('onDataRequest', onDataRequest)
 
-    const token = Buffer.from(JSON.stringify(config)).toString('base64');
+    const token = Buffer.from(JSON.stringify(config)).toString('base64')
 
     TransactSdk.presentTransact(
       token,
       ENVIRONMENT[environment || Environment.Production]
-    );
-  },
-};
+    )
+  }
+}

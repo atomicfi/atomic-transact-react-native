@@ -60,7 +60,7 @@
     "husky": "^6.0.0",
     "jest": "^26.0.1",
     "pod-install": "^0.1.0",
-    "prettier": "^2.0.5",
+    "prettier": "^2.5.0",
     "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-builder-bob": "^0.18.0",
@@ -110,11 +110,10 @@
       "prettier/prettier": [
         "error",
         {
-          "quoteProps": "consistent",
-          "singleQuote": true,
+          "trailingComma": "none",
           "tabWidth": 2,
-          "trailingComma": "es5",
-          "useTabs": false
+          "semi": false,
+          "singleQuote": true
         }
       ]
     }
@@ -124,11 +123,10 @@
     "lib/"
   ],
   "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
+    "trailingComma": "none",
     "tabWidth": 2,
-    "trailingComma": "es5",
-    "useTabs": false
+    "semi": false,
+    "singleQuote": true
   },
   "react-native-builder-bob": {
     "source": "src",
