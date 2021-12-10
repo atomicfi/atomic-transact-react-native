@@ -48,7 +48,7 @@ export const AtomicAndroid = {
 
     TransactSdk.presentTransact(
       token,
-      ENVIRONMENT[environment || Environment.Production]
+      ENVIRONMENT[(environment || Environment.Production).toString()]
     )
   }
 }
