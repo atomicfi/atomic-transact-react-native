@@ -40,16 +40,16 @@ interface Config {
   experiments?: Object
 }
 
-export enum Product {
-  DEPOSIT = 'deposit',
-  VERIFY = 'verify',
-  IDENTIFY = 'identify',
-  WITHHOLD = 'withhold'
+export const Product = {
+  DEPOSIT: 'deposit',
+  VERIFY: 'verify',
+  IDENTIFY: 'identify',
+  WITHHOLD: 'withhold'
 }
 
-export enum Environment {
-  Production = 'https://transact.atomicfi.com',
-  Sandbox = 'https://transact-sandbox.atomicfi.com'
+export const Environment = {
+  Production: 'https://transact.atomicfi.com',
+  Sandbox: 'https://transact-sandbox.atomicfi.com'
 }
 
 export const Atomic = {
@@ -62,7 +62,7 @@ export const Atomic = {
     onClose
   }: {
     config: Config
-    environment?: Environment
+    environment?: String
     onInteraction?: Function
     onDataRequest?: Function
     onFinish?: Function
