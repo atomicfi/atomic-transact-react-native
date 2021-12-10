@@ -33,7 +33,7 @@ export const AtomicAndroid = {
   }: {
     TransactSdk: any
     config: Object
-    environment?: Environment
+    environment?: String
     onInteraction?: Function
     onDataRequest?: Function
     onFinish?: Function

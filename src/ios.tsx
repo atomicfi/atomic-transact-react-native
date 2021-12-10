@@ -1,5 +1,4 @@
 import { NativeEventEmitter } from 'react-native'
-import type { Environment } from './index'
 
 export const AtomicIOS = {
   transact({
@@ -13,7 +12,7 @@ export const AtomicIOS = {
   }: {
     TransactSdk: any
     config: Object
-    environment?: Environment
+    environment?: String
     onInteraction?: Function
     onDataRequest?: Function
     onFinish?: Function
