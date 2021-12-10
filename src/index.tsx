@@ -1,6 +1,7 @@
 import { Appearance, NativeModules, Platform } from 'react-native'
 import { AtomicIOS } from './ios'
 import { AtomicAndroid } from './android'
+import * as CONSTANTS from './constants'
 
 const LINKING_ERROR =
   `The package 'transact-react-native' doesn't seem to be linked. Make sure: \n\n` +
@@ -40,17 +41,8 @@ interface Config {
   experiments?: Object
 }
 
-export const Product = {
-  DEPOSIT: 'deposit',
-  VERIFY: 'verify',
-  IDENTIFY: 'identify',
-  WITHHOLD: 'withhold'
-}
-
-export const Environment = {
-  Production: 'https://transact.atomicfi.com',
-  Sandbox: 'https://transact-sandbox.atomicfi.com'
-}
+export const Product = CONSTANTS.Product
+export const Environment = CONSTANTS.Environment
 
 export const Atomic = {
   transact({

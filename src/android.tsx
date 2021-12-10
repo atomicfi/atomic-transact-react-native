@@ -1,7 +1,7 @@
 import { Buffer } from 'buffer'
 
 import { DeviceEventEmitter } from 'react-native'
-import { Environment } from './index'
+import { Environment } from './constants'
 
 const ENVIRONMENT = {
   [Environment.Production]: 'PRODUCTION',
