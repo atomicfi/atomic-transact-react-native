@@ -1,5 +1,5 @@
 import { NativeEventEmitter } from 'react-native'
-import type { Environment } from '.'
+import type { Environment } from './index'
 
 export const AtomicIOS = {
   transact({
