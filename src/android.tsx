@@ -1,6 +1,5 @@
 import { Buffer } from 'buffer'
-
-import { DeviceEventEmitter } from 'react-native'
+import { DeviceEventEmitter, Platform } from 'react-native'
 import { Environment } from './constants'
 
 const ENVIRONMENT = {
@@ -32,13 +31,18 @@ export const AtomicAndroid = {
     onClose
   }: {
     TransactSdk: any
-    config: Object
+    config: any
     environment?: String
     onInteraction?: Function
     onDataRequest?: Function
     onFinish?: Function
     onClose?: Function
   }): void {
+    config.platform = {
+      name: 'android',
+      version: Platform.Version
+    }
+
     _addEventListener('onClose', onClose)
     _addEventListener('onFinish', onFinish)
     _addEventListener('onInteraction', onInteraction)

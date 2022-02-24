@@ -26,6 +26,11 @@ interface Theme {
   dark?: Boolean
 }
 
+interface Task {
+  product: String
+  distribution?: Object
+}
+
 interface Config {
   publicToken: String
   product: String
@@ -39,6 +44,7 @@ interface Config {
   search?: Object
   handoff?: String
   experiments?: Object
+  tasks?: [Task]
 }
 
 export const Product = CONSTANTS.Product

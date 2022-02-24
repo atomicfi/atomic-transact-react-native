@@ -1,4 +1,4 @@
-import { NativeEventEmitter } from 'react-native'
+import { NativeEventEmitter, Platform } from 'react-native'
 
 export const AtomicIOS = {
   transact({
@@ -11,31 +11,45 @@ export const AtomicIOS = {
     onClose
   }: {
     TransactSdk: any
-    config: Object
+    config: any
     environment?: String
     onInteraction?: Function
     onDataRequest?: Function
     onFinish?: Function
     onClose?: Function
   }): void {
+    config.platform = {
+      name: 'ios',
+      version: Platform.Version
+    }
+
     const TransactSdkEvents = new NativeEventEmitter(TransactSdk)
+    let onInteractionListener: any = undefined
+    let onDataRequestListener: any = undefined
+
+    const removeListeners = () => {
+      if (onInteractionListener) onInteractionListener.remove()
+      if (onDataRequestListener) onDataRequestListener.remove()
+    }
 
     if (onInteraction) {
-      TransactSdkEvents.addListener('onInteraction', (interaction) =>
+      onInteractionListener = TransactSdkEvents.addListener('onInteraction', (interaction) =>
         onInteraction(interaction)
       )
     }
 
     if (onDataRequest) {
-      TransactSdkEvents.addListener('onDataRequest', (request) =>
+      onDataRequestListener = TransactSdkEvents.addListener('onDataRequest', (request) =>
         onDataRequest(request)
       )
     }
 
     TransactSdk.presentTransact(config, environment).then((event: any) => {
       if (event.finished && onFinish) {
+        removeListeners()
         onFinish(event.finished)
       } else if (event.closed && onClose) {
+        removeListeners()
         onClose(event.closed)
       }
     })
