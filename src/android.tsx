@@ -40,7 +40,7 @@ export const AtomicAndroid = {
   }): void {
     config.platform = {
       name: 'android',
-      version: Platform.Version
+      version: Platform.Version.toString()
     }
 
     _addEventListener('onClose', onClose)
