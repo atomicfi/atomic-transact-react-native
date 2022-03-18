@@ -20,7 +20,7 @@ export const AtomicIOS = {
   }): void {
     config.platform = {
       name: 'ios',
-      version: Platform.Version
+      version: Platform.Version.toString()
     }
 
     const TransactSdkEvents = new NativeEventEmitter(TransactSdk)
