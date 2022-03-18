@@ -19,7 +19,7 @@ class TransactSdk: RCTEventEmitter {
 				let config = try decoder.decode(AtomicConfig.self, from: data)
 
 				Atomic.presentTransact(from: source, config: config, environment: .custom(path: environment), onInteraction: { interaction in
-					self.sendEvent(withName: "onInteraction", body: ["name": interaction.name, "value": interaction.data])
+					self.sendEvent(withName: "onInteraction", body: ["name": interaction.name, "value": interaction.value])
 				}, onDataRequest: { request in
 					self.sendEvent(withName: "onDataRequest", body: request.data)
 				}, onCompletion: { result in
