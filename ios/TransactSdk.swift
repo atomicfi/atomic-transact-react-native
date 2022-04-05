@@ -30,6 +30,8 @@ class TransactSdk: RCTEventEmitter {
 						resolve(["closed": response.data])
 					case .error(let error):
 						resolve(["error": "Unknown error"])
+					default:
+						resolve(["error": "Unknown error"])
 					}
 				})
 			}
