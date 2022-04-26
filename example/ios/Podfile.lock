@@ -248,7 +248,7 @@ PODS:
     - React-Core (= 0.63.4)
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
-  - transact-react-native (1.3.0):
+  - transact-react-native (1.3.1):
     - AtomicSDK
     - React-Core
   - Yoga (1.14.0)
