@@ -44,7 +44,7 @@ interface Config {
   search?: Object
   handoff?: String
   experiments?: Object
-  tasks?: [Task]
+  tasks?: Task[]
 }
 
 export const Product = CONSTANTS.Product
