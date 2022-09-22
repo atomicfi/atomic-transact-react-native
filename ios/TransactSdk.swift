@@ -13,10 +13,11 @@ class TransactSdk: RCTEventEmitter {
 
 			do {
 				var json = config
+                json["platform"] = AtomicConfig.Platform().encode()
 
-				guard let data = try? JSONSerialization.data(withJSONObject: json, options: []) else { return }
+                guard let data = try? JSONSerialization.data(withJSONObject: json, options: []) else { return }
 
-				let config = try decoder.decode(AtomicConfig.self, from: data)
+                var config = try decoder.decode(AtomicConfig.self, from: data)
 
 				Atomic.presentTransact(from: source, config: config, environment: .custom(path: environment), onInteraction: { interaction in
 					self.sendEvent(withName: "onInteraction", body: ["name": interaction.name, "value": interaction.value])

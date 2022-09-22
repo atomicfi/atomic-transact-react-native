@@ -40,7 +40,8 @@ export const AtomicAndroid = {
   }): void {
     config.platform = {
       name: 'android',
-      version: Platform.Version.toString()
+      systemVersion: Platform.Version.toString(),
+      sdkVersion: '2.6.11' // Default this in the Android SDK instead
     }
 
     _addEventListener('onClose', onClose)

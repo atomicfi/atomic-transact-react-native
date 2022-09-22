@@ -18,11 +18,6 @@ export const AtomicIOS = {
     onFinish?: Function
     onClose?: Function
   }): void {
-    config.platform = {
-      name: 'ios',
-      version: Platform.Version.toString()
-    }
-
     const TransactSdkEvents = new NativeEventEmitter(TransactSdk)
     let onInteractionListener: any = undefined
     let onDataRequestListener: any = undefined
