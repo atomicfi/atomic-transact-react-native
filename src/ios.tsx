@@ -1,4 +1,4 @@
-import { NativeEventEmitter, Platform } from 'react-native'
+import { NativeEventEmitter } from 'react-native'
 
 export const AtomicIOS = {
   transact({
