@@ -45,4 +45,8 @@ class TransactSdk: RCTEventEmitter {
 	@objc override func supportedEvents() -> [String] {
 		return ["onInteraction", "onDataRequest"]
 	}
+
+	@objc override static func requiresMainQueueSetup() -> Bool {
+        return true
+    }
 }
