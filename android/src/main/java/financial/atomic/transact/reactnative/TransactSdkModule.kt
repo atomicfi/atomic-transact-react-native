@@ -10,9 +10,16 @@ import org.json.JSONObject
 import java.lang.Exception
 
 class TransactSdkModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
-
     override fun getName(): String {
         return "TransactSdk"
+    }
+
+    override fun getConstants(): MutableMap<String, Any>? {
+        val constants = mutableMapOf<String, Any>()
+
+        constants["VERSION"] = BuildConfig.TRANSACT_VERSION
+
+        return constants
     }
 
     // https://callstack.com/blog/sending-events-to-javascript-from-your-native-module-in-react-native/

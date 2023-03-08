@@ -41,7 +41,7 @@ export const AtomicAndroid = {
     config.platform = {
       name: 'android',
       systemVersion: Platform.Version.toString(),
-      sdkVersion: '2.6.11' // Default this in the Android SDK instead
+      sdkVersion: TransactSdk.getConstants().VERSION + '-react'
     }
 
     _addEventListener('onClose', onClose)
