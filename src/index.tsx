@@ -9,7 +9,7 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
-const TransactSdk = NativeModules.TransactReactNative
+const TransactReactNative = NativeModules.TransactReactNative
   ? NativeModules.TransactReactNative
   : new Proxy(
       {},
@@ -71,7 +71,7 @@ export const Atomic = {
         : Appearance.getColorScheme() === 'dark';
 
     const args = {
-      TransactSdk,
+      TransactReactNative,
       config,
       environment: CONSTANTS.Environment.Production,
       onInteraction,

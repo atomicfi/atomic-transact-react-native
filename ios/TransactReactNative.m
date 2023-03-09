@@ -2,7 +2,7 @@
 #import <React/RCTUtils.h>
 #import <React/RCTEventEmitter.h>
 
-@interface RCT_EXTERN_MODULE(TransactSdk, RCTEventEmitter)
+@interface RCT_EXTERN_MODULE(TransactReactNative, RCTEventEmitter)
 
 RCT_EXTERN_METHOD(presentTransact:(NSDictionary *)config
 				  environment:NSString

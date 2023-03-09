@@ -43,6 +43,7 @@ target 'TransactReactNativeExample' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'atomicfi-transact-react-native', :path => '../..'
   pod 'AtomicSDK', :git => 'git@github.com:atomicfi/atomic-transact-ios.git', :branch => 'main'
 
   target 'TransactReactNativeExampleTests' do

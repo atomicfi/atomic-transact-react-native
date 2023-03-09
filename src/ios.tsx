@@ -2,7 +2,7 @@ import { NativeEventEmitter } from 'react-native';
 
 export const AtomicIOS = {
   transact({
-    TransactSdk,
+    TransactReactNative,
     config,
     environment,
     onInteraction,
@@ -10,7 +10,7 @@ export const AtomicIOS = {
     onDataRequest,
     onClose,
   }: {
-    TransactSdk: any;
+    TransactReactNative: any;
     config: any;
     environment?: String;
     onInteraction?: Function;
@@ -18,7 +18,7 @@ export const AtomicIOS = {
     onFinish?: Function;
     onClose?: Function;
   }): void {
-    const TransactSdkEvents = new NativeEventEmitter(TransactSdk);
+    const TransactReactNativeEvents = new NativeEventEmitter(TransactReactNative);
     let onInteractionListener: any = undefined;
     let onDataRequestListener: any = undefined;
 
@@ -28,20 +28,20 @@ export const AtomicIOS = {
     };
 
     if (onInteraction) {
-      onInteractionListener = TransactSdkEvents.addListener(
+      onInteractionListener = TransactReactNativeEvents.addListener(
         'onInteraction',
         (interaction) => onInteraction(interaction)
       );
     }
 
     if (onDataRequest) {
-      onDataRequestListener = TransactSdkEvents.addListener(
+      onDataRequestListener = TransactReactNativeEvents.addListener(
         'onDataRequest',
         (request) => onDataRequest(request)
       );
     }
 
-    TransactSdk.presentTransact(config, environment).then((event: any) => {
+    TransactReactNative.presentTransact(config, environment).then((event: any) => {
       if (event.finished && onFinish) {
         removeListeners();
         onFinish(event.finished);

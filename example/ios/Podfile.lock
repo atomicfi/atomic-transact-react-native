@@ -1,5 +1,5 @@
 PODS:
-  - atomicfi-transact-react-native (0.1.0):
+  - atomicfi-transact-react-native (2.7.1):
     - AtomicSDK (= 2.7.1)
     - React-Core
   - AtomicSDK (2.7.1):
@@ -586,7 +586,7 @@ CHECKOUT OPTIONS:
     :git: "git@github.com:atomicfi/atomic-transact-ios.git"
 
 SPEC CHECKSUMS:
-  atomicfi-transact-react-native: 3da40feb03abd792cea5a9379990329f5ee236f0
+  atomicfi-transact-react-native: c87c29b361d493be49d112b61074f6cd1390e8ae
   AtomicSDK: 5f5e5f44d5e4e7c3253717ed1bc7d7e9c28e00ac
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
@@ -638,6 +638,6 @@ SPEC CHECKSUMS:
   Yoga: 79dd7410de6f8ad73a77c868d3d368843f0c93e0
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 27010be80888b905685cf967782ad05aa3a07973
+PODFILE CHECKSUM: b8cf0b481bebfe2832400f357ff75f6e62617f21
 
 COCOAPODS: 1.11.3

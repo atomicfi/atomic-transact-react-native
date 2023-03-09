@@ -1,8 +1,8 @@
 import AtomicTransact
 import UIKit
 
-@objc(TransactSdk)
-class TransactSdk: RCTEventEmitter {
+@objc(TransactReactNative)
+class TransactReactNative: RCTEventEmitter {
 
 	@objc(presentTransact:environment:withResolver:withRejecter:)
 	func presentTransact(config: [String: Any], environment: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {

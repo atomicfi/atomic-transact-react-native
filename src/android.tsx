@@ -21,7 +21,7 @@ function _addEventListener(event: string, func: Function | undefined) {
 
 export const AtomicAndroid = {
   transact({
-    TransactSdk,
+    TransactReactNative,
     config,
     environment,
     onInteraction,
@@ -29,7 +29,7 @@ export const AtomicAndroid = {
     onDataRequest,
     onClose,
   }: {
-    TransactSdk: any;
+    TransactReactNative: any;
     config: any;
     environment?: String;
     onInteraction?: Function;
@@ -40,7 +40,7 @@ export const AtomicAndroid = {
     config.platform = {
       name: 'android',
       systemVersion: Platform.Version.toString(),
-      sdkVersion: TransactSdk.getConstants().VERSION + '-react',
+      sdkVersion: TransactReactNative.getConstants().VERSION + '-react',
     };
 
     _addEventListener('onClose', onClose);
@@ -50,7 +50,7 @@ export const AtomicAndroid = {
 
     const token = Buffer.from(JSON.stringify(config)).toString('base64');
 
-    TransactSdk.presentTransact(
+    TransactReactNative.presentTransact(
       token,
       ENVIRONMENT[(environment || Environment.Production).toString()]
     );
