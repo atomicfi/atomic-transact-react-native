@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  TransactSdkExample
+//  TransactReactNativeExample
 //
 
 import Foundation

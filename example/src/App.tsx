@@ -1,28 +1,28 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import { StyleSheet, View, Button } from 'react-native'
-import { Atomic, Product } from '@atomicfi/transact-react-native'
+import { StyleSheet, View, Button } from 'react-native';
+import { Atomic, Product } from '@atomicfi/transact-react-native';
 
 export default function App() {
   function presentTransact() {
     Atomic.transact({
       config: {
         product: Product.DEPOSIT,
-        publicToken: 'LD5JD2Z4'
+        publicToken: 'LD5JD2Z4',
       },
-      onInteraction: (interaction) => {
-        console.log('Interaction event:', JSON.stringify(interaction, null,2))
+      onInteraction: (interaction: any) => {
+        console.log('Interaction event:', JSON.stringify(interaction, null, 2));
       },
-      onDataRequest: (request) => {
-        console.log('Data request event:', request)
+      onDataRequest: (request: any) => {
+        console.log('Data request event:', request);
       },
-      onFinish: (data) => {
-        console.log('Finish event:', data)
+      onFinish: (data: any) => {
+        console.log('Finish event:', data);
       },
-      onClose: (data) => {
-        console.log('Close event:', data)
-      }
-    })
+      onClose: (data: any) => {
+        console.log('Close event:', data);
+      },
+    });
   }
 
   return (
@@ -33,18 +33,18 @@ export default function App() {
         color="#333333"
       />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   box: {
     width: 60,
     height: 60,
-    marginVertical: 20
-  }
-})
+    marginVertical: 20,
+  },
+});

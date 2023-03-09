@@ -1,99 +1,94 @@
-import { Appearance, NativeModules, Platform } from 'react-native'
-import { AtomicIOS } from './ios'
-import { AtomicAndroid } from './android'
-import * as CONSTANTS from './constants'
+import { Appearance, NativeModules, Platform } from 'react-native';
+import { AtomicIOS } from './ios';
+import { AtomicAndroid } from './android';
+import * as CONSTANTS from './constants';
 
 const LINKING_ERROR =
-  `The package 'transact-react-native' doesn't seem to be linked. Make sure: \n\n` +
+  `The package '@atomicfi/transact-react-native' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
   '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo managed workflow\n'
+  '- You are not using Expo Go\n';
 
-const TransactSdk = NativeModules.TransactSdk
-  ? NativeModules.TransactSdk
+const TransactSdk = NativeModules.TransactReactNative
+  ? NativeModules.TransactReactNative
   : new Proxy(
       {},
       {
         get() {
-          throw new Error(LINKING_ERROR)
-        }
+          throw new Error(LINKING_ERROR);
+        },
       }
-    )
+    );
 
 interface Theme {
-  brandColor?: String
-  overlayColor?: String
-  dark?: Boolean
+  brandColor?: String;
+  overlayColor?: String;
+  dark?: Boolean;
 }
 
 interface Task {
-  product: String
-  distribution?: Object
+  product: String;
+  distribution?: Object;
 }
 
 interface Config {
-  publicToken: String
-  product: String
-  additionalProduct?: String
-  linkedAccount?: String
-  theme?: Theme
-  distribution?: Object
-  language?: String
-  deeplink?: Object
-  metadata?: Object
-  search?: Object
-  handoff?: String
-  experiments?: Object
-  tasks?: Task[]
+  publicToken: String;
+  product: String;
+  additionalProduct?: String;
+  linkedAccount?: String;
+  theme?: Theme;
+  distribution?: Object;
+  language?: String;
+  deeplink?: Object;
+  metadata?: Object;
+  search?: Object;
+  handoff?: String;
+  experiments?: Object;
+  tasks?: Task[];
 }
 
-export const Product = CONSTANTS.Product
-export const Environment = CONSTANTS.Environment
-
+export const Product = CONSTANTS.Product;
 export const Atomic = {
   transact({
     config,
-    environment,
     onInteraction,
     onFinish,
     onDataRequest,
-    onClose
+    onClose,
   }: {
-    config: Config
-    environment?: String
-    onInteraction?: Function
-    onDataRequest?: Function
-    onFinish?: Function
-    onClose?: Function
+    config: Config;
+    environment?: String;
+    onInteraction?: Function;
+    onDataRequest?: Function;
+    onFinish?: Function;
+    onClose?: Function;
   }): void {
-    environment = environment || Environment.Production
-
-    config.language = config.language || 'en'
-    config.theme = config.theme || {}
+    config.language = config.language || 'en';
+    config.theme = config.theme || {};
     config.theme.dark =
       config.theme.dark !== undefined
         ? config.theme.dark
-        : Appearance.getColorScheme() === 'dark'
+        : Appearance.getColorScheme() === 'dark';
 
     const args = {
       TransactSdk,
       config,
-      environment,
+      environment: CONSTANTS.Environment.Production,
       onInteraction,
       onFinish,
       onDataRequest,
-      onClose
-    }
+      onClose,
+    };
 
     switch (Platform.OS) {
       case 'ios':
-        AtomicIOS.transact(args)
-        break
+        AtomicIOS.transact(args);
+        break;
       case 'android':
-        AtomicAndroid.transact(args)
-        break
+        AtomicAndroid.transact(args);
+        break;
       default:
-        throw new Error(`Unsupported OS: ${Platform.OS}`)
+        throw new Error(`Unsupported OS: ${Platform.OS}`);
     }
-  }
-}
+  },
+};

@@ -1,4 +1,4 @@
-import { NativeEventEmitter } from 'react-native'
+import { NativeEventEmitter } from 'react-native';
 
 export const AtomicIOS = {
   transact({
@@ -8,45 +8,47 @@ export const AtomicIOS = {
     onInteraction,
     onFinish,
     onDataRequest,
-    onClose
+    onClose,
   }: {
-    TransactSdk: any
-    config: any
-    environment?: String
-    onInteraction?: Function
-    onDataRequest?: Function
-    onFinish?: Function
-    onClose?: Function
+    TransactSdk: any;
+    config: any;
+    environment?: String;
+    onInteraction?: Function;
+    onDataRequest?: Function;
+    onFinish?: Function;
+    onClose?: Function;
   }): void {
-    const TransactSdkEvents = new NativeEventEmitter(TransactSdk)
-    let onInteractionListener: any = undefined
-    let onDataRequestListener: any = undefined
+    const TransactSdkEvents = new NativeEventEmitter(TransactSdk);
+    let onInteractionListener: any = undefined;
+    let onDataRequestListener: any = undefined;
 
     const removeListeners = () => {
-      if (onInteractionListener) onInteractionListener.remove()
-      if (onDataRequestListener) onDataRequestListener.remove()
-    }
+      if (onInteractionListener) onInteractionListener.remove();
+      if (onDataRequestListener) onDataRequestListener.remove();
+    };
 
     if (onInteraction) {
-      onInteractionListener = TransactSdkEvents.addListener('onInteraction', (interaction) =>
-        onInteraction(interaction)
-      )
+      onInteractionListener = TransactSdkEvents.addListener(
+        'onInteraction',
+        (interaction) => onInteraction(interaction)
+      );
     }
 
     if (onDataRequest) {
-      onDataRequestListener = TransactSdkEvents.addListener('onDataRequest', (request) =>
-        onDataRequest(request)
-      )
+      onDataRequestListener = TransactSdkEvents.addListener(
+        'onDataRequest',
+        (request) => onDataRequest(request)
+      );
     }
 
     TransactSdk.presentTransact(config, environment).then((event: any) => {
       if (event.finished && onFinish) {
-        removeListeners()
-        onFinish(event.finished)
+        removeListeners();
+        onFinish(event.finished);
       } else if (event.closed && onClose) {
-        removeListeners()
-        onClose(event.closed)
+        removeListeners();
+        onClose(event.closed);
       }
-    })
-  }
-}
+    });
+  },
+};
