@@ -36,7 +36,7 @@ def getExtOrIntegerDefault(name) {
   return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["TransactReactNative_" + name]).toInteger()
 }
 
-def transact_version = "1.2.0"
+def transact_version = "1.2.1"
 
 android {
   compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
