@@ -33,7 +33,7 @@ interface Task {
 
 interface Config {
   publicToken: String;
-  product: String;
+  product?: String;
   additionalProduct?: String;
   linkedAccount?: String;
   theme?: Theme;
@@ -44,7 +44,7 @@ interface Config {
   search?: Object;
   handoff?: String;
   experiments?: Object;
-  tasks?: Task[];
+  tasks: Task[];
 }
 
 export const Product = CONSTANTS.Product;
