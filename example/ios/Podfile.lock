@@ -1,10 +1,10 @@
 PODS:
-  - atomicfi-transact-react-native (2.7.1):
-    - AtomicSDK (= 2.7.1)
+  - atomicfi-transact-react-native (3.0.0):
+    - AtomicSDK (= 3.0.0)
     - React-Core
-  - AtomicSDK (2.7.1):
-    - AtomicSDK/AtomicTransact (= 2.7.1)
-  - AtomicSDK/AtomicTransact (2.7.1)
+  - AtomicSDK (3.0.0):
+    - AtomicSDK/AtomicTransact (= 3.0.0)
+  - AtomicSDK/AtomicTransact (3.0.0)
   - boost (1.76.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -419,7 +419,7 @@ PODS:
     - React-jsi (= 0.71.4)
     - React-logger (= 0.71.4)
     - React-perflogger (= 0.71.4)
-  - SocketRocket (0.6.0)
+  - SocketRocket (0.6.1)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -582,12 +582,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   AtomicSDK:
-    :commit: 3ec6cc589a3175f7d57ef398fac65cd29efc9ae0
+    :commit: 094392dac9854cfdd55706dae47d21ac5dfb65af
     :git: "git@github.com:atomicfi/atomic-transact-ios.git"
 
 SPEC CHECKSUMS:
-  atomicfi-transact-react-native: c87c29b361d493be49d112b61074f6cd1390e8ae
-  AtomicSDK: 5f5e5f44d5e4e7c3253717ed1bc7d7e9c28e00ac
+  atomicfi-transact-react-native: 0f4ea99bc689e3643409efab2669539bebfc3163
+  AtomicSDK: 56c441f9ac1d9a92241fca759958193f6eab9b42
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
@@ -634,7 +634,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: ad17efcfb2fa8f6bfd8ac0cf48d96668b8b28e0b
   React-runtimeexecutor: 8fa50b38df6b992c76537993a2b0553d3b088004
   ReactCommon: b49a4b00ca6d181ff74b17c12b2d59ac4add0bde
-  SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 79dd7410de6f8ad73a77c868d3d368843f0c93e0
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
