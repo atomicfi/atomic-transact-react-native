@@ -33,6 +33,7 @@ interface Task {
 
 interface Config {
   publicToken: String;
+  scope: String;
   product?: String;
   additionalProduct?: String;
   linkedAccount?: String;
@@ -48,6 +49,7 @@ interface Config {
 }
 
 export const Product = CONSTANTS.Product;
+export const Scope = CONSTANTS.Scope;
 export const Atomic = {
   transact({
     config,
