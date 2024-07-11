@@ -53,6 +53,7 @@ export const Scope = CONSTANTS.Scope;
 export const Atomic = {
   transact({
     config,
+    environment,
     onInteraction,
     onFinish,
     onDataRequest,
@@ -75,7 +76,7 @@ export const Atomic = {
     const args = {
       TransactReactNative,
       config,
-      environment: CONSTANTS.Environment.Production,
+      environment: environment || CONSTANTS.Environment.Production,
       onInteraction,
       onFinish,
       onDataRequest,
