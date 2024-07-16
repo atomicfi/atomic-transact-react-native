@@ -30,7 +30,7 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
   fun presentTransact(token: String, environment: String, promise: Promise) {
     val context = currentActivity as Context
     val emitter = _reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-    val config = Config(token = token, environment = environment)
+    val config = Config(token = token, environment = "CUSTOM", environmentURL = environment)
 
     try {
       Transact.present(context, config, object : TransactBroadcastReceiver() {

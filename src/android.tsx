@@ -1,10 +1,5 @@
 import { Buffer } from 'buffer';
 import { DeviceEventEmitter, Platform } from 'react-native';
-import { Environment } from './constants';
-
-const ENVIRONMENT = {
-  [Environment.Production]: 'PRODUCTION',
-};
 
 function _eventHandler(request: string, func: Function) {
   return func(JSON.parse(request));
@@ -52,7 +47,7 @@ export const AtomicAndroid = {
 
     TransactReactNative.presentTransact(
       token,
-      ENVIRONMENT[(environment || Environment.Production).toString()]
+      environment
     );
   },
 };
