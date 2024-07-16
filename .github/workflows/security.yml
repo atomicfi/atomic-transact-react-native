@@ -1,0 +1,30 @@
+name: Security
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: [opened, ready_for_review, synchronize]
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    env:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+    container:
+      image: returntocorp/semgrep
+    steps:
+      - uses: actions/checkout@v4
+      - run: semgrep ci
+  vuln-dep-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+      - name: npm audit
+        run: npx audit-ci@^6 --config ./audit-ci.jsonc
