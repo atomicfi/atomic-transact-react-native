@@ -18,7 +18,9 @@ export const AtomicIOS = {
     onFinish?: Function;
     onClose?: Function;
   }): void {
-    const TransactReactNativeEvents = new NativeEventEmitter(TransactReactNative);
+    const TransactReactNativeEvents = new NativeEventEmitter(
+      TransactReactNative
+    );
     let onInteractionListener: any = undefined;
     let onDataRequestListener: any = undefined;
 
@@ -41,14 +43,27 @@ export const AtomicIOS = {
       );
     }
 
-    TransactReactNative.presentTransact(config, environment).then((event: any) => {
-      if (event.finished && onFinish) {
-        removeListeners();
-        onFinish(event.finished);
-      } else if (event.closed && onClose) {
-        removeListeners();
-        onClose(event.closed);
+    TransactReactNative.presentTransact(config, environment).then(
+      (event: any) => {
+        if (event.finished && onFinish) {
+          removeListeners();
+          onFinish(event.finished);
+        } else if (event.closed && onClose) {
+          removeListeners();
+          onClose(event.closed);
+        }
       }
-    });
+    );
+  },
+  presentAction({
+    TransactReactNative,
+    id,
+    environment,
+  }: {
+    TransactReactNative: any;
+    id: String;
+    environment?: String;
+  }): void {
+    TransactReactNative.presentAction(id, environment);
   },
 };

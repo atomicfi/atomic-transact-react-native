@@ -46,6 +46,21 @@ class TransactReactNative: RCTEventEmitter {
 		}
     }
 
+    @objc(presentAction:environment:withResolver:withRejecter:)
+    func presentAction(id: String, environment: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+        DispatchQueue.main.async {
+            guard let source = RCTPresentedViewController() else { return }
+
+            do {
+                Atomic.presentAction(from: source, id: id, environment: .custom(path: environment))
+                resolve([])
+            }
+            catch let error {
+                reject("config error", String(describing: error), NSError(domain: "com.atomicfi", code: 500, userInfo: nil))
+            }
+        }
+    }
+
 	@objc override func supportedEvents() -> [String] {
 		return ["onInteraction", "onDataRequest"]
 	}

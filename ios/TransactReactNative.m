@@ -9,6 +9,11 @@ RCT_EXTERN_METHOD(presentTransact:(NSDictionary *)config
 				  withResolver:(RCTPromiseResolveBlock)resolve
 				  withRejecter:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(presentAction:(NSString *)id
+				  environment:NSString
+				  withResolver:(RCTPromiseResolveBlock)resolve
+				  withRejecter:(RCTPromiseRejectBlock)reject)
+
 + (BOOL)requiresMainQueueSetup
 {
   return NO;
