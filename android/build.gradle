@@ -37,7 +37,7 @@ def getExtOrIntegerDefault(name) {
 }
 
 // Update this value to the latest Android SDK version published on Maven
-def transact_version = "3.5.0"
+def transact_version = "3.5.2"
 
 android {
   compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
