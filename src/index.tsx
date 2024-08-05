@@ -46,6 +46,7 @@ interface Config {
   handoff?: String;
   experiments?: Object;
   tasks: Task[];
+  customer: Object;
 }
 
 export const Product = CONSTANTS.Product;
