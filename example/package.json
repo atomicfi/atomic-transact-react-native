@@ -7,8 +7,7 @@
     "start": "react-native start",
     "ios": "react-native run-ios",
     "build:android": "react-native build-android --extra-params \"--no-daemon --console=plain -PreactNativeArchitectures=arm64-v8a\"",
-    "build:ios": "react-native build-ios --scheme RnmExample --mode Debug --extra-params \"-sdk iphonesimulator CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ GCC_OPTIMIZATION_LEVEL=0 GCC_PRECOMPILE_PREFIX_HEADER=YES ASSETCATALOG_COMPILER_OPTIMIZATION=time DEBUG_INFORMATION_FORMAT=dwarf COMPILER_INDEX_STORE_ENABLE=NO\"",
-    "pods": "pod-install --quiet"
+    "build:ios": "react-native build-ios --scheme RnmExample --mode Debug --extra-params \"-sdk iphonesimulator CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ GCC_OPTIMIZATION_LEVEL=0 GCC_PRECOMPILE_PREFIX_HEADER=YES ASSETCATALOG_COMPILER_OPTIMIZATION=time DEBUG_INFORMATION_FORMAT=dwarf COMPILER_INDEX_STORE_ENABLE=NO\""
   },
   "dependencies": {
     "react": "18.2.0",
@@ -21,7 +20,8 @@
     "@react-native/babel-preset": "0.74.87",
     "@react-native/metro-config": "0.74.87",
     "@react-native/typescript-config": "0.74.87",
-    "react-native-builder-bob": "^0.29.0"
+    "react-native-builder-bob": "^0.29.0",
+    "react-native-test-app": "^3.9.0"
   },
   "engines": {
     "node": ">=18"
