@@ -93,7 +93,7 @@
   "workspaces": [
     "example"
   ],
-  "packageManager": "yarn@3.6.1",
+  "packageManager": "yarn@4.4.0",
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
