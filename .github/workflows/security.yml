@@ -26,5 +26,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: npm
+      - name: npm lockfile
+        run: npm i --package-lock-only --ignore-scripts
       - name: npm audit
         run: npx audit-ci@^6 --config ./audit-ci.jsonc
