@@ -1,0 +1,49 @@
+name: publish
+
+on:
+  push:
+    branches: master
+    paths: package.json
+  workflow_dispatch:
+
+jobs:
+  npm:
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          registry-url: https://registry.npmjs.org
+
+      - name: Install Dependencies
+        run: yarn
+      - name: Publish
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+  tag:
+    needs: npm
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: node
+        uses: actions/setup-node@v3
+      - name: tag
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { version } = require('./package.json')
+            github.rest.git.createRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `refs/tags/${version}`,
+                sha: context.sha
+              })
