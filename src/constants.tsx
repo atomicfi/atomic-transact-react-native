@@ -4,12 +4,13 @@ export const Product = {
   IDENTIFY: 'identify',
   WITHHOLD: 'withhold',
   PRESENT: 'present',
+  SWITCH: 'switch',
 };
 
 export const Scope = {
   USERLINK: 'user-link',
   EMPLOYERLINK: 'employer-link',
-  PAYLINK: 'pay-link'
+  PAYLINK: 'pay-link',
 };
 
 export const Environment = {
