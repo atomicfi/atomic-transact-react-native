@@ -4,6 +4,7 @@
   "description": "React Native bridge for the Transact SDK",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
+  "types": "lib/typescript/commonjs/src/index.d.ts",
   "exports": {
     ".": {
       "import": {
