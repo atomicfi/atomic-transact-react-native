@@ -1,6 +1,6 @@
 PODS:
-  - atomicfi-transact-react-native (3.5.2):
-    - AtomicSDK (= 3.5.20)
+  - atomicfi-transact-react-native (3.6.2):
+    - AtomicSDK (= 3.6.4)
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -21,16 +21,18 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - AtomicSDK (3.5.20):
-    - AtomicSDK/AtomicTransact (= 3.5.20)
-  - AtomicSDK/AtomicTransact (3.5.20):
-    - AtomicSDK/MuppetIOS
-  - AtomicSDK/MuppetIOS (3.5.20)
+  - AtomicSDK (3.6.4):
+    - QuantumIOS
   - boost (1.83.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.74.5)
   - fmt (9.1.0)
   - glog (0.3.5)
+  - QuantumIOS (3.6.4):
+    - QuantumIOS/QuantumIOS (= 3.6.4)
+  - QuantumIOS/MuppetIOS (3.6.4)
+  - QuantumIOS/QuantumIOS (3.6.4):
+    - QuantumIOS/MuppetIOS
   - RCT-Folly (2024.01.01.00):
     - boost
     - DoubleConversion
@@ -1238,6 +1240,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AtomicSDK
+    - QuantumIOS
     - SocketRocket
 
 EXTERNAL SOURCES:
@@ -1355,13 +1358,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  atomicfi-transact-react-native: 703ed1c4274354e1ed21677a377c6563f1629a4d
-  AtomicSDK: 54f42d8141e8a414a054e723904f5dbfed354df9
+  atomicfi-transact-react-native: b69794744ab3234611e60f9576fb4ab58e11b0ee
+  AtomicSDK: d41e495f71f04617f32fbf7d185e7acaac4a73a2
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: ac12dc084d1c8ec4cc4d7b3cf1b0ebda6dab85af
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
   glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
+  QuantumIOS: c6292f59e7b0a9fe430fdfb06d1b99864164f5d5
   RCT-Folly: 02617c592a293bd6d418e0a88ff4ee1f88329b47
   RCTDeprecation: 3afceddffa65aee666dafd6f0116f1d975db1584
   RCTRequired: ec1239bc9d8bf63e10fb92bd8b26171a9258e0c1
@@ -1416,4 +1420,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 613fafe8f331eed82dc92f9504a9c682b3c8f0c6
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.2
