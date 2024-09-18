@@ -27,7 +27,8 @@ interface Theme {
 }
 
 interface Task {
-  product: String;
+  product?: String; // Deprecated
+  operation: String;
   distribution?: Object;
 }
 
