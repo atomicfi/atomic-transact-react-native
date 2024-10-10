@@ -24,12 +24,18 @@ interface Theme {
   brandColor?: String;
   overlayColor?: String;
   dark?: Boolean;
+  navigationOptions?: {
+    showBackButton?: Boolean;
+    showBackButtonText?: Boolean;
+    showCloseButton?: Boolean;
+  };
 }
 
 interface Task {
   product?: String; // Deprecated
   operation: String;
   distribution?: Object;
+  navigationOptions?: Object;
 }
 
 interface Config {
