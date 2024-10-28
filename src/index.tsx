@@ -101,4 +101,34 @@ export const Atomic = {
         throw new Error(`Unsupported OS: ${Platform.OS}`);
     }
   },
+  presentAction({
+    id,
+    environment,
+    onLaunch,
+    onCompletion,
+  }: {
+    id: String;
+    environment?: String;
+    onLaunch?: Function;
+    onCompletion?: Function;
+  }): void {
+    const args = {
+      TransactReactNative,
+      id,
+      environment: environment || CONSTANTS.Environment.Production,
+      onLaunch,
+      onCompletion,
+    };
+
+    switch (Platform.OS) {
+      case 'ios':
+        AtomicIOS.presentAction(args);
+        break;
+      // case 'android':
+      //   AtomicAndroid.transact(args);
+      //   break;
+      default:
+        throw new Error(`Unsupported OS: ${Platform.OS}`);
+    }
+  },
 };
