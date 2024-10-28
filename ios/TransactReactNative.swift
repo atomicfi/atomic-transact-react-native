@@ -66,7 +66,7 @@ class TransactReactNative: RCTEventEmitter {
     }
 
 	@objc override func supportedEvents() -> [String] {
-		return ["onInteraction", "onDataRequest"]
+		return ["onInteraction", "onDataRequest", "onLaunch", "onCompletion"]
 	}
 
 	@objc override static func requiresMainQueueSetup() -> Bool {
