@@ -1,4 +1,12 @@
-import { NativeEventEmitter } from 'react-native';
+import { EmitterSubscription, NativeEventEmitter } from 'react-native';
+
+let presentActionListeners: {
+  onLaunch?: EmitterSubscription;
+  onCompletion?: EmitterSubscription;
+} = {
+  onLaunch: undefined,
+  onCompletion: undefined,
+};
 
 export const AtomicIOS = {
   transact({
@@ -59,11 +67,41 @@ export const AtomicIOS = {
     TransactReactNative,
     id,
     environment,
+    onLaunch,
+    onCompletion,
   }: {
     TransactReactNative: any;
     id: String;
     environment?: String;
+    onLaunch?: Function;
+    onCompletion?: Function;
   }): void {
+    const TransactReactNativeEvents = new NativeEventEmitter(
+      TransactReactNative
+    );
+
+    if (presentActionListeners.onLaunch) {
+      presentActionListeners.onLaunch.remove();
+    }
+
+    if (presentActionListeners.onCompletion) {
+      presentActionListeners.onCompletion.remove();
+    }
+
+    if (onLaunch) {
+      presentActionListeners.onLaunch = TransactReactNativeEvents.addListener(
+        'onLaunch',
+        () => onLaunch()
+      );
+    }
+
+    if (onCompletion) {
+      presentActionListeners.onCompletion =
+        TransactReactNativeEvents.addListener('onCompletion', () =>
+          onCompletion()
+        );
+    }
+
     TransactReactNative.presentAction(id, environment);
   },
 };

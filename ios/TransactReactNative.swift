@@ -52,8 +52,12 @@ class TransactReactNative: RCTEventEmitter {
             guard let source = RCTPresentedViewController() else { return }
 
             do {
-                Atomic.presentAction(from: source, id: id, environment: .custom(path: environment))
-                resolve([])
+                Atomic.presentAction(from: source, id: id, environment: .custom(path: environment), onLaunch: { 
+                    self.sendEvent(withName: "onLaunch", body: [])
+                }, onCompletion: {
+                    self.sendEvent(withName: "onCompletion", body: [])
+                })
+				resolve([])
             }
             catch let error {
                 reject("config error", String(describing: error), NSError(domain: "com.atomicfi", code: 500, userInfo: nil))
