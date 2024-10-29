@@ -1,4 +1,4 @@
-import { EmitterSubscription, NativeEventEmitter } from 'react-native';
+import { type EmitterSubscription, NativeEventEmitter } from 'react-native';
 
 let presentActionListeners: {
   onLaunch?: EmitterSubscription;
