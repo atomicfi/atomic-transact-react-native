@@ -1,6 +1,6 @@
 PODS:
-  - atomicfi-transact-react-native (3.6.2):
-    - AtomicSDK (= 3.6.4)
+  - atomicfi-transact-react-native (3.7.1):
+    - AtomicSDK (= 3.8.14)
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -21,7 +21,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - AtomicSDK (3.6.4):
+  - AtomicSDK (3.8.14):
     - QuantumIOS
   - boost (1.83.0)
   - DoubleConversion (1.1.6)
@@ -1358,8 +1358,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  atomicfi-transact-react-native: b69794744ab3234611e60f9576fb4ab58e11b0ee
-  AtomicSDK: d41e495f71f04617f32fbf7d185e7acaac4a73a2
+  atomicfi-transact-react-native: 92e76813cbef2b181c34e8737168d8c5cb1560a7
+  AtomicSDK: 09e0bfcf30366b4cbf01e8ab1abe1105aa25b01f
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: ac12dc084d1c8ec4cc4d7b3cf1b0ebda6dab85af
@@ -1420,4 +1420,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 613fafe8f331eed82dc92f9504a9c682b3c8f0c6
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.14.3
