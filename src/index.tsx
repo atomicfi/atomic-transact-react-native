@@ -105,19 +105,22 @@ export const Atomic = {
     id,
     environment,
     onLaunch,
-    onCompletion,
+    onFinish,
+    onClose,
   }: {
     id: String;
     environment?: String;
     onLaunch?: Function;
-    onCompletion?: Function;
+    onFinish?: Function;
+    onClose?: Function;
   }): void {
     const args = {
       TransactReactNative,
       id,
       environment: environment || CONSTANTS.Environment.Production,
       onLaunch,
-      onCompletion,
+      onFinish,
+      onClose,
     };
 
     switch (Platform.OS) {

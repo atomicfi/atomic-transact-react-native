@@ -8,7 +8,28 @@ export default function App() {
     Atomic.transact({
       config: {
         product: Product.DEPOSIT,
-        publicToken: 'LD5JD2Z4',
+        publicToken: '',
+      },
+      onInteraction: (interaction: any) => {
+        console.log('Interaction event:', JSON.stringify(interaction, null, 2));
+      },
+      onDataRequest: (request: any) => {
+        console.log('Data request event:', request);
+      },
+      onFinish: (data: any) => {
+        console.log('Finish event:', data);
+      },
+      onClose: (data: any) => {
+        console.log('Close event:', data);
+      },
+    });
+  }
+
+  function presentAction() {
+    Atomic.presentAction({
+      id: '',
+      onLaunch: (data: any) => {
+        console.log('Launch event:', data);
       },
       onInteraction: (interaction: any) => {
         console.log('Interaction event:', JSON.stringify(interaction, null, 2));
@@ -32,6 +53,7 @@ export default function App() {
         title="Launch Transact"
         color="#333333"
       />
+      <Button onPress={presentAction} title="Present Action" color="#333333" />
     </View>
   );
 }
