@@ -8,9 +8,8 @@ export default function App() {
     Atomic.transact({
       config: {
         product: Product.DEPOSIT,
-        publicToken: '7YJY7YZT',
+        publicToken: '',
       },
-      environment: 'http://localhost:4545',
       onInteraction: (interaction: any) => {
         console.log('Interaction event:', JSON.stringify(interaction, null, 2));
       },
@@ -28,8 +27,7 @@ export default function App() {
 
   function presentAction() {
     Atomic.presentAction({
-      id: 'eyJ0eXBlIjoiY2FuY2VsLXBsYW4iLCJmbG93IjoiY2FuY2VsLXBsYW4iLCJwdWJsaWNUb2tlbiI6ImQ0MjRkOWE3LTNlYjItNDUwYi05Y2UyLTEzM2Y1Y2M3ZTI1YiIsImNvbXBhbnlJZCI6IjY1MjlhNmVjY2I4ZTcyMDAwODVjNmVmNiIsImFjY291bnRTdGF0dXMiOiJzdWdnZXN0ZWQifQ==',
-      environment: 'http://localhost:4545',
+      id: '',
       onLaunch: (data: any) => {
         console.log('Launch event:', data);
       },
