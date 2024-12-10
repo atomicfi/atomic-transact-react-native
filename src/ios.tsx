@@ -1,12 +1,4 @@
-import { type EmitterSubscription, NativeEventEmitter } from 'react-native';
-
-let presentActionListeners: {
-  onLaunch?: EmitterSubscription;
-  onCompletion?: EmitterSubscription;
-} = {
-  onLaunch: undefined,
-  onCompletion: undefined,
-};
+import { NativeEventEmitter } from 'react-native';
 
 export const AtomicIOS = {
   transact({
@@ -68,40 +60,40 @@ export const AtomicIOS = {
     id,
     environment,
     onLaunch,
-    onCompletion,
+    onFinish,
+    onClose,
   }: {
     TransactReactNative: any;
     id: String;
     environment?: String;
     onLaunch?: Function;
-    onCompletion?: Function;
+    onFinish?: Function;
+    onClose?: Function;
   }): void {
     const TransactReactNativeEvents = new NativeEventEmitter(
       TransactReactNative
     );
 
-    if (presentActionListeners.onLaunch) {
-      presentActionListeners.onLaunch.remove();
-    }
+    let onLaunchListener: any = undefined;
 
-    if (presentActionListeners.onCompletion) {
-      presentActionListeners.onCompletion.remove();
-    }
+    const removeListeners = () => {
+      if (onLaunchListener) onLaunchListener.remove();
+    };
 
     if (onLaunch) {
-      presentActionListeners.onLaunch = TransactReactNativeEvents.addListener(
-        'onLaunch',
-        () => onLaunch()
+      onLaunchListener = TransactReactNativeEvents.addListener('onLaunch', () =>
+        onLaunch()
       );
     }
 
-    if (onCompletion) {
-      presentActionListeners.onCompletion =
-        TransactReactNativeEvents.addListener('onCompletion', () =>
-          onCompletion()
-        );
-    }
-
-    TransactReactNative.presentAction(id, environment);
+    TransactReactNative.presentAction(id, environment).then((event: any) => {
+      if (event.finished && onFinish) {
+        removeListeners();
+        onFinish(event.finished);
+      } else if (event.closed && onClose) {
+        removeListeners();
+        onClose(event.closed);
+      }
+    });
   },
 };
