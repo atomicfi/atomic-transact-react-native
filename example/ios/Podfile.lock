@@ -1,6 +1,6 @@
 PODS:
-  - atomicfi-transact-react-native (3.7.4):
-    - AtomicSDK (= 3.9.0)
+  - atomicfi-transact-react-native (3.8.0):
+    - AtomicSDK (= 3.9.1)
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -21,17 +21,17 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - AtomicSDK (3.9.0):
+  - AtomicSDK (3.9.1):
     - QuantumIOS
   - boost (1.83.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.74.5)
   - fmt (9.1.0)
   - glog (0.3.5)
-  - QuantumIOS (3.9.0):
-    - QuantumIOS/QuantumIOS (= 3.9.0)
-  - QuantumIOS/MuppetIOS (3.9.0)
-  - QuantumIOS/QuantumIOS (3.9.0):
+  - QuantumIOS (3.9.2):
+    - QuantumIOS/QuantumIOS (= 3.9.2)
+  - QuantumIOS/MuppetIOS (3.9.2)
+  - QuantumIOS/QuantumIOS (3.9.2):
     - QuantumIOS/MuppetIOS
   - RCT-Folly (2024.01.01.00):
     - boost
@@ -1148,7 +1148,7 @@ PODS:
     - React-logger (= 0.74.5)
     - React-perflogger (= 0.74.5)
     - React-utils (= 0.74.5)
-  - ReactNativeHost (0.4.11):
+  - ReactNativeHost (0.5.1):
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -1170,7 +1170,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - ReactTestApp-DevSupport (3.9.1):
+  - ReactTestApp-DevSupport (3.10.22):
     - React-Core
     - React-jsi
   - ReactTestApp-Resources (1.0.0-dev)
@@ -1358,14 +1358,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  atomicfi-transact-react-native: a2198b5555a63f687a0817edac02281105abc780
-  AtomicSDK: 1473b52cdd1865268e0d810264064f88376e6b81
+  atomicfi-transact-react-native: 8dc77bc51e687e5a5b77c643943768b3f22c7dad
+  AtomicSDK: 68a3a0ad1935c0719cb6235339aaae082492ce26
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: ac12dc084d1c8ec4cc4d7b3cf1b0ebda6dab85af
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
   glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
-  QuantumIOS: 4e255c998f304de71c578bcf5fcc1c96c01fab82
+  QuantumIOS: 89d095fc02a3d3e75f28dc737c0964b03a241977
   RCT-Folly: 02617c592a293bd6d418e0a88ff4ee1f88329b47
   RCTDeprecation: 3afceddffa65aee666dafd6f0116f1d975db1584
   RCTRequired: ec1239bc9d8bf63e10fb92bd8b26171a9258e0c1
@@ -1412,12 +1412,12 @@ SPEC CHECKSUMS:
   React-runtimescheduler: 057a40b536cab47481d2a2b4f5e93d7eb0b285de
   React-utils: b4b4a8bdd58632a9ec314071fbd4a642d984718e
   ReactCommon: bfd464c8f774a0acb93cf2a45afa80b763431f1b
-  ReactNativeHost: 4983b4bfdef9f1a67f523b633909df57a9c1dae9
-  ReactTestApp-DevSupport: 5906c7ab63d7bc409bf621adde64696b09d90b76
+  ReactNativeHost: 7acf0f01f0a9123964730761f3a3d6c47d560456
+  ReactTestApp-DevSupport: 42abce6b0c88dfb47c86e80aa22831b2abcc3144
   ReactTestApp-Resources: 857244f3a23f2b3157b364fa06cf3e8866deff9c
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 950bbfd7e6f04790fdb51149ed51df41f329fcc8
 
 PODFILE CHECKSUM: 613fafe8f331eed82dc92f9504a9c682b3c8f0c6
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.14.3
