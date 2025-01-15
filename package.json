@@ -1,6 +1,6 @@
 {
   "name": "@atomicfi/transact-react-native",
-  "version": "3.8.0",
+  "version": "3.8.1",
   "description": "React Native bridge for the Transact SDK",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
