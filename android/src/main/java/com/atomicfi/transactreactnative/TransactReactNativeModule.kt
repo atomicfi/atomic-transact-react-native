@@ -27,6 +27,25 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     return constants
   }
 
+  private fun handleCallbackEvent(
+    eventName: String,
+    data: JSONObject,
+    fieldName: String,
+    receiver: TransactBroadcastReceiver,
+    context: Context,
+    emitter: DeviceEventManagerModule.RCTDeviceEventEmitter,
+    promise: Promise
+  ) {
+    val value = data.optString(fieldName)
+    val result = Arguments.createMap().apply {
+      putString(fieldName, value)
+    }
+
+    Transact.unregisterReceiver(context, receiver)
+    emitter.emit(eventName, data.toString())
+    promise.resolve(result)
+  }
+
   @ReactMethod
   fun presentTransact(token: String, environment: String, promise: Promise) {
     val context = currentActivity as Context
@@ -36,25 +55,11 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     try {
       Transact.present(context, config, object : TransactBroadcastReceiver() {
         override fun onClose(data: JSONObject) {
-          val reason = data.optString("reason")
-          val result = Arguments.createMap().apply {
-            putString("reason", reason)
-          }
-
-          Transact.unregisterReceiver(context, this)
-          emitter.emit("onClose", data.toString())
-          promise.resolve(result)
+          handleCallbackEvent("onClose", data, "reason", this, context, emitter, promise)
         }
 
         override fun onFinish(data: JSONObject) {
-          val taskId = data.optString("taskId")
-          val result = Arguments.createMap().apply {
-            putString("taskId", taskId)
-          }
-
-          Transact.unregisterReceiver(context, this)
-          emitter.emit("onFinish", data.toString())
-          promise.resolve(result)
+          handleCallbackEvent("onFinish", data, "taskId", this, context, emitter, promise)
         }
 
         override fun onInteraction(data: JSONObject) {
@@ -84,36 +89,13 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
 
       Transact.presentAction(context, config)
 
-      // Register broadcast receiver after presenting action
       val receiver = object : TransactBroadcastReceiver() {
         override fun onClose(data: JSONObject) {
-          val result = Arguments.createMap()
-          val closedData = Arguments.createMap()
-          val iterator = data.keys()
-          while (iterator.hasNext()) {
-            val key = iterator.next()
-            closedData.putString(key, data.getString(key))
-          }
-          result.putMap("closed", closedData)
-
-          Transact.unregisterReceiver(context, this)
-          emitter.emit("onClose", data.toString())
-          promise.resolve(result)
+          handleCallbackEvent("onClose", data, "reason", this, context, emitter, promise)
         }
 
         override fun onFinish(data: JSONObject) {
-          val result = Arguments.createMap()
-          val finishedData = Arguments.createMap()
-          val iterator = data.keys()
-          while (iterator.hasNext()) {
-            val key = iterator.next()
-            finishedData.putString(key, data.getString(key))
-          }
-          result.putMap("finished", finishedData)
-
-          Transact.unregisterReceiver(context, this)
-          emitter.emit("onFinish", data.toString())
-          promise.resolve(result)
+          handleCallbackEvent("onFinish", data, "taskId", this, context, emitter, promise)
         }
 
         override fun onLaunch() {
