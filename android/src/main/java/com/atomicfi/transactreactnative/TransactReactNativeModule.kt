@@ -4,6 +4,7 @@ import android.content.Context
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import financial.atomic.transact.Config
+import financial.atomic.transact.ActionConfig
 import financial.atomic.transact.Transact
 import financial.atomic.transact.receiver.TransactBroadcastReceiver
 import org.json.JSONObject
@@ -64,6 +65,63 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
           emitter.emit("onDataRequest", data.toString())
         }
       })
+    } catch (e: Exception) {
+      promise.reject(e)
+    }
+  }
+
+  @ReactMethod
+  fun presentAction(id: String, environment: String, promise: Promise) {
+    val context = currentActivity as Context
+    val emitter = _reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+
+    try {
+      val config = ActionConfig(
+        id = id,
+        environment = Config.Environment.CUSTOM,
+        environmentURL = environment
+      )
+
+      Transact.presentAction(context, config)
+
+      // Register broadcast receiver after presenting action
+      val receiver = object : TransactBroadcastReceiver() {
+        override fun onClose(data: JSONObject) {
+          val result = Arguments.createMap()
+          val closedData = Arguments.createMap()
+          val iterator = data.keys()
+          while (iterator.hasNext()) {
+            val key = iterator.next()
+            closedData.putString(key, data.getString(key))
+          }
+          result.putMap("closed", closedData)
+
+          Transact.unregisterReceiver(context, this)
+          emitter.emit("onClose", data.toString())
+          promise.resolve(result)
+        }
+
+        override fun onFinish(data: JSONObject) {
+          val result = Arguments.createMap()
+          val finishedData = Arguments.createMap()
+          val iterator = data.keys()
+          while (iterator.hasNext()) {
+            val key = iterator.next()
+            finishedData.putString(key, data.getString(key))
+          }
+          result.putMap("finished", finishedData)
+
+          Transact.unregisterReceiver(context, this)
+          emitter.emit("onFinish", data.toString())
+          promise.resolve(result)
+        }
+
+        override fun onLaunch() {
+          emitter.emit("onLaunch", null)
+        }
+      }
+
+      Transact.registerReceiver(context, receiver)
     } catch (e: Exception) {
       promise.reject(e)
     }
