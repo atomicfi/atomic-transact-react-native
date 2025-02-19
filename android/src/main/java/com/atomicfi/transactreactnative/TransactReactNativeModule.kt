@@ -4,6 +4,7 @@ import android.content.Context
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import financial.atomic.transact.Config
+import financial.atomic.transact.ActionConfig
 import financial.atomic.transact.Transact
 import financial.atomic.transact.receiver.TransactBroadcastReceiver
 import org.json.JSONObject
@@ -26,6 +27,25 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     return constants
   }
 
+  private fun handleCallbackEvent(
+    eventName: String,
+    data: JSONObject,
+    fieldName: String,
+    receiver: TransactBroadcastReceiver,
+    context: Context,
+    emitter: DeviceEventManagerModule.RCTDeviceEventEmitter,
+    promise: Promise
+  ) {
+    val value = data.optString(fieldName)
+    val result = Arguments.createMap().apply {
+      putString(fieldName, value)
+    }
+
+    Transact.unregisterReceiver(context, receiver)
+    emitter.emit(eventName, data.toString())
+    promise.resolve(result)
+  }
+
   @ReactMethod
   fun presentTransact(token: String, environment: String, promise: Promise) {
     val context = currentActivity as Context
@@ -35,25 +55,11 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     try {
       Transact.present(context, config, object : TransactBroadcastReceiver() {
         override fun onClose(data: JSONObject) {
-          val reason = data.optString("reason")
-          val result = Arguments.createMap().apply {
-            putString("reason", reason)
-          }
-
-          Transact.unregisterReceiver(context, this)
-          emitter.emit("onClose", data.toString())
-          promise.resolve(result)
+          handleCallbackEvent("onClose", data, "reason", this, context, emitter, promise)
         }
 
         override fun onFinish(data: JSONObject) {
-          val taskId = data.optString("taskId")
-          val result = Arguments.createMap().apply {
-            putString("taskId", taskId)
-          }
-
-          Transact.unregisterReceiver(context, this)
-          emitter.emit("onFinish", data.toString())
-          promise.resolve(result)
+          handleCallbackEvent("onFinish", data, "taskId", this, context, emitter, promise)
         }
 
         override fun onInteraction(data: JSONObject) {
@@ -64,6 +70,40 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
           emitter.emit("onDataRequest", data.toString())
         }
       })
+    } catch (e: Exception) {
+      promise.reject(e)
+    }
+  }
+
+  @ReactMethod
+  fun presentAction(id: String, environment: String, promise: Promise) {
+    val context = currentActivity as Context
+    val emitter = _reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+
+    try {
+      val config = ActionConfig(
+        id = id,
+        environment = Config.Environment.CUSTOM,
+        environmentURL = environment
+      )
+
+      Transact.presentAction(context, config)
+
+      val receiver = object : TransactBroadcastReceiver() {
+        override fun onClose(data: JSONObject) {
+          handleCallbackEvent("onClose", data, "reason", this, context, emitter, promise)
+        }
+
+        override fun onFinish(data: JSONObject) {
+          handleCallbackEvent("onFinish", data, "taskId", this, context, emitter, promise)
+        }
+
+        override fun onLaunch() {
+          emitter.emit("onLaunch", null)
+        }
+      }
+
+      Transact.registerReceiver(context, receiver)
     } catch (e: Exception) {
       promise.reject(e)
     }

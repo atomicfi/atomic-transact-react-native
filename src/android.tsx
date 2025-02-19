@@ -45,9 +45,27 @@ export const AtomicAndroid = {
 
     const token = Buffer.from(JSON.stringify(config)).toString('base64');
 
-    TransactReactNative.presentTransact(
-      token,
-      environment
-    );
+    TransactReactNative.presentTransact(token, environment);
+  },
+  presentAction({
+    TransactReactNative,
+    id,
+    environment,
+    onLaunch,
+    onFinish,
+    onClose,
+  }: {
+    TransactReactNative: any;
+    id: String;
+    environment?: String;
+    onLaunch?: Function;
+    onFinish?: Function;
+    onClose?: Function;
+  }): void {
+    _addEventListener('onLaunch', onLaunch);
+    _addEventListener('onClose', onClose);
+    _addEventListener('onFinish', onFinish);
+
+    TransactReactNative.presentAction(id, environment);
   },
 };

@@ -127,9 +127,9 @@ export const Atomic = {
       case 'ios':
         AtomicIOS.presentAction(args);
         break;
-      // case 'android':
-      //   AtomicAndroid.transact(args);
-      //   break;
+      case 'android':
+        AtomicAndroid.presentAction(args);
+        break;
       default:
         throw new Error(`Unsupported OS: ${Platform.OS}`);
     }
