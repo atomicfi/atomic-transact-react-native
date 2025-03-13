@@ -1,13 +1,14 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Button } from 'react-native';
-import { Atomic, Product } from '@atomicfi/transact-react-native';
+import { Atomic, Product, Scope } from '@atomicfi/transact-react-native';
 
 export default function App() {
   function presentTransact() {
     Atomic.transact({
       config: {
-        product: Product.DEPOSIT,
+        product: Product.SWITCH,
+        scope: Scope.PAYLINK,
         publicToken: '',
       },
       onInteraction: (interaction: any) => {
@@ -15,6 +16,12 @@ export default function App() {
       },
       onDataRequest: (request: any) => {
         console.log('Data request event:', request);
+      },
+      onAuthStatusUpdate: (authStatus: any) => {
+        console.log('Auth status update event:', authStatus);
+      },
+      onTaskStatusUpdate: (taskStatus: any) => {
+        console.log('Task status update event:', taskStatus);
       },
       onFinish: (data: any) => {
         console.log('Finish event:', data);
@@ -36,6 +43,12 @@ export default function App() {
       },
       onDataRequest: (request: any) => {
         console.log('Data request event:', request);
+      },
+      onAuthStatusUpdate: (authStatus: any) => {
+        console.log('Auth status update event:', authStatus);
+      },
+      onTaskStatusUpdate: (taskStatus: any) => {
+        console.log('Task status update event:', taskStatus);
       },
       onFinish: (data: any) => {
         console.log('Finish event:', data);
