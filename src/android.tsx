@@ -20,6 +20,8 @@ export const AtomicAndroid = {
     config,
     environment,
     onInteraction,
+    onTaskStatusUpdate,
+    onAuthStatusUpdate,
     onFinish,
     onDataRequest,
     onClose,
@@ -28,6 +30,8 @@ export const AtomicAndroid = {
     config: any;
     environment?: String;
     onInteraction?: Function;
+    onTaskStatusUpdate?: Function;
+    onAuthStatusUpdate?: Function;
     onDataRequest?: Function;
     onFinish?: Function;
     onClose?: Function;
@@ -42,6 +46,8 @@ export const AtomicAndroid = {
     _addEventListener('onFinish', onFinish);
     _addEventListener('onInteraction', onInteraction);
     _addEventListener('onDataRequest', onDataRequest);
+    _addEventListener('onTaskStatusUpdate', onTaskStatusUpdate);
+    _addEventListener('onAuthStatusUpdate', onAuthStatusUpdate);
 
     const token = Buffer.from(JSON.stringify(config)).toString('base64');
 
@@ -54,6 +60,8 @@ export const AtomicAndroid = {
     onLaunch,
     onFinish,
     onClose,
+    onTaskStatusUpdate,
+    onAuthStatusUpdate,
   }: {
     TransactReactNative: any;
     id: String;
@@ -61,10 +69,14 @@ export const AtomicAndroid = {
     onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
+    onTaskStatusUpdate?: Function;
+    onAuthStatusUpdate?: Function;
   }): void {
     _addEventListener('onLaunch', onLaunch);
     _addEventListener('onClose', onClose);
     _addEventListener('onFinish', onFinish);
+    _addEventListener('onTaskStatusUpdate', onTaskStatusUpdate);
+    _addEventListener('onAuthStatusUpdate', onAuthStatusUpdate);
 
     TransactReactNative.presentAction(id, environment);
   },
