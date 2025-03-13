@@ -31,8 +31,6 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     eventName: String,
     data: JSONObject,
     fieldName: String,
-    receiver: TransactBroadcastReceiver,
-    context: Context,
     emitter: DeviceEventManagerModule.RCTDeviceEventEmitter,
     promise: Promise
   ) {
@@ -41,7 +39,6 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
       putString(fieldName, value)
     }
 
-    Transact.unregisterReceiver(context, receiver)
     emitter.emit(eventName, data.toString())
     promise.resolve(result)
   }
@@ -55,11 +52,11 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     try {
       Transact.present(context, config, object : TransactBroadcastReceiver() {
         override fun onClose(data: JSONObject) {
-          handleCallbackEvent("onClose", data, "reason", this, context, emitter, promise)
+          handleCallbackEvent("onClose", data, "reason", emitter, promise)
         }
 
         override fun onFinish(data: JSONObject) {
-          handleCallbackEvent("onFinish", data, "taskId", this, context, emitter, promise)
+          handleCallbackEvent("onFinish", data, "taskId", emitter, promise)
         }
 
         override fun onInteraction(data: JSONObject) {
@@ -68,6 +65,14 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
 
         override fun onDataRequest(data: JSONObject) {
           emitter.emit("onDataRequest", data.toString())
+        }
+
+        override fun onAuthStatusUpdate(data: JSONObject) {
+          emitter.emit("onAuthStatusUpdate", data.toString())
+        }
+
+        override fun onTaskStatusUpdate(data: JSONObject) {
+          emitter.emit("onTaskStatusUpdate", data.toString())
         }
       })
     } catch (e: Exception) {
@@ -91,15 +96,23 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
 
       val receiver = object : TransactBroadcastReceiver() {
         override fun onClose(data: JSONObject) {
-          handleCallbackEvent("onClose", data, "reason", this, context, emitter, promise)
+          handleCallbackEvent("onClose", data, "reason", emitter, promise)
         }
 
         override fun onFinish(data: JSONObject) {
-          handleCallbackEvent("onFinish", data, "taskId", this, context, emitter, promise)
+          handleCallbackEvent("onFinish", data, "taskId", emitter, promise)
         }
 
         override fun onLaunch() {
           emitter.emit("onLaunch", null)
+        }
+
+        override fun onAuthStatusUpdate(data: JSONObject) {
+          emitter.emit("onAuthStatusUpdate", data.toString())
+        }
+
+        override fun onTaskStatusUpdate(data: JSONObject) {
+          emitter.emit("onTaskStatusUpdate", data.toString())
         }
       }
 
