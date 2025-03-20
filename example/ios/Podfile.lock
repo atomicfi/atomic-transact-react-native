@@ -1,6 +1,6 @@
 PODS:
-  - atomicfi-transact-react-native (3.9.0):
-    - AtomicSDK (= 3.9.8)
+  - atomicfi-transact-react-native (3.9.1):
+    - AtomicSDK (= 3.9.20)
     - DoubleConversion
     - glog
     - RCT-Folly (= 2024.01.01.00)
@@ -21,17 +21,17 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - AtomicSDK (3.9.8):
+  - AtomicSDK (3.9.20):
     - QuantumIOS
   - boost (1.83.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.74.5)
   - fmt (9.1.0)
   - glog (0.3.5)
-  - QuantumIOS (3.9.8):
-    - QuantumIOS/QuantumIOS (= 3.9.8)
-  - QuantumIOS/MuppetIOS (3.9.8)
-  - QuantumIOS/QuantumIOS (3.9.8):
+  - QuantumIOS (3.9.20):
+    - QuantumIOS/QuantumIOS (= 3.9.20)
+  - QuantumIOS/MuppetIOS (3.9.20)
+  - QuantumIOS/QuantumIOS (3.9.20):
     - QuantumIOS/MuppetIOS
   - RCT-Folly (2024.01.01.00):
     - boost
@@ -1358,14 +1358,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  atomicfi-transact-react-native: 9cefb7af69eff4b503852d512c656ddf1ef9cd3d
-  AtomicSDK: 88ae3bb70ec59452b33a26b8a99c337672aed447
+  atomicfi-transact-react-native: deec39ce5d990b58c10a962135104f2f5b81243b
+  AtomicSDK: 98acef22a2b1234e2143c213bd496683deef075e
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
   FBLazyVector: ac12dc084d1c8ec4cc4d7b3cf1b0ebda6dab85af
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
   glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
-  QuantumIOS: 64ae6e23e3c4aa920b318aeb25b20c8cad7047a3
+  QuantumIOS: a7390689ff0389efa2d35328b794a35fb7ff9cfb
   RCT-Folly: 02617c592a293bd6d418e0a88ff4ee1f88329b47
   RCTDeprecation: 3afceddffa65aee666dafd6f0116f1d975db1584
   RCTRequired: ec1239bc9d8bf63e10fb92bd8b26171a9258e0c1
@@ -1420,4 +1420,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 613fafe8f331eed82dc92f9504a9c682b3c8f0c6
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.14.3
