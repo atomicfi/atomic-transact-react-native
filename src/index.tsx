@@ -65,11 +65,15 @@ export const Atomic = {
     onFinish,
     onDataRequest,
     onClose,
+    onAuthStatusUpdate,
+    onTaskStatusUpdate,
   }: {
     config: Config;
     environment?: String;
     onInteraction?: Function;
     onDataRequest?: Function;
+    onAuthStatusUpdate?: Function;
+    onTaskStatusUpdate?: Function;
     onFinish?: Function;
     onClose?: Function;
   }): void {
@@ -88,6 +92,8 @@ export const Atomic = {
       onFinish,
       onDataRequest,
       onClose,
+      onAuthStatusUpdate,
+      onTaskStatusUpdate,
     };
 
     switch (Platform.OS) {
@@ -107,12 +113,16 @@ export const Atomic = {
     onLaunch,
     onFinish,
     onClose,
+    onAuthStatusUpdate,
+    onTaskStatusUpdate,
   }: {
     id: String;
     environment?: String;
     onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
+    onAuthStatusUpdate?: Function;
+    onTaskStatusUpdate?: Function;
   }): void {
     const args = {
       TransactReactNative,
@@ -121,6 +131,8 @@ export const Atomic = {
       onLaunch,
       onFinish,
       onClose,
+      onAuthStatusUpdate,
+      onTaskStatusUpdate,
     };
 
     switch (Platform.OS) {

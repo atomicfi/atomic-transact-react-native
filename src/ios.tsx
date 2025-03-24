@@ -9,6 +9,8 @@ export const AtomicIOS = {
     onFinish,
     onDataRequest,
     onClose,
+    onAuthStatusUpdate,
+    onTaskStatusUpdate,
   }: {
     TransactReactNative: any;
     config: any;
@@ -17,16 +19,20 @@ export const AtomicIOS = {
     onDataRequest?: Function;
     onFinish?: Function;
     onClose?: Function;
+    onAuthStatusUpdate?: Function;
+    onTaskStatusUpdate?: Function;
   }): void {
     const TransactReactNativeEvents = new NativeEventEmitter(
       TransactReactNative
     );
-    let onInteractionListener: any = undefined;
-    let onDataRequestListener: any = undefined;
+    let onInteractionListener: any;
+    let onDataRequestListener: any;
+    let onAuthStatusUpdateListener: any;
 
     const removeListeners = () => {
       if (onInteractionListener) onInteractionListener.remove();
       if (onDataRequestListener) onDataRequestListener.remove();
+      if (onAuthStatusUpdateListener) onAuthStatusUpdateListener.remove();
     };
 
     if (onInteraction) {
@@ -40,6 +46,20 @@ export const AtomicIOS = {
       onDataRequestListener = TransactReactNativeEvents.addListener(
         'onDataRequest',
         (request) => onDataRequest(request)
+      );
+    }
+
+    if (onAuthStatusUpdate) {
+      onAuthStatusUpdateListener = TransactReactNativeEvents.addListener(
+        'onAuthStatusUpdate',
+        (authStatus) => onAuthStatusUpdate(authStatus)
+      );
+    }
+
+    if (onTaskStatusUpdate) {
+      TransactReactNativeEvents.addListener(
+        'onTaskStatusUpdate',
+        (taskStatus) => onTaskStatusUpdate(taskStatus)
       );
     }
 
@@ -62,6 +82,8 @@ export const AtomicIOS = {
     onLaunch,
     onFinish,
     onClose,
+    onAuthStatusUpdate,
+    onTaskStatusUpdate,
   }: {
     TransactReactNative: any;
     id: String;
@@ -69,20 +91,37 @@ export const AtomicIOS = {
     onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
+    onAuthStatusUpdate?: Function;
+    onTaskStatusUpdate?: Function;
   }): void {
     const TransactReactNativeEvents = new NativeEventEmitter(
       TransactReactNative
     );
-
-    let onLaunchListener: any = undefined;
+    let onLaunchListener: any;
+    let onAuthStatusUpdateListener: any;
 
     const removeListeners = () => {
       if (onLaunchListener) onLaunchListener.remove();
+      if (onAuthStatusUpdateListener) onAuthStatusUpdateListener.remove();
     };
 
     if (onLaunch) {
       onLaunchListener = TransactReactNativeEvents.addListener('onLaunch', () =>
         onLaunch()
+      );
+    }
+
+    if (onAuthStatusUpdate) {
+      onAuthStatusUpdateListener = TransactReactNativeEvents.addListener(
+        'onAuthStatusUpdate',
+        (authStatus) => onAuthStatusUpdate(authStatus)
+      );
+    }
+
+    if (onTaskStatusUpdate) {
+      TransactReactNativeEvents.addListener(
+        'onTaskStatusUpdate',
+        (taskStatus) => onTaskStatusUpdate(taskStatus)
       );
     }
 
