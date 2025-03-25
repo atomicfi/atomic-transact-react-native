@@ -58,10 +58,14 @@ interface Config {
   experiments?: Object;
   tasks: Task[];
   customer?: Customer;
+  deferredPaymentMethodStrategy?: String;
 }
 
 export const Product = CONSTANTS.Product;
 export const Scope = CONSTANTS.Scope;
+export const DeferredPaymentMethodStrategy =
+  CONSTANTS.DeferredPaymentMethodStrategy;
+
 export const Atomic = {
   transact({
     config,

@@ -16,3 +16,8 @@ export const Scope = {
 export const Environment = {
   Production: 'https://transact.atomicfi.com',
 };
+
+export const DeferredPaymentMethodStrategy = {
+  SDK: 'sdk',
+  API: 'api',
+};

@@ -45,7 +45,22 @@ export const AtomicIOS = {
     if (onDataRequest) {
       onDataRequestListener = TransactReactNativeEvents.addListener(
         'onDataRequest',
-        (request) => onDataRequest(request)
+        async (request) => {
+          try {
+            // Call the user's onDataRequest handler
+            const response = await onDataRequest(request);
+
+            // Send the response back to native code
+            TransactReactNative.resolveDataRequest(response);
+
+            return response;
+          } catch (error) {
+            console.error('## Error in onDataRequest:', error);
+            // Send null as response in case of error
+            TransactReactNative.resolveDataRequest(null);
+            return null;
+          }
+        }
       );
     }
 

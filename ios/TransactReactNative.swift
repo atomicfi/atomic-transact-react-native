@@ -4,6 +4,9 @@ import UIKit
 @objc(TransactReactNative)
 class TransactReactNative: RCTEventEmitter {
 	
+	// Data request handler that will be called when the response arrives
+	private var dataResponseHandler: ((Any) -> Void)? = nil
+	
 	@objc(presentTransact:environment:withResolver:withRejecter:)
 	func presentTransact(config: [String: Any], environment: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		DispatchQueue.main.async {
@@ -28,8 +31,44 @@ class TransactReactNative: RCTEventEmitter {
 					onInteraction: { interaction in
 						self.sendEvent(withName: "onInteraction", body: ["name": interaction.name, "value": interaction.value])
 					},
-					onDataRequest: { request in
-						self.sendEvent(withName: "onDataRequest", body: request.data)
+					onDataRequest: { request async -> TransactDataResponse? in
+						// Create a task to handle the async request to React Native
+						return await withCheckedContinuation { continuation in
+							// Store the completion handler 
+								self.dataResponseHandler = { responseData in
+								if let responseDict = responseData as? [String: Any] {
+									let identityDict = responseDict["identity"] as! [String: Any]
+									let cardDict = responseDict["card"] as! [String: Any]
+									
+									let identity = TransactDataResponse.Identity(
+										firstName: identityDict["firstName"] as? String,
+										lastName: identityDict["lastName"] as? String,
+										postalCode: identityDict["postalCode"] as? String,
+										address: identityDict["address"] as? String,
+										city: identityDict["city"] as? String,
+										state: identityDict["state"] as? String,
+										phone: identityDict["phone"] as? String,
+										email: identityDict["email"] as? String
+									)
+									
+									let card = TransactDataResponse.CardData(
+										number: cardDict["number"] as! String,
+										expiry: cardDict["expiry"] as! String,
+										cvv: cardDict["cvv"] as! String
+									)
+									
+									let response = TransactDataResponse(card: card, identity: identity)
+									
+									continuation.resume(returning: response)
+								} else {
+									// If response isn't a dictionary or is nil
+									continuation.resume(returning: nil)
+								}
+							}
+							
+							// Send event with request data to React Native
+							self.sendEvent(withName: "onDataRequest", body: request.data)
+						}
 					},
 					onAuthStatusUpdate: { status in
 						self.sendEvent(withName: "onAuthStatusUpdate", body: ["status": status.serialize()])
@@ -54,6 +93,18 @@ class TransactReactNative: RCTEventEmitter {
 			catch let error {
 				reject("config error", String(describing: error), NSError(domain: "com.atomicfi", code: 500, userInfo: nil))
 			}
+		}
+	}
+	
+	// Method to receive response from React Native
+	@objc(resolveDataRequest:)
+	func resolveDataRequest(data: Any) -> Void {
+		// Call the stored response handler with the data from React Native
+		if let handler = dataResponseHandler {
+			handler(data)
+			
+			// Clear the handler
+			dataResponseHandler = nil
 		}
 	}
 	
