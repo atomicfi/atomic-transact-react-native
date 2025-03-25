@@ -14,6 +14,8 @@ RCT_EXTERN_METHOD(presentAction:(NSString *)id
 				  withResolver:(RCTPromiseResolveBlock)resolve
 				  withRejecter:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(resolveDataRequest:(id)data)
+
 + (BOOL)requiresMainQueueSetup
 {
   return NO;
