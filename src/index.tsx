@@ -38,6 +38,10 @@ interface Task {
   navigationOptions?: Object;
 }
 
+interface Customer {
+  name: String;
+}
+
 interface Config {
   publicToken: String;
   scope: String;
@@ -53,6 +57,7 @@ interface Config {
   handoff?: String;
   experiments?: Object;
   tasks: Task[];
+  customer?: Customer;
 }
 
 export const Product = CONSTANTS.Product;
