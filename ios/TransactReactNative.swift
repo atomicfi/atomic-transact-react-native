@@ -144,6 +144,17 @@ class TransactReactNative: RCTEventEmitter {
 		}
 	}
 	
+	@objc(hideTransact:withRejecter:)
+	func hideTransact(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+		DispatchQueue.main.async {
+			do {
+				Atomic.hideTransact()
+			} catch {
+				reject("dismiss_error", "Error dismissing Transact", error)
+			}
+		}
+	}
+	
 	@objc override func supportedEvents() -> [String] {
 		return ["onInteraction", "onDataRequest", "onLaunch", "onCompletion", "onAuthStatusUpdate", "onTaskStatusUpdate"]
 	}

@@ -155,4 +155,15 @@ export const Atomic = {
         throw new Error(`Unsupported OS: ${Platform.OS}`);
     }
   },
+  hideTransact() {
+    switch (Platform.OS) {
+      case 'ios':
+        AtomicIOS.hideTransact(TransactReactNative);
+        break;
+      case 'android':
+        throw new Error(`Unsupported OS: ${Platform.OS}`);
+      default:
+        throw new Error(`Unsupported OS: ${Platform.OS}`);
+    }
+  },
 };
