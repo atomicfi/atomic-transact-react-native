@@ -150,4 +150,7 @@ export const AtomicIOS = {
       }
     });
   },
+  hideTransact(TransactReactNative: any): Promise<void> {
+    return TransactReactNative.hideTransact();
+  },
 };
