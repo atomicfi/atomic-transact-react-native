@@ -13,8 +13,24 @@ export const Scope = {
   PAYLINK: 'pay-link',
 };
 
+export interface TransactEnvironment {
+  environment: 'production' | 'sandbox' | 'custom';
+  transactPath?: string;
+  apiPath?: string;
+}
+
 export const Environment = {
-  Production: 'https://transact.atomicfi.com',
+  production: {
+    environment: 'production' as const,
+  } as TransactEnvironment,
+  sandbox: {
+    environment: 'sandbox' as const,
+  } as TransactEnvironment,
+  custom: (transactPath: string, apiPath: string): TransactEnvironment => ({
+    environment: 'custom' as const,
+    transactPath,
+    apiPath,
+  }),
 };
 
 export const DeferredPaymentMethodStrategy = {

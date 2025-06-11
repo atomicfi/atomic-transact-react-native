@@ -1,5 +1,6 @@
 import { Buffer } from 'buffer';
 import { DeviceEventEmitter, Platform } from 'react-native';
+import * as CONSTANTS from './constants';
 
 function _eventHandler(request: string, func: Function) {
   return func(JSON.parse(request));
@@ -28,7 +29,7 @@ export const AtomicAndroid = {
   }: {
     TransactReactNative: any;
     config: any;
-    environment?: String;
+    environment?: CONSTANTS.TransactEnvironment;
     onInteraction?: Function;
     onTaskStatusUpdate?: Function;
     onAuthStatusUpdate?: Function;
@@ -65,7 +66,7 @@ export const AtomicAndroid = {
   }: {
     TransactReactNative: any;
     id: String;
-    environment?: String;
+    environment?: CONSTANTS.TransactEnvironment;
     onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
