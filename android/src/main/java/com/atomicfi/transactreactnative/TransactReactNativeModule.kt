@@ -27,6 +27,27 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     return constants
   }
 
+  private fun parseEnvironment(environmentData: ReadableMap): String {
+    val environmentType = if (environmentData.hasKey("environment")) {
+      environmentData.getString("environment")
+    } else {
+      "production"
+    }
+    
+    return when (environmentType) {
+      "production" -> "https://transact.atomicfi.com"
+      "sandbox" -> "https://transact.atomicfi.com" 
+      "custom" -> {
+        if (environmentData.hasKey("transactPath")) {
+          environmentData.getString("transactPath") ?: "https://transact.atomicfi.com"
+        } else {
+          "https://transact.atomicfi.com"
+        }
+      }
+      else -> "https://transact.atomicfi.com" // fallback to production
+    }
+  }
+
   private fun handleCallbackEvent(
     eventName: String,
     data: JSONObject,
@@ -44,10 +65,11 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun presentTransact(token: String, environment: String, promise: Promise) {
+  fun presentTransact(token: String, environment: ReadableMap, promise: Promise) {
     val context = currentActivity as Context
     val emitter = _reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-    val config = Config(token = token, environment = "CUSTOM", environmentURL = environment)
+    val environmentURL = parseEnvironment(environment)
+    val config = Config(token = token, environment = "CUSTOM", environmentURL = environmentURL)
 
     try {
       Transact.present(context, config, object : TransactBroadcastReceiver() {
@@ -81,15 +103,16 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun presentAction(id: String, environment: String, promise: Promise) {
+  fun presentAction(id: String, environment: ReadableMap, promise: Promise) {
     val context = currentActivity as Context
     val emitter = _reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+    val environmentURL = parseEnvironment(environment)
 
     try {
       val config = ActionConfig(
         id = id,
         environment = Config.Environment.CUSTOM,
-        environmentURL = environment
+        environmentURL = environmentURL
       )
 
       Transact.presentAction(context, config)
