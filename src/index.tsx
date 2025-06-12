@@ -61,10 +61,9 @@ interface Config {
   deferredPaymentMethodStrategy?: String;
 }
 
-export const Product = CONSTANTS.Product;
-export const Scope = CONSTANTS.Scope;
-export const DeferredPaymentMethodStrategy =
-  CONSTANTS.DeferredPaymentMethodStrategy;
+export const { Product, Scope, Environment, DeferredPaymentMethodStrategy } =
+  CONSTANTS;
+export type { TransactEnvironment } from './constants';
 
 export const Atomic = {
   transact({
@@ -78,7 +77,7 @@ export const Atomic = {
     onTaskStatusUpdate,
   }: {
     config: Config;
-    environment?: String;
+    environment?: CONSTANTS.TransactEnvironment;
     onInteraction?: Function;
     onDataRequest?: Function;
     onAuthStatusUpdate?: Function;
@@ -96,7 +95,7 @@ export const Atomic = {
     const args = {
       TransactReactNative,
       config,
-      environment: environment || CONSTANTS.Environment.Production,
+      environment: environment || CONSTANTS.Environment.production,
       onInteraction,
       onFinish,
       onDataRequest,
@@ -126,7 +125,7 @@ export const Atomic = {
     onTaskStatusUpdate,
   }: {
     id: String;
-    environment?: String;
+    environment?: CONSTANTS.TransactEnvironment;
     onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
@@ -136,7 +135,7 @@ export const Atomic = {
     const args = {
       TransactReactNative,
       id,
-      environment: environment || CONSTANTS.Environment.Production,
+      environment: environment || CONSTANTS.Environment.production,
       onLaunch,
       onFinish,
       onClose,

@@ -20,10 +20,13 @@ Pod::Spec.new do |s|
   # See https://github.com/facebook/react-native/blob/febf6b7f33fdb4904669f99d795eba4c0f95d7bf/scripts/cocoapods/new_architecture.rb#L79.
   if respond_to?(:install_modules_dependencies, true)
     install_modules_dependencies(s)
-    s.dependency "AtomicSDK", "3.12.1"
+    s.dependency "AtomicSDK", "3.20.0"
+    s.pod_target_xcconfig = {
+      "DEFINES_MODULE" => "YES",
+    }
   else
     s.dependency "React-Core"
-    s.dependency "AtomicSDK", "3.12.1"
+    s.dependency "AtomicSDK", "3.20.0"
 
     # Don't install the dependencies when we run `pod install` in the old architecture.
     if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
@@ -31,7 +34,8 @@ Pod::Spec.new do |s|
       s.pod_target_xcconfig    = {
           "HEADER_SEARCH_PATHS" => "\"$(PODS_ROOT)/boost\"",
           "OTHER_CPLUSPLUSFLAGS" => "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1",
-          "CLANG_CXX_LANGUAGE_STANDARD" => "c++17"
+          "CLANG_CXX_LANGUAGE_STANDARD" => "c++17",
+          "DEFINES_MODULE" => "YES",
       }
       s.dependency "React-Codegen"
       s.dependency "RCT-Folly"

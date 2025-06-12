@@ -7,12 +7,30 @@ class TransactReactNative: RCTEventEmitter {
 	// Data request handler that will be called when the response arrives
 	private var dataResponseHandler: ((Any) -> Void)? = nil
 	
+	private func parseEnvironment(_ environmentData: [String: Any]) -> AtomicTransact.TransactEnvironment {
+		guard let environment = environmentData["environment"] as? String else {
+			return .production // fallback to production if parsing fails
+		}
+		
+		// Check if it matches known environments
+		if environment == "production" {
+			return .production
+		} else if environment == "sandbox" {
+			return .sandbox
+		} else {
+			let transactPath = environmentData["transactPath"] as? String ?? "https://transact.atomicfi.com"
+			let apiPath = environmentData["apiPath"] as? String ?? "https://api.atomicfi.com"
+			return .custom(transactPath: transactPath, apiPath: apiPath)
+		}
+	}
+	
 	@objc(presentTransact:environment:withResolver:withRejecter:)
-	func presentTransact(config: [String: Any], environment: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+	func presentTransact(config: [String: Any], environment: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		DispatchQueue.main.async {
 			guard let source = RCTPresentedViewController() else { return }
 			
 			let decoder = JSONDecoder()
+			let parsedEnvironment = self.parseEnvironment(environment)
 			
 			do {
 				var json = config
@@ -27,7 +45,7 @@ class TransactReactNative: RCTEventEmitter {
 				let config = try decoder.decode(AtomicConfig.self, from: data)
 				
 				Atomic.presentTransact(
-					from: source, config: config, environment: .custom(path: environment),
+					from: source, config: config, environment: parsedEnvironment,
 					onInteraction: { interaction in
 						self.sendEvent(withName: "onInteraction", body: ["name": interaction.name, "value": interaction.value])
 					},
@@ -109,14 +127,16 @@ class TransactReactNative: RCTEventEmitter {
 	}
 	
 	@objc(presentAction:environment:withResolver:withRejecter:)
-	func presentAction(id: String, environment: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+	func presentAction(id: String, environment: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		DispatchQueue.main.async {
 			guard let source = RCTPresentedViewController() else { return }
+			
+			let parsedEnvironment = self.parseEnvironment(environment)
 			
 			Atomic.presentAction(
 				from: source,
 				id: id,
-				environment: .custom(path: environment),
+				environment: parsedEnvironment,
 				onLaunch: {
 					self.sendEvent(withName: "onLaunch", body: [])
 				},

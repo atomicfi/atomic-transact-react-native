@@ -1,16 +1,22 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Button } from 'react-native';
-import { Atomic, Product, Scope } from '@atomicfi/transact-react-native';
+import { Atomic, Scope, Environment } from '@atomicfi/transact-react-native';
 
 export default function App() {
   function presentTransact() {
     Atomic.transact({
       config: {
-        product: Product.SWITCH,
-        scope: Scope.PAYLINK,
+        scope: Scope.USERLINK,
+        tasks: [
+          {
+            operation: 'deposit',
+          },
+        ],
+        theme: { dark: false },
         publicToken: '',
       },
+      environment: Environment.production,
       onInteraction: (interaction: any) => {
         console.log('Interaction event:', JSON.stringify(interaction, null, 2));
       },
@@ -35,14 +41,9 @@ export default function App() {
   function presentAction() {
     Atomic.presentAction({
       id: '',
+      environment: Environment.production,
       onLaunch: (data: any) => {
         console.log('Launch event:', data);
-      },
-      onInteraction: (interaction: any) => {
-        console.log('Interaction event:', JSON.stringify(interaction, null, 2));
-      },
-      onDataRequest: (request: any) => {
-        console.log('Data request event:', request);
       },
       onAuthStatusUpdate: (authStatus: any) => {
         console.log('Auth status update event:', authStatus);
@@ -78,9 +79,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 10,
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
-  },
+  box: { width: 60, height: 60, marginVertical: 20 },
 });

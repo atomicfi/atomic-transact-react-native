@@ -1,4 +1,5 @@
 import { NativeEventEmitter } from 'react-native';
+import * as CONSTANTS from './constants';
 
 export const AtomicIOS = {
   transact({
@@ -14,7 +15,7 @@ export const AtomicIOS = {
   }: {
     TransactReactNative: any;
     config: any;
-    environment?: String;
+    environment?: CONSTANTS.TransactEnvironment;
     onInteraction?: Function;
     onDataRequest?: Function;
     onFinish?: Function;
@@ -102,7 +103,7 @@ export const AtomicIOS = {
   }: {
     TransactReactNative: any;
     id: String;
-    environment?: String;
+    environment?: CONSTANTS.TransactEnvironment;
     onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
