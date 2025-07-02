@@ -1,38 +1,37 @@
 {
-  "name": "TransactReactNativeExample",
-  "displayName": "TransactReactNativeExample",
-  "components": [
-    {
-      "appKey": "TransactReactNativeExample",
-      "displayName": "TransactReactNativeExample"
+  "expo": {
+    "name": "Atomic Transact Example",
+    "slug": "atomic-transact-example",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.atomicfi.transact.example"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.atomicfi.transact.example"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-dev-client"
+    ],
+    "developmentClient": {
+      "silentLaunch": false
     }
-  ],
-  "resources": {
-    "android": [
-      "dist/res",
-      "dist/main.android.jsbundle"
-    ],
-    "ios": [
-      "dist/assets",
-      "dist/main.ios.jsbundle"
-    ],
-    "macos": [
-      "dist/assets",
-      "dist/main.macos.jsbundle"
-    ],
-    "visionos": [
-      "dist/assets",
-      "dist/main.visionos.jsbundle"
-    ],
-    "windows": [
-      "dist/assets",
-      "dist/main.windows.bundle"
-    ]
-  },
-  "android": {
-    "package": "atomicfi.transactreactnative.example"
-  },
-  "ios": {
-    "bundleIdentifier": "atomicfi.transactreactnative.example"
   }
 }
