@@ -1,0 +1,19 @@
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  update-test-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger sdk-upgrade workflow in test app
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const result = await github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo: 'transact-rn-test-app',
+                workflow_id: 'sdk-upgrade.yml',
+                ref: 'main',
+            })
+            console.log(result)
