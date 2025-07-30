@@ -1,16 +1,15 @@
 name: publish
 
 on:
-  push:
-    branches: master
-    paths: package.json
+  release:
+    types: [published]
   workflow_dispatch:
 
 jobs:
-  npm:
+  publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -23,27 +22,27 @@ jobs:
 
       - name: Install Dependencies
         run: yarn
+      - name: Update package.json version
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            TAG_NAME="${{ github.event.release.tag_name }}"
+            VERSION=${TAG_NAME#v}  # Remove 'v' prefix if present
+            npm version $VERSION --no-git-tag-version
+            echo "Updated package.json version to $VERSION"
+          else
+            echo "Skipping version update for manual trigger"
+          fi
+
+      - name: Commit version update
+        if: github.event_name == 'release'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add package.json
+          git commit -m "chore: update version to ${{ github.event.release.tag_name }}"
+          git push
+
       - name: Publish
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-
-  tag:
-    needs: npm
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: node
-        uses: actions/setup-node@v3
-      - name: tag
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const { version } = require('./package.json')
-            github.rest.git.createRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: `refs/tags/${version}`,
-                sha: context.sha
-              })
