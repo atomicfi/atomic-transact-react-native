@@ -33,13 +33,6 @@ jobs:
             echo "Skipping version update for manual trigger"
           fi
 
-      - name: Commit version update
-        if: github.event_name == 'release'
-        uses: stefanzweifel/git-auto-commit-action@v6
-        with:
-          commit_message: 'chore: update version to ${{ github.event.release.tag_name }}'
-          file_pattern: package.json
-
       - name: Publish
         run: npm publish --access public
         env:
