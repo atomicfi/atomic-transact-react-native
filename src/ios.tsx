@@ -12,6 +12,7 @@ export const AtomicIOS = {
     onClose,
     onAuthStatusUpdate,
     onTaskStatusUpdate,
+    presentationStyleIOS,
   }: {
     TransactReactNative: any;
     config: any;
@@ -22,6 +23,7 @@ export const AtomicIOS = {
     onClose?: Function;
     onAuthStatusUpdate?: Function;
     onTaskStatusUpdate?: Function;
+    presentationStyleIOS?: CONSTANTS.PresentationStyleIOS;
   }): void {
     const TransactReactNativeEvents = new NativeEventEmitter(
       TransactReactNative
@@ -79,22 +81,25 @@ export const AtomicIOS = {
       );
     }
 
-    TransactReactNative.presentTransact(config, environment).then(
-      (event: any) => {
-        if (event.finished && onFinish) {
-          removeListeners();
-          onFinish(event.finished);
-        } else if (event.closed && onClose) {
-          removeListeners();
-          onClose(event.closed);
-        }
+    TransactReactNative.presentTransact(
+      config,
+      environment,
+      presentationStyleIOS
+    ).then((event: any) => {
+      if (event.finished && onFinish) {
+        removeListeners();
+        onFinish(event.finished);
+      } else if (event.closed && onClose) {
+        removeListeners();
+        onClose(event.closed);
       }
-    );
+    });
   },
   presentAction({
     TransactReactNative,
     id,
     environment,
+    presentationStyleIOS,
     onLaunch,
     onFinish,
     onClose,
@@ -104,6 +109,7 @@ export const AtomicIOS = {
     TransactReactNative: any;
     id: String;
     environment?: CONSTANTS.TransactEnvironment;
+    presentationStyleIOS?: CONSTANTS.PresentationStyleIOS;
     onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
@@ -141,7 +147,11 @@ export const AtomicIOS = {
       );
     }
 
-    TransactReactNative.presentAction(id, environment).then((event: any) => {
+    TransactReactNative.presentAction(
+      id,
+      environment,
+      presentationStyleIOS
+    ).then((event: any) => {
       if (event.finished && onFinish) {
         removeListeners();
         onFinish(event.finished);

@@ -5,12 +5,14 @@
 @interface RCT_EXTERN_MODULE(TransactReactNative, RCTEventEmitter)
 
 RCT_EXTERN_METHOD(presentTransact:(NSDictionary *)config
-				  environment:NSDictionary
+				  environment:(NSDictionary *)environment
+				  presentationStyle:(nullable NSString *)presentationStyle
 				  withResolver:(RCTPromiseResolveBlock)resolve
 				  withRejecter:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(presentAction:(NSString *)id
-				  environment:NSDictionary
+				  environment:(NSDictionary *)environment
+				  presentationStyle:(nullable NSString *)presentationStyle
 				  withResolver:(RCTPromiseResolveBlock)resolve
 				  withRejecter:(RCTPromiseRejectBlock)reject)
 

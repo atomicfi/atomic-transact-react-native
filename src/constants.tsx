@@ -13,6 +13,14 @@ export const Scope = {
   PAYLINK: 'pay-link',
 };
 
+export const PresentationStyles = {
+  formSheet: 'formSheet',
+  fullScreen: 'fullScreen',
+} as const;
+
+export type PresentationStyleIOS =
+  (typeof PresentationStyles)[keyof typeof PresentationStyles];
+
 export interface TransactEnvironment {
   environment: 'production' | 'sandbox' | 'custom';
   transactPath?: string;
