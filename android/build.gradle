@@ -1,6 +1,7 @@
 buildscript {
   // Buildscript is evaluated before everything else so we can't use getExtOrDefault
-  def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["TransactReactNative_kotlinVersion"]
+  // Prefer the library's declared Kotlin version to avoid root project mismatches
+  def kotlin_version = project.properties["TransactReactNative_kotlinVersion"] ?: (rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : null)
 
   repositories {
     google()
@@ -8,7 +9,7 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:8.1.4"
+    classpath "com.android.tools.build:gradle:8.7.2"
     // noinspection DifferentKotlinGradleVersion
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
@@ -37,7 +38,7 @@ def getExtOrIntegerDefault(name) {
 }
 
 // Update this value to the latest Android SDK version published on Maven
-def transact_version = "3.11.3"
+def transact_version = "3.11.4"
 
 android {
   namespace "com.atomicfi.transactreactnative"
@@ -75,7 +76,7 @@ repositories {
   google()
 }
 
-def kotlin_version = getExtOrDefault("kotlinVersion")
+def kotlin_version = project.properties["TransactReactNative_kotlinVersion"] ?: getExtOrDefault("kotlinVersion")
 
 dependencies {
   // For < 0.71, this will be from the local maven repo
