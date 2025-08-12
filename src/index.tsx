@@ -2,6 +2,7 @@ import { Appearance, NativeModules, Platform } from 'react-native';
 import { AtomicIOS } from './ios';
 import { AtomicAndroid } from './android';
 import * as CONSTANTS from './constants';
+import type { PresentationStyleIOS } from './constants';
 
 const LINKING_ERROR =
   `The package '@atomicfi/transact-react-native' doesn't seem to be linked. Make sure: \n\n` +
@@ -61,9 +62,14 @@ interface Config {
   deferredPaymentMethodStrategy?: String;
 }
 
-export const { Product, Scope, Environment, DeferredPaymentMethodStrategy } =
-  CONSTANTS;
-export type { TransactEnvironment } from './constants';
+export const {
+  Product,
+  Scope,
+  Environment,
+  DeferredPaymentMethodStrategy,
+  PresentationStyles,
+} = CONSTANTS;
+export type { TransactEnvironment, PresentationStyleIOS } from './constants';
 
 export const Atomic = {
   transact({
@@ -75,6 +81,7 @@ export const Atomic = {
     onClose,
     onAuthStatusUpdate,
     onTaskStatusUpdate,
+    presentationStyleIOS,
   }: {
     config: Config;
     environment?: CONSTANTS.TransactEnvironment;
@@ -84,6 +91,7 @@ export const Atomic = {
     onTaskStatusUpdate?: Function;
     onFinish?: Function;
     onClose?: Function;
+    presentationStyleIOS?: PresentationStyleIOS;
   }): void {
     config.language = config.language || 'en';
     config.theme = config.theme || {};
@@ -102,6 +110,7 @@ export const Atomic = {
       onClose,
       onAuthStatusUpdate,
       onTaskStatusUpdate,
+      presentationStyleIOS,
     };
 
     switch (Platform.OS) {
@@ -118,6 +127,7 @@ export const Atomic = {
   presentAction({
     id,
     environment,
+    presentationStyleIOS,
     onLaunch,
     onFinish,
     onClose,
@@ -126,6 +136,7 @@ export const Atomic = {
   }: {
     id: String;
     environment?: CONSTANTS.TransactEnvironment;
+    presentationStyleIOS?: PresentationStyleIOS;
     onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
@@ -136,6 +147,7 @@ export const Atomic = {
       TransactReactNative,
       id,
       environment: environment || CONSTANTS.Environment.production,
+      presentationStyleIOS,
       onLaunch,
       onFinish,
       onClose,

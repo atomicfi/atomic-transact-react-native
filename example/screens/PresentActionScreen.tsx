@@ -7,10 +7,16 @@ import {
   ScrollView,
   Alert,
   TextInput,
+  Platform,
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../App';
-import { Atomic, Environment } from '@atomicfi/transact-react-native';
+import {
+  Atomic,
+  Environment,
+  PresentationStyles,
+} from '@atomicfi/transact-react-native';
+import type { PresentationStyleIOS } from '@atomicfi/transact-react-native';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PresentAction'>;
 
@@ -22,11 +28,21 @@ const PresentActionScreen: React.FC<Props> = () => {
     useState<EnvironmentOption>('sandbox');
   const [customUrl, setCustomUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [presentationStyleIOS, setPresentationStyleIOS] =
+    useState<PresentationStyleIOS>(PresentationStyles.formSheet);
 
   const environmentOptions = [
     { key: 'sandbox' as EnvironmentOption, label: 'Sandbox' },
     { key: 'production' as EnvironmentOption, label: 'Production' },
     { key: 'custom' as EnvironmentOption, label: 'Custom URL' },
+  ];
+
+  const presentationStyleOptions: {
+    key: PresentationStyleIOS;
+    label: string;
+  }[] = [
+    { key: PresentationStyles.formSheet, label: 'Form Sheet' },
+    { key: PresentationStyles.fullScreen, label: 'Full Screen' },
   ];
 
   const getEnvironment = () => {
@@ -64,6 +80,7 @@ const PresentActionScreen: React.FC<Props> = () => {
     Atomic.presentAction({
       id: actionId.trim(),
       environment: getEnvironment(),
+      presentationStyleIOS,
       onLaunch: () => {
         console.log('Action launched');
         Alert.alert('Info', 'Action launched successfully!');
@@ -161,6 +178,34 @@ const PresentActionScreen: React.FC<Props> = () => {
           <Text style={styles.bulletPoint}>• Streamlined workflows</Text>
         </View>
       </View>
+
+      {Platform.OS === 'ios' && (
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>iOS Presentation Style</Text>
+          <View style={styles.optionGrid}>
+            {presentationStyleOptions.map((style) => (
+              <TouchableOpacity
+                key={style.key}
+                style={[
+                  styles.optionButton,
+                  presentationStyleIOS === style.key && styles.selectedOption,
+                ]}
+                onPress={() => setPresentationStyleIOS(style.key)}
+              >
+                <Text
+                  style={[
+                    styles.optionText,
+                    presentationStyleIOS === style.key &&
+                      styles.selectedOptionText,
+                  ]}
+                >
+                  {style.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      )}
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
@@ -320,6 +365,30 @@ const styles = StyleSheet.create({
   launchButtonText: {
     fontSize: 18,
     fontWeight: '600',
+    color: '#ffffff',
+  },
+  optionGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  optionButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#d1d5db',
+    backgroundColor: '#ffffff',
+  },
+  selectedOption: {
+    backgroundColor: '#3b82f6',
+    borderColor: '#3b82f6',
+  },
+  optionText: {
+    fontSize: 14,
+    color: '#6b7280',
+  },
+  selectedOptionText: {
     color: '#ffffff',
   },
 });

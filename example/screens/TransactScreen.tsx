@@ -8,6 +8,7 @@ import {
   Alert,
   Switch,
   TextInput,
+  Platform,
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../App';
@@ -16,7 +17,9 @@ import {
   Product,
   Scope,
   Environment,
+  PresentationStyles,
 } from '@atomicfi/transact-react-native';
+import type { PresentationStyleIOS } from '@atomicfi/transact-react-native';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Transact'>;
 
@@ -30,6 +33,8 @@ const TransactScreen: React.FC<Props> = () => {
   const [selectedProduct, setSelectedProduct] = useState(Product.DEPOSIT);
   const [darkMode, setDarkMode] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [presentationStyleIOS, setPresentationStyleIOS] =
+    useState<PresentationStyleIOS>(PresentationStyles.formSheet);
 
   const products = [
     { key: Product.DEPOSIT, label: 'Deposit' },
@@ -46,6 +51,14 @@ const TransactScreen: React.FC<Props> = () => {
     { key: 'sandbox' as EnvironmentOption, label: 'Sandbox' },
     { key: 'production' as EnvironmentOption, label: 'Production' },
     { key: 'custom' as EnvironmentOption, label: 'Custom URL' },
+  ];
+
+  const presentationStyleOptions: {
+    key: PresentationStyleIOS;
+    label: string;
+  }[] = [
+    { key: PresentationStyles.formSheet, label: 'Form Sheet' },
+    { key: PresentationStyles.fullScreen, label: 'Full Screen' },
   ];
 
   const getEnvironment = () => {
@@ -93,6 +106,7 @@ const TransactScreen: React.FC<Props> = () => {
     Atomic.transact({
       config,
       environment: getEnvironment(),
+      presentationStyleIOS,
       onInteraction: (interaction: any) => {
         console.log('Interaction:', interaction);
       },
@@ -207,6 +221,34 @@ const TransactScreen: React.FC<Props> = () => {
           ))}
         </View>
       </View>
+
+      {Platform.OS === 'ios' && (
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>iOS Presentation Style</Text>
+          <View style={styles.optionGrid}>
+            {presentationStyleOptions.map((style) => (
+              <TouchableOpacity
+                key={style.key}
+                style={[
+                  styles.optionButton,
+                  presentationStyleIOS === style.key && styles.selectedOption,
+                ]}
+                onPress={() => setPresentationStyleIOS(style.key)}
+              >
+                <Text
+                  style={[
+                    styles.optionText,
+                    presentationStyleIOS === style.key &&
+                      styles.selectedOptionText,
+                  ]}
+                >
+                  {style.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      )}
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity

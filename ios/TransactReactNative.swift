@@ -24,8 +24,21 @@ class TransactReactNative: RCTEventEmitter {
 		}
 	}
 	
-	@objc(presentTransact:environment:withResolver:withRejecter:)
-	func presentTransact(config: [String: Any], environment: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+	private func parsePresentationStyle(_ presentationStyleString: String?) -> UIModalPresentationStyle {
+		guard let styleString = presentationStyleString else {
+			return .formSheet // Default to formSheet
+		}
+		
+		switch styleString {
+		case "fullScreen":
+			return .fullScreen
+		default:
+			return .formSheet
+		}
+	}
+	
+	@objc(presentTransact:environment:presentationStyle:withResolver:withRejecter:)
+	func presentTransact(config: [String: Any], environment: [String: Any], presentationStyle: String?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		DispatchQueue.main.async {
 			guard let source = RCTPresentedViewController() else { return }
 			
@@ -34,6 +47,8 @@ class TransactReactNative: RCTEventEmitter {
 			
 			do {
 				var json = config
+
+				let parsedPresentationStyle = self.parsePresentationStyle(presentationStyle)
 				
 				if var platform = AtomicConfig.Platform().encode() as? [String: Any] {
 					platform["sdkVersion"] = platform["sdkVersion"] as! String + "-react"
@@ -45,7 +60,7 @@ class TransactReactNative: RCTEventEmitter {
 				let config = try decoder.decode(AtomicConfig.self, from: data)
 				
 				Atomic.presentTransact(
-					from: source, config: config, environment: parsedEnvironment,
+					from: source, config: config, environment: parsedEnvironment, presentationStyle: parsedPresentationStyle,
 					onInteraction: { interaction in
 						self.sendEvent(withName: "onInteraction", body: ["name": interaction.name, "value": interaction.value])
 					},
@@ -126,17 +141,19 @@ class TransactReactNative: RCTEventEmitter {
 		}
 	}
 	
-	@objc(presentAction:environment:withResolver:withRejecter:)
-	func presentAction(id: String, environment: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+	@objc(presentAction:environment:presentationStyle:withResolver:withRejecter:)
+	func presentAction(id: String, environment: [String: Any], presentationStyle: String?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		DispatchQueue.main.async {
 			guard let source = RCTPresentedViewController() else { return }
 			
 			let parsedEnvironment = self.parseEnvironment(environment)
+			let parsedPresentationStyle = self.parsePresentationStyle(presentationStyle)
 			
 			Atomic.presentAction(
 				from: source,
 				id: id,
 				environment: parsedEnvironment,
+				presentationStyle: parsedPresentationStyle,
 				onLaunch: {
 					self.sendEvent(withName: "onLaunch", body: [])
 				},
