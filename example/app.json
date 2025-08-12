@@ -30,7 +30,7 @@
     "plugins": [
       "expo-dev-client",
       [
-        "./plugins/withAndroidKotlinVersionPlugin"
+        "@atomicfi/transact-react-native/withAndroidKotlinVersionPlugin"
       ]
     ],
     "developmentClient": {

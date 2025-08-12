@@ -15,6 +15,9 @@
         "types": "./lib/typescript/commonjs/src/index.d.ts",
         "default": "./lib/commonjs/index.js"
       }
+    },
+    "./withAndroidKotlinVersionPlugin": {
+      "default": "./plugin/withAndroidKotlinVersionPlugin.js"
     }
   },
   "react-native": "src/index",
@@ -25,6 +28,7 @@
     "android",
     "ios",
     "cpp",
+    "plugin",
     "*.podspec",
     "!lib/typescript/example",
     "!ios/build",
@@ -68,6 +72,7 @@
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.30.1",
     "@evilmartians/lefthook": "^1.5.0",
+    "@expo/config-plugins": "^10.0.0",
     "@peculiar/webcrypto": "^1.4.0",
     "@react-native/babel-preset": "0.80.1",
     "@react-native/eslint-config": "0.80.1",
@@ -96,6 +101,7 @@
     "typescript-eslint": "^8.35.1"
   },
   "peerDependencies": {
+    "@expo/config-plugins": "^10.0.0",
     "react": "*",
     "react-native": "*"
   },
