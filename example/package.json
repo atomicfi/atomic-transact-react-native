@@ -14,12 +14,13 @@
     "@atomicfi/transact-react-native": "link:..",
     "@react-navigation/native": "^7.1.14",
     "@react-navigation/native-stack": "^7.3.21",
-    "expo": "~53.0.16",
-    "expo-dev-client": "~5.2.3",
+    "expo": "53.0.20",
+    "expo-build-properties": "~0.14.8",
+    "expo-dev-client": "~5.2.4",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
     "react-native": "0.79.5",
-    "react-native-safe-area-context": "^5.5.1",
+    "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "^4.11.1"
   },
   "devDependencies": {
