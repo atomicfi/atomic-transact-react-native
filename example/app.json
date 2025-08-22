@@ -28,10 +28,7 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-dev-client",
-      [
-        "@atomicfi/transact-react-native/withAndroidKotlinVersionPlugin"
-      ]
+      "expo-dev-client"
     ],
     "developmentClient": {
       "silentLaunch": false
