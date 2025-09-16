@@ -26,7 +26,8 @@ const PresentActionScreen: React.FC<Props> = () => {
   const [actionId, setActionId] = useState('');
   const [selectedEnvironment, setSelectedEnvironment] =
     useState<EnvironmentOption>('sandbox');
-  const [customUrl, setCustomUrl] = useState('');
+  const [customTransactPath, setCustomTransactPath] = useState('');
+  const [customApiPath, setCustomApiPath] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [presentationStyleIOS, setPresentationStyleIOS] =
     useState<PresentationStyleIOS>(PresentationStyles.formSheet);
@@ -52,12 +53,9 @@ const PresentActionScreen: React.FC<Props> = () => {
       case 'production':
         return Environment.production;
       case 'custom': {
-        // Use the custom URL as transactPath and derive apiPath from it
-        const baseUrl = customUrl.trim();
-        const apiPath = baseUrl
-          .replace('/transact', '/api')
-          .replace('transact.', 'api.');
-        return Environment.custom(baseUrl, apiPath);
+        const transactPath = customTransactPath.trim();
+        const apiPath = customApiPath.trim();
+        return Environment.custom(transactPath, apiPath);
       }
       default:
         return Environment.sandbox;
@@ -70,8 +68,14 @@ const PresentActionScreen: React.FC<Props> = () => {
       return;
     }
 
-    if (selectedEnvironment === 'custom' && !customUrl.trim()) {
-      Alert.alert('Error', 'Please enter a valid custom URL');
+    if (
+      selectedEnvironment === 'custom' &&
+      (!customTransactPath.trim() || !customApiPath.trim())
+    ) {
+      Alert.alert(
+        'Error',
+        'Please enter both transact path and API path for custom environment'
+      );
       return;
     }
 
@@ -83,17 +87,15 @@ const PresentActionScreen: React.FC<Props> = () => {
       presentationStyleIOS,
       onLaunch: () => {
         console.log('Action launched');
-        Alert.alert('Info', 'Action launched successfully!');
+        setIsLoading(false);
       },
       onFinish: (result: any) => {
         setIsLoading(false);
         console.log('Action finished:', result);
-        Alert.alert('Success', 'Action completed successfully!');
       },
       onClose: () => {
         setIsLoading(false);
         console.log('Action closed');
-        Alert.alert('Info', 'Action was closed by user');
       },
       onAuthStatusUpdate: (status: any) => {
         console.log('Auth Status Update:', status);
@@ -150,13 +152,22 @@ const PresentActionScreen: React.FC<Props> = () => {
             ))}
           </View>
           {selectedEnvironment === 'custom' && (
-            <TextInput
-              style={[styles.input, styles.customUrlInput]}
-              value={customUrl}
-              onChangeText={setCustomUrl}
-              placeholder="Enter custom environment URL"
-              placeholderTextColor="#9ca3af"
-            />
+            <>
+              <TextInput
+                style={[styles.input, styles.customUrlInput]}
+                value={customTransactPath}
+                onChangeText={setCustomTransactPath}
+                placeholder="Enter custom transact path"
+                placeholderTextColor="#9ca3af"
+              />
+              <TextInput
+                style={[styles.input, styles.customUrlInput]}
+                value={customApiPath}
+                onChangeText={setCustomApiPath}
+                placeholder="Enter custom API path"
+                placeholderTextColor="#9ca3af"
+              />
+            </>
           )}
         </View>
       </View>
