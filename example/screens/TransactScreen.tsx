@@ -29,7 +29,8 @@ const TransactScreen: React.FC<Props> = () => {
   const [publicToken, setPublicToken] = useState('');
   const [selectedEnvironment, setSelectedEnvironment] =
     useState<EnvironmentOption>('sandbox');
-  const [customUrl, setCustomUrl] = useState('');
+  const [customTransactPath, setCustomTransactPath] = useState('');
+  const [customApiPath, setCustomApiPath] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(Product.DEPOSIT);
   const [darkMode, setDarkMode] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -68,12 +69,9 @@ const TransactScreen: React.FC<Props> = () => {
       case 'production':
         return Environment.production;
       case 'custom': {
-        // Use the custom URL as transactPath and derive apiPath from it
-        const baseUrl = customUrl.trim();
-        const apiPath = baseUrl
-          .replace('/transact', '/api')
-          .replace('transact.', 'api.');
-        return Environment.custom(baseUrl, apiPath);
+        const transactPath = customTransactPath.trim();
+        const apiPath = customApiPath.trim();
+        return Environment.custom(transactPath, apiPath);
       }
       default:
         return Environment.sandbox;
@@ -86,8 +84,14 @@ const TransactScreen: React.FC<Props> = () => {
       return;
     }
 
-    if (selectedEnvironment === 'custom' && !customUrl.trim()) {
-      Alert.alert('Error', 'Please enter a valid custom URL');
+    if (
+      selectedEnvironment === 'custom' &&
+      (!customTransactPath.trim() || !customApiPath.trim())
+    ) {
+      Alert.alert(
+        'Error',
+        'Please enter both transact path and API path for custom environment'
+      );
       return;
     }
 
@@ -171,13 +175,22 @@ const TransactScreen: React.FC<Props> = () => {
             ))}
           </View>
           {selectedEnvironment === 'custom' && (
-            <TextInput
-              style={[styles.input, styles.customUrlInput]}
-              value={customUrl}
-              onChangeText={setCustomUrl}
-              placeholder="Enter custom environment URL"
-              placeholderTextColor="#9ca3af"
-            />
+            <>
+              <TextInput
+                style={[styles.input, styles.customUrlInput]}
+                value={customTransactPath}
+                onChangeText={setCustomTransactPath}
+                placeholder="Enter custom transact path"
+                placeholderTextColor="#9ca3af"
+              />
+              <TextInput
+                style={[styles.input, styles.customUrlInput]}
+                value={customApiPath}
+                onChangeText={setCustomApiPath}
+                placeholder="Enter custom API path"
+                placeholderTextColor="#9ca3af"
+              />
+            </>
           )}
         </View>
 
