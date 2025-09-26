@@ -1,0 +1,11 @@
+framework module AtomicTransact {
+  umbrella header "AtomicTransact.h"
+  export *
+
+  module * { export * }
+}
+
+module AtomicTransact.Swift {
+  header "AtomicTransact-Swift.h"
+  requires objc
+}

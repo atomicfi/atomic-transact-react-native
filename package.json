@@ -1,6 +1,6 @@
 {
   "name": "@atomicfi/transact-react-native",
-  "version": "3.12.3",
+  "version": "3.12.8-beta.1",
   "description": "React Native bridge for the Transact SDK",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
@@ -101,13 +101,9 @@
     "typescript-eslint": "^8.35.1"
   },
   "peerDependencies": {
-    "@expo/config-plugins": "^10.0.0",
     "react": "*",
     "react-native": "*"
   },
-  "workspaces": [
-    "example"
-  ],
   "packageManager": "yarn@4.4.0",
   "commitlint": {
     "extends": [
