@@ -36,6 +36,9 @@ const TransactScreen: React.FC<Props> = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [presentationStyleIOS, setPresentationStyleIOS] =
     useState<PresentationStyleIOS>(PresentationStyles.formSheet);
+  const [useDeeplink, setUseDeeplink] = useState(false);
+  const [deeplinkCompanyId, setDeeplinkCompanyId] = useState('');
+  const [singleSwitch, setSingleSwitch] = useState(false);
 
   const products = [
     { key: Product.DEPOSIT, label: 'Deposit' },
@@ -95,9 +98,14 @@ const TransactScreen: React.FC<Props> = () => {
       return;
     }
 
+    if (useDeeplink && !deeplinkCompanyId.trim()) {
+      Alert.alert('Error', 'Please enter a Company ID when using deeplink');
+      return;
+    }
+
     setIsLoading(true);
 
-    const config = {
+    const config: any = {
       publicToken: publicToken.trim(),
       scope: getScope(),
       tasks: [
@@ -106,6 +114,15 @@ const TransactScreen: React.FC<Props> = () => {
         },
       ],
     };
+
+    // Add deeplink configuration if enabled and company ID is provided
+    if (useDeeplink && deeplinkCompanyId.trim()) {
+      config.deeplink = {
+        step: 'login-company',
+        companyId: deeplinkCompanyId.trim(),
+        singleSwitch: singleSwitch,
+      };
+    }
 
     Atomic.transact({
       config,
@@ -262,6 +279,55 @@ const TransactScreen: React.FC<Props> = () => {
           </View>
         </View>
       )}
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Deeplink Options (Optional)</Text>
+
+        <View style={styles.switchGroup}>
+          <Text style={styles.label}>Use Deeplink</Text>
+          <View style={styles.switchContainer}>
+            <Text style={styles.switchLabel}>Off</Text>
+            <Switch
+              value={useDeeplink}
+              onValueChange={setUseDeeplink}
+              trackColor={{ false: '#d1d5db', true: '#3b82f6' }}
+              thumbColor="#fff"
+            />
+            <Text style={styles.switchLabel}>On</Text>
+          </View>
+        </View>
+
+        {useDeeplink && (
+          <>
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Company ID</Text>
+              <TextInput
+                style={styles.input}
+                value={deeplinkCompanyId}
+                onChangeText={setDeeplinkCompanyId}
+                placeholder="Enter company ID for deeplink"
+                placeholderTextColor="#9ca3af"
+              />
+            </View>
+
+            {selectedProduct === Product.SWITCH && (
+              <View style={styles.switchGroup}>
+                <Text style={styles.label}>Single Switch</Text>
+                <View style={styles.switchContainer}>
+                  <Text style={styles.switchLabel}>Off</Text>
+                  <Switch
+                    value={singleSwitch}
+                    onValueChange={setSingleSwitch}
+                    trackColor={{ false: '#d1d5db', true: '#3b82f6' }}
+                    thumbColor="#fff"
+                  />
+                  <Text style={styles.switchLabel}>On</Text>
+                </View>
+              </View>
+            )}
+          </>
+        )}
+      </View>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
