@@ -43,6 +43,14 @@ interface Customer {
   name: String;
 }
 
+interface DeeplinkOptions {
+  step?: 'loginCompany' | 'loginPayroll' | 'addCard' | string;
+  companyId?: string;
+  connectorId?: string;
+  companyName?: string;
+  singleSwitch?: boolean;
+}
+
 interface Config {
   publicToken: String;
   scope: String;
@@ -52,7 +60,7 @@ interface Config {
   theme?: Theme;
   distribution?: Object;
   language?: String;
-  deeplink?: Object;
+  deeplink?: DeeplinkOptions;
   metadata?: Object;
   search?: Object;
   handoff?: String;
@@ -70,6 +78,7 @@ export const {
   PresentationStyles,
 } = CONSTANTS;
 export type { TransactEnvironment, PresentationStyleIOS } from './constants';
+export type { DeeplinkOptions };
 
 export const Atomic = {
   transact({

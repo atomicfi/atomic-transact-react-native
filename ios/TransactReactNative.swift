@@ -54,7 +54,7 @@ class TransactReactNative: RCTEventEmitter {
 					platform["sdkVersion"] = platform["sdkVersion"] as! String + "-react"
 					json["platform"] = platform
 				}
-				
+
 				guard let data = try? JSONSerialization.data(withJSONObject: json, options: []) else { return }
 				
 				let config = try decoder.decode(AtomicConfig.self, from: data)
@@ -70,29 +70,18 @@ class TransactReactNative: RCTEventEmitter {
 							// Store the completion handler 
 								self.dataResponseHandler = { responseData in
 								if let responseDict = responseData as? [String: Any] {
-									let identityDict = responseDict["identity"] as! [String: Any]
-									let cardDict = responseDict["card"] as! [String: Any]
-									
-									let identity = TransactDataResponse.Identity(
-										firstName: identityDict["firstName"] as? String,
-										lastName: identityDict["lastName"] as? String,
-										postalCode: identityDict["postalCode"] as? String,
-										address: identityDict["address"] as? String,
-										city: identityDict["city"] as? String,
-										state: identityDict["state"] as? String,
-										phone: identityDict["phone"] as? String,
-										email: identityDict["email"] as? String
-									)
-									
-									let card = TransactDataResponse.CardData(
-										number: cardDict["number"] as! String,
-										expiry: cardDict["expiry"] as! String,
-										cvv: cardDict["cvv"] as! String
-									)
-									
-									let response = TransactDataResponse(card: card, identity: identity)
-									
-									continuation.resume(returning: response)
+									// The SDK expects the response data to be passed directly
+									// Let the SDK handle the parsing internally
+									do {
+										let jsonData = try JSONSerialization.data(withJSONObject: responseDict, options: [])
+										let decoder = JSONDecoder()
+										let response = try decoder.decode(TransactDataResponse.self, from: jsonData)
+										continuation.resume(returning: response)
+									} catch {
+										// If decoding fails, return nil
+										print("Failed to decode TransactDataResponse: \(error)")
+										continuation.resume(returning: nil)
+									}
 								} else {
 									// If response isn't a dictionary or is nil
 									continuation.resume(returning: nil)
