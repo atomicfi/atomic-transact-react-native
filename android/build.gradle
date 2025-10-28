@@ -38,7 +38,7 @@ def getExtOrIntegerDefault(name) {
 }
 
 // Update this value to the latest Android SDK version published on Maven
-def transact_version = "3.12.0"
+def transact_version = "3.13.0"
 
 android {
   namespace "com.atomicfi.transactreactnative"
