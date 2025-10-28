@@ -39,6 +39,7 @@ const TransactScreen: React.FC<Props> = () => {
   const [useDeeplink, setUseDeeplink] = useState(false);
   const [deeplinkCompanyId, setDeeplinkCompanyId] = useState('');
   const [singleSwitch, setSingleSwitch] = useState(false);
+  const [paymentsInput, setPaymentsInput] = useState('');
 
   const products = [
     { key: Product.DEPOSIT, label: 'Deposit' },
@@ -98,8 +99,11 @@ const TransactScreen: React.FC<Props> = () => {
       return;
     }
 
-    if (useDeeplink && !deeplinkCompanyId.trim()) {
-      Alert.alert('Error', 'Please enter a Company ID when using deeplink');
+    if (useDeeplink && !deeplinkCompanyId.trim() && !paymentsInput.trim()) {
+      Alert.alert(
+        'Error',
+        'Please enter a Company ID or Payments when using deeplink'
+      );
       return;
     }
 
@@ -115,13 +119,27 @@ const TransactScreen: React.FC<Props> = () => {
       ],
     };
 
-    // Add deeplink configuration if enabled and company ID is provided
-    if (useDeeplink && deeplinkCompanyId.trim()) {
-      config.deeplink = {
-        step: 'login-company',
-        companyId: deeplinkCompanyId.trim(),
-        singleSwitch: singleSwitch,
-      };
+    // Add deeplink configuration if enabled
+    if (useDeeplink) {
+      if (paymentsInput.trim()) {
+        // If payments input is provided, use pay-now step
+        const paymentsArray = paymentsInput
+          .split(',')
+          .map((p) => p.trim())
+          .filter((p) => p.length > 0);
+
+        config.deeplink = {
+          step: 'pay-now',
+          payments: paymentsArray,
+        };
+      } else if (deeplinkCompanyId.trim()) {
+        // Otherwise use login-company step if company ID is provided
+        config.deeplink = {
+          step: 'login-company',
+          companyId: deeplinkCompanyId.trim(),
+          singleSwitch: singleSwitch,
+        };
+      }
     }
 
     Atomic.transact({
@@ -311,19 +329,36 @@ const TransactScreen: React.FC<Props> = () => {
             </View>
 
             {selectedProduct === Product.SWITCH && (
-              <View style={styles.switchGroup}>
-                <Text style={styles.label}>Single Switch</Text>
-                <View style={styles.switchContainer}>
-                  <Text style={styles.switchLabel}>Off</Text>
-                  <Switch
-                    value={singleSwitch}
-                    onValueChange={setSingleSwitch}
-                    trackColor={{ false: '#d1d5db', true: '#3b82f6' }}
-                    thumbColor="#fff"
-                  />
-                  <Text style={styles.switchLabel}>On</Text>
+              <>
+                <View style={styles.switchGroup}>
+                  <Text style={styles.label}>Single Switch</Text>
+                  <View style={styles.switchContainer}>
+                    <Text style={styles.switchLabel}>Off</Text>
+                    <Switch
+                      value={singleSwitch}
+                      onValueChange={setSingleSwitch}
+                      trackColor={{ false: '#d1d5db', true: '#3b82f6' }}
+                      thumbColor="#fff"
+                    />
+                    <Text style={styles.switchLabel}>On</Text>
+                  </View>
                 </View>
-              </View>
+                <View style={styles.inputGroup}>
+                  <Text style={styles.label}>Payments (pay-now step)</Text>
+                  <TextInput
+                    style={styles.input}
+                    value={paymentsInput}
+                    onChangeText={setPaymentsInput}
+                    placeholder="Enter payments (e.g. telecom)"
+                    placeholderTextColor="#9ca3af"
+                    autoCapitalize="none"
+                  />
+                  <Text style={styles.helperText}>
+                    Comma-separated values. If provided, uses pay-now step
+                    instead of login-company.
+                  </Text>
+                </View>
+              </>
             )}
           </>
         )}
@@ -383,6 +418,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#1f2937',
     backgroundColor: '#ffffff',
+  },
+  helperText: {
+    fontSize: 12,
+    color: '#6b7280',
+    marginTop: 4,
   },
   customUrlInput: {
     marginTop: 12,

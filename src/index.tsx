@@ -44,11 +44,12 @@ interface Customer {
 }
 
 interface DeeplinkOptions {
-  step?: 'loginCompany' | 'loginPayroll' | 'addCard' | string;
+  step?: 'loginCompany' | 'loginPayroll' | 'addCard' | 'pay-now' | string;
   companyId?: string;
   connectorId?: string;
   companyName?: string;
   singleSwitch?: boolean;
+  payments?: string[];
 }
 
 interface Config {
