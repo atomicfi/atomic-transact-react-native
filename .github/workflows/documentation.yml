@@ -1,0 +1,15 @@
+name: Document Releases
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  notify:
+    uses: atomicfi/mobile-conformance-tests/.github/workflows/notify_releases.yml@main
+    secrets:
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELEASES_WEBHOOK_URL }}
+      NOTION_API_KEY: ${{ secrets.NOTION_RELEASES_API_KEY }}
+      LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
+      GITHUB_DEPLOY_KEY: ${{ secrets.CONFORMANCE_REPO_PULL_KEY }}
