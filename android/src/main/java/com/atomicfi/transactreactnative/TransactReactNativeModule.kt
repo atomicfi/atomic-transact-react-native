@@ -13,8 +13,6 @@ import java.lang.Exception
 class TransactReactNativeModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
 
-  private val _reactContext = reactContext
-
   override fun getName(): String {
     return NAME
   }
@@ -66,8 +64,8 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun presentTransact(token: String, environment: ReadableMap, promise: Promise) {
-    val context = currentActivity as Context
-    val emitter = _reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+    val context = reactApplicationContext.currentActivity as Context
+    val emitter = reactApplicationContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
     val environmentURL = parseEnvironment(environment)
     val config = Config(token = token, environment = "CUSTOM", environmentURL = environmentURL)
 
@@ -104,8 +102,8 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun presentAction(id: String, environment: ReadableMap, promise: Promise) {
-    val context = currentActivity as Context
-    val emitter = _reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
+    val context = reactApplicationContext.currentActivity as Context
+    val emitter = reactApplicationContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
     val environmentURL = parseEnvironment(environment)
 
     try {
