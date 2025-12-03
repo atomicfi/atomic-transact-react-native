@@ -2,7 +2,7 @@ import { Appearance, NativeModules, Platform } from 'react-native';
 import { AtomicIOS } from './ios';
 import { AtomicAndroid } from './android';
 import * as CONSTANTS from './constants';
-import type { PresentationStyleIOS } from './constants';
+import type { PresentationStyleIOS, AppType, StepType } from './constants';
 
 const LINKING_ERROR =
   `The package '@atomicfi/transact-react-native' doesn't seem to be linked. Make sure: \n\n` +
@@ -37,6 +37,7 @@ interface Task {
   operation: String;
   distribution?: Object;
   navigationOptions?: Object;
+  apps?: AppType[];
 }
 
 interface Customer {
@@ -44,12 +45,14 @@ interface Customer {
 }
 
 interface DeeplinkOptions {
-  step?: 'loginCompany' | 'loginPayroll' | 'addCard' | 'pay-now' | string;
+  step?: StepType;
+  app?: AppType;
   companyId?: string;
   connectorId?: string;
   companyName?: string;
   singleSwitch?: boolean;
   payments?: string[];
+  accountId?: string;
 }
 
 interface Config {
@@ -77,8 +80,15 @@ export const {
   Environment,
   DeferredPaymentMethodStrategy,
   PresentationStyles,
+  App,
+  Step,
 } = CONSTANTS;
-export type { TransactEnvironment, PresentationStyleIOS } from './constants';
+export type {
+  TransactEnvironment,
+  PresentationStyleIOS,
+  AppType,
+  StepType,
+} from './constants';
 export type { DeeplinkOptions };
 
 export const Atomic = {

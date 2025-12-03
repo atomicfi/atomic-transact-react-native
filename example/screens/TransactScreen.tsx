@@ -18,8 +18,12 @@ import {
   Scope,
   Environment,
   PresentationStyles,
+  Step,
 } from '@atomicfi/transact-react-native';
-import type { PresentationStyleIOS } from '@atomicfi/transact-react-native';
+import type {
+  PresentationStyleIOS,
+  StepType,
+} from '@atomicfi/transact-react-native';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Transact'>;
 
@@ -39,7 +43,9 @@ const TransactScreen: React.FC<Props> = () => {
   const [useDeeplink, setUseDeeplink] = useState(false);
   const [deeplinkCompanyId, setDeeplinkCompanyId] = useState('');
   const [singleSwitch, setSingleSwitch] = useState(false);
-  const [paymentsInput, setPaymentsInput] = useState('');
+  const [deeplinkStep, setDeeplinkStep] = useState<StepType>(
+    Step.LOGIN_COMPANY
+  );
 
   const products = [
     { key: Product.DEPOSIT, label: 'Deposit' },
@@ -99,11 +105,12 @@ const TransactScreen: React.FC<Props> = () => {
       return;
     }
 
-    if (useDeeplink && !deeplinkCompanyId.trim() && !paymentsInput.trim()) {
-      Alert.alert(
-        'Error',
-        'Please enter a Company ID or Payments when using deeplink'
-      );
+    // Company ID is only required for steps that target a specific company (not search)
+    const requiresCompanyId =
+      deeplinkStep !== Step.SEARCH_COMPANY &&
+      deeplinkStep !== Step.SEARCH_PAYROLL;
+    if (useDeeplink && requiresCompanyId && !deeplinkCompanyId.trim()) {
+      Alert.alert('Error', 'Please enter a Company ID when using deeplink');
       return;
     }
 
@@ -121,25 +128,13 @@ const TransactScreen: React.FC<Props> = () => {
 
     // Add deeplink configuration if enabled
     if (useDeeplink) {
-      if (paymentsInput.trim()) {
-        // If payments input is provided, use pay-now step
-        const paymentsArray = paymentsInput
-          .split(',')
-          .map((p) => p.trim())
-          .filter((p) => p.length > 0);
-
-        config.deeplink = {
-          step: 'pay-now',
-          payments: paymentsArray,
-        };
-      } else if (deeplinkCompanyId.trim()) {
-        // Otherwise use login-company step if company ID is provided
-        config.deeplink = {
-          step: 'login-company',
+      config.deeplink = {
+        step: deeplinkStep,
+        ...(deeplinkCompanyId.trim() && {
           companyId: deeplinkCompanyId.trim(),
-          singleSwitch: singleSwitch,
-        };
-      }
+        }),
+        singleSwitch: singleSwitch,
+      };
     }
 
     Atomic.transact({
@@ -318,6 +313,48 @@ const TransactScreen: React.FC<Props> = () => {
         {useDeeplink && (
           <>
             <View style={styles.inputGroup}>
+              <Text style={styles.label}>Step</Text>
+              <View style={styles.optionGrid}>
+                <TouchableOpacity
+                  style={[
+                    styles.optionButton,
+                    deeplinkStep === Step.LOGIN_COMPANY &&
+                      styles.selectedOption,
+                  ]}
+                  onPress={() => setDeeplinkStep(Step.LOGIN_COMPANY)}
+                >
+                  <Text
+                    style={[
+                      styles.optionText,
+                      deeplinkStep === Step.LOGIN_COMPANY &&
+                        styles.selectedOptionText,
+                    ]}
+                  >
+                    Login Company
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.optionButton,
+                    deeplinkStep === Step.SEARCH_COMPANY &&
+                      styles.selectedOption,
+                  ]}
+                  onPress={() => setDeeplinkStep(Step.SEARCH_COMPANY)}
+                >
+                  <Text
+                    style={[
+                      styles.optionText,
+                      deeplinkStep === Step.SEARCH_COMPANY &&
+                        styles.selectedOptionText,
+                    ]}
+                  >
+                    Search Company
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={styles.inputGroup}>
               <Text style={styles.label}>Company ID</Text>
               <TextInput
                 style={styles.input}
@@ -329,36 +366,19 @@ const TransactScreen: React.FC<Props> = () => {
             </View>
 
             {selectedProduct === Product.SWITCH && (
-              <>
-                <View style={styles.switchGroup}>
-                  <Text style={styles.label}>Single Switch</Text>
-                  <View style={styles.switchContainer}>
-                    <Text style={styles.switchLabel}>Off</Text>
-                    <Switch
-                      value={singleSwitch}
-                      onValueChange={setSingleSwitch}
-                      trackColor={{ false: '#d1d5db', true: '#3b82f6' }}
-                      thumbColor="#fff"
-                    />
-                    <Text style={styles.switchLabel}>On</Text>
-                  </View>
-                </View>
-                <View style={styles.inputGroup}>
-                  <Text style={styles.label}>Payments (pay-now step)</Text>
-                  <TextInput
-                    style={styles.input}
-                    value={paymentsInput}
-                    onChangeText={setPaymentsInput}
-                    placeholder="Enter payments (e.g. telecom)"
-                    placeholderTextColor="#9ca3af"
-                    autoCapitalize="none"
+              <View style={styles.switchGroup}>
+                <Text style={styles.label}>Single Switch</Text>
+                <View style={styles.switchContainer}>
+                  <Text style={styles.switchLabel}>Off</Text>
+                  <Switch
+                    value={singleSwitch}
+                    onValueChange={setSingleSwitch}
+                    trackColor={{ false: '#d1d5db', true: '#3b82f6' }}
+                    thumbColor="#fff"
                   />
-                  <Text style={styles.helperText}>
-                    Comma-separated values. If provided, uses pay-now step
-                    instead of login-company.
-                  </Text>
+                  <Text style={styles.switchLabel}>On</Text>
                 </View>
-              </>
+              </View>
             )}
           </>
         )}

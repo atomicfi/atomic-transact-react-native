@@ -45,3 +45,22 @@ export const DeferredPaymentMethodStrategy = {
   SDK: 'sdk',
   API: 'api',
 };
+
+export const App = {
+  PAY_NOW: 'pay-now',
+  TRANSACTIONS: 'transactions',
+  ORDERS: 'orders',
+  SUGGESTIONS: 'suggestions',
+} as const;
+
+export type AppType = (typeof App)[keyof typeof App] | (string & {});
+
+export const Step = {
+  ADD_CARD: 'add-card',
+  LOGIN_COMPANY: 'login-company',
+  LOGIN_PAYROLL: 'login-payroll',
+  SEARCH_COMPANY: 'search-company',
+  SEARCH_PAYROLL: 'search-payroll',
+} as const;
+
+export type StepType = (typeof Step)[keyof typeof Step] | (string & {});
