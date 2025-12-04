@@ -20,13 +20,13 @@ Pod::Spec.new do |s|
   # See https://github.com/facebook/react-native/blob/febf6b7f33fdb4904669f99d795eba4c0f95d7bf/scripts/cocoapods/new_architecture.rb#L79.
   if respond_to?(:install_modules_dependencies, true)
     install_modules_dependencies(s)
-    s.dependency "AtomicSDK", "3.23.0"
+    s.dependency "AtomicSDK", "3.26.0"
     s.pod_target_xcconfig = {
       "DEFINES_MODULE" => "YES",
     }
   else
     s.dependency "React-Core"
-    s.dependency "AtomicSDK", "3.23.0"
+    s.dependency "AtomicSDK", "3.26.0"
 
     # Don't install the dependencies when we run `pod install` in the old architecture.
     if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
