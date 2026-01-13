@@ -13,6 +13,7 @@ export const AtomicIOS = {
     onAuthStatusUpdate,
     onTaskStatusUpdate,
     presentationStyleIOS,
+    setDebug,
   }: {
     TransactReactNative: any;
     config: any;
@@ -24,6 +25,7 @@ export const AtomicIOS = {
     onAuthStatusUpdate?: Function;
     onTaskStatusUpdate?: Function;
     presentationStyleIOS?: CONSTANTS.PresentationStyleIOS;
+    setDebug?: boolean;
   }): void {
     const TransactReactNativeEvents = new NativeEventEmitter(
       TransactReactNative
@@ -31,12 +33,21 @@ export const AtomicIOS = {
     let onInteractionListener: any;
     let onDataRequestListener: any;
     let onAuthStatusUpdateListener: any;
+    let onDebugLogListener: any;
 
     const removeListeners = () => {
       if (onInteractionListener) onInteractionListener.remove();
       if (onDataRequestListener) onDataRequestListener.remove();
       if (onAuthStatusUpdateListener) onAuthStatusUpdateListener.remove();
+      if (onDebugLogListener) onDebugLogListener.remove();
     };
+
+    onDebugLogListener = TransactReactNativeEvents.addListener(
+      'onDebugLog',
+      (log) => {
+        console.warn('[TransactNative]', log.message);
+      }
+    );
 
     if (onInteraction) {
       onInteractionListener = TransactReactNativeEvents.addListener(
@@ -84,7 +95,8 @@ export const AtomicIOS = {
     TransactReactNative.presentTransact(
       config,
       environment,
-      presentationStyleIOS
+      presentationStyleIOS,
+      setDebug
     ).then((event: any) => {
       if (event.finished && onFinish) {
         removeListeners();
@@ -105,6 +117,7 @@ export const AtomicIOS = {
     onClose,
     onAuthStatusUpdate,
     onTaskStatusUpdate,
+    setDebug,
   }: {
     TransactReactNative: any;
     id: String;
@@ -115,17 +128,27 @@ export const AtomicIOS = {
     onClose?: Function;
     onAuthStatusUpdate?: Function;
     onTaskStatusUpdate?: Function;
+    setDebug?: boolean;
   }): void {
     const TransactReactNativeEvents = new NativeEventEmitter(
       TransactReactNative
     );
     let onLaunchListener: any;
     let onAuthStatusUpdateListener: any;
+    let onDebugLogListener: any;
 
     const removeListeners = () => {
       if (onLaunchListener) onLaunchListener.remove();
       if (onAuthStatusUpdateListener) onAuthStatusUpdateListener.remove();
+      if (onDebugLogListener) onDebugLogListener.remove();
     };
+
+    onDebugLogListener = TransactReactNativeEvents.addListener(
+      'onDebugLog',
+      (log) => {
+        console.warn('[TransactNative]', log.message);
+      }
+    );
 
     if (onLaunch) {
       onLaunchListener = TransactReactNativeEvents.addListener('onLaunch', () =>
@@ -150,7 +173,8 @@ export const AtomicIOS = {
     TransactReactNative.presentAction(
       id,
       environment,
-      presentationStyleIOS
+      presentationStyleIOS,
+      setDebug
     ).then((event: any) => {
       if (event.finished && onFinish) {
         removeListeners();

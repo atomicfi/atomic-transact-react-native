@@ -7,7 +7,7 @@
     "android": "npx expo run:android",
     "ios": "npx expo run:ios",
     "web": "npx expo start --web",
-    "clean": "npx expo prebuild --clean",
+    "clean": "cd .. && yarn bob build && cd example && npx expo prebuild --clean",
     "lint": "expo lint"
   },
   "dependencies": {
