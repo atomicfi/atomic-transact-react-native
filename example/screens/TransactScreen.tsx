@@ -46,6 +46,7 @@ const TransactScreen: React.FC<Props> = () => {
   const [deeplinkStep, setDeeplinkStep] = useState<StepType>(
     Step.LOGIN_COMPANY
   );
+  const [debugEnabled, setDebugEnabled] = useState(false);
 
   const products = [
     { key: Product.DEPOSIT, label: 'Deposit' },
@@ -141,6 +142,7 @@ const TransactScreen: React.FC<Props> = () => {
       config,
       environment: getEnvironment(),
       presentationStyleIOS,
+      setDebug: debugEnabled,
       onInteraction: (interaction: any) => {
         console.log('Interaction:', interaction);
       },
@@ -236,6 +238,20 @@ const TransactScreen: React.FC<Props> = () => {
               trackColor={{ false: '#767577', true: '#81b0ff' }}
               thumbColor={darkMode ? '#f5dd4b' : '#f4f3f4'}
             />
+          </View>
+        </View>
+
+        <View style={styles.switchGroup}>
+          <Text style={styles.label}>Debug Mode</Text>
+          <View style={styles.switchContainer}>
+            <Text style={styles.switchLabel}>Off</Text>
+            <Switch
+              value={debugEnabled}
+              onValueChange={setDebugEnabled}
+              trackColor={{ false: '#d1d5db', true: '#3b82f6' }}
+              thumbColor="#fff"
+            />
+            <Text style={styles.switchLabel}>On</Text>
           </View>
         </View>
       </View>

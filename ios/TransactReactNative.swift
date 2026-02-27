@@ -37,8 +37,8 @@ class TransactReactNative: RCTEventEmitter {
 		}
 	}
 	
-	@objc(presentTransact:environment:presentationStyle:withResolver:withRejecter:)
-	func presentTransact(config: [String: Any], environment: [String: Any], presentationStyle: String?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+	@objc(presentTransact:environment:presentationStyle:setDebug:withResolver:withRejecter:)
+	func presentTransact(config: [String: Any], environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		DispatchQueue.main.async {
 			guard let source = RCTPresentedViewController() else { return }
 			
@@ -47,6 +47,11 @@ class TransactReactNative: RCTEventEmitter {
 			
 			do {
 				var json = config
+
+				let debugEnabled = setDebug?.boolValue ?? false
+				Atomic.setDebug(isEnabled: debugEnabled, forwardLogs: { logMessage in
+					self.sendEvent(withName: "onDebugLog", body: ["message": logMessage])
+				})
 
 				let parsedPresentationStyle = self.parsePresentationStyle(presentationStyle)
 				
@@ -130,14 +135,19 @@ class TransactReactNative: RCTEventEmitter {
 		}
 	}
 	
-	@objc(presentAction:environment:presentationStyle:withResolver:withRejecter:)
-	func presentAction(id: String, environment: [String: Any], presentationStyle: String?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+	@objc(presentAction:environment:presentationStyle:setDebug:withResolver:withRejecter:)
+	func presentAction(id: String, environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		DispatchQueue.main.async {
 			guard let source = RCTPresentedViewController() else { return }
-			
+
 			let parsedEnvironment = self.parseEnvironment(environment)
 			let parsedPresentationStyle = self.parsePresentationStyle(presentationStyle)
-			
+
+			let debugEnabled = setDebug?.boolValue ?? false
+			Atomic.setDebug(isEnabled: debugEnabled, forwardLogs: { logMessage in
+				self.sendEvent(withName: "onDebugLog", body: ["message": logMessage])
+			})
+
 			Atomic.presentAction(
 				from: source,
 				id: id,
@@ -181,7 +191,7 @@ class TransactReactNative: RCTEventEmitter {
 	}
 	
 	@objc override func supportedEvents() -> [String] {
-		return ["onInteraction", "onDataRequest", "onLaunch", "onCompletion", "onAuthStatusUpdate", "onTaskStatusUpdate"]
+		return ["onInteraction", "onDataRequest", "onLaunch", "onCompletion", "onAuthStatusUpdate", "onTaskStatusUpdate", "onDebugLog"]
 	}
 	
 	@objc override static func requiresMainQueueSetup() -> Bool {

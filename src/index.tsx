@@ -102,6 +102,7 @@ export const Atomic = {
     onAuthStatusUpdate,
     onTaskStatusUpdate,
     presentationStyleIOS,
+    setDebug,
   }: {
     config: Config;
     environment?: CONSTANTS.TransactEnvironment;
@@ -112,6 +113,7 @@ export const Atomic = {
     onFinish?: Function;
     onClose?: Function;
     presentationStyleIOS?: PresentationStyleIOS;
+    setDebug?: boolean;
   }): void {
     config.language = config.language || 'en';
     config.theme = config.theme || {};
@@ -131,6 +133,7 @@ export const Atomic = {
       onAuthStatusUpdate,
       onTaskStatusUpdate,
       presentationStyleIOS,
+      setDebug,
     };
 
     switch (Platform.OS) {
@@ -153,6 +156,7 @@ export const Atomic = {
     onClose,
     onAuthStatusUpdate,
     onTaskStatusUpdate,
+    setDebug,
   }: {
     id: String;
     environment?: CONSTANTS.TransactEnvironment;
@@ -162,6 +166,7 @@ export const Atomic = {
     onClose?: Function;
     onAuthStatusUpdate?: Function;
     onTaskStatusUpdate?: Function;
+    setDebug?: boolean;
   }): void {
     const args = {
       TransactReactNative,
@@ -173,6 +178,7 @@ export const Atomic = {
       onClose,
       onAuthStatusUpdate,
       onTaskStatusUpdate,
+      setDebug,
     };
 
     switch (Platform.OS) {
