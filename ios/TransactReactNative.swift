@@ -93,10 +93,10 @@ class TransactReactNative: RCTEventEmitter {
 						}
 					},
 					onAuthStatusUpdate: { status in
-						self.sendEvent(withName: "onAuthStatusUpdate", body: ["status": status.serialize()])
+						self.sendEvent(withName: "onAuthStatusUpdate", body: status.serialize())
 					},
 					onTaskStatusUpdate: { status in
-						self.sendEvent(withName: "onTaskStatusUpdate", body: ["status":  status.serialize()])
+						self.sendEvent(withName: "onTaskStatusUpdate", body: status.serialize())
 					},
 					onCompletion: { result in
 						switch result {
@@ -147,11 +147,10 @@ class TransactReactNative: RCTEventEmitter {
 					self.sendEvent(withName: "onLaunch", body: [])
 				},
 				onAuthStatusUpdate: { status in
-					self.sendEvent(withName: "onAuthStatusUpdate", body: ["status": status.serialize()])
+					self.sendEvent(withName: "onAuthStatusUpdate", body: status.serialize())
 				},
 				onTaskStatusUpdate: { status in
-					print("iOS Native -> Task status update event:", status)
-					self.sendEvent(withName: "onTaskStatusUpdate", body: ["status": status.serialize()])
+					self.sendEvent(withName: "onTaskStatusUpdate", body: status.serialize())
 				},
 				onCompletion: { result in
 					switch result {
