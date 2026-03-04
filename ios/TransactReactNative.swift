@@ -230,7 +230,7 @@ extension TransactTaskStatusUpdate {
             
             let payment = switchData.paymentMethod
             var paymentMap: [String: Any] = [
-                "id": payment.id,
+                "_id": payment.id,
                 "title": payment.title,
                 "type": payment.type.rawValue
             ]

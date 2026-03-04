@@ -92,6 +92,9 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
         }
 
         override fun onTaskStatusUpdate(data: JSONObject) {
+          if (!data.has("failReason")) {
+            data.put("failReason", JSONObject.NULL)
+          }
           emitter.emit("onTaskStatusUpdate", data.toString())
         }
       })
@@ -133,6 +136,9 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
         }
 
         override fun onTaskStatusUpdate(data: JSONObject) {
+          if (!data.has("failReason")) {
+            data.put("failReason", JSONObject.NULL)
+          }
           emitter.emit("onTaskStatusUpdate", data.toString())
         }
       }
