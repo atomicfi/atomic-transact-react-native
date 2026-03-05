@@ -1,6 +1,9 @@
-# @atomicfi/transact-react-native [VERSION] **CUT AND PASTE ME IN THE TITLE OF THE RELEASE**
+## [RELEASE_DATE (YYYY-MM-DD)]
 
-## [RELEASE_DATE]
+### Impact
+
+- [IMPACT_DESCRIPTION_1]
+- [IMPACT_DESCRIPTION_2]
 
 ### Changes
 
@@ -21,8 +24,8 @@
 
 When creating a new release, replace the following placeholders:
 
-- `[VERSION]` - The new version number (e.g., 3.12.2)
 - `[RELEASE_DATE]` - Release date in YYYY-MM-DD format
+- `[IMPACT_DESCRIPTION_X]` - Description of the impact of the release on users or systems
 - `[CHANGE_DESCRIPTION_X]` - Description of changes, features, or fixes
 - `[ANDROID_SDK_VERSION]` - Version of the Android SDK (check android/build.gradle)
 - `[IOS_SDK_VERSION]` - Version of the iOS SDK (check atomicfi-transact-react-native.podspec)
