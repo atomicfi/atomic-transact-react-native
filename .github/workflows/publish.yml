@@ -27,12 +27,12 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "release" ]; then
             TAG_NAME="${{ github.event.release.tag_name }}"
-            VERSION=${TAG_NAME#v}  # Remove 'v' prefix if present
-            npm version $VERSION --no-git-tag-version
-            echo "Updated package.json version to $VERSION"
           else
-            echo "Skipping version update for manual trigger"
+            TAG_NAME=$(git describe --tags --abbrev=0)
           fi
+          VERSION=${TAG_NAME#v}
+          npm version $VERSION --no-git-tag-version
+          echo "Updated package.json version to $VERSION"
 
       - name: Publish
         run: npm publish --access public
