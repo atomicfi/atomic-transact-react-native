@@ -1,0 +1,80 @@
+name: Update Android SDK
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Android SDK version (e.g., 3.17.0)"
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      version:
+        description: "Android SDK version (e.g., 3.17.0)"
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
+
+jobs:
+  update-android-sdk:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Determine version
+        id: version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          VERSION="${INPUT_VERSION#v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "branch=chore/update-android-sdk-${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          repository: atomicfi/atomic-transact-react-native
+          token: ${{ secrets.token || secrets.GITHUB_TOKEN }}
+
+      - name: Update Android SDK version
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: ./scripts/update-android-sdk.sh "$VERSION"
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create Pull Request
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+          BRANCH: ${{ steps.version.outputs.branch }}
+        run: |
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git checkout -b "$BRANCH"
+          git add android/build.gradle
+          git commit -m "chore: upgrade Android SDK to ${VERSION}"
+          git push origin "$BRANCH"
+
+          gh pr create \
+            --title "chore: upgrade Android SDK to ${VERSION}" \
+            --body "Automated upgrade of Android SDK Maven dependency to version ${VERSION}.
+
+          **Release notes**: https://github.com/atomicfi/atomic-transact-android/releases/tag/${VERSION}" \
+            --base master \
+            --head "$BRANCH" \
+            --reviewer atomicfi/sdk
