@@ -1,27 +1,8 @@
-name: React Native CI/CD
+name: React Native
 
 on:
   pull_request:
-    branches: [main, master]
-  workflow_dispatch:
-    inputs:
-      buildType:
-        type: choice
-        description: "Build type to run"
-        options:
-          - dev
-          - prod-apk
-          - ios-dev
-          - ios-prod
-          - all
-      platform:
-        type: choice
-        description: "Platform to build"
-        default: "all"
-        options:
-          - android
-          - ios
-          - all
+    branches: [master]
 
 env:
   EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
@@ -31,7 +12,7 @@ env:
   NODE_OPTIONS: --openssl-legacy-provider
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Checkout repository
@@ -64,16 +45,9 @@ jobs:
       - name: 🧹 Run ESLint
         run: yarn lint
 
-  build-and-deploy:
-    needs: test
-    if: github.event_name == 'pull_request' || (github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')) || github.event_name == 'workflow_dispatch'
-    strategy:
-      matrix:
-        platform: [android]
-        include:
-          - platform: ios
-            runs-on: macos-latest
-    runs-on: ${{ matrix.platform == 'ios' && 'macos-latest' || 'ubuntu-latest' }}
+  build-android:
+    needs: lint
+    runs-on: ubuntu-latest
     steps:
       - name: 🏗 Checkout repository
         uses: actions/checkout@v4
@@ -97,8 +71,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: 📦 Install dependencies
-        run: |
-          yarn install
+        run: yarn install
 
       - name: 🔄 Verify EAS CLI installation
         run: |
@@ -108,6 +81,9 @@ jobs:
       - name: 📋 Fix package.json main entry
         working-directory: ./example
         run: |
+          # EAS local builds require `main` to be "node_modules/expo/AppEntry.js".
+          # The checked-in value ("index.ts") works for local dev with Metro/Expo Go
+          # but causes EAS to fail to resolve the entry point during a local build.
           # Check if jq is installed, if not install it
           if ! command -v jq &> /dev/null; then
             echo "Installing jq..."
@@ -127,28 +103,73 @@ jobs:
             exit 1
           fi
 
-
-      - name: 📱 Build Development APK
-        if: matrix.platform == 'android' && (github.event_name == 'pull_request' || github.event.inputs.buildType == 'all' || github.event.inputs.buildType == 'dev' || (github.event_name == 'push' && (github.event.inputs.platform == 'all' || github.event.inputs.platform == 'android')))
+      - name: 📱 Build Android Dev .apk
         working-directory: ./example
         run: |
-          # Build with increased memory limit
           export NODE_OPTIONS="--openssl-legacy-provider --max_old_space_size=4096"
           yarn dlx eas-cli@latest build --platform android --profile development --local --non-interactive --output=./app-dev.apk
         env:
           NODE_ENV: development
 
-      - name: 📱 Build Production APK
-        if: matrix.platform == 'android' && (github.event.inputs.buildType == 'all' || github.event.inputs.buildType == 'prod-apk' || (github.event_name == 'push' && (github.event.inputs.platform == 'all' || github.event.inputs.platform == 'android')))
+      - name: 📦 Upload build artifact to GitHub
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-builds-android
+          path: ./example/app-dev.apk
+          retention-days: 7
+
+  build-ios:
+    needs: lint
+    runs-on: macos-latest
+    steps:
+      - name: 🏗 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+
+      - name: 📦 Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - name: 📦 Setup yarn cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 🔄 Verify EAS CLI installation
+        run: |
+          echo "EAS CLI version:"
+          yarn dlx eas-cli@latest --version
+
+      - name: 📋 Fix package.json main entry
         working-directory: ./example
         run: |
-          export NODE_OPTIONS="--openssl-legacy-provider --max_old_space_size=4096"
-          yarn dlx eas-cli@latest build --platform android --profile production-apk --local --non-interactive --output=./app-prod.apk
-        env:
-          NODE_ENV: production
+          # EAS local builds require `main` to be "node_modules/expo/AppEntry.js".
+          # The checked-in value ("index.ts") works for local dev with Metro/Expo Go
+          # but causes EAS to fail to resolve the entry point during a local build.
+          if [ -f ./package.json ]; then
+            # Create a backup
+            cp package.json package.json.bak
+            # Update the package.json
+            jq '.main = "node_modules/expo/AppEntry.js"' package.json > package.json.tmp && mv package.json.tmp package.json
+            echo "Updated package.json main entry"
+            cat package.json | grep "main"
+          else
+            echo "package.json not found"
+            exit 1
+          fi
 
-      - name: 📱 Build iOS Development
-        if: matrix.platform == 'ios' && (github.event_name == 'pull_request' || github.event.inputs.buildType == 'all' || github.event.inputs.buildType == 'ios-dev' || (github.event_name == 'push' && (github.event.inputs.platform == 'all' || github.event.inputs.platform == 'ios')))
+      - name: 📱 Build iOS Dev .app
         working-directory: ./example
         run: |
           export NODE_OPTIONS="--openssl-legacy-provider --max_old_space_size=4096"
@@ -156,22 +177,9 @@ jobs:
         env:
           NODE_ENV: development
 
-      - name: 📱 Build iOS Production
-        if: matrix.platform == 'ios' && (github.event.inputs.buildType == 'all' || github.event.inputs.buildType == 'ios-prod' || (github.event_name == 'push' && (github.event.inputs.platform == 'all' || github.event.inputs.platform == 'ios')))
-        working-directory: ./example
-        run: |
-          export NODE_OPTIONS="--openssl-legacy-provider --max_old_space_size=4096"
-          yarn dlx eas-cli@latest build --platform ios --profile production --local --non-interactive --output=./app-ios-prod.ipa
-        env:
-          NODE_ENV: production
-
-      - name: 📦 Upload build artifacts to GitHub
+      - name: 📦 Upload build artifact to GitHub
         uses: actions/upload-artifact@v4
         with:
-          name: app-builds-${{ matrix.platform }}
-          path: |
-            ./example/app-dev.apk
-            ./example/app-prod.apk
-            ./example/app-ios-dev.app
-            ./example/app-ios-prod.ipa
+          name: app-builds-ios
+          path: ./example/app-ios-dev.app
           retention-days: 7
