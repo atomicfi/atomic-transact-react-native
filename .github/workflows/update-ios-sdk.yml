@@ -1,9 +1,13 @@
 name: Update iOS SDK
 
 on:
-  repository_dispatch:
-    types: [ios-sdk-release]
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'iOS SDK version (e.g., 3.27.2)'
+        required: true
+        type: string
+  workflow_call:
     inputs:
       version:
         description: 'iOS SDK version (e.g., 3.27.2)'
@@ -21,16 +25,9 @@ jobs:
       - name: Determine version
         id: version
         env:
-          EVENT_NAME: ${{ github.event_name }}
-          PAYLOAD_VERSION: ${{ github.event.client_payload.version }}
-          INPUT_VERSION: ${{ github.event.inputs.version }}
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
-          if [ "$EVENT_NAME" = "repository_dispatch" ]; then
-            VERSION="$PAYLOAD_VERSION"
-          else
-            VERSION="$INPUT_VERSION"
-          fi
-          VERSION="${VERSION#v}"
+          VERSION="${INPUT_VERSION#v}"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "branch=chore/update-ios-sdk-${VERSION}" >> "$GITHUB_OUTPUT"
 
