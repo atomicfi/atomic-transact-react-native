@@ -20,11 +20,15 @@ jobs:
     steps:
       - name: Determine version
         id: version
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PAYLOAD_VERSION: ${{ github.event.client_payload.version }}
+          INPUT_VERSION: ${{ github.event.inputs.version }}
         run: |
-          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
-            VERSION="${{ github.event.client_payload.version }}"
+          if [ "$EVENT_NAME" = "repository_dispatch" ]; then
+            VERSION="$PAYLOAD_VERSION"
           else
-            VERSION="${{ github.event.inputs.version }}"
+            VERSION="$INPUT_VERSION"
           fi
           VERSION="${VERSION#v}"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
@@ -35,7 +39,9 @@ jobs:
           ref: master
 
       - name: Update iOS SDK frameworks
-        run: ./scripts/update-ios-sdk.sh "${{ steps.version.outputs.version }}"
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: ./scripts/update-ios-sdk.sh "$VERSION"
 
       - name: Check for changes
         id: changes
@@ -50,9 +56,9 @@ jobs:
         if: steps.changes.outputs.has_changes == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+          BRANCH: ${{ steps.version.outputs.branch }}
         run: |
-          VERSION="${{ steps.version.outputs.version }}"
-          BRANCH="${{ steps.version.outputs.branch }}"
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -68,6 +74,5 @@ jobs:
 
           **Release notes**: https://github.com/atomicfi/atomic-transact-ios/releases/tag/${VERSION}" \
             --base master \
-            --head "$BRANCH"
-
-          gh pr merge "$BRANCH" --auto --squash
+            --head "$BRANCH" \
+            --reviewer atomicfi/sdk

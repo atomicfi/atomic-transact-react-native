@@ -66,12 +66,4 @@ fi
 # Write version file
 echo "$VERSION" > "$VERSION_FILE"
 
-# Update podspec version
-echo "Updating podspec..."
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  sed -i '' "s/^atomic_sdk_version = \".*\"/atomic_sdk_version = \"${VERSION}\"/" "$PODSPEC"
-else
-  sed -i "s/^atomic_sdk_version = \".*\"/atomic_sdk_version = \"${VERSION}\"/" "$PODSPEC"
-fi
-
 echo "iOS SDK updated to version ${VERSION} successfully."
