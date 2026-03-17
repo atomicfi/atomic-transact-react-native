@@ -13,30 +13,6 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
-public enum QuantumSessionError : Foundation.LocalizedError {
-  case invalidResponse(Swift.String)
-  case networkError(any Swift.Error)
-  case tokenGenerationFailed(Swift.String)
-  public var errorDescription: Swift.String? {
-    get
-  }
-}
-public struct QuantumSession : Swift.Sendable {
-  public let apiUrl: Swift.String
-  public init(apiUrl: Swift.String)
-  public func trackSession(token: Swift.String) async throws(QuantumIOS.QuantumSessionError)
-  public func generateUserToken(publicToken: Swift.String) async throws(QuantumIOS.QuantumSessionError) -> Swift.String
-}
-@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency public class AtomicWebViewController : UIKit.UIViewController {
-  @_Concurrency.MainActor @preconcurrency weak public var webView: QuantumIOS.AtomicWebView!
-  @_Concurrency.MainActor @preconcurrency public var cancel: (() -> ())?
-  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
-  @_Concurrency.MainActor @preconcurrency public func hideAssistantTitle()
-  @_Concurrency.MainActor @preconcurrency public func showAssistant(title: Swift.String)
-  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
-  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
-  @objc deinit
-}
 @_Concurrency.MainActor final public class Quantum {
   @_Concurrency.MainActor final public var muppet: MuppetIOS.Muppet?
   @_Concurrency.MainActor public init()
@@ -51,5 +27,29 @@ public struct QuantumSession : Swift.Sendable {
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation.CGRect, configuration: WebKit.WKWebViewConfiguration)
   @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
   @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency public class AtomicWebViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor @preconcurrency weak public var webView: QuantumIOS.AtomicWebView!
+  @_Concurrency.MainActor @preconcurrency public var cancel: (() -> ())?
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency public func hideAssistantTitle()
+  @_Concurrency.MainActor @preconcurrency public func showAssistant(title: Swift.String)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public enum QuantumSessionError : Foundation.LocalizedError {
+  case invalidResponse(Swift.String)
+  case networkError(any Swift.Error)
+  case tokenGenerationFailed(Swift.String)
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public struct QuantumSession : Swift.Sendable {
+  public let apiUrl: Swift.String
+  public init(apiUrl: Swift.String)
+  public func trackSession(token: Swift.String) async throws(QuantumIOS.QuantumSessionError)
+  public func generateUserToken(publicToken: Swift.String) async throws(QuantumIOS.QuantumSessionError) -> Swift.String
 }
 extension QuantumIOS.Quantum : Swift.Sendable {}

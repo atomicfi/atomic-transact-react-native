@@ -10,7 +10,7 @@
 		</data>
 		<key>ios-arm64/MuppetIOS.framework/Info.plist</key>
 		<data>
-		UELtcSMU4lDEs/6DnI+3ms2MmN4=
+		e9KoCTAqVvEnJ574Xsxd281QlU8=
 		</data>
 		<key>ios-arm64/MuppetIOS.framework/Modules/module.modulemap</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>ios-arm64/MuppetIOS.framework/MuppetIOS</key>
 		<data>
-		EAdu4gEcG+9mfCe46mHrL+fQWRo=
+		JPeD71uyEd72gLyLmnI4vgHtrAI=
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Headers/MuppetIOS.h</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Info.plist</key>
 		<data>
-		2qDDmvRVF3+j6gBDSGalWPaWyKs=
+		IP+bbrGQST5WSNVECHF1NTXE57Y=
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Modules/module.modulemap</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/MuppetIOS</key>
 		<data>
-		vr/8okGNDLD9dl5m/KLXEzhJ/ag=
+		JA+m8nIN0cpa6Oo6+A5O4M/ssoQ=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -54,11 +54,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UELtcSMU4lDEs/6DnI+3ms2MmN4=
+			e9KoCTAqVvEnJ574Xsxd281QlU8=
 			</data>
 			<key>hash2</key>
 			<data>
-			oUaY0zaEfP1T2qzOcjCF6u8TupEE16CA1wLiMMfKVQg=
+			1UJ9p1f59LXQBRBcdhvqFjiAMdG6yQFKI3sLFp/qR6Y=
 			</data>
 		</dict>
 		<key>ios-arm64/MuppetIOS.framework/Modules/module.modulemap</key>
@@ -76,11 +76,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			EAdu4gEcG+9mfCe46mHrL+fQWRo=
+			JPeD71uyEd72gLyLmnI4vgHtrAI=
 			</data>
 			<key>hash2</key>
 			<data>
-			SIcQj3ESCoGp0BfH+XB4ugSYWPiGzE1esLPKQB/HPLQ=
+			jOWR1qaP/OA8AgTjNAUetYT+M31EkrdELza9Mw6T8vc=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Headers/MuppetIOS.h</key>
@@ -98,11 +98,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			2qDDmvRVF3+j6gBDSGalWPaWyKs=
+			IP+bbrGQST5WSNVECHF1NTXE57Y=
 			</data>
 			<key>hash2</key>
 			<data>
-			s4Zyp5IvmcXwPbOLkGQp+zTTbhv4576djh9kyE0is3I=
+			/N+PHoI12NEVY++QKjwX4UWGQn2YwQnJwhZRsQWzohw=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Modules/module.modulemap</key>
@@ -120,11 +120,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			vr/8okGNDLD9dl5m/KLXEzhJ/ag=
+			JA+m8nIN0cpa6Oo6+A5O4M/ssoQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			+8WF3W1oBViiIIY4BOQ2PenBxLOcuCjBdfwaKlhymnE=
+			oU5w62/8x5wTuJYvnnt+9tVn7Y6B15WkWacBGRJLR+M=
 			</data>
 		</dict>
 	</dict>
