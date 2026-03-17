@@ -1,0 +1,75 @@
+name: Update iOS SDK
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'iOS SDK version (e.g., 3.27.2)'
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      version:
+        description: 'iOS SDK version (e.g., 3.27.2)'
+        required: true
+        type: string
+
+jobs:
+  update-ios-sdk:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Determine version
+        id: version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          VERSION="${INPUT_VERSION#v}"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "branch=chore/update-ios-sdk-${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Update iOS SDK frameworks
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: ./scripts/update-ios-sdk.sh "$VERSION"
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create Pull Request
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.version.outputs.version }}
+          BRANCH: ${{ steps.version.outputs.branch }}
+        run: |
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git checkout -b "$BRANCH"
+          git add ios/frameworks/ atomicfi-transact-react-native.podspec
+          git commit -m "chore: upgrade iOS SDK to ${VERSION}"
+          git push origin "$BRANCH"
+
+          gh pr create \
+            --title "chore: upgrade iOS SDK to ${VERSION}" \
+            --body "Automated upgrade of vendored iOS XCFrameworks to version ${VERSION}.
+
+          **Release notes**: https://github.com/atomicfi/atomic-transact-ios/releases/tag/${VERSION}" \
+            --base master \
+            --head "$BRANCH" \
+            --reviewer atomicfi/sdk

@@ -14,7 +14,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.atomicfi.transact.example"
+      "bundleIdentifier": "com.atomicfi.transact.example",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -32,6 +35,12 @@
     ],
     "developmentClient": {
       "silentLaunch": false
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "91cfcf2c-8510-4834-b9ca-8444a34104a4"
+      }
+    },
+    "owner": "atomicfi"
   }
 }

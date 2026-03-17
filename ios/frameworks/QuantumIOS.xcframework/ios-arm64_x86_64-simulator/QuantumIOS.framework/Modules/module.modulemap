@@ -1,0 +1,6 @@
+framework module QuantumIOS {
+  umbrella header "QuantumIOS.h"
+  export *
+
+  module * { export * }
+}

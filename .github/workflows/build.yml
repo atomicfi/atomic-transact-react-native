@@ -1,0 +1,185 @@
+name: React Native
+
+on:
+  pull_request:
+    branches: [master]
+
+env:
+  EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+  EXPO_APPLE_ID: ${{ secrets.EXPO_APPLE_ID }}
+  EXPO_APPLE_PASSWORD: ${{ secrets.EXPO_APPLE_PASSWORD }}
+  EXPO_TEAM_ID: ${{ secrets.EXPO_TEAM_ID }}
+  NODE_OPTIONS: --openssl-legacy-provider
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "yarn"
+
+      - name: 📦 Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - name: 📦 Setup yarn cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 🧪 Run TypeScript check
+        run: yarn tsc
+
+      - name: 🧹 Run ESLint
+        run: yarn lint
+
+  build-android:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "yarn"
+
+      - name: 📦 Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - name: 📦 Setup yarn cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 🔄 Verify EAS CLI installation
+        run: |
+          echo "EAS CLI version:"
+          yarn dlx eas-cli@latest --version
+
+      - name: 📋 Fix package.json main entry
+        working-directory: ./example
+        run: |
+          # EAS local builds require `main` to be "node_modules/expo/AppEntry.js".
+          # The checked-in value ("index.ts") works for local dev with Metro/Expo Go
+          # but causes EAS to fail to resolve the entry point during a local build.
+          # Check if jq is installed, if not install it
+          if ! command -v jq &> /dev/null; then
+            echo "Installing jq..."
+            sudo apt-get update && sudo apt-get install -y jq
+          fi
+
+          # Fix the main entry in package.json
+          if [ -f ./package.json ]; then
+            # Create a backup
+            cp package.json package.json.bak
+            # Update the package.json
+            jq '.main = "node_modules/expo/AppEntry.js"' package.json > package.json.tmp && mv package.json.tmp package.json
+            echo "Updated package.json main entry"
+            cat package.json | grep "main"
+          else
+            echo "package.json not found"
+            exit 1
+          fi
+
+      - name: 📱 Build Android Dev .apk
+        working-directory: ./example
+        run: |
+          export NODE_OPTIONS="--openssl-legacy-provider --max_old_space_size=4096"
+          yarn dlx eas-cli@latest build --platform android --profile development --local --non-interactive --output=./app-dev.apk
+        env:
+          NODE_ENV: development
+
+      - name: 📦 Upload build artifact to GitHub
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-builds-android
+          path: ./example/app-dev.apk
+          retention-days: 7
+
+  build-ios:
+    needs: lint
+    runs-on: macos-latest
+    steps:
+      - name: 🏗 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "yarn"
+
+      - name: 📦 Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - name: 📦 Setup yarn cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 🔄 Verify EAS CLI installation
+        run: |
+          echo "EAS CLI version:"
+          yarn dlx eas-cli@latest --version
+
+      - name: 📋 Fix package.json main entry
+        working-directory: ./example
+        run: |
+          # EAS local builds require `main` to be "node_modules/expo/AppEntry.js".
+          # The checked-in value ("index.ts") works for local dev with Metro/Expo Go
+          # but causes EAS to fail to resolve the entry point during a local build.
+          if [ -f ./package.json ]; then
+            # Create a backup
+            cp package.json package.json.bak
+            # Update the package.json
+            jq '.main = "node_modules/expo/AppEntry.js"' package.json > package.json.tmp && mv package.json.tmp package.json
+            echo "Updated package.json main entry"
+            cat package.json | grep "main"
+          else
+            echo "package.json not found"
+            exit 1
+          fi
+
+      - name: 📱 Build iOS Dev .app
+        working-directory: ./example
+        run: |
+          export NODE_OPTIONS="--openssl-legacy-provider --max_old_space_size=4096"
+          yarn dlx eas-cli@latest build --platform ios --profile development --local --non-interactive --output=./app-ios-dev.app
+        env:
+          NODE_ENV: development
+
+      - name: 📦 Upload build artifact to GitHub
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-builds-ios
+          path: ./example/app-ios-dev.app
+          retention-days: 7
