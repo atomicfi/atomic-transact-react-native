@@ -28,7 +28,7 @@ fi
 
 echo "Updating Android SDK from ${CURRENT_VERSION} to ${VERSION}..."
 
-sed -i '' "s/def transact_version = \"${CURRENT_VERSION}\"/def transact_version = \"${VERSION}\"/" "$BUILD_GRADLE"
+sed -i "s/def transact_version = \"${CURRENT_VERSION}\"/def transact_version = \"${VERSION}\"/" "$BUILD_GRADLE"
 
 # Verify the update
 NEW_VERSION=$(sed -n 's/.*def transact_version = "\([^"]*\)".*/\1/p' "$BUILD_GRADLE")
