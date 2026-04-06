@@ -2,10 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BuildMachineOSBuild</key>
+	<string>24G617</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>MuppetIOS</string>
 	<key>CFBundleIdentifier</key>
-	<string>financial.atomic.muppet.MuppetIOS</string>
+	<string>com.atomicfi.MuppetIOS</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -13,15 +17,31 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.27.0</string>
+	<string>3.28.0</string>
 	<key>CFBundleSupportedPlatforms</key>
 	<array>
 		<string>iPhoneOS</string>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>174</string>
+	<string>175</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>22F76</string>
+	<key>DTPlatformName</key>
+	<string>iphoneos</string>
+	<key>DTPlatformVersion</key>
+	<string>18.5</string>
+	<key>DTSDKBuild</key>
+	<string>22F76</string>
+	<key>DTSDKName</key>
+	<string>iphoneos18.5</string>
+	<key>DTXcode</key>
+	<string>1640</string>
+	<key>DTXcodeBuild</key>
+	<string>16F6</string>
 	<key>MinimumOSVersion</key>
-	<string>12.0</string>
+	<string>15.0</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
