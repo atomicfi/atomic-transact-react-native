@@ -7,12 +7,14 @@
 RCT_EXTERN_METHOD(presentTransact:(NSDictionary *)config
 				  environment:(NSDictionary *)environment
 				  presentationStyle:(nullable NSString *)presentationStyle
+				  setDebug:(nullable NSNumber *)setDebug
 				  withResolver:(RCTPromiseResolveBlock)resolve
 				  withRejecter:(RCTPromiseRejectBlock)reject)
 
 RCT_EXTERN_METHOD(presentAction:(NSString *)id
 				  environment:(NSDictionary *)environment
 				  presentationStyle:(nullable NSString *)presentationStyle
+				  setDebug:(nullable NSNumber *)setDebug
 				  withResolver:(RCTPromiseResolveBlock)resolve
 				  withRejecter:(RCTPromiseRejectBlock)reject)
 
