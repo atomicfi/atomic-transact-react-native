@@ -8,6 +8,7 @@ import {
   Alert,
   TextInput,
   Platform,
+  Switch,
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../App';
@@ -31,6 +32,7 @@ const PresentActionScreen: React.FC<Props> = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [presentationStyleIOS, setPresentationStyleIOS] =
     useState<PresentationStyleIOS>(PresentationStyles.formSheet);
+  const [debugEnabled, setDebugEnabled] = useState(false);
 
   const environmentOptions = [
     { key: 'sandbox' as EnvironmentOption, label: 'Sandbox' },
@@ -85,6 +87,7 @@ const PresentActionScreen: React.FC<Props> = () => {
       id: actionId.trim(),
       environment: getEnvironment(),
       presentationStyleIOS,
+      setDebug: debugEnabled,
       onLaunch: () => {
         console.log('Action launched');
         setIsLoading(false);
@@ -169,6 +172,22 @@ const PresentActionScreen: React.FC<Props> = () => {
               />
             </>
           )}
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Debug Mode</Text>
+        <View style={styles.switchGroup}>
+          <View style={styles.switchContainer}>
+            <Text style={styles.switchLabel}>Off</Text>
+            <Switch
+              value={debugEnabled}
+              onValueChange={setDebugEnabled}
+              trackColor={{ false: '#d1d5db', true: '#3b82f6' }}
+              thumbColor="#fff"
+            />
+            <Text style={styles.switchLabel}>On</Text>
+          </View>
         </View>
       </View>
 

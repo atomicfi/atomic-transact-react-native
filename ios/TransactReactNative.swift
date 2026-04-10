@@ -37,28 +37,34 @@ class TransactReactNative: RCTEventEmitter {
 		}
 	}
 	
-	@objc(presentTransact:environment:presentationStyle:withResolver:withRejecter:)
-	func presentTransact(config: [String: Any], environment: [String: Any], presentationStyle: String?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
-		DispatchQueue.main.async {
+	@objc(presentTransact:environment:presentationStyle:setDebug:withResolver:withRejecter:)
+	func presentTransact(config: [String: Any], environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+		let debugEnabled = setDebug?.boolValue ?? false
+
+		Task { @MainActor in
+			await Atomic.setDebug(isEnabled: debugEnabled, forwardLogs: { logMessage in
+				self.sendEvent(withName: "onDebugLog", body: ["message": logMessage])
+			})
+
 			guard let source = RCTPresentedViewController() else { return }
-			
+
 			let decoder = JSONDecoder()
 			let parsedEnvironment = self.parseEnvironment(environment)
-			
+
 			do {
 				var json = config
 
 				let parsedPresentationStyle = self.parsePresentationStyle(presentationStyle)
-				
+
 				if var platform = AtomicConfig.Platform().encode() as? [String: Any] {
 					platform["sdkVersion"] = platform["sdkVersion"] as! String + "-react"
 					json["platform"] = platform
 				}
 
 				guard let data = try? JSONSerialization.data(withJSONObject: json, options: []) else { return }
-				
+
 				let config = try decoder.decode(AtomicConfig.self, from: data)
-				
+
 				Atomic.presentTransact(
 					from: source, config: config, environment: parsedEnvironment, presentationStyle: parsedPresentationStyle,
 					onInteraction: { interaction in
@@ -67,7 +73,7 @@ class TransactReactNative: RCTEventEmitter {
 					onDataRequest: { request async -> TransactDataResponse? in
 						// Create a task to handle the async request to React Native
 						return await withCheckedContinuation { continuation in
-							// Store the completion handler 
+							// Store the completion handler
 								self.dataResponseHandler = { responseData in
 								if let responseDict = responseData as? [String: Any] {
 									// The SDK expects the response data to be passed directly
@@ -87,7 +93,7 @@ class TransactReactNative: RCTEventEmitter {
 									continuation.resume(returning: nil)
 								}
 							}
-							
+
 							// Send event with request data to React Native
 							self.sendEvent(withName: "onDataRequest", body: request.data)
 						}
@@ -130,14 +136,20 @@ class TransactReactNative: RCTEventEmitter {
 		}
 	}
 	
-	@objc(presentAction:environment:presentationStyle:withResolver:withRejecter:)
-	func presentAction(id: String, environment: [String: Any], presentationStyle: String?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
-		DispatchQueue.main.async {
+	@objc(presentAction:environment:presentationStyle:setDebug:withResolver:withRejecter:)
+	func presentAction(id: String, environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+		let debugEnabled = setDebug?.boolValue ?? false
+
+		Task { @MainActor in
+			await Atomic.setDebug(isEnabled: debugEnabled, forwardLogs: { logMessage in
+				self.sendEvent(withName: "onDebugLog", body: ["message": logMessage])
+			})
+
 			guard let source = RCTPresentedViewController() else { return }
-			
+
 			let parsedEnvironment = self.parseEnvironment(environment)
 			let parsedPresentationStyle = self.parsePresentationStyle(presentationStyle)
-			
+
 			Atomic.presentAction(
 				from: source,
 				id: id,
@@ -181,7 +193,7 @@ class TransactReactNative: RCTEventEmitter {
 	}
 	
 	@objc override func supportedEvents() -> [String] {
-		return ["onInteraction", "onDataRequest", "onLaunch", "onCompletion", "onAuthStatusUpdate", "onTaskStatusUpdate"]
+		return ["onInteraction", "onDataRequest", "onLaunch", "onCompletion", "onAuthStatusUpdate", "onTaskStatusUpdate", "onDebugLog"]
 	}
 	
 	@objc override static func requiresMainQueueSetup() -> Bool {
