@@ -51,6 +51,7 @@ const TransactScreen: React.FC<Props> = () => {
     { key: Product.DEPOSIT, label: 'Deposit' },
     { key: Product.PRESENT, label: 'Present' },
     { key: Product.SWITCH, label: 'Switch' },
+    { key: Product.MANAGE, label: 'Manage' },
   ];
 
   const getScope = () => {

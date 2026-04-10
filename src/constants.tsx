@@ -5,6 +5,7 @@ export const Product = {
   WITHHOLD: 'withhold',
   PRESENT: 'present',
   SWITCH: 'switch',
+  MANAGE: 'manage',
 };
 
 export const Scope = {
@@ -48,7 +49,7 @@ export const DeferredPaymentMethodStrategy = {
 
 export const App = {
   PAY_NOW: 'pay-now',
-  TRANSACTIONS: 'transactions',
+  EXPENSES: 'expenses',
   ORDERS: 'orders',
   SUGGESTIONS: 'suggestions',
 } as const;
