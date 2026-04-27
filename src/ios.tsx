@@ -6,6 +6,7 @@ export const AtomicIOS = {
     TransactReactNative,
     config,
     environment,
+    wrapperVersion,
     onInteraction,
     onFinish,
     onDataRequest,
@@ -18,6 +19,7 @@ export const AtomicIOS = {
     TransactReactNative: any;
     config: any;
     environment?: CONSTANTS.TransactEnvironment;
+    wrapperVersion: string;
     onInteraction?: Function;
     onDataRequest?: Function;
     onFinish?: Function;
@@ -96,7 +98,8 @@ export const AtomicIOS = {
       config,
       environment,
       presentationStyleIOS,
-      setDebug
+      setDebug,
+      wrapperVersion
     ).then((event: any) => {
       if (event.finished && onFinish) {
         removeListeners();
@@ -122,6 +125,9 @@ export const AtomicIOS = {
     TransactReactNative: any;
     id: String;
     environment?: CONSTANTS.TransactEnvironment;
+    // iOS `presentAction` does not yet accept a platform suffix; accepted here
+    // for parity with Android callers but not forwarded to native.
+    wrapperVersion?: string;
     presentationStyleIOS?: CONSTANTS.PresentationStyleIOS;
     onLaunch?: Function;
     onFinish?: Function;

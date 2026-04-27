@@ -1,6 +1,7 @@
 package com.atomicfi.transactreactnative
 
 import android.content.Context
+import android.util.Base64
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import financial.atomic.transact.Config
@@ -31,10 +32,10 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     } else {
       "production"
     }
-    
+
     return when (environmentType) {
       "production" -> "https://transact.atomicfi.com"
-      "sandbox" -> "https://transact.atomicfi.com" 
+      "sandbox" -> "https://transact.atomicfi.com"
       "custom" -> {
         if (environmentData.hasKey("transactPath")) {
           environmentData.getString("transactPath") ?: "https://transact.atomicfi.com"
@@ -62,15 +63,31 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     promise.resolve(result)
   }
 
+  private fun buildConfigToken(config: ReadableMap, wrapperVersion: String): String {
+    val configJson = JSONObject(config.toHashMap())
+    val platformMap = Config.Platform.suffixed("react-$wrapperVersion").encode()
+    configJson.put("platform", JSONObject(platformMap as Map<String, Any?>))
+    return Base64.encodeToString(
+      configJson.toString().toByteArray(Charsets.UTF_8),
+      Base64.NO_WRAP,
+    )
+  }
+
   @ReactMethod
-  fun presentTransact(token: String, environment: ReadableMap, promise: Promise) {
+  fun presentTransact(
+    config: ReadableMap,
+    environment: ReadableMap,
+    wrapperVersion: String,
+    promise: Promise,
+  ) {
     val context = reactApplicationContext.currentActivity as Context
     val emitter = reactApplicationContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
     val environmentURL = parseEnvironment(environment)
-    val config = Config(token = token, environment = "CUSTOM", environmentURL = environmentURL)
+    val token = buildConfigToken(config, wrapperVersion)
+    val sdkConfig = Config(token = token, environment = "CUSTOM", environmentURL = environmentURL)
 
     try {
-      Transact.present(context, config, object : TransactBroadcastReceiver() {
+      Transact.present(context, sdkConfig, object : TransactBroadcastReceiver() {
         override fun onClose(data: JSONObject) {
           handleCallbackEvent("onClose", data, "reason", emitter, promise)
         }
@@ -104,7 +121,12 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  fun presentAction(id: String, environment: ReadableMap, promise: Promise) {
+  fun presentAction(
+    id: String,
+    environment: ReadableMap,
+    wrapperVersion: String,
+    promise: Promise,
+  ) {
     val context = reactApplicationContext.currentActivity as Context
     val emitter = reactApplicationContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
     val environmentURL = parseEnvironment(environment)
@@ -115,6 +137,7 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
         environment = Config.Environment.CUSTOM,
         environmentURL = environmentURL
       )
+      config.platform = Config.Platform.suffixed("react-$wrapperVersion")
 
       Transact.presentAction(context, config)
 

@@ -8,6 +8,7 @@ RCT_EXTERN_METHOD(presentTransact:(NSDictionary *)config
 				  environment:(NSDictionary *)environment
 				  presentationStyle:(nullable NSString *)presentationStyle
 				  setDebug:(nullable NSNumber *)setDebug
+				  wrapperVersion:(NSString *)wrapperVersion
 				  withResolver:(RCTPromiseResolveBlock)resolve
 				  withRejecter:(RCTPromiseRejectBlock)reject)
 

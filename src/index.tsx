@@ -3,6 +3,9 @@ import { AtomicIOS } from './ios';
 import { AtomicAndroid } from './android';
 import * as CONSTANTS from './constants';
 import type { PresentationStyleIOS, AppType, StepType } from './constants';
+import pkg from '../package.json';
+
+const wrapperVersion: string = pkg.version;
 
 const LINKING_ERROR =
   `The package '@atomicfi/transact-react-native' doesn't seem to be linked. Make sure: \n\n` +
@@ -126,6 +129,7 @@ export const Atomic = {
       TransactReactNative,
       config,
       environment: environment || CONSTANTS.Environment.production,
+      wrapperVersion,
       onInteraction,
       onFinish,
       onDataRequest,
@@ -172,6 +176,7 @@ export const Atomic = {
       TransactReactNative,
       id,
       environment: environment || CONSTANTS.Environment.production,
+      wrapperVersion,
       presentationStyleIOS,
       onLaunch,
       onFinish,

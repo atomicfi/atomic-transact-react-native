@@ -1,3 +1,7 @@
+ext {
+  transactVersion = '3.18.3'
+}
+
 buildscript {
   // Buildscript is evaluated before everything else so we can't use getExtOrDefault
   // Prefer the library's declared Kotlin version to avoid root project mismatches
@@ -49,7 +53,7 @@ android {
     minSdkVersion getExtOrIntegerDefault("minSdkVersion")
     targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
     buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
-    buildConfigField "String", "TRANSACT_VERSION", "\"$TransactReactNative_transactVersion\""
+    buildConfigField "String", "TRANSACT_VERSION", "\"$transactVersion\""
   }
   buildTypes {
     release {
@@ -83,7 +87,7 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
   // transact deps end
-  implementation "financial.atomic:transact:$TransactReactNative_transactVersion"
+  implementation "financial.atomic:transact:$transactVersion"
 }
 
 if (isNewArchitectureEnabled()) {
