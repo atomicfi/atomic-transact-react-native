@@ -11,54 +11,110 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
-@_hasMissingDesignatedInitializers public class Emitter<T> where T : Swift.Equatable {
-  public struct Event {
+public struct Cookie : Swift.Sendable {
+  public var name: Swift.String
+  public var value: Swift.String
+  public var path: Swift.String?
+  public var isSecure: Swift.Bool?
+  public var domain: Swift.String
+  public var expiresDate: Foundation.Date?
+  public var isHTTPOnly: Swift.Bool?
+  public var maxAge: Swift.Int?
+  public init(name: Swift.String, value: Swift.String, path: Swift.String = "/", isSecure: Swift.Bool = false, domain: Swift.String, expiresDate: Foundation.Date? = nil, isHTTPOnly: Swift.Bool? = nil, maxAge: Swift.Int? = nil)
+  public init(from httpCookie: Foundation.HTTPCookie)
+  public var httpCookie: Foundation.HTTPCookie? {
+    get
   }
-  public func on(_ type: T) -> Combine.AnyPublisher<MuppetIOS.JSON, Swift.Never>
-  @objc deinit
 }
-@_Concurrency.MainActor final public class Browser {
-  public enum EventType {
-    case page
+extension MuppetIOS.Cookie : Swift.Comparable {
+  public static func < (lhs: MuppetIOS.Cookie, rhs: MuppetIOS.Cookie) -> Swift.Bool
+  public static func == (a: MuppetIOS.Cookie, b: MuppetIOS.Cookie) -> Swift.Bool
+}
+extension MuppetIOS.Cookie : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+@_Concurrency.MainActor final public class Page {
+  public struct Options {
+    public var hideOnClose: Swift.Bool
+  }
+  public enum EventType : Swift.String {
+    case console
+    case close
     case closed
-    public static func == (a: MuppetIOS.Browser.EventType, b: MuppetIOS.Browser.EventType) -> Swift.Bool
+    case dispatch
+    case domcontentloaded
+    case started
+    case finished
+    case load
+    case locationchange
+    case domchange
+    case progress
+    case popup
+    case visible
+    case hostblocked
+    case error
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  @_Concurrency.MainActor final public var options: MuppetIOS.Page.Options
+  @_Concurrency.MainActor final public let emitter: MuppetIOS.Emitter<MuppetIOS.Page.EventType>
+  @_Concurrency.MainActor final public var handle: Swift.String {
+    get
+  }
+  @_Concurrency.MainActor public static func == (lhs: MuppetIOS.Page, rhs: MuppetIOS.Page) -> Swift.Bool
+  @_Concurrency.MainActor final public func hash(into hasher: inout Swift.Hasher)
+  @_Concurrency.MainActor public init(browser: MuppetIOS.Browser, view: WebKit.WKWebView, controller: UIKit.UIViewController)
+  @_Concurrency.MainActor final public func getCookies(for domain: Foundation.URL) async -> [MuppetIOS.Cookie]
+  @_Concurrency.MainActor final public func setCookie(_ cookie: MuppetIOS.Cookie) async
+  @_Concurrency.MainActor final public func addUserScript(script: Swift.String)
+  @discardableResult
+  @_Concurrency.MainActor final public func evaluate(_ script: Swift.String) async -> MuppetIOS.JSON
+  @_Concurrency.MainActor final public func setUserAgent(_ userAgent: Swift.String)
+  @_Concurrency.MainActor final public var currentUserAgent: Swift.String {
+    get
+  }
+  @_Concurrency.MainActor final public func clearHostAllowList()
+  @_Concurrency.MainActor final public func setHostAllowList(_ hosts: [Swift.String])
+  @_Concurrency.MainActor final public var progress: Swift.Int {
+    get
+  }
+  nonisolated final public func screenshot(width: Swift.Int?, height: Swift.Int?, quality: CoreFoundation.CGFloat = 1) async -> Swift.String?
+  @_Concurrency.MainActor final public func request(url: Foundation.URL, method: Swift.String = "GET", data: MuppetIOS.JSON? = nil, headers: [Swift.String : Swift.String]? = [:], followRedirects: Swift.Bool = true) async -> WebKit.WKWebView.Response?
+  @_Concurrency.MainActor final public func close() async
+  @_Concurrency.MainActor final public func show(animated: Swift.Bool) async
+  @_Concurrency.MainActor final public func hide(animated: Swift.Bool) async
+  @_Concurrency.MainActor final public func makeChildPage(with configuration: WebKit.WKWebViewConfiguration) -> MuppetIOS.Page?
+  @_Concurrency.MainActor final public func goto(url urlString: Swift.String, headers: [Swift.String : Swift.String] = [:], timeout: Foundation.TimeInterval = 30) async throws
+  public enum PageError : Swift.Error {
+    case invalidURL
+    public static func == (a: MuppetIOS.Page.PageError, b: MuppetIOS.Page.PageError) -> Swift.Bool
     public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
   }
-  @_Concurrency.MainActor final public let emitter: MuppetIOS.Emitter<MuppetIOS.Browser.EventType>
-  @_Concurrency.MainActor public init(controller: UIKit.UIViewController)
-  @_Concurrency.MainActor public static func == (lhs: MuppetIOS.Browser, rhs: MuppetIOS.Browser) -> Swift.Bool
-  @_Concurrency.MainActor final public func hash(into hasher: inout Swift.Hasher)
-  @_Concurrency.MainActor final public var handle: Swift.String {
-    get
-  }
-  @_Concurrency.MainActor final public func close() async
-  @_Concurrency.MainActor final public func newPage(configuration: WebKit.WKWebViewConfiguration? = nil) -> MuppetIOS.Page
-  @_Concurrency.MainActor final public func attachPage(to existingWebView: WebKit.WKWebView, controller: UIKit.UIViewController) -> MuppetIOS.Page
   @objc deinit
 }
-extension MuppetIOS.Browser : @preconcurrency Swift.Equatable, @preconcurrency Swift.Hashable {
+extension MuppetIOS.Page : @preconcurrency Swift.Equatable, @preconcurrency Swift.Hashable {
   nonisolated final public var hashValue: Swift.Int {
     get
   }
 }
-@_Concurrency.MainActor final public class Muppet {
-  @_Concurrency.MainActor final public var browsers: Swift.Set<MuppetIOS.Browser> {
-    get
-  }
-  @_Concurrency.MainActor public init(source: UIKit.UIViewController)
-  @_Concurrency.MainActor final public func update(source: UIKit.UIViewController)
-  @_Concurrency.MainActor final public func getBrowser(handle: Swift.String) -> MuppetIOS.Browser?
-  @_Concurrency.MainActor final public func getPage(handle: Swift.String) -> MuppetIOS.Page?
-  @_Concurrency.MainActor final public func inject(page: MuppetIOS.Page)
-  @_Concurrency.MainActor final public func launch(source: UIKit.UIViewController) -> MuppetIOS.Browser
-  public typealias PageBuilder = @_Concurrency.MainActor @Sendable (MuppetIOS.Browser, WebKit.WKWebViewConfiguration) -> MuppetIOS.Page
-  @_Concurrency.MainActor public static func defaultPageBuilder(browser: MuppetIOS.Browser, configuration: WebKit.WKWebViewConfiguration) -> MuppetIOS.Page
-  @_Concurrency.MainActor final public var pageBuilder: @_Concurrency.MainActor @Sendable (MuppetIOS.Browser, WebKit.WKWebViewConfiguration) -> MuppetIOS.Page
-  @_Concurrency.MainActor public static func setDebug(isEnabled: Swift.Bool, forwardLogs forwarder: (@Sendable (Swift.String) -> ())? = nil) async
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor final public class Bridge : ObjectiveC.NSObject, WebKit.WKScriptMessageHandlerWithReply {
+  @discardableResult
+  @_Concurrency.MainActor public static func inject(muppet: MuppetIOS.Muppet, page: MuppetIOS.Page) -> MuppetIOS.Bridge
+  @_Concurrency.MainActor @preconcurrency @objc final public func userContentController(_ userContentController: WebKit.WKUserContentController, didReceive message: WebKit.WKScriptMessage) async -> (Any?, Swift.String?)
   @objc deinit
+}
+extension WebKit.WKWebView {
+  public struct Response : Swift.Sendable, Swift.Codable {
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
 }
 @dynamicMemberLookup public enum JSON : Swift.Sendable, Swift.Equatable, Swift.Hashable {
   case dictionary([Swift.String : MuppetIOS.JSON])
@@ -158,119 +214,63 @@ extension MuppetIOS.JSON : Swift.CustomDebugStringConvertible {
     get
   }
 }
-public struct Cookie : Swift.Sendable {
-  public var name: Swift.String
-  public var value: Swift.String
-  public var path: Swift.String?
-  public var isSecure: Swift.Bool?
-  public var domain: Swift.String
-  public var expiresDate: Foundation.Date?
-  public var isHTTPOnly: Swift.Bool?
-  public var maxAge: Swift.Int?
-  public init(name: Swift.String, value: Swift.String, path: Swift.String = "/", isSecure: Swift.Bool = false, domain: Swift.String, expiresDate: Foundation.Date? = nil, isHTTPOnly: Swift.Bool? = nil, maxAge: Swift.Int? = nil)
-  public init(from httpCookie: Foundation.HTTPCookie)
-  public var httpCookie: Foundation.HTTPCookie? {
-    get
-  }
-}
-extension MuppetIOS.Cookie : Swift.Comparable {
-  public static func < (lhs: MuppetIOS.Cookie, rhs: MuppetIOS.Cookie) -> Swift.Bool
-  public static func == (a: MuppetIOS.Cookie, b: MuppetIOS.Cookie) -> Swift.Bool
-}
-extension MuppetIOS.Cookie : Swift.Codable {
-  public func encode(to encoder: any Swift.Encoder) throws
-  public init(from decoder: any Swift.Decoder) throws
-}
-extension WebKit.WKWebView {
-  public struct Response : Swift.Sendable, Swift.Codable {
-    public func encode(to encoder: any Swift.Encoder) throws
-    public init(from decoder: any Swift.Decoder) throws
-  }
-}
-@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor final public class Bridge : ObjectiveC.NSObject, WebKit.WKScriptMessageHandlerWithReply {
-  @discardableResult
-  @_Concurrency.MainActor public static func inject(muppet: MuppetIOS.Muppet, page: MuppetIOS.Page) -> MuppetIOS.Bridge
-  @_Concurrency.MainActor @preconcurrency @objc final public func userContentController(_ userContentController: WebKit.WKUserContentController, didReceive message: WebKit.WKScriptMessage) async -> (Any?, Swift.String?)
-  @objc deinit
-}
-@_Concurrency.MainActor final public class Page {
-  public struct Options {
-    public var hideOnClose: Swift.Bool
-  }
-  public enum EventType : Swift.String {
-    case console
-    case close
+@_Concurrency.MainActor final public class Browser {
+  public enum EventType {
+    case page
     case closed
-    case dispatch
-    case domcontentloaded
-    case started
-    case finished
-    case load
-    case locationchange
-    case domchange
-    case progress
-    case popup
-    case visible
-    case hostblocked
-    case error
-    public init?(rawValue: Swift.String)
-    public typealias RawValue = Swift.String
-    public var rawValue: Swift.String {
-      get
-    }
-  }
-  @_Concurrency.MainActor final public var options: MuppetIOS.Page.Options
-  @_Concurrency.MainActor final public let emitter: MuppetIOS.Emitter<MuppetIOS.Page.EventType>
-  @_Concurrency.MainActor final public var handle: Swift.String {
-    get
-  }
-  @_Concurrency.MainActor public static func == (lhs: MuppetIOS.Page, rhs: MuppetIOS.Page) -> Swift.Bool
-  @_Concurrency.MainActor final public func hash(into hasher: inout Swift.Hasher)
-  @_Concurrency.MainActor public init(browser: MuppetIOS.Browser, view: WebKit.WKWebView, controller: UIKit.UIViewController)
-  @_Concurrency.MainActor final public func getCookies(for domain: Foundation.URL) async -> [MuppetIOS.Cookie]
-  @_Concurrency.MainActor final public func setCookie(_ cookie: MuppetIOS.Cookie) async
-  @_Concurrency.MainActor final public func addUserScript(script: Swift.String)
-  @discardableResult
-  @_Concurrency.MainActor final public func evaluate(_ script: Swift.String) async -> MuppetIOS.JSON
-  @_Concurrency.MainActor final public func setUserAgent(_ userAgent: Swift.String)
-  @_Concurrency.MainActor final public var currentUserAgent: Swift.String {
-    get
-  }
-  @_Concurrency.MainActor final public func clearHostAllowList()
-  @_Concurrency.MainActor final public func setHostAllowList(_ hosts: [Swift.String])
-  @_Concurrency.MainActor final public var progress: Swift.Int {
-    get
-  }
-  nonisolated final public func screenshot(width: Swift.Int?, height: Swift.Int?, quality: CoreFoundation.CGFloat = 1) async -> Swift.String?
-  @_Concurrency.MainActor final public func request(url: Foundation.URL, method: Swift.String = "GET", data: MuppetIOS.JSON? = nil, headers: [Swift.String : Swift.String]? = [:], followRedirects: Swift.Bool = true) async -> WebKit.WKWebView.Response?
-  @_Concurrency.MainActor final public func close() async
-  @_Concurrency.MainActor final public func show(animated: Swift.Bool) async
-  @_Concurrency.MainActor final public func hide(animated: Swift.Bool) async
-  @_Concurrency.MainActor final public func makeChildPage(with configuration: WebKit.WKWebViewConfiguration) -> MuppetIOS.Page?
-  @_Concurrency.MainActor final public func goto(url urlString: Swift.String, headers: [Swift.String : Swift.String] = [:], timeout: Foundation.TimeInterval = 30) async throws
-  public enum PageError : Swift.Error {
-    case invalidURL
-    public static func == (a: MuppetIOS.Page.PageError, b: MuppetIOS.Page.PageError) -> Swift.Bool
+    public static func == (a: MuppetIOS.Browser.EventType, b: MuppetIOS.Browser.EventType) -> Swift.Bool
     public func hash(into hasher: inout Swift.Hasher)
     public var hashValue: Swift.Int {
       get
     }
   }
+  @_Concurrency.MainActor final public let emitter: MuppetIOS.Emitter<MuppetIOS.Browser.EventType>
+  @_Concurrency.MainActor public init(controller: UIKit.UIViewController)
+  @_Concurrency.MainActor public static func == (lhs: MuppetIOS.Browser, rhs: MuppetIOS.Browser) -> Swift.Bool
+  @_Concurrency.MainActor final public func hash(into hasher: inout Swift.Hasher)
+  @_Concurrency.MainActor final public var handle: Swift.String {
+    get
+  }
+  @_Concurrency.MainActor final public func close() async
+  @_Concurrency.MainActor final public func newPage(configuration: WebKit.WKWebViewConfiguration? = nil) -> MuppetIOS.Page
+  @_Concurrency.MainActor final public func attachPage(to existingWebView: WebKit.WKWebView, controller: UIKit.UIViewController) -> MuppetIOS.Page
   @objc deinit
 }
-extension MuppetIOS.Page : @preconcurrency Swift.Equatable, @preconcurrency Swift.Hashable {
+extension MuppetIOS.Browser : @preconcurrency Swift.Equatable, @preconcurrency Swift.Hashable {
   nonisolated final public var hashValue: Swift.Int {
     get
   }
 }
+@_hasMissingDesignatedInitializers public class Emitter<T> where T : Swift.Equatable {
+  public struct Event {
+  }
+  public func on(_ type: T) -> Combine.AnyPublisher<MuppetIOS.JSON, Swift.Never>
+  @objc deinit
+}
+@_Concurrency.MainActor final public class Muppet {
+  @_Concurrency.MainActor final public var browsers: Swift.Set<MuppetIOS.Browser> {
+    get
+  }
+  @_Concurrency.MainActor public init(source: UIKit.UIViewController)
+  @_Concurrency.MainActor final public func update(source: UIKit.UIViewController)
+  @_Concurrency.MainActor final public func getBrowser(handle: Swift.String) -> MuppetIOS.Browser?
+  @_Concurrency.MainActor final public func getPage(handle: Swift.String) -> MuppetIOS.Page?
+  @_Concurrency.MainActor final public func inject(page: MuppetIOS.Page)
+  @_Concurrency.MainActor final public func launch(source: UIKit.UIViewController) -> MuppetIOS.Browser
+  public typealias PageBuilder = @_Concurrency.MainActor @Sendable (MuppetIOS.Browser, WebKit.WKWebViewConfiguration) -> MuppetIOS.Page
+  @_Concurrency.MainActor public static func defaultPageBuilder(browser: MuppetIOS.Browser, configuration: WebKit.WKWebViewConfiguration) -> MuppetIOS.Page
+  @_Concurrency.MainActor final public var pageBuilder: @_Concurrency.MainActor @Sendable (MuppetIOS.Browser, WebKit.WKWebViewConfiguration) -> MuppetIOS.Page
+  @_Concurrency.MainActor public static func setDebug(isEnabled: Swift.Bool, forwardLogs forwarder: (@Sendable (Swift.String) -> ())? = nil) async
+  @objc deinit
+}
 extension MuppetIOS.Browser : Swift.Sendable {}
-extension MuppetIOS.Browser.EventType : Swift.Equatable {}
-extension MuppetIOS.Browser.EventType : Swift.Hashable {}
-extension MuppetIOS.Muppet : Swift.Sendable {}
 extension MuppetIOS.Page : Swift.Sendable {}
-extension MuppetIOS.Bridge : Swift.Sendable {}
 extension MuppetIOS.Page.EventType : Swift.Equatable {}
 extension MuppetIOS.Page.EventType : Swift.Hashable {}
 extension MuppetIOS.Page.EventType : Swift.RawRepresentable {}
 extension MuppetIOS.Page.PageError : Swift.Equatable {}
 extension MuppetIOS.Page.PageError : Swift.Hashable {}
+extension MuppetIOS.Muppet : Swift.Sendable {}
+extension MuppetIOS.Bridge : Swift.Sendable {}
+extension MuppetIOS.Browser.EventType : Swift.Equatable {}
+extension MuppetIOS.Browser.EventType : Swift.Hashable {}

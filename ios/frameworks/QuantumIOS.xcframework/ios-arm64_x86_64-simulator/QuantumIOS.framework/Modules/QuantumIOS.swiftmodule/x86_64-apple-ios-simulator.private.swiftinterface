@@ -13,6 +13,12 @@ import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency public class AtomicWebView : WebKit.WKWebView {
+  @_Concurrency.MainActor @preconcurrency public class func makeWebView(frame: CoreFoundation.CGRect = .zero, configuration: WebKit.WKWebViewConfiguration = .init()) -> QuantumIOS.AtomicWebView
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation.CGRect, configuration: WebKit.WKWebViewConfiguration)
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
 public enum QuantumSessionError : Foundation.LocalizedError {
   case invalidResponse(Swift.String)
   case networkError(any Swift.Error)
@@ -26,23 +32,6 @@ public struct QuantumSession : Swift.Sendable {
   public init(apiUrl: Swift.String)
   public func trackSession(token: Swift.String) async throws(QuantumIOS.QuantumSessionError)
   public func generateUserToken(publicToken: Swift.String) async throws(QuantumIOS.QuantumSessionError) -> Swift.String
-}
-@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency public class AtomicWebViewController : UIKit.UIViewController {
-  @_Concurrency.MainActor @preconcurrency weak public var webView: QuantumIOS.AtomicWebView!
-  @_Concurrency.MainActor @preconcurrency public var cancel: (() async -> Swift.Void)?
-  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
-  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func traitCollectionDidChange(_ previousTraitCollection: UIKit.UITraitCollection?)
-  @_Concurrency.MainActor @preconcurrency public func hideAssistantTitle()
-  @_Concurrency.MainActor @preconcurrency public func showAssistant(title: Swift.String)
-  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
-  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
-  @objc deinit
-}
-@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency public class AtomicWebView : WebKit.WKWebView {
-  @_Concurrency.MainActor @preconcurrency public class func makeWebView(frame: CoreFoundation.CGRect = .zero, configuration: WebKit.WKWebViewConfiguration = .init()) -> QuantumIOS.AtomicWebView
-  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation.CGRect, configuration: WebKit.WKWebViewConfiguration)
-  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
-  @objc deinit
 }
 @_Concurrency.MainActor final public class Quantum {
   @_Concurrency.MainActor final public var muppet: MuppetIOS.Muppet?
@@ -60,6 +49,17 @@ public struct QuantumSession : Swift.Sendable {
   @_Concurrency.MainActor final public func cleanup() async
   @_Concurrency.MainActor final public func update(updatedPresentationSource source: UIKit.UIViewController)
   @_Concurrency.MainActor public static func setDebug(isEnabled: Swift.Bool, forwardLogs forwarder: (@Sendable (Swift.String) -> ())? = nil) async
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency public class AtomicWebViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor @preconcurrency weak public var webView: QuantumIOS.AtomicWebView!
+  @_Concurrency.MainActor @preconcurrency public var cancel: (() async -> Swift.Void)?
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func traitCollectionDidChange(_ previousTraitCollection: UIKit.UITraitCollection?)
+  @_Concurrency.MainActor @preconcurrency public func hideAssistantTitle()
+  @_Concurrency.MainActor @preconcurrency public func showAssistant(title: Swift.String)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
 extension QuantumIOS.Quantum : Swift.Sendable {}
