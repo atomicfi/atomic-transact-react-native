@@ -24,6 +24,7 @@ jobs:
       - name: Install Dependencies
         run: yarn
       - name: Update package.json version
+        id: version
         run: |
           if [ "${{ github.event_name }}" = "release" ]; then
             TAG_NAME="${{ github.event.release.tag_name }}"
@@ -32,7 +33,18 @@ jobs:
           fi
           VERSION=${TAG_NAME#v}
           npm version $VERSION --no-git-tag-version
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "Updated package.json version to $VERSION"
 
       - name: Publish
-        run: npm publish --access public
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          # *-dynamic releases publish under the `dynamic` dist-tag so they
+          # don't displace `latest`. Existing static-using clients keep getting
+          # the static variant; dynamic is opt-in via @dynamic or explicit pin.
+          if [[ "$VERSION" == *-dynamic* ]]; then
+            npm publish --access public --tag dynamic
+          else
+            npm publish --access public
+          fi

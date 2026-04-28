@@ -1,0 +1,97 @@
+name: Release Dynamic Variant
+
+# Cuts an opt-in `<version>-dynamic` release that mirrors an existing static
+# release tag, but vendors the dynamic-framework variants of AtomicTransact /
+# MuppetIOS / QuantumIOS instead of the static ones. Used for clients that hit
+# Swift protocol witness thunk corruption (`swift_getAssociatedTypeWitnessSlowImpl`)
+# under `use_frameworks! :linkage => :static` when other Swift pods (Sentry,
+# Mixpanel, Stripe, etc.) are present in the same app.
+#
+# The wrapper source code is identical to the static release — the only
+# difference is the embedded xcframeworks' Mach-O type. The dynamic release
+# commit is created on a detached HEAD and reachable only via the tag; master
+# stays static-only.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Static release version to mirror (e.g., 3.16.0). The base v<version> tag must already exist.'
+        required: true
+        type: string
+
+jobs:
+  release-dynamic:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Determine versions
+        id: version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          STATIC_VERSION="${INPUT_VERSION#v}"
+          DYNAMIC_VERSION="${STATIC_VERSION}-dynamic"
+          {
+            echo "static_version=${STATIC_VERSION}"
+            echo "dynamic_version=${DYNAMIC_VERSION}"
+            echo "static_tag=v${STATIC_VERSION}"
+            echo "dynamic_tag=v${DYNAMIC_VERSION}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Checkout static release tag
+        uses: actions/checkout@v4
+        with:
+          ref: v${{ steps.version.outputs.static_version }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Swap to dynamic xcframeworks
+        env:
+          STATIC_VERSION: ${{ steps.version.outputs.static_version }}
+        run: ./scripts/update-ios-sdk.sh --dynamic "$STATIC_VERSION"
+
+      - name: Commit and push dynamic-variant tag
+        env:
+          DYNAMIC_VERSION: ${{ steps.version.outputs.dynamic_version }}
+          DYNAMIC_TAG: ${{ steps.version.outputs.dynamic_tag }}
+        run: |
+          git add ios/frameworks/
+          git commit -m "chore: dynamic xcframework variant for ${DYNAMIC_VERSION}"
+          git tag "$DYNAMIC_TAG"
+          git push origin "$DYNAMIC_TAG"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          STATIC_TAG: ${{ steps.version.outputs.static_tag }}
+          DYNAMIC_TAG: ${{ steps.version.outputs.dynamic_tag }}
+          DYNAMIC_VERSION: ${{ steps.version.outputs.dynamic_version }}
+        run: |
+          gh release create "$DYNAMIC_TAG" \
+            --target "$DYNAMIC_TAG" \
+            --title "v${DYNAMIC_VERSION}" \
+            --notes "Dynamic xcframework variant of [${STATIC_TAG}](https://github.com/atomicfi/atomic-transact-react-native/releases/tag/${STATIC_TAG}).
+
+          Use this variant if your app hits Swift protocol witness thunk corruption (\`swift_getAssociatedTypeWitnessSlowImpl\` / \`EXC_BAD_ACCESS\` at launch) when combining \`@atomicfi/transact-react-native\` with other Swift pods (Sentry, Mixpanel, Stripe, etc.) under \`use_frameworks! :linkage => :static\`.
+
+          ## Install
+
+          \`\`\`bash
+          # Track the latest dynamic release
+          npm install @atomicfi/transact-react-native@dynamic
+
+          # Or pin explicitly
+          npm install @atomicfi/transact-react-native@${DYNAMIC_VERSION}
+          \`\`\`
+
+          ## What's different
+
+          The wrapper source (TypeScript, Swift bridge, Kotlin module) is identical to ${STATIC_TAG}. Only the vendored iOS xcframeworks (\`AtomicTransact\`, \`MuppetIOS\`, \`QuantumIOS\`) are swapped to their dynamic-framework Mach-O builds. This isolates each framework's Swift witness thunks inside its own image instead of letting them participate in app-binary \`linkonce_odr\` dedup, which is what triggers the crash on Xcode 26 / iOS 26."
