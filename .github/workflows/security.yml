@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - master
-    types: [opened, ready_for_review, synchronize]
 
 jobs:
   semgrep:
@@ -24,7 +23,7 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
           cache: yarn
       - name: yarn install
         run: yarn install --frozen-lockfile
