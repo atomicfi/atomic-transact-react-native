@@ -53,6 +53,24 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      # Static tags from before the --dynamic flag existed ship the old
+      # script, which would treat --dynamic as the version arg and 404. Pull
+      # only the script file from the workflow's own commit so the rest of
+      # the v<version> working tree stays intact for the tag commit below.
+      - name: Restore latest update-ios-sdk.sh
+        env:
+          # github.sha is the commit the workflow file was loaded from
+          # (master HEAD on workflow_dispatch). Pinning to it guarantees the
+          # script matches this workflow even if master moves mid-run.
+          WORKFLOW_SHA: ${{ github.sha }}
+        run: |
+          # Fetch is needed because actions/checkout only pulled history
+          # reachable from the static tag.
+          git fetch origin "$WORKFLOW_SHA"
+          # Pathspec form: overwrites just this file in the working tree
+          # without moving HEAD or switching branches.
+          git checkout "$WORKFLOW_SHA" -- scripts/update-ios-sdk.sh
+
       - name: Swap to dynamic xcframeworks
         env:
           STATIC_VERSION: ${{ steps.version.outputs.static_version }}
