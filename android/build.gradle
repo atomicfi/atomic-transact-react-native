@@ -37,9 +37,6 @@ def getExtOrIntegerDefault(name) {
   return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["TransactReactNative_" + name]).toInteger()
 }
 
-// Update this value to the latest Android SDK version published on Maven
-def transact_version = "3.18.2"
-
 android {
   namespace "com.atomicfi.transactreactnative"
   compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
@@ -52,7 +49,7 @@ android {
     minSdkVersion getExtOrIntegerDefault("minSdkVersion")
     targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
     buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
-    buildConfigField "String", "TRANSACT_VERSION", "\"$transact_version\""
+    buildConfigField "String", "TRANSACT_VERSION", "\"$TransactReactNative_transactVersion\""
   }
   buildTypes {
     release {
@@ -86,7 +83,7 @@ dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
   // transact deps end
-  implementation "financial.atomic:transact:$transact_version"
+  implementation "financial.atomic:transact:$TransactReactNative_transactVersion"
 }
 
 if (isNewArchitectureEnabled()) {

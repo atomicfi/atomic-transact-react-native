@@ -1,0 +1,74 @@
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    groups:
+      npm-dependencies:
+        patterns:
+          - '*'
+    ignore:
+      # eslint 10 isn't supported by @typescript-eslint/parser v8 yet
+      - dependency-name: 'eslint'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@eslint/js'
+        update-types: ['version-update:semver-major']
+      # typescript 6 deprecates baseUrl and other config we use
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: 'npm'
+    directory: '/example'
+    schedule:
+      interval: 'weekly'
+    groups:
+      npm-dependencies:
+        patterns:
+          - '*'
+    ignore:
+      # Expo SDK 55 manages these via its compatibility matrix — only
+      # patch updates within the SDK's pinned versions are safe. Minor
+      # and major bumps must accompany an Expo SDK upgrade.
+      - dependency-name: 'expo'
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+      - dependency-name: 'expo-*'
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+      - dependency-name: 'eslint-config-expo'
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+      - dependency-name: 'react'
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+      - dependency-name: 'react-native'
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+      - dependency-name: 'react-native-safe-area-context'
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+      - dependency-name: 'react-native-screens'
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+      # Same ecosystem-compat issues as the parent package
+      - dependency-name: 'eslint'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: 'gradle'
+    directory: '/android'
+    schedule:
+      interval: 'daily'
+    allow:
+      - dependency-name: 'financial.atomic:transact'
+
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    groups:
+      github-actions:
+        patterns:
+          - '*'
