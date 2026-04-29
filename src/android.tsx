@@ -1,6 +1,6 @@
-import { Buffer } from 'buffer';
 import { DeviceEventEmitter, Platform } from 'react-native';
 import * as CONSTANTS from './constants';
+import { utf8Base64 } from './utils';
 
 function _eventHandler(request: string, func: Function) {
   return func(JSON.parse(request));
@@ -50,7 +50,7 @@ export const AtomicAndroid = {
     _addEventListener('onTaskStatusUpdate', onTaskStatusUpdate);
     _addEventListener('onAuthStatusUpdate', onAuthStatusUpdate);
 
-    const token = Buffer.from(JSON.stringify(config)).toString('base64');
+    const token = utf8Base64(JSON.stringify(config));
 
     TransactReactNative.presentTransact(token, environment);
   },

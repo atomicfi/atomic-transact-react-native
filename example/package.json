@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@atomicfi/transact-react-native": "link:..",
-    "@react-navigation/native": "^7.1.14",
-    "@react-navigation/native-stack": "^7.3.21",
-    "expo": "^55.0.0",
+    "@react-navigation/native": "^7.2.2",
+    "@react-navigation/native-stack": "^7.14.12",
+    "expo": "~55.0.18",
     "expo-build-properties": "~55.0.13",
     "expo-dev-client": "~55.0.28",
     "expo-status-bar": "~55.0.5",
@@ -25,14 +25,14 @@
     "react-native-screens": "~4.23.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@types/react": "~19.2.10",
-    "eslint": "^9.0.0",
+    "@babel/core": "^7.29.0",
+    "@types/react": "~19.2.14",
+    "eslint": "^9.39.4",
     "eslint-config-expo": "~55.0.0",
-    "eslint-config-prettier": "^10.1.5",
-    "eslint-plugin-prettier": "^5.5.1",
-    "prettier": "^3.6.2",
-    "typescript": "~5.9.2"
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.3",
+    "typescript": "~5.9.3"
   },
   "private": true
 }

@@ -29,15 +29,7 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-dev-client",
-      [
-        "expo-build-properties",
-        {
-          "ios": {
-            "useFrameworks": "static"
-          }
-        }
-      ]
+      "expo-dev-client"
     ],
     "developmentClient": {
       "silentLaunch": false
