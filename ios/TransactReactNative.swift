@@ -3,7 +3,7 @@ import UIKit
 
 @objc(TransactReactNative)
 class TransactReactNative: RCTEventEmitter {
-	
+
 	// Data request handler that will be called when the response arrives
 	private var dataResponseHandler: ((Any) -> Void)? = nil
 	
@@ -37,8 +37,8 @@ class TransactReactNative: RCTEventEmitter {
 		}
 	}
 	
-	@objc(presentTransact:environment:presentationStyle:setDebug:withResolver:withRejecter:)
-	func presentTransact(config: [String: Any], environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+	@objc(presentTransact:environment:presentationStyle:setDebug:wrapperVersion:withResolver:withRejecter:)
+	func presentTransact(config: [String: Any], environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, wrapperVersion: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		let debugEnabled = setDebug?.boolValue ?? false
 
 		Task { @MainActor in
@@ -56,10 +56,7 @@ class TransactReactNative: RCTEventEmitter {
 
 				let parsedPresentationStyle = self.parsePresentationStyle(presentationStyle)
 
-				if var platform = AtomicConfig.Platform().encode() as? [String: Any] {
-					platform["sdkVersion"] = platform["sdkVersion"] as! String + "-react"
-					json["platform"] = platform
-				}
+				json["platform"] = AtomicConfig.Platform(suffixed: "react-\(wrapperVersion)").encode()
 
 				guard let data = try? JSONSerialization.data(withJSONObject: json, options: []) else { return }
 

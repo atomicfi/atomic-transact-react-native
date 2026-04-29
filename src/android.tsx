@@ -1,6 +1,5 @@
-import { DeviceEventEmitter, Platform } from 'react-native';
+import { DeviceEventEmitter } from 'react-native';
 import * as CONSTANTS from './constants';
-import { utf8Base64 } from './utils';
 
 function _eventHandler(request: string, func: Function) {
   return func(JSON.parse(request));
@@ -20,6 +19,7 @@ export const AtomicAndroid = {
     TransactReactNative,
     config,
     environment,
+    wrapperVersion,
     onInteraction,
     onTaskStatusUpdate,
     onAuthStatusUpdate,
@@ -30,6 +30,7 @@ export const AtomicAndroid = {
     TransactReactNative: any;
     config: any;
     environment?: CONSTANTS.TransactEnvironment;
+    wrapperVersion: string;
     onInteraction?: Function;
     onTaskStatusUpdate?: Function;
     onAuthStatusUpdate?: Function;
@@ -37,12 +38,6 @@ export const AtomicAndroid = {
     onFinish?: Function;
     onClose?: Function;
   }): void {
-    config.platform = {
-      name: 'android',
-      systemVersion: Platform.Version.toString(),
-      sdkVersion: TransactReactNative.getConstants().VERSION + '-react',
-    };
-
     _addEventListener('onClose', onClose);
     _addEventListener('onFinish', onFinish);
     _addEventListener('onInteraction', onInteraction);
@@ -50,14 +45,13 @@ export const AtomicAndroid = {
     _addEventListener('onTaskStatusUpdate', onTaskStatusUpdate);
     _addEventListener('onAuthStatusUpdate', onAuthStatusUpdate);
 
-    const token = utf8Base64(JSON.stringify(config));
-
-    TransactReactNative.presentTransact(token, environment);
+    TransactReactNative.presentTransact(config, environment, wrapperVersion);
   },
   presentAction({
     TransactReactNative,
     id,
     environment,
+    wrapperVersion,
     onLaunch,
     onFinish,
     onClose,
@@ -67,6 +61,7 @@ export const AtomicAndroid = {
     TransactReactNative: any;
     id: String;
     environment?: CONSTANTS.TransactEnvironment;
+    wrapperVersion: string;
     onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
@@ -79,6 +74,6 @@ export const AtomicAndroid = {
     _addEventListener('onTaskStatusUpdate', onTaskStatusUpdate);
     _addEventListener('onAuthStatusUpdate', onAuthStatusUpdate);
 
-    TransactReactNative.presentAction(id, environment);
+    TransactReactNative.presentAction(id, environment, wrapperVersion);
   },
 };

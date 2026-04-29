@@ -1,6 +1,6 @@
 {
   "name": "@atomicfi/transact-react-native",
-  "version": "3.12.3",
+  "version": "3.16.0",
   "description": "React Native bridge for the Transact SDK",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
@@ -48,7 +48,7 @@
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
-    "prepare": "bob build"
+    "prepare": "bob build && cp package.json lib/package.json"
   },
   "keywords": [
     "react-native",
