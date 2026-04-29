@@ -42,7 +42,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Checkout static release tag
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: v${{ steps.version.outputs.static_version }}
           fetch-depth: 0
