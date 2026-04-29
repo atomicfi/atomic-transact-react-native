@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "rootDir": ".",
-    "baseUrl": "./",
     "paths": {
       "@atomicfi/transact-react-native": ["./src/index"]
     },

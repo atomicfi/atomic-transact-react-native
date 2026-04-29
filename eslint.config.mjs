@@ -40,16 +40,7 @@ export default [
       ecmaVersion: 'latest',
       sourceType: 'module',
     },
-    settings: {
-      react: {
-        version: 'detect',
-      },
-    },
     rules: {
-      // React rules
-      'react/react-in-jsx-scope': 'off',
-
-      // Relax strict rules - convert to warnings or disable
       'no-undef': 'off',
       'no-unused-vars': 'warn',
       'no-func-assign': 'off',

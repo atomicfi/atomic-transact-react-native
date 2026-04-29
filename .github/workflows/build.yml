@@ -45,6 +45,9 @@ jobs:
       - name: 🧹 Run ESLint
         run: yarn lint
 
+      - name: ✅ Run unit tests
+        run: yarn test
+
   build-android:
     needs: lint
     runs-on: ubuntu-latest
