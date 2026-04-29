@@ -53,35 +53,59 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Read pinned iOS SDK version
+        id: sdk
+        env:
+          STATIC_TAG: ${{ steps.version.outputs.static_tag }}
+        run: |
+          # The script downloads from atomicfi/atomic-transact-ios releases,
+          # which are versioned by the iOS SDK — not the wrapper. Pull the
+          # iOS SDK version pinned at this static tag so we hit the right
+          # release URL.
+          if [ ! -f ios/frameworks/.sdk-version ]; then
+            echo "Error: ios/frameworks/.sdk-version not found at $STATIC_TAG" >&2
+            exit 1
+          fi
+          IOS_SDK_VERSION="$(cat ios/frameworks/.sdk-version)"
+          echo "ios_sdk_version=${IOS_SDK_VERSION}" >> "$GITHUB_OUTPUT"
+
       # Static tags from before the --dynamic flag existed ship the old
-      # script, which would treat --dynamic as the version arg and 404. Pull
-      # only the script file from the workflow's own commit so the rest of
-      # the v<version> working tree stays intact for the tag commit below.
-      - name: Restore latest update-ios-sdk.sh
+      # update-ios-sdk.sh, which would treat --dynamic as the version arg and
+      # 404. Old static tags also ship a publish.yml without prerelease-tag
+      # handling — npm rejects prerelease versions without --tag, so the
+      # dynamic commit would fail to publish. Pull both files from the
+      # workflow's own commit so the rest of the v<version> working tree
+      # stays intact for the tag commit below.
+      - name: Restore latest update-ios-sdk.sh and publish.yml
         env:
           # github.sha is the commit the workflow file was loaded from
           # (master HEAD on workflow_dispatch). Pinning to it guarantees the
-          # script matches this workflow even if master moves mid-run.
+          # files match this workflow even if master moves mid-run.
           WORKFLOW_SHA: ${{ github.sha }}
         run: |
           # Fetch is needed because actions/checkout only pulled history
           # reachable from the static tag.
           git fetch origin "$WORKFLOW_SHA"
-          # Pathspec form: overwrites just this file in the working tree
+          # Pathspec form: overwrites just these files in the working tree
           # without moving HEAD or switching branches.
-          git checkout "$WORKFLOW_SHA" -- scripts/update-ios-sdk.sh
+          git checkout "$WORKFLOW_SHA" -- \
+            scripts/update-ios-sdk.sh \
+            .github/workflows/publish.yml
 
       - name: Swap to dynamic xcframeworks
         env:
-          STATIC_VERSION: ${{ steps.version.outputs.static_version }}
-        run: ./scripts/update-ios-sdk.sh --dynamic "$STATIC_VERSION"
+          IOS_SDK_VERSION: ${{ steps.sdk.outputs.ios_sdk_version }}
+        run: ./scripts/update-ios-sdk.sh --dynamic "$IOS_SDK_VERSION"
 
       - name: Commit and push dynamic-variant tag
         env:
           DYNAMIC_VERSION: ${{ steps.version.outputs.dynamic_version }}
           DYNAMIC_TAG: ${{ steps.version.outputs.dynamic_tag }}
         run: |
-          git add ios/frameworks/
+          # publish.yml is committed alongside the framework swap so the
+          # release: published event runs the modern, prerelease-aware
+          # publish workflow even for static tags that predate it.
+          git add ios/frameworks/ .github/workflows/publish.yml
           git commit -m "chore: dynamic xcframework variant for ${DYNAMIC_VERSION}"
           git tag "$DYNAMIC_TAG"
           git push origin "$DYNAMIC_TAG"
@@ -94,7 +118,6 @@ jobs:
           DYNAMIC_VERSION: ${{ steps.version.outputs.dynamic_version }}
         run: |
           gh release create "$DYNAMIC_TAG" \
-            --target "$DYNAMIC_TAG" \
             --title "v${DYNAMIC_VERSION}" \
             --notes "Dynamic xcframework variant of [${STATIC_TAG}](https://github.com/atomicfi/atomic-transact-react-native/releases/tag/${STATIC_TAG}).
 
@@ -108,8 +131,4 @@ jobs:
 
           # Or pin explicitly
           npm install @atomicfi/transact-react-native@${DYNAMIC_VERSION}
-          \`\`\`
-
-          ## What's different
-
-          The wrapper source (TypeScript, Swift bridge, Kotlin module) is identical to ${STATIC_TAG}. Only the vendored iOS xcframeworks (\`AtomicTransact\`, \`MuppetIOS\`, \`QuantumIOS\`) are swapped to their dynamic-framework Mach-O builds. This isolates each framework's Swift witness thunks inside its own image instead of letting them participate in app-binary \`linkonce_odr\` dedup, which is what triggers the crash on Xcode 26 / iOS 26."
+          \`\`\`"
