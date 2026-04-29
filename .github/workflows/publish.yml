@@ -40,11 +40,17 @@ jobs:
         env:
           VERSION: ${{ steps.version.outputs.version }}
         run: |
-          # *-dynamic releases publish under the `dynamic` dist-tag so they
-          # don't displace `latest`. Existing static-using clients keep getting
-          # the static variant; dynamic is opt-in via @dynamic or explicit pin.
-          if [[ "$VERSION" == *-dynamic* ]]; then
-            npm publish --access public --tag dynamic
+          # Prereleases (anything with a `-` per semver — e.g. *-dynamic,
+          # *-beta.1) publish under a dist-tag derived from the prerelease
+          # label so they don't displace `latest`. npm rejects prerelease
+          # publishes without --tag, so this also prevents the failure mode
+          # where a wrapper tag predates the dist-tag mapping.
+          if [[ "$VERSION" == *-* ]]; then
+            PRERELEASE_LABEL="${VERSION#*-}"
+            # Use just the first dot-segment as the dist-tag (e.g. beta.1 → beta)
+            DIST_TAG="${PRERELEASE_LABEL%%.*}"
+            echo "Publishing prerelease $VERSION under dist-tag '$DIST_TAG'"
+            npm publish --access public --tag "$DIST_TAG"
           else
             npm publish --access public
           fi
