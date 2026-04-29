@@ -34,7 +34,7 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "branch=chore/update-ios-sdk-${VERSION}" >> "$GITHUB_OUTPUT"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: master
           repository: atomicfi/atomic-transact-react-native
