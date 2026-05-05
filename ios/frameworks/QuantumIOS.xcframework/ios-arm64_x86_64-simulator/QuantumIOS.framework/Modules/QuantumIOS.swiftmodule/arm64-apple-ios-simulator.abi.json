@@ -6,8 +6,8 @@
     "children": [
       {
         "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
+        "name": "UIKit",
+        "printedName": "UIKit",
         "declKind": "Import",
         "moduleName": "QuantumIOS",
         "declAttributes": [
@@ -16,422 +16,155 @@
       },
       {
         "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
+        "name": "WebKit",
+        "printedName": "WebKit",
         "declKind": "Import",
-        "moduleName": "QuantumIOS",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "QuantumIOS",
-        "declAttributes": [
-          "RawDocComment"
-        ]
+        "moduleName": "QuantumIOS"
       },
       {
         "kind": "TypeDecl",
-        "name": "QuantumSessionError",
-        "printedName": "QuantumSessionError",
+        "name": "AtomicWebView",
+        "printedName": "AtomicWebView",
         "children": [
           {
-            "kind": "Var",
-            "name": "invalidResponse",
-            "printedName": "invalidResponse",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(QuantumIOS.QuantumSessionError.Type) -> (Swift.String) -> QuantumIOS.QuantumSessionError",
-                "children": [
-                  {
-                    "kind": "TypeFunc",
-                    "name": "Function",
-                    "printedName": "(Swift.String) -> QuantumIOS.QuantumSessionError",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "QuantumSessionError",
-                        "printedName": "QuantumIOS.QuantumSessionError",
-                        "usr": "s:10QuantumIOS0A12SessionErrorO"
-                      },
-                      {
-                        "kind": "TypeNominal",
-                        "name": "String",
-                        "printedName": "Swift.String",
-                        "usr": "s:SS"
-                      }
-                    ]
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "QuantumIOS.QuantumSessionError.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "QuantumSessionError",
-                        "printedName": "QuantumIOS.QuantumSessionError",
-                        "usr": "s:10QuantumIOS0A12SessionErrorO"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "s:10QuantumIOS0A12SessionErrorO15invalidResponseyACSScACmF",
-            "mangledName": "$s10QuantumIOS0A12SessionErrorO15invalidResponseyACSScACmF",
-            "moduleName": "QuantumIOS"
-          },
-          {
-            "kind": "Var",
-            "name": "networkError",
-            "printedName": "networkError",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(QuantumIOS.QuantumSessionError.Type) -> (any Swift.Error) -> QuantumIOS.QuantumSessionError",
-                "children": [
-                  {
-                    "kind": "TypeFunc",
-                    "name": "Function",
-                    "printedName": "(any Swift.Error) -> QuantumIOS.QuantumSessionError",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "QuantumSessionError",
-                        "printedName": "QuantumIOS.QuantumSessionError",
-                        "usr": "s:10QuantumIOS0A12SessionErrorO"
-                      },
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Error",
-                        "printedName": "any Swift.Error",
-                        "usr": "s:s5ErrorP"
-                      }
-                    ]
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "QuantumIOS.QuantumSessionError.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "QuantumSessionError",
-                        "printedName": "QuantumIOS.QuantumSessionError",
-                        "usr": "s:10QuantumIOS0A12SessionErrorO"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "s:10QuantumIOS0A12SessionErrorO07networkD0yACs0D0_pcACmF",
-            "mangledName": "$s10QuantumIOS0A12SessionErrorO07networkD0yACs0D0_pcACmF",
-            "moduleName": "QuantumIOS"
-          },
-          {
-            "kind": "Var",
-            "name": "tokenGenerationFailed",
-            "printedName": "tokenGenerationFailed",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(QuantumIOS.QuantumSessionError.Type) -> (Swift.String) -> QuantumIOS.QuantumSessionError",
-                "children": [
-                  {
-                    "kind": "TypeFunc",
-                    "name": "Function",
-                    "printedName": "(Swift.String) -> QuantumIOS.QuantumSessionError",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "QuantumSessionError",
-                        "printedName": "QuantumIOS.QuantumSessionError",
-                        "usr": "s:10QuantumIOS0A12SessionErrorO"
-                      },
-                      {
-                        "kind": "TypeNominal",
-                        "name": "String",
-                        "printedName": "Swift.String",
-                        "usr": "s:SS"
-                      }
-                    ]
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "QuantumIOS.QuantumSessionError.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "QuantumSessionError",
-                        "printedName": "QuantumIOS.QuantumSessionError",
-                        "usr": "s:10QuantumIOS0A12SessionErrorO"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "s:10QuantumIOS0A12SessionErrorO21tokenGenerationFailedyACSScACmF",
-            "mangledName": "$s10QuantumIOS0A12SessionErrorO21tokenGenerationFailedyACSScACmF",
-            "moduleName": "QuantumIOS"
-          },
-          {
-            "kind": "Var",
-            "name": "errorDescription",
-            "printedName": "errorDescription",
+            "kind": "Function",
+            "name": "makeWebView",
+            "printedName": "makeWebView(frame:configuration:)",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "Optional",
-                "printedName": "Swift.String?",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "usr": "s:Sq"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:10QuantumIOS0A12SessionErrorO16errorDescriptionSSSgvp",
-            "mangledName": "$s10QuantumIOS0A12SessionErrorO16errorDescriptionSSSgvp",
-            "moduleName": "QuantumIOS",
-            "declAttributes": [
-              "AccessControl"
-            ],
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Optional",
-                    "printedName": "Swift.String?",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "String",
-                        "printedName": "Swift.String",
-                        "usr": "s:SS"
-                      }
-                    ],
-                    "usr": "s:Sq"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:10QuantumIOS0A12SessionErrorO16errorDescriptionSSSgvg",
-                "mangledName": "$s10QuantumIOS0A12SessionErrorO16errorDescriptionSSSgvg",
-                "moduleName": "QuantumIOS",
-                "accessorKind": "get"
-              }
-            ]
-          }
-        ],
-        "declKind": "Enum",
-        "usr": "s:10QuantumIOS0A12SessionErrorO",
-        "mangledName": "$s10QuantumIOS0A12SessionErrorO",
-        "moduleName": "QuantumIOS",
-        "declAttributes": [
-          "AccessControl"
-        ],
-        "conformances": [
-          {
-            "kind": "Conformance",
-            "name": "Copyable",
-            "printedName": "Copyable",
-            "usr": "s:s8CopyableP",
-            "mangledName": "$ss8CopyableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Escapable",
-            "printedName": "Escapable",
-            "usr": "s:s9EscapableP",
-            "mangledName": "$ss9EscapableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "LocalizedError",
-            "printedName": "LocalizedError",
-            "usr": "s:10Foundation14LocalizedErrorP",
-            "mangledName": "$s10Foundation14LocalizedErrorP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Error",
-            "printedName": "Error",
-            "usr": "s:s5ErrorP",
-            "mangledName": "$ss5ErrorP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Sendable",
-            "printedName": "Sendable",
-            "usr": "s:s8SendableP",
-            "mangledName": "$ss8SendableP"
-          }
-        ]
-      },
-      {
-        "kind": "TypeDecl",
-        "name": "QuantumSession",
-        "printedName": "QuantumSession",
-        "children": [
-          {
-            "kind": "Var",
-            "name": "apiUrl",
-            "printedName": "apiUrl",
-            "children": [
+                "name": "AtomicWebView",
+                "printedName": "QuantumIOS.AtomicWebView",
+                "usr": "c:@M@QuantumIOS@objc(cs)AtomicWebView"
+              },
               {
                 "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
+                "name": "CGRect",
+                "printedName": "CoreFoundation.CGRect",
+                "hasDefaultArg": true,
+                "usr": "c:@S@CGRect"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "WKWebViewConfiguration",
+                "printedName": "WebKit.WKWebViewConfiguration",
+                "hasDefaultArg": true,
+                "usr": "c:objc(cs)WKWebViewConfiguration"
               }
             ],
-            "declKind": "Var",
-            "usr": "s:10QuantumIOS0A7SessionV6apiUrlSSvp",
-            "mangledName": "$s10QuantumIOS0A7SessionV6apiUrlSSvp",
+            "declKind": "Func",
+            "usr": "s:10QuantumIOS13AtomicWebViewC04makedE05frame13configurationACSo6CGRectV_So05WKWebE13ConfigurationCtFZ",
+            "mangledName": "$s10QuantumIOS13AtomicWebViewC04makedE05frame13configurationACSo6CGRectV_So05WKWebE13ConfigurationCtFZ",
             "moduleName": "QuantumIOS",
+            "static": true,
             "declAttributes": [
-              "HasStorage",
+              "Preconcurrency",
+              "Custom",
               "AccessControl",
               "RawDocComment"
             ],
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:10QuantumIOS0A7SessionV6apiUrlSSvg",
-                "mangledName": "$s10QuantumIOS0A7SessionV6apiUrlSSvg",
-                "moduleName": "QuantumIOS",
-                "implicit": true,
-                "accessorKind": "get"
-              }
-            ]
+            "funcSelfKind": "NonMutating"
           },
           {
             "kind": "Constructor",
             "name": "init",
-            "printedName": "init(apiUrl:)",
+            "printedName": "init(frame:configuration:)",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "QuantumSession",
-                "printedName": "QuantumIOS.QuantumSession",
-                "usr": "s:10QuantumIOS0A7SessionV"
+                "name": "AtomicWebView",
+                "printedName": "QuantumIOS.AtomicWebView",
+                "usr": "c:@M@QuantumIOS@objc(cs)AtomicWebView"
               },
               {
                 "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
+                "name": "CGRect",
+                "printedName": "CoreFoundation.CGRect",
+                "usr": "c:@S@CGRect"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "WKWebViewConfiguration",
+                "printedName": "WebKit.WKWebViewConfiguration",
+                "usr": "c:objc(cs)WKWebViewConfiguration"
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:10QuantumIOS0A7SessionV6apiUrlACSS_tcfc",
-            "mangledName": "$s10QuantumIOS0A7SessionV6apiUrlACSS_tcfc",
+            "usr": "c:@M@QuantumIOS@objc(cs)AtomicWebView(im)initWithFrame:configuration:",
+            "mangledName": "$s10QuantumIOS13AtomicWebViewC5frame13configurationACSo6CGRectV_So05WKWebE13ConfigurationCtcfc",
             "moduleName": "QuantumIOS",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "initWithFrame:configuration:",
             "declAttributes": [
-              "AccessControl"
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override"
             ],
             "init_kind": "Designated"
           },
           {
-            "kind": "Function",
-            "name": "trackSession",
-            "printedName": "trackSession(token:)",
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(coder:)",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
+                "name": "Optional",
+                "printedName": "QuantumIOS.AtomicWebView?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AtomicWebView",
+                    "printedName": "QuantumIOS.AtomicWebView",
+                    "usr": "c:@M@QuantumIOS@objc(cs)AtomicWebView"
+                  }
+                ],
+                "usr": "s:Sq"
               },
               {
                 "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
+                "name": "NSCoder",
+                "printedName": "Foundation.NSCoder",
+                "usr": "c:objc(cs)NSCoder"
               }
             ],
-            "declKind": "Func",
-            "usr": "s:10QuantumIOS0A7SessionV05trackC05tokenySS_tYaAA0aC5ErrorOYKF",
-            "mangledName": "$s10QuantumIOS0A7SessionV05trackC05tokenySS_tYaAA0aC5ErrorOYKF",
+            "declKind": "Constructor",
+            "usr": "c:@M@QuantumIOS@objc(cs)AtomicWebView(im)initWithCoder:",
+            "mangledName": "$s10QuantumIOS13AtomicWebViewC5coderACSgSo7NSCoderC_tcfc",
             "moduleName": "QuantumIOS",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "initWithCoder:",
             "declAttributes": [
-              "AccessControl",
-              "RawDocComment"
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Required"
             ],
-            "throwing": true,
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "generateUserToken",
-            "printedName": "generateUserToken(publicToken:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:10QuantumIOS0A7SessionV17generateUserToken06publicF0S2S_tYaAA0aC5ErrorOYKF",
-            "mangledName": "$s10QuantumIOS0A7SessionV17generateUserToken06publicF0S2S_tYaAA0aC5ErrorOYKF",
-            "moduleName": "QuantumIOS",
-            "declAttributes": [
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "throwing": true,
-            "funcSelfKind": "NonMutating"
+            "init_kind": "Designated"
           }
         ],
-        "declKind": "Struct",
-        "usr": "s:10QuantumIOS0A7SessionV",
-        "mangledName": "$s10QuantumIOS0A7SessionV",
+        "declKind": "Class",
+        "usr": "c:@M@QuantumIOS@objc(cs)AtomicWebView",
+        "mangledName": "$s10QuantumIOS13AtomicWebViewC",
         "moduleName": "QuantumIOS",
         "declAttributes": [
-          "AccessControl"
+          "Preconcurrency",
+          "Custom",
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)WKWebView",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "WebKit.WKWebView",
+          "UIKit.UIView",
+          "UIKit.UIResponder",
+          "ObjectiveC.NSObject"
         ],
         "conformances": [
           {
@@ -450,10 +183,66 @@
           },
           {
             "kind": "Conformance",
-            "name": "Sendable",
-            "printedName": "Sendable",
-            "usr": "s:s8SendableP",
-            "mangledName": "$ss8SendableP"
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "UITraitChangeObservable",
+            "printedName": "UITraitChangeObservable",
+            "usr": "s:5UIKit23UITraitChangeObservableP",
+            "mangledName": "$s5UIKit23UITraitChangeObservableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "__DefaultCustomPlaygroundQuickLookable",
+            "printedName": "__DefaultCustomPlaygroundQuickLookable",
+            "usr": "s:s38__DefaultCustomPlaygroundQuickLookableP",
+            "mangledName": "$ss38__DefaultCustomPlaygroundQuickLookableP"
           }
         ]
       },
@@ -1038,241 +827,6 @@
           },
           {
             "kind": "Conformance",
-            "name": "UITraitChangeObservable",
-            "printedName": "UITraitChangeObservable",
-            "usr": "s:5UIKit23UITraitChangeObservableP",
-            "mangledName": "$s5UIKit23UITraitChangeObservableP"
-          }
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "QuantumIOS",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "WebKit",
-        "printedName": "WebKit",
-        "declKind": "Import",
-        "moduleName": "QuantumIOS"
-      },
-      {
-        "kind": "TypeDecl",
-        "name": "AtomicWebView",
-        "printedName": "AtomicWebView",
-        "children": [
-          {
-            "kind": "Function",
-            "name": "makeWebView",
-            "printedName": "makeWebView(frame:configuration:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "AtomicWebView",
-                "printedName": "QuantumIOS.AtomicWebView",
-                "usr": "c:@M@QuantumIOS@objc(cs)AtomicWebView"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "CGRect",
-                "printedName": "CoreFoundation.CGRect",
-                "hasDefaultArg": true,
-                "usr": "c:@S@CGRect"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "WKWebViewConfiguration",
-                "printedName": "WebKit.WKWebViewConfiguration",
-                "hasDefaultArg": true,
-                "usr": "c:objc(cs)WKWebViewConfiguration"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:10QuantumIOS13AtomicWebViewC04makedE05frame13configurationACSo6CGRectV_So05WKWebE13ConfigurationCtFZ",
-            "mangledName": "$s10QuantumIOS13AtomicWebViewC04makedE05frame13configurationACSo6CGRectV_So05WKWebE13ConfigurationCtFZ",
-            "moduleName": "QuantumIOS",
-            "static": true,
-            "declAttributes": [
-              "Preconcurrency",
-              "Custom",
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Constructor",
-            "name": "init",
-            "printedName": "init(frame:configuration:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "AtomicWebView",
-                "printedName": "QuantumIOS.AtomicWebView",
-                "usr": "c:@M@QuantumIOS@objc(cs)AtomicWebView"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "CGRect",
-                "printedName": "CoreFoundation.CGRect",
-                "usr": "c:@S@CGRect"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "WKWebViewConfiguration",
-                "printedName": "WebKit.WKWebViewConfiguration",
-                "usr": "c:objc(cs)WKWebViewConfiguration"
-              }
-            ],
-            "declKind": "Constructor",
-            "usr": "c:@M@QuantumIOS@objc(cs)AtomicWebView(im)initWithFrame:configuration:",
-            "mangledName": "$s10QuantumIOS13AtomicWebViewC5frame13configurationACSo6CGRectV_So05WKWebE13ConfigurationCtcfc",
-            "moduleName": "QuantumIOS",
-            "overriding": true,
-            "implicit": true,
-            "objc_name": "initWithFrame:configuration:",
-            "declAttributes": [
-              "Dynamic",
-              "ObjC",
-              "Preconcurrency",
-              "Custom",
-              "Override"
-            ],
-            "init_kind": "Designated"
-          },
-          {
-            "kind": "Constructor",
-            "name": "init",
-            "printedName": "init(coder:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Optional",
-                "printedName": "QuantumIOS.AtomicWebView?",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "AtomicWebView",
-                    "printedName": "QuantumIOS.AtomicWebView",
-                    "usr": "c:@M@QuantumIOS@objc(cs)AtomicWebView"
-                  }
-                ],
-                "usr": "s:Sq"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "NSCoder",
-                "printedName": "Foundation.NSCoder",
-                "usr": "c:objc(cs)NSCoder"
-              }
-            ],
-            "declKind": "Constructor",
-            "usr": "c:@M@QuantumIOS@objc(cs)AtomicWebView(im)initWithCoder:",
-            "mangledName": "$s10QuantumIOS13AtomicWebViewC5coderACSgSo7NSCoderC_tcfc",
-            "moduleName": "QuantumIOS",
-            "overriding": true,
-            "implicit": true,
-            "objc_name": "initWithCoder:",
-            "declAttributes": [
-              "Dynamic",
-              "ObjC",
-              "Preconcurrency",
-              "Custom",
-              "Required"
-            ],
-            "init_kind": "Designated"
-          }
-        ],
-        "declKind": "Class",
-        "usr": "c:@M@QuantumIOS@objc(cs)AtomicWebView",
-        "mangledName": "$s10QuantumIOS13AtomicWebViewC",
-        "moduleName": "QuantumIOS",
-        "declAttributes": [
-          "Preconcurrency",
-          "Custom",
-          "AccessControl",
-          "ObjC"
-        ],
-        "superclassUsr": "c:objc(cs)WKWebView",
-        "inheritsConvenienceInitializers": true,
-        "superclassNames": [
-          "WebKit.WKWebView",
-          "UIKit.UIView",
-          "UIKit.UIResponder",
-          "ObjectiveC.NSObject"
-        ],
-        "conformances": [
-          {
-            "kind": "Conformance",
-            "name": "Copyable",
-            "printedName": "Copyable",
-            "usr": "s:s8CopyableP",
-            "mangledName": "$ss8CopyableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Escapable",
-            "printedName": "Escapable",
-            "usr": "s:s9EscapableP",
-            "mangledName": "$ss9EscapableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Equatable",
-            "printedName": "Equatable",
-            "usr": "s:SQ",
-            "mangledName": "$sSQ"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Hashable",
-            "printedName": "Hashable",
-            "usr": "s:SH",
-            "mangledName": "$sSH"
-          },
-          {
-            "kind": "Conformance",
-            "name": "CVarArg",
-            "printedName": "CVarArg",
-            "usr": "s:s7CVarArgP",
-            "mangledName": "$ss7CVarArgP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "_KeyValueCodingAndObservingPublishing",
-            "printedName": "_KeyValueCodingAndObservingPublishing",
-            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
-            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "_KeyValueCodingAndObserving",
-            "printedName": "_KeyValueCodingAndObserving",
-            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
-            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "CustomStringConvertible",
-            "printedName": "CustomStringConvertible",
-            "usr": "s:s23CustomStringConvertibleP",
-            "mangledName": "$ss23CustomStringConvertibleP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "CustomDebugStringConvertible",
-            "printedName": "CustomDebugStringConvertible",
-            "usr": "s:s28CustomDebugStringConvertibleP",
-            "mangledName": "$ss28CustomDebugStringConvertibleP"
-          },
-          {
-            "kind": "Conformance",
             "name": "Sendable",
             "printedName": "Sendable",
             "usr": "s:s8SendableP",
@@ -1280,43 +834,19 @@
           },
           {
             "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          },
+          {
+            "kind": "Conformance",
             "name": "UITraitChangeObservable",
             "printedName": "UITraitChangeObservable",
             "usr": "s:5UIKit23UITraitChangeObservableP",
             "mangledName": "$s5UIKit23UITraitChangeObservableP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "__DefaultCustomPlaygroundQuickLookable",
-            "printedName": "__DefaultCustomPlaygroundQuickLookable",
-            "usr": "s:s38__DefaultCustomPlaygroundQuickLookableP",
-            "mangledName": "$ss38__DefaultCustomPlaygroundQuickLookableP"
           }
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "QuantumIOS",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "OSLog",
-        "printedName": "OSLog",
-        "declKind": "Import",
-        "moduleName": "QuantumIOS"
-      },
-      {
-        "kind": "Import",
-        "name": "Combine",
-        "printedName": "Combine",
-        "declKind": "Import",
-        "moduleName": "QuantumIOS"
       },
       {
         "kind": "Import",
@@ -1486,6 +1016,248 @@
                 "declKind": "Accessor",
                 "usr": "s:10QuantumIOS0A0C6muppet06MuppetB00D0CSgvM",
                 "mangledName": "$s10QuantumIOS0A0C6muppet06MuppetB00D0CSgvM",
+                "moduleName": "QuantumIOS",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "browser",
+            "printedName": "browser",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "MuppetIOS.Browser?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Browser",
+                    "printedName": "MuppetIOS.Browser",
+                    "usr": "s:9MuppetIOS7BrowserC"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10QuantumIOS0A0C7browser06MuppetB07BrowserCSgvp",
+            "mangledName": "$s10QuantumIOS0A0C7browser06MuppetB07BrowserCSgvp",
+            "moduleName": "QuantumIOS",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "Custom",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "MuppetIOS.Browser?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Browser",
+                        "printedName": "MuppetIOS.Browser",
+                        "usr": "s:9MuppetIOS7BrowserC"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10QuantumIOS0A0C7browser06MuppetB07BrowserCSgvg",
+                "mangledName": "$s10QuantumIOS0A0C7browser06MuppetB07BrowserCSgvg",
+                "moduleName": "QuantumIOS",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "MuppetIOS.Browser?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Browser",
+                        "printedName": "MuppetIOS.Browser",
+                        "usr": "s:9MuppetIOS7BrowserC"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10QuantumIOS0A0C7browser06MuppetB07BrowserCSgvs",
+                "mangledName": "$s10QuantumIOS0A0C7browser06MuppetB07BrowserCSgvs",
+                "moduleName": "QuantumIOS",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10QuantumIOS0A0C7browser06MuppetB07BrowserCSgvM",
+                "mangledName": "$s10QuantumIOS0A0C7browser06MuppetB07BrowserCSgvM",
+                "moduleName": "QuantumIOS",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "page",
+            "printedName": "page",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "MuppetIOS.Page?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Page",
+                    "printedName": "MuppetIOS.Page",
+                    "usr": "s:9MuppetIOS4PageC"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10QuantumIOS0A0C4page06MuppetB04PageCSgvp",
+            "mangledName": "$s10QuantumIOS0A0C4page06MuppetB04PageCSgvp",
+            "moduleName": "QuantumIOS",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "Custom",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "MuppetIOS.Page?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Page",
+                        "printedName": "MuppetIOS.Page",
+                        "usr": "s:9MuppetIOS4PageC"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10QuantumIOS0A0C4page06MuppetB04PageCSgvg",
+                "mangledName": "$s10QuantumIOS0A0C4page06MuppetB04PageCSgvg",
+                "moduleName": "QuantumIOS",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "MuppetIOS.Page?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Page",
+                        "printedName": "MuppetIOS.Page",
+                        "usr": "s:9MuppetIOS4PageC"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10QuantumIOS0A0C4page06MuppetB04PageCSgvs",
+                "mangledName": "$s10QuantumIOS0A0C4page06MuppetB04PageCSgvs",
+                "moduleName": "QuantumIOS",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10QuantumIOS0A0C4page06MuppetB04PageCSgvM",
+                "mangledName": "$s10QuantumIOS0A0C4page06MuppetB04PageCSgvM",
                 "moduleName": "QuantumIOS",
                 "implicit": true,
                 "declAttributes": [
@@ -1683,6 +1455,13 @@
                 "printedName": "Sendable",
                 "usr": "s:s8SendableP",
                 "mangledName": "$ss8SendableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "SendableMetatype",
+                "printedName": "SendableMetatype",
+                "usr": "s:s16SendableMetatypeP",
+                "mangledName": "$ss16SendableMetatypeP"
               }
             ]
           },
@@ -1864,6 +1643,42 @@
           },
           {
             "kind": "Function",
+            "name": "pageBuilder",
+            "printedName": "pageBuilder(browser:configuration:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Page",
+                "printedName": "MuppetIOS.Page",
+                "usr": "s:9MuppetIOS4PageC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Browser",
+                "printedName": "MuppetIOS.Browser",
+                "usr": "s:9MuppetIOS7BrowserC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "WKWebViewConfiguration",
+                "printedName": "WebKit.WKWebViewConfiguration",
+                "usr": "c:objc(cs)WKWebViewConfiguration"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10QuantumIOS0A0C11pageBuilder7browser13configuration06MuppetB04PageCAG7BrowserC_So22WKWebViewConfigurationCtFZ",
+            "mangledName": "$s10QuantumIOS0A0C11pageBuilder7browser13configuration06MuppetB04PageCAG7BrowserC_So22WKWebViewConfigurationCtFZ",
+            "moduleName": "QuantumIOS",
+            "static": true,
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "setDebug",
             "printedName": "setDebug(isEnabled:forwardLogs:)",
             "children": [
@@ -1954,37 +1769,242 @@
         ]
       },
       {
-        "kind": "TypeDecl",
-        "name": "URLSession",
-        "printedName": "URLSession",
-        "declKind": "Class",
-        "usr": "c:objc(cs)NSURLSession",
-        "moduleName": "Foundation",
-        "isOpen": true,
-        "intro_iOS": "7.0",
-        "objc_name": "NSURLSession",
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "QuantumIOS",
         "declAttributes": [
-          "Available",
-          "ObjC",
-          "SynthesizedProtocol",
-          "NonSendable",
-          "Sendable",
-          "Dynamic"
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "MuppetIOS",
+        "printedName": "MuppetIOS",
+        "declKind": "Import",
+        "moduleName": "QuantumIOS"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "QuantumSessionError",
+        "printedName": "QuantumSessionError",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "invalidResponse",
+            "printedName": "invalidResponse",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(QuantumIOS.QuantumSessionError.Type) -> (Swift.String) -> QuantumIOS.QuantumSessionError",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.String) -> QuantumIOS.QuantumSessionError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "QuantumSessionError",
+                        "printedName": "QuantumIOS.QuantumSessionError",
+                        "usr": "s:10QuantumIOS0A12SessionErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "QuantumIOS.QuantumSessionError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "QuantumSessionError",
+                        "printedName": "QuantumIOS.QuantumSessionError",
+                        "usr": "s:10QuantumIOS0A12SessionErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:10QuantumIOS0A12SessionErrorO15invalidResponseyACSScACmF",
+            "mangledName": "$s10QuantumIOS0A12SessionErrorO15invalidResponseyACSScACmF",
+            "moduleName": "QuantumIOS"
+          },
+          {
+            "kind": "Var",
+            "name": "networkError",
+            "printedName": "networkError",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(QuantumIOS.QuantumSessionError.Type) -> (any Swift.Error) -> QuantumIOS.QuantumSessionError",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(any Swift.Error) -> QuantumIOS.QuantumSessionError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "QuantumSessionError",
+                        "printedName": "QuantumIOS.QuantumSessionError",
+                        "usr": "s:10QuantumIOS0A12SessionErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "QuantumIOS.QuantumSessionError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "QuantumSessionError",
+                        "printedName": "QuantumIOS.QuantumSessionError",
+                        "usr": "s:10QuantumIOS0A12SessionErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:10QuantumIOS0A12SessionErrorO07networkD0yACs0D0_pcACmF",
+            "mangledName": "$s10QuantumIOS0A12SessionErrorO07networkD0yACs0D0_pcACmF",
+            "moduleName": "QuantumIOS"
+          },
+          {
+            "kind": "Var",
+            "name": "tokenGenerationFailed",
+            "printedName": "tokenGenerationFailed",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(QuantumIOS.QuantumSessionError.Type) -> (Swift.String) -> QuantumIOS.QuantumSessionError",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.String) -> QuantumIOS.QuantumSessionError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "QuantumSessionError",
+                        "printedName": "QuantumIOS.QuantumSessionError",
+                        "usr": "s:10QuantumIOS0A12SessionErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "QuantumIOS.QuantumSessionError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "QuantumSessionError",
+                        "printedName": "QuantumIOS.QuantumSessionError",
+                        "usr": "s:10QuantumIOS0A12SessionErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:10QuantumIOS0A12SessionErrorO21tokenGenerationFailedyACSScACmF",
+            "mangledName": "$s10QuantumIOS0A12SessionErrorO21tokenGenerationFailedyACSScACmF",
+            "moduleName": "QuantumIOS"
+          },
+          {
+            "kind": "Var",
+            "name": "errorDescription",
+            "printedName": "errorDescription",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10QuantumIOS0A12SessionErrorO16errorDescriptionSSSgvp",
+            "mangledName": "$s10QuantumIOS0A12SessionErrorO16errorDescriptionSSSgvp",
+            "moduleName": "QuantumIOS",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10QuantumIOS0A12SessionErrorO16errorDescriptionSSSgvg",
+                "mangledName": "$s10QuantumIOS0A12SessionErrorO16errorDescriptionSSSgvg",
+                "moduleName": "QuantumIOS",
+                "accessorKind": "get"
+              }
+            ]
+          }
         ],
-        "superclassUsr": "c:objc(cs)NSObject",
-        "isExternal": true,
-        "inheritsConvenienceInitializers": true,
-        "superclassNames": [
-          "ObjectiveC.NSObject"
+        "declKind": "Enum",
+        "usr": "s:10QuantumIOS0A12SessionErrorO",
+        "mangledName": "$s10QuantumIOS0A12SessionErrorO",
+        "moduleName": "QuantumIOS",
+        "declAttributes": [
+          "AccessControl"
         ],
         "conformances": [
-          {
-            "kind": "Conformance",
-            "name": "Sendable",
-            "printedName": "Sendable",
-            "usr": "s:s8SendableP",
-            "mangledName": "$ss8SendableP"
-          },
           {
             "kind": "Conformance",
             "name": "Copyable",
@@ -2001,53 +2021,241 @@
           },
           {
             "kind": "Conformance",
-            "name": "Equatable",
-            "printedName": "Equatable",
-            "usr": "s:SQ",
-            "mangledName": "$sSQ"
+            "name": "LocalizedError",
+            "printedName": "LocalizedError",
+            "usr": "s:10Foundation14LocalizedErrorP",
+            "mangledName": "$s10Foundation14LocalizedErrorP"
           },
           {
             "kind": "Conformance",
-            "name": "Hashable",
-            "printedName": "Hashable",
-            "usr": "s:SH",
-            "mangledName": "$sSH"
+            "name": "Error",
+            "printedName": "Error",
+            "usr": "s:s5ErrorP",
+            "mangledName": "$ss5ErrorP"
           },
           {
             "kind": "Conformance",
-            "name": "CVarArg",
-            "printedName": "CVarArg",
-            "usr": "s:s7CVarArgP",
-            "mangledName": "$ss7CVarArgP"
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
           },
           {
             "kind": "Conformance",
-            "name": "_KeyValueCodingAndObservingPublishing",
-            "printedName": "_KeyValueCodingAndObservingPublishing",
-            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
-            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "_KeyValueCodingAndObserving",
-            "printedName": "_KeyValueCodingAndObserving",
-            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
-            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "CustomStringConvertible",
-            "printedName": "CustomStringConvertible",
-            "usr": "s:s23CustomStringConvertibleP",
-            "mangledName": "$ss23CustomStringConvertibleP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "CustomDebugStringConvertible",
-            "printedName": "CustomDebugStringConvertible",
-            "usr": "s:s28CustomDebugStringConvertibleP",
-            "mangledName": "$ss28CustomDebugStringConvertibleP"
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
           }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "QuantumSession",
+        "printedName": "QuantumSession",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "apiUrl",
+            "printedName": "apiUrl",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10QuantumIOS0A7SessionV6apiUrlSSvp",
+            "mangledName": "$s10QuantumIOS0A7SessionV6apiUrlSSvp",
+            "moduleName": "QuantumIOS",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10QuantumIOS0A7SessionV6apiUrlSSvg",
+                "mangledName": "$s10QuantumIOS0A7SessionV6apiUrlSSvg",
+                "moduleName": "QuantumIOS",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(apiUrl:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "QuantumSession",
+                "printedName": "QuantumIOS.QuantumSession",
+                "usr": "s:10QuantumIOS0A7SessionV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:10QuantumIOS0A7SessionV6apiUrlACSS_tcfc",
+            "mangledName": "$s10QuantumIOS0A7SessionV6apiUrlACSS_tcfc",
+            "moduleName": "QuantumIOS",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "trackSession",
+            "printedName": "trackSession(token:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10QuantumIOS0A7SessionV05trackC05tokenySS_tYaAA0aC5ErrorOYKF",
+            "mangledName": "$s10QuantumIOS0A7SessionV05trackC05tokenySS_tYaAA0aC5ErrorOYKF",
+            "moduleName": "QuantumIOS",
+            "declAttributes": [
+              "Nonisolated",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "generateUserToken",
+            "printedName": "generateUserToken(publicToken:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10QuantumIOS0A7SessionV17generateUserToken06publicF0S2S_tYaAA0aC5ErrorOYKF",
+            "mangledName": "$s10QuantumIOS0A7SessionV17generateUserToken06publicF0S2S_tYaAA0aC5ErrorOYKF",
+            "moduleName": "QuantumIOS",
+            "declAttributes": [
+              "Nonisolated",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:10QuantumIOS0A7SessionV",
+        "mangledName": "$s10QuantumIOS0A7SessionV",
+        "moduleName": "QuantumIOS",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Combine",
+        "printedName": "Combine",
+        "declKind": "Import",
+        "moduleName": "QuantumIOS",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "QuantumIOS"
+      },
+      {
+        "kind": "Import",
+        "name": "OSLog",
+        "printedName": "OSLog",
+        "declKind": "Import",
+        "moduleName": "QuantumIOS"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "QuantumIOS",
+        "declAttributes": [
+          "RawDocComment"
         ]
       },
       {
@@ -2079,6 +2287,13 @@
           },
           {
             "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Copyable",
             "printedName": "Copyable",
             "usr": "s:s8CopyableP",
@@ -2097,34 +2312,6 @@
     "json_format_version": 8
   },
   "ConstValues": [
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/QuantumIOS\/API.swift",
-      "kind": "Dictionary",
-      "offset": 882,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/QuantumIOS\/API.swift",
-      "kind": "Dictionary",
-      "offset": 3194,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/QuantumIOS\/API.swift",
-      "kind": "Dictionary",
-      "offset": 3767,
-      "length": 3,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/QuantumIOS\/InternalNotifications.swift",
-      "kind": "StringLiteral",
-      "offset": 219,
-      "length": 17,
-      "value": "\"DismissTransact\""
-    },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/QuantumIOS\/Views\/AtomicWebViewController.swift",
       "kind": "BooleanLiteral",
@@ -2203,39 +2390,46 @@
       "value": "0.25"
     },
     {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Shared\/AtomicDebug.swift",
-      "kind": "BooleanLiteral",
-      "offset": 193,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Shared\/AtomicDebug.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1005,
-      "length": 5,
-      "value": "false"
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/QuantumIOS\/InternalNotifications.swift",
+      "kind": "StringLiteral",
+      "offset": 219,
+      "length": 17,
+      "value": "\"DismissTransact\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/QuantumIOS\/Quantum.swift",
       "kind": "StringLiteral",
-      "offset": 598,
+      "offset": 596,
       "length": 26,
       "value": "\"https:\/\/api.atomicfi.com\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/QuantumIOS\/Quantum.swift",
       "kind": "Dictionary",
-      "offset": 1422,
+      "offset": 1420,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/QuantumIOS\/Quantum.swift",
       "kind": "StringLiteral",
-      "offset": 3554,
+      "offset": 3615,
       "length": 9,
       "value": "\"quantum\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Shared\/AtomicDebug.swift",
+      "kind": "BooleanLiteral",
+      "offset": 192,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Shared\/AtomicDebug.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1000,
+      "length": 5,
+      "value": "false"
     }
   ]
 }
