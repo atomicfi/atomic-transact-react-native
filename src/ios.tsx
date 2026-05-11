@@ -115,6 +115,7 @@ export const AtomicIOS = {
     id,
     environment,
     presentationStyleIOS,
+    headless,
     onLaunch,
     onFinish,
     onClose,
@@ -129,6 +130,7 @@ export const AtomicIOS = {
     // for parity with Android callers but not forwarded to native.
     wrapperVersion?: string;
     presentationStyleIOS?: CONSTANTS.PresentationStyleIOS;
+    headless?: boolean;
     onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
@@ -180,7 +182,8 @@ export const AtomicIOS = {
       id,
       environment,
       presentationStyleIOS,
-      setDebug
+      setDebug,
+      headless
     ).then((event: any) => {
       if (event.finished && onFinish) {
         removeListeners();

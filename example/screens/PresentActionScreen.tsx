@@ -33,6 +33,7 @@ const PresentActionScreen: React.FC<Props> = () => {
   const [presentationStyleIOS, setPresentationStyleIOS] =
     useState<PresentationStyleIOS>(PresentationStyles.formSheet);
   const [debugEnabled, setDebugEnabled] = useState(false);
+  const [headless, setHeadless] = useState(false);
 
   const environmentOptions = [
     { key: 'sandbox' as EnvironmentOption, label: 'Sandbox' },
@@ -88,6 +89,7 @@ const PresentActionScreen: React.FC<Props> = () => {
       environment: getEnvironment(),
       presentationStyleIOS,
       setDebug: debugEnabled,
+      headless,
       onLaunch: () => {
         console.log('Action launched');
         setIsLoading(false);
@@ -183,6 +185,22 @@ const PresentActionScreen: React.FC<Props> = () => {
             <Switch
               value={debugEnabled}
               onValueChange={setDebugEnabled}
+              trackColor={{ false: '#d1d5db', true: '#3b82f6' }}
+              thumbColor="#fff"
+            />
+            <Text style={styles.switchLabel}>On</Text>
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Headless</Text>
+        <View style={styles.switchGroup}>
+          <View style={styles.switchContainer}>
+            <Text style={styles.switchLabel}>Off</Text>
+            <Switch
+              value={headless}
+              onValueChange={setHeadless}
               trackColor={{ false: '#d1d5db', true: '#3b82f6' }}
               thumbColor="#fff"
             />
