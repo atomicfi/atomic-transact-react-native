@@ -52,6 +52,7 @@ export const AtomicAndroid = {
     id,
     environment,
     wrapperVersion,
+    headless,
     onLaunch,
     onFinish,
     onClose,
@@ -62,6 +63,7 @@ export const AtomicAndroid = {
     id: String;
     environment?: CONSTANTS.TransactEnvironment;
     wrapperVersion: string;
+    headless?: boolean;
     onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
@@ -74,6 +76,11 @@ export const AtomicAndroid = {
     _addEventListener('onTaskStatusUpdate', onTaskStatusUpdate);
     _addEventListener('onAuthStatusUpdate', onAuthStatusUpdate);
 
-    TransactReactNative.presentAction(id, environment, wrapperVersion);
+    TransactReactNative.presentAction(
+      id,
+      environment,
+      wrapperVersion,
+      headless
+    );
   },
 };

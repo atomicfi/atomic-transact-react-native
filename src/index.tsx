@@ -155,6 +155,7 @@ export const Atomic = {
     id,
     environment,
     presentationStyleIOS,
+    headless,
     onLaunch,
     onFinish,
     onClose,
@@ -165,6 +166,7 @@ export const Atomic = {
     id: String;
     environment?: CONSTANTS.TransactEnvironment;
     presentationStyleIOS?: PresentationStyleIOS;
+    headless?: boolean;
     onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
@@ -178,6 +180,7 @@ export const Atomic = {
       environment: environment || CONSTANTS.Environment.production,
       wrapperVersion,
       presentationStyleIOS,
+      headless,
       onLaunch,
       onFinish,
       onClose,

@@ -133,9 +133,10 @@ class TransactReactNative: RCTEventEmitter {
 		}
 	}
 	
-	@objc(presentAction:environment:presentationStyle:setDebug:withResolver:withRejecter:)
-	func presentAction(id: String, environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+	@objc(presentAction:environment:presentationStyle:setDebug:headless:withResolver:withRejecter:)
+	func presentAction(id: String, environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, headless: NSNumber?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		let debugEnabled = setDebug?.boolValue ?? false
+		let headlessEnabled = headless?.boolValue ?? false
 
 		Task { @MainActor in
 			await Atomic.setDebug(isEnabled: debugEnabled, forwardLogs: { logMessage in
@@ -152,6 +153,7 @@ class TransactReactNative: RCTEventEmitter {
 				id: id,
 				environment: parsedEnvironment,
 				presentationStyle: parsedPresentationStyle,
+				headless: headlessEnabled,
 				onLaunch: {
 					self.sendEvent(withName: "onLaunch", body: [])
 				},

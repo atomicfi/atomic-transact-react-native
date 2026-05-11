@@ -125,6 +125,7 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     id: String,
     environment: ReadableMap,
     wrapperVersion: String,
+    headless: Boolean?,
     promise: Promise,
   ) {
     val context = reactApplicationContext.currentActivity as Context
@@ -135,7 +136,8 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
       val config = ActionConfig(
         id = id,
         environment = Config.Environment.CUSTOM,
-        environmentURL = environmentURL
+        environmentURL = environmentURL,
+        headless = headless,
       )
       config.platform = Config.Platform.suffixed("react-$wrapperVersion")
 
