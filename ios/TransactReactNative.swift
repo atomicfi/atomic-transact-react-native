@@ -233,7 +233,8 @@ extension TransactTaskStatusUpdate {
             "product": product.rawValue,
             "status": status.rawValue,
             "failReason": failReason,
-            "company": company.serialize()
+            "company": company.serialize(),
+            "actionType": actionType?.rawValue
         ]
         
         if let switchData = switchData {
