@@ -21,6 +21,7 @@ export const AtomicAndroid = {
     environment,
     wrapperVersion,
     onInteraction,
+    onLaunch,
     onTaskStatusUpdate,
     onAuthStatusUpdate,
     onFinish,
@@ -32,6 +33,7 @@ export const AtomicAndroid = {
     environment?: CONSTANTS.TransactEnvironment;
     wrapperVersion: string;
     onInteraction?: Function;
+    onLaunch?: Function;
     onTaskStatusUpdate?: Function;
     onAuthStatusUpdate?: Function;
     onDataRequest?: Function;
@@ -40,47 +42,12 @@ export const AtomicAndroid = {
   }): void {
     _addEventListener('onClose', onClose);
     _addEventListener('onFinish', onFinish);
+    _addEventListener('onLaunch', onLaunch);
     _addEventListener('onInteraction', onInteraction);
     _addEventListener('onDataRequest', onDataRequest);
     _addEventListener('onTaskStatusUpdate', onTaskStatusUpdate);
     _addEventListener('onAuthStatusUpdate', onAuthStatusUpdate);
 
     TransactReactNative.presentTransact(config, environment, wrapperVersion);
-  },
-  presentAction({
-    TransactReactNative,
-    id,
-    environment,
-    wrapperVersion,
-    headless,
-    onLaunch,
-    onFinish,
-    onClose,
-    onTaskStatusUpdate,
-    onAuthStatusUpdate,
-  }: {
-    TransactReactNative: any;
-    id: String;
-    environment?: CONSTANTS.TransactEnvironment;
-    wrapperVersion: string;
-    headless?: boolean;
-    onLaunch?: Function;
-    onFinish?: Function;
-    onClose?: Function;
-    onTaskStatusUpdate?: Function;
-    onAuthStatusUpdate?: Function;
-  }): void {
-    _addEventListener('onLaunch', onLaunch);
-    _addEventListener('onClose', onClose);
-    _addEventListener('onFinish', onFinish);
-    _addEventListener('onTaskStatusUpdate', onTaskStatusUpdate);
-    _addEventListener('onAuthStatusUpdate', onAuthStatusUpdate);
-
-    TransactReactNative.presentAction(
-      id,
-      environment,
-      wrapperVersion,
-      headless
-    );
   },
 };

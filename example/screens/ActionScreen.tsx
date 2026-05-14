@@ -16,14 +16,16 @@ import {
   Atomic,
   Environment,
   PresentationStyles,
+  Scope,
 } from '@atomicfi/transact-react-native';
 import type { PresentationStyleIOS } from '@atomicfi/transact-react-native';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'PresentAction'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Action'>;
 
 type EnvironmentOption = 'sandbox' | 'production' | 'custom';
 
-const PresentActionScreen: React.FC<Props> = () => {
+const ActionScreen: React.FC<Props> = () => {
+  const [publicToken, setPublicToken] = useState('');
   const [actionId, setActionId] = useState('');
   const [selectedEnvironment, setSelectedEnvironment] =
     useState<EnvironmentOption>('sandbox');
@@ -65,7 +67,12 @@ const PresentActionScreen: React.FC<Props> = () => {
     }
   };
 
-  const presentAction = () => {
+  const launchAction = () => {
+    if (!publicToken.trim()) {
+      Alert.alert('Error', 'Please enter a valid public token');
+      return;
+    }
+
     if (!actionId.trim()) {
       Alert.alert('Error', 'Please enter a valid action ID');
       return;
@@ -84,12 +91,21 @@ const PresentActionScreen: React.FC<Props> = () => {
 
     setIsLoading(true);
 
-    Atomic.presentAction({
-      id: actionId.trim(),
+    Atomic.transact({
+      config: {
+        publicToken: publicToken.trim(),
+        scope: Scope.PAYLINK,
+        tasks: [
+          {
+            operation: 'action',
+            action: { id: actionId.trim() },
+            headless,
+          },
+        ],
+      },
       environment: getEnvironment(),
       presentationStyleIOS,
       setDebug: debugEnabled,
-      headless,
       onLaunch: () => {
         console.log('Action launched');
         setIsLoading(false);
@@ -114,14 +130,27 @@ const PresentActionScreen: React.FC<Props> = () => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Present Action</Text>
+        <Text style={styles.headerTitle}>Action</Text>
         <Text style={styles.headerSubtitle}>
-          Launch specific Atomic actions by ID
+          Launch a specific Atomic action through transact()
         </Text>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Configuration</Text>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Public Token *</Text>
+          <TextInput
+            style={styles.input}
+            value={publicToken}
+            onChangeText={setPublicToken}
+            placeholder="Enter your public token"
+            placeholderTextColor="#9ca3af"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+        </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Action ID *</Text>
@@ -131,6 +160,8 @@ const PresentActionScreen: React.FC<Props> = () => {
             onChangeText={setActionId}
             placeholder="Enter action ID (e.g., action-123)"
             placeholderTextColor="#9ca3af"
+            autoCapitalize="none"
+            autoCorrect={false}
           />
         </View>
 
@@ -213,8 +244,9 @@ const PresentActionScreen: React.FC<Props> = () => {
         <Text style={styles.sectionTitle}>How it works</Text>
         <View style={styles.infoCard}>
           <Text style={styles.infoText}>
-            Present Action allows you to launch specific Atomic actions by their
-            ID. This is useful for:
+            Actions are launched through Atomic.transact() with a task whose
+            operation is &quot;action&quot;. The action ID is supplied on the
+            task and the public token in the config. Use this for:
           </Text>
           <Text style={styles.bulletPoint}>
             • Launching pre-configured flows
@@ -258,11 +290,11 @@ const PresentActionScreen: React.FC<Props> = () => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[styles.launchButton, isLoading && styles.disabledButton]}
-          onPress={presentAction}
+          onPress={launchAction}
           disabled={isLoading}
         >
           <Text style={styles.launchButtonText}>
-            {isLoading ? 'Launching...' : 'Present Action'}
+            {isLoading ? 'Launching...' : 'Launch Action'}
           </Text>
         </TouchableOpacity>
       </View>
@@ -441,4 +473,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PresentActionScreen;
+export default ActionScreen;
