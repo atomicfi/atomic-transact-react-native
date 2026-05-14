@@ -5,7 +5,6 @@ import android.util.Base64
 import com.facebook.react.bridge.*
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import financial.atomic.transact.Config
-import financial.atomic.transact.ActionConfig
 import financial.atomic.transact.Transact
 import financial.atomic.transact.receiver.TransactBroadcastReceiver
 import org.json.JSONObject
@@ -96,6 +95,10 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
           handleCallbackEvent("onFinish", data, "taskId", emitter, promise)
         }
 
+        override fun onLaunch() {
+          emitter.emit("onLaunch", null)
+        }
+
         override fun onInteraction(data: JSONObject) {
           emitter.emit("onInteraction", data.toString())
         }
@@ -115,60 +118,6 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
           emitter.emit("onTaskStatusUpdate", data.toString())
         }
       })
-    } catch (e: Exception) {
-      promise.reject(e)
-    }
-  }
-
-  @ReactMethod
-  fun presentAction(
-    id: String,
-    environment: ReadableMap,
-    wrapperVersion: String,
-    headless: Boolean?,
-    promise: Promise,
-  ) {
-    val context = reactApplicationContext.currentActivity as Context
-    val emitter = reactApplicationContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-    val environmentURL = parseEnvironment(environment)
-
-    try {
-      val config = ActionConfig(
-        id = id,
-        environment = Config.Environment.CUSTOM,
-        environmentURL = environmentURL,
-        headless = headless,
-      )
-      config.platform = Config.Platform.suffixed("react-$wrapperVersion")
-
-      Transact.presentAction(context, config)
-
-      val receiver = object : TransactBroadcastReceiver() {
-        override fun onClose(data: JSONObject) {
-          handleCallbackEvent("onClose", data, "reason", emitter, promise)
-        }
-
-        override fun onFinish(data: JSONObject) {
-          handleCallbackEvent("onFinish", data, "taskId", emitter, promise)
-        }
-
-        override fun onLaunch() {
-          emitter.emit("onLaunch", null)
-        }
-
-        override fun onAuthStatusUpdate(data: JSONObject) {
-          emitter.emit("onAuthStatusUpdate", data.toString())
-        }
-
-        override fun onTaskStatusUpdate(data: JSONObject) {
-          if (!data.has("failReason")) {
-            data.put("failReason", JSONObject.NULL)
-          }
-          emitter.emit("onTaskStatusUpdate", data.toString())
-        }
-      }
-
-      Transact.registerReceiver(context, receiver)
     } catch (e: Exception) {
       promise.reject(e)
     }

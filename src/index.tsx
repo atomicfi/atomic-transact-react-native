@@ -37,10 +37,12 @@ interface Theme {
 
 interface Task {
   product?: String; // Deprecated
-  operation: String;
+  operation?: String;
   distribution?: Object;
   navigationOptions?: Object;
   apps?: AppType[];
+  action?: { id: String };
+  headless?: boolean;
 }
 
 interface Customer {
@@ -99,6 +101,7 @@ export const Atomic = {
     config,
     environment,
     onInteraction,
+    onLaunch,
     onFinish,
     onDataRequest,
     onClose,
@@ -113,6 +116,7 @@ export const Atomic = {
     onDataRequest?: Function;
     onAuthStatusUpdate?: Function;
     onTaskStatusUpdate?: Function;
+    onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
     presentationStyleIOS?: PresentationStyleIOS;
@@ -131,6 +135,7 @@ export const Atomic = {
       environment: environment || CONSTANTS.Environment.production,
       wrapperVersion,
       onInteraction,
+      onLaunch,
       onFinish,
       onDataRequest,
       onClose,
@@ -146,55 +151,6 @@ export const Atomic = {
         break;
       case 'android':
         AtomicAndroid.transact(args);
-        break;
-      default:
-        throw new Error(`Unsupported OS: ${Platform.OS}`);
-    }
-  },
-  presentAction({
-    id,
-    environment,
-    presentationStyleIOS,
-    headless,
-    onLaunch,
-    onFinish,
-    onClose,
-    onAuthStatusUpdate,
-    onTaskStatusUpdate,
-    setDebug,
-  }: {
-    id: String;
-    environment?: CONSTANTS.TransactEnvironment;
-    presentationStyleIOS?: PresentationStyleIOS;
-    headless?: boolean;
-    onLaunch?: Function;
-    onFinish?: Function;
-    onClose?: Function;
-    onAuthStatusUpdate?: Function;
-    onTaskStatusUpdate?: Function;
-    setDebug?: boolean;
-  }): void {
-    const args = {
-      TransactReactNative,
-      id,
-      environment: environment || CONSTANTS.Environment.production,
-      wrapperVersion,
-      presentationStyleIOS,
-      headless,
-      onLaunch,
-      onFinish,
-      onClose,
-      onAuthStatusUpdate,
-      onTaskStatusUpdate,
-      setDebug,
-    };
-
-    switch (Platform.OS) {
-      case 'ios':
-        AtomicIOS.presentAction(args);
-        break;
-      case 'android':
-        AtomicAndroid.presentAction(args);
         break;
       default:
         throw new Error(`Unsupported OS: ${Platform.OS}`);

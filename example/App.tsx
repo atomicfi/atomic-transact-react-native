@@ -3,12 +3,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HomeScreen from './screens/HomeScreen';
 import TransactScreen from './screens/TransactScreen';
-import PresentActionScreen from './screens/PresentActionScreen';
+import ActionScreen from './screens/ActionScreen';
 
 export type RootStackParamList = {
   Home: undefined;
   Transact: undefined;
-  PresentAction: undefined;
+  Action: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -40,9 +40,9 @@ export default function App() {
             options={{ title: 'Transact Demo' }}
           />
           <Stack.Screen
-            name="PresentAction"
-            component={PresentActionScreen}
-            options={{ title: 'Present Action Demo' }}
+            name="Action"
+            component={ActionScreen}
+            options={{ title: 'Action Demo' }}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -12,14 +12,6 @@ RCT_EXTERN_METHOD(presentTransact:(NSDictionary *)config
 				  withResolver:(RCTPromiseResolveBlock)resolve
 				  withRejecter:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(presentAction:(NSString *)id
-				  environment:(NSDictionary *)environment
-				  presentationStyle:(nullable NSString *)presentationStyle
-				  setDebug:(nullable NSNumber *)setDebug
-				  headless:(nullable NSNumber *)headless
-				  withResolver:(RCTPromiseResolveBlock)resolve
-				  withRejecter:(RCTPromiseRejectBlock)reject)
-
 RCT_EXTERN_METHOD(resolveDataRequest:(id)data)
 
 RCT_EXTERN_METHOD(hideTransact:(RCTPromiseResolveBlock)resolve

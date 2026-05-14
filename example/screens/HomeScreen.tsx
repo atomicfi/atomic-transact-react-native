@@ -19,7 +19,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
       'This example app demonstrates the integration of the @atomicfi/transact-react-native package.\n\n' +
         'Features:\n' +
         '• Transact Flow - Complete financial connection flow\n' +
-        '• Present Action - Launch specific actions\n' +
+        '• Action - Launch a specific action through transact()\n' +
         '• Environment switching (Sandbox/Production)\n' +
         '• Custom theming and configuration\n\n' +
         'Note: You need valid Atomic credentials to test the actual flows.',
@@ -47,11 +47,11 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
         <TouchableOpacity
           style={[styles.button, styles.secondaryButton]}
-          onPress={() => navigation.navigate('PresentAction')}
+          onPress={() => navigation.navigate('Action')}
         >
-          <Text style={styles.buttonText}>Present Action</Text>
+          <Text style={styles.buttonText}>Launch Action</Text>
           <Text style={styles.buttonSubtext}>
-            Launch specific actions by ID
+            Launch a specific action through transact()
           </Text>
         </TouchableOpacity>
 

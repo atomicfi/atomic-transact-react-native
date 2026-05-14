@@ -8,6 +8,7 @@ export const AtomicIOS = {
     environment,
     wrapperVersion,
     onInteraction,
+    onLaunch,
     onFinish,
     onDataRequest,
     onClose,
@@ -22,6 +23,7 @@ export const AtomicIOS = {
     wrapperVersion: string;
     onInteraction?: Function;
     onDataRequest?: Function;
+    onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
     onAuthStatusUpdate?: Function;
@@ -34,12 +36,14 @@ export const AtomicIOS = {
     );
     let onInteractionListener: any;
     let onDataRequestListener: any;
+    let onLaunchListener: any;
     let onAuthStatusUpdateListener: any;
     let onDebugLogListener: any;
 
     const removeListeners = () => {
       if (onInteractionListener) onInteractionListener.remove();
       if (onDataRequestListener) onDataRequestListener.remove();
+      if (onLaunchListener) onLaunchListener.remove();
       if (onAuthStatusUpdateListener) onAuthStatusUpdateListener.remove();
       if (onDebugLogListener) onDebugLogListener.remove();
     };
@@ -80,84 +84,6 @@ export const AtomicIOS = {
       );
     }
 
-    if (onAuthStatusUpdate) {
-      onAuthStatusUpdateListener = TransactReactNativeEvents.addListener(
-        'onAuthStatusUpdate',
-        (authStatus) => onAuthStatusUpdate(authStatus)
-      );
-    }
-
-    if (onTaskStatusUpdate) {
-      TransactReactNativeEvents.addListener(
-        'onTaskStatusUpdate',
-        (taskStatus) => onTaskStatusUpdate(taskStatus)
-      );
-    }
-
-    TransactReactNative.presentTransact(
-      config,
-      environment,
-      presentationStyleIOS,
-      setDebug,
-      wrapperVersion
-    ).then((event: any) => {
-      if (event.finished && onFinish) {
-        removeListeners();
-        onFinish(event.finished);
-      } else if (event.closed && onClose) {
-        removeListeners();
-        onClose(event.closed);
-      }
-    });
-  },
-  presentAction({
-    TransactReactNative,
-    id,
-    environment,
-    presentationStyleIOS,
-    headless,
-    onLaunch,
-    onFinish,
-    onClose,
-    onAuthStatusUpdate,
-    onTaskStatusUpdate,
-    setDebug,
-  }: {
-    TransactReactNative: any;
-    id: String;
-    environment?: CONSTANTS.TransactEnvironment;
-    // iOS `presentAction` does not yet accept a platform suffix; accepted here
-    // for parity with Android callers but not forwarded to native.
-    wrapperVersion?: string;
-    presentationStyleIOS?: CONSTANTS.PresentationStyleIOS;
-    headless?: boolean;
-    onLaunch?: Function;
-    onFinish?: Function;
-    onClose?: Function;
-    onAuthStatusUpdate?: Function;
-    onTaskStatusUpdate?: Function;
-    setDebug?: boolean;
-  }): void {
-    const TransactReactNativeEvents = new NativeEventEmitter(
-      TransactReactNative
-    );
-    let onLaunchListener: any;
-    let onAuthStatusUpdateListener: any;
-    let onDebugLogListener: any;
-
-    const removeListeners = () => {
-      if (onLaunchListener) onLaunchListener.remove();
-      if (onAuthStatusUpdateListener) onAuthStatusUpdateListener.remove();
-      if (onDebugLogListener) onDebugLogListener.remove();
-    };
-
-    onDebugLogListener = TransactReactNativeEvents.addListener(
-      'onDebugLog',
-      (log) => {
-        console.debug('[TransactNative]', log.message);
-      }
-    );
-
     if (onLaunch) {
       onLaunchListener = TransactReactNativeEvents.addListener('onLaunch', () =>
         onLaunch()
@@ -178,12 +104,12 @@ export const AtomicIOS = {
       );
     }
 
-    TransactReactNative.presentAction(
-      id,
+    TransactReactNative.presentTransact(
+      config,
       environment,
       presentationStyleIOS,
       setDebug,
-      headless
+      wrapperVersion
     ).then((event: any) => {
       if (event.finished && onFinish) {
         removeListeners();

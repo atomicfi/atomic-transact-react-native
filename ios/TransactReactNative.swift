@@ -101,6 +101,9 @@ class TransactReactNative: RCTEventEmitter {
 					onTaskStatusUpdate: { status in
 						self.sendEvent(withName: "onTaskStatusUpdate", body: status.serialize())
 					},
+					onLaunch: {
+						self.sendEvent(withName: "onLaunch", body: [])
+					},
 					onCompletion: { result in
 						switch result {
 						case .finished(let response):
@@ -120,66 +123,19 @@ class TransactReactNative: RCTEventEmitter {
 			}
 		}
 	}
-	
+
 	// Method to receive response from React Native
 	@objc(resolveDataRequest:)
 	func resolveDataRequest(data: Any) -> Void {
 		// Call the stored response handler with the data from React Native
 		if let handler = dataResponseHandler {
 			handler(data)
-			
+
 			// Clear the handler
 			dataResponseHandler = nil
 		}
 	}
-	
-	@objc(presentAction:environment:presentationStyle:setDebug:headless:withResolver:withRejecter:)
-	func presentAction(id: String, environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, headless: NSNumber?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
-		let debugEnabled = setDebug?.boolValue ?? false
-		let headlessEnabled = headless?.boolValue ?? false
 
-		Task { @MainActor in
-			await Atomic.setDebug(isEnabled: debugEnabled, forwardLogs: { logMessage in
-				self.sendEvent(withName: "onDebugLog", body: ["message": logMessage])
-			})
-
-			guard let source = RCTPresentedViewController() else { return }
-
-			let parsedEnvironment = self.parseEnvironment(environment)
-			let parsedPresentationStyle = self.parsePresentationStyle(presentationStyle)
-
-			Atomic.presentAction(
-				from: source,
-				id: id,
-				environment: parsedEnvironment,
-				presentationStyle: parsedPresentationStyle,
-				headless: headlessEnabled,
-				onLaunch: {
-					self.sendEvent(withName: "onLaunch", body: [])
-				},
-				onAuthStatusUpdate: { status in
-					self.sendEvent(withName: "onAuthStatusUpdate", body: status.serialize())
-				},
-				onTaskStatusUpdate: { status in
-					self.sendEvent(withName: "onTaskStatusUpdate", body: status.serialize())
-				},
-				onCompletion: { result in
-					switch result {
-					case .finished(let response):
-						resolve(["finished": response.data])
-					case .closed(let response):
-						resolve(["closed": response.data])
-					case .error:
-						resolve(["error": "Unknown error"])
-					default:
-						print("default")
-						resolve(["error": "Unknown error"])
-					}
-				}
-			)
-		}
-	}
-	
 	@objc(hideTransact:withRejecter:)
 	func hideTransact(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		DispatchQueue.main.async {
