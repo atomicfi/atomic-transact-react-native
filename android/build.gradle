@@ -1,5 +1,5 @@
 ext {
-  transactVersion = '3.20.0'
+  transactVersion = '3.20.1'
 }
 
 buildscript {
