@@ -3,6 +3,7 @@ package com.atomicfi.transactreactnative
 import android.content.Context
 import android.util.Base64
 import com.facebook.react.bridge.*
+import com.facebook.react.bridge.UiThreadUtil
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import financial.atomic.transact.Config
 import financial.atomic.transact.Transact
@@ -85,41 +86,43 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     val token = buildConfigToken(config, wrapperVersion)
     val sdkConfig = Config(token = token, environment = "CUSTOM", environmentURL = environmentURL)
 
-    try {
-      Transact.present(context, sdkConfig, object : TransactBroadcastReceiver() {
-        override fun onClose(data: JSONObject) {
-          handleCallbackEvent("onClose", data, "reason", emitter, promise)
-        }
-
-        override fun onFinish(data: JSONObject) {
-          handleCallbackEvent("onFinish", data, "taskId", emitter, promise)
-        }
-
-        override fun onLaunch() {
-          emitter.emit("onLaunch", null)
-        }
-
-        override fun onInteraction(data: JSONObject) {
-          emitter.emit("onInteraction", data.toString())
-        }
-
-        override fun onDataRequest(data: JSONObject) {
-          emitter.emit("onDataRequest", data.toString())
-        }
-
-        override fun onAuthStatusUpdate(data: JSONObject) {
-          emitter.emit("onAuthStatusUpdate", data.toString())
-        }
-
-        override fun onTaskStatusUpdate(data: JSONObject) {
-          if (!data.has("failReason")) {
-            data.put("failReason", JSONObject.NULL)
+    UiThreadUtil.runOnUiThread {
+      try {
+        Transact.present(context, sdkConfig, object : TransactBroadcastReceiver() {
+          override fun onClose(data: JSONObject) {
+            handleCallbackEvent("onClose", data, "reason", emitter, promise)
           }
-          emitter.emit("onTaskStatusUpdate", data.toString())
-        }
-      })
-    } catch (e: Exception) {
-      promise.reject(e)
+
+          override fun onFinish(data: JSONObject) {
+            handleCallbackEvent("onFinish", data, "taskId", emitter, promise)
+          }
+
+          override fun onLaunch() {
+            emitter.emit("onLaunch", null)
+          }
+
+          override fun onInteraction(data: JSONObject) {
+            emitter.emit("onInteraction", data.toString())
+          }
+
+          override fun onDataRequest(data: JSONObject) {
+            emitter.emit("onDataRequest", data.toString())
+          }
+
+          override fun onAuthStatusUpdate(data: JSONObject) {
+            emitter.emit("onAuthStatusUpdate", data.toString())
+          }
+
+          override fun onTaskStatusUpdate(data: JSONObject) {
+            if (!data.has("failReason")) {
+              data.put("failReason", JSONObject.NULL)
+            }
+            emitter.emit("onTaskStatusUpdate", data.toString())
+          }
+        })
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
     }
   }
 
