@@ -49,14 +49,14 @@ public enum Atomic {
 }
 public struct AtomicConfig : Swift.Codable, Swift.Sendable {
   #if compiler(>=5.3) && $NonescapableTypes
-  public init(publicToken: Swift.String, scope: AtomicTransact.AtomicConfig.ScopeType, tasks: [AtomicTransact.AtomicConfig.Task], linkedAccount: Swift.String? = nil, deferredPaymentMethodStrategy: AtomicTransact.AtomicConfig.DeferredPaymentMethodStrategy? = nil, theme: AtomicTransact.AtomicConfig.Theme = Theme(dark: .system), language: Swift.String = Locale.current.languageCode == "es" ? "es" : "en", sessionContext: Swift.String? = nil, deeplink: AtomicTransact.AtomicConfig.Deeplink? = nil, metadata: [Swift.String : Swift.String]? = nil, search: AtomicTransact.AtomicConfig.Search? = nil, handoff: [Swift.String]? = nil, experiments: AtomicTransact.AtomicConfig.Experiments? = nil, features: AtomicTransact.AtomicConfig.Features? = nil, customer: AtomicTransact.AtomicConfig.Customer? = nil, uplinkSessionUrl: Swift.String? = nil)
+  public init(publicToken: Swift.String, scope: AtomicTransact.AtomicConfig.ScopeType, tasks: [AtomicTransact.AtomicConfig.Task], linkedAccount: Swift.String? = nil, deferredPaymentMethodStrategy: AtomicTransact.AtomicConfig.DeferredPaymentMethodStrategy? = nil, theme: AtomicTransact.AtomicConfig.Theme = Theme(dark: .system), language: Swift.String = Self.defaultLanguage, sessionContext: Swift.String? = nil, deeplink: AtomicTransact.AtomicConfig.Deeplink? = nil, metadata: [Swift.String : Swift.String]? = nil, search: AtomicTransact.AtomicConfig.Search? = nil, handoff: [Swift.String]? = nil, experiments: AtomicTransact.AtomicConfig.Experiments? = nil, features: AtomicTransact.AtomicConfig.Features? = nil, customer: AtomicTransact.AtomicConfig.Customer? = nil, uplinkSessionUrl: Swift.String? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  public init(demo: AtomicTransact.AtomicConfig.DemoMode, scope: AtomicTransact.AtomicConfig.ScopeType, tasks: [AtomicTransact.AtomicConfig.Task], linkedAccount: Swift.String? = nil, theme: AtomicTransact.AtomicConfig.Theme = Theme(dark: .system), language: Swift.String = Locale.current.languageCode == "es" ? "es" : "en", sessionContext: Swift.String? = nil, deeplink: AtomicTransact.AtomicConfig.Deeplink? = nil, metadata: [Swift.String : Swift.String]? = nil, search: AtomicTransact.AtomicConfig.Search? = nil, handoff: [Swift.String]? = nil, experiments: AtomicTransact.AtomicConfig.Experiments? = nil)
+  public init(demo: AtomicTransact.AtomicConfig.DemoMode, scope: AtomicTransact.AtomicConfig.ScopeType, tasks: [AtomicTransact.AtomicConfig.Task], linkedAccount: Swift.String? = nil, theme: AtomicTransact.AtomicConfig.Theme = Theme(dark: .system), language: Swift.String = Self.defaultLanguage, sessionContext: Swift.String? = nil, deeplink: AtomicTransact.AtomicConfig.Deeplink? = nil, metadata: [Swift.String : Swift.String]? = nil, search: AtomicTransact.AtomicConfig.Search? = nil, handoff: [Swift.String]? = nil, experiments: AtomicTransact.AtomicConfig.Experiments? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
   @available(*, deprecated, message: "Use `tasks` instead of `product`")
-  public init(publicToken: Swift.String, scope: AtomicTransact.AtomicConfig.ScopeType, product: AtomicTransact.AtomicConfig.ProductType, additionalProduct: AtomicTransact.AtomicConfig.ProductType? = nil, linkedAccount: Swift.String? = nil, theme: AtomicTransact.AtomicConfig.Theme = Theme(dark: .system), distribution: AtomicTransact.AtomicConfig.Distribution? = nil, language: Swift.String = Locale.current.languageCode == "es" ? "es" : "en", sessionContext: Swift.String? = nil, deeplink: AtomicTransact.AtomicConfig.Deeplink? = nil, metadata: [Swift.String : Swift.String]? = nil, search: AtomicTransact.AtomicConfig.Search? = nil, handoff: [Swift.String]? = nil, experiments: AtomicTransact.AtomicConfig.Experiments? = nil)
+  public init(publicToken: Swift.String, scope: AtomicTransact.AtomicConfig.ScopeType, product: AtomicTransact.AtomicConfig.ProductType, additionalProduct: AtomicTransact.AtomicConfig.ProductType? = nil, linkedAccount: Swift.String? = nil, theme: AtomicTransact.AtomicConfig.Theme = Theme(dark: .system), distribution: AtomicTransact.AtomicConfig.Distribution? = nil, language: Swift.String = Self.defaultLanguage, sessionContext: Swift.String? = nil, deeplink: AtomicTransact.AtomicConfig.Deeplink? = nil, metadata: [Swift.String : Swift.String]? = nil, search: AtomicTransact.AtomicConfig.Search? = nil, handoff: [Swift.String]? = nil, experiments: AtomicTransact.AtomicConfig.Experiments? = nil)
   #endif
   public struct Task : Swift.Codable, Swift.Sendable {
     public let product: AtomicTransact.AtomicConfig.ProductType?
@@ -206,6 +206,7 @@ public struct AtomicConfig : Swift.Codable, Swift.Sendable {
       case loginCompany(companyId: Swift.String, connectorId: Swift.String? = nil, singleSwitch: Swift.Bool? = false)
       case loginPayroll(connectorId: Swift.String, companyName: Swift.String)
       case addCard
+      case manualFallback
       public var id: Swift.String {
         get
       }
@@ -318,7 +319,7 @@ public struct AtomicConfig : Swift.Codable, Swift.Sendable {
     public func encode(to encoder: any Swift.Encoder) throws
     public init(from decoder: any Swift.Decoder) throws
   }
-  public let publicToken: Swift.String?
+  public var publicToken: Swift.String?
   public var tasks: [AtomicTransact.AtomicConfig.Task]?
   public let demo: AtomicTransact.AtomicConfig.DemoMode?
   public let product: AtomicTransact.AtomicConfig.ProductType?
@@ -338,6 +339,9 @@ public struct AtomicConfig : Swift.Codable, Swift.Sendable {
   public var features: AtomicTransact.AtomicConfig.Features?
   public var customer: AtomicTransact.AtomicConfig.Customer?
   public let uplinkSessionUrl: Swift.String?
+  public static var defaultLanguage: Swift.String {
+    get
+  }
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
 }

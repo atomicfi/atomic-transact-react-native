@@ -6,7 +6,7 @@
 	<dict>
 		<key>ios-arm64/MuppetIOS.framework/Info.plist</key>
 		<data>
-		FYjX8YQ3e0K52iqfeYbwAqdwdnE=
+		XkEeE3Cs1w5tXlFFT4oiG+TRLUc=
 		</data>
 		<key>ios-arm64/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Info.plist</key>
 		<data>
-		kxfAzJO22k0iqEj9e9FJ95CSAWM=
+		YTEWTwz7fuDYAWWrAoHkVBdNfVQ=
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -99,7 +99,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			WMTUFsRDHxmgVhqo0n7hfRy1EG6lzJ93dxtsFYeUnX0=
+			9OjNDk/M4lHHh78BNrzRkbJAJ2mXD9/AYpFFwj+D97o=
 			</data>
 		</dict>
 		<key>ios-arm64/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64-apple-ios.abi.json</key>
@@ -148,7 +148,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1jpMSyAAsjiFtCbv1IEV5z/bP4HF21v2GF/7KN2IMvg=
+			Ru9wOc5rX3qc/xX+GFRYnHUFhFKiJAROgkGyJUg7KK0=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
