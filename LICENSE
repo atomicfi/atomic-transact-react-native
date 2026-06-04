@@ -1,20 +1,80 @@
-MIT License
 
-Copyright (c) 2023 Sean Hill <sean@atomicfi.com> (https://atomic.financial)
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Atomic SDK License Agreement
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+THIS DOCUMENT IS A LEGAL AGREEMENT (the “Agreement”) BETWEEN Atomic FI, Inc. (“Atomic,” “We,” “Us”) AND YOU OR THE ORGANIZATION ON WHOSE BEHALF YOU ARE ENTERING INTO THIS AGREEMENT (“You”) IN RELATION TO THE ATOMIC SDK [AND APIs] (the “Software”) IN OBJECT CODE FORMAT.  
+The Software and this Agreement are provided in connection with the Atomic FI Hosted Services Agreement or any similar governing agreement for services executed between your organization (“Client”) and Atomic (the “Services Agreement”).
+
+RIGHTS GRANTED HEREIN APPLY ONLY TO SOFTWARE PROVIDED FOR USE IN CONNECTION WITH THE ATOMIC HOSTED SERVICES AND SOLUTIONS FOR WHICH CLIENT HAS PAID THE APPLICABLE FEES.
+
+BY DOWNLOADING, INSTALLING, COPYING OR OTHERWISE USING THE SOFTWARE, YOU ACCEPT THE FOLLOWING TERMS AND CONDITIONS. IF YOU DO NOT AGREE WITH ANY OF THE TERMS OR CONDITIONS OF THIS LICENSE AGREEMENT, DO NOT PROCEED WITH THE DOWNLOADING, COPYING, INSTALLATION OR ANY OTHER USE OF THE SOFTWARE OR ANY PORTION THEREOF AS YOU HAVE NO RIGHTS TO DO SO. THE SOFTWARE IS PROTECTED BY UNITED STATES COPYRIGHT LAWS AND INTERNATIONAL COPYRIGHT LAWS, AS WELL AS OTHER INTELLECTUAL PROPERTY LAWS AND TREATIES. THE SOFTWARE IS LICENSED, NOT SOLD.
+THIS LICENSE AGREEMENT DESCRIBES YOUR RIGHTS AND RESTRICTIONS WITH RESPECT TO THE SOFTWARE AND ITS COMPONENTS.
+
+1. DEFINITIONS
+
+“Client User” means Client personnel who are using the SDK in connection with Client’s use of the Hosted Services.
+
+“Client Services” means the banking or other services that Client offers to its End Users in the ordinary course of its business.
+
+“End User” means an account holder or other end user of the Client Services.
+
+“Hosted Services” means the cloud-based services provided by Atomic under the Services Agreement.
+
+“Modification” means: a) any addition to or deletion from the contents of a file included in the original Software or previous Modifications created by You, and/or b) any new file that leverages any part of the original Software or previous Modifications.
+
+“SDK” means the software development kit, related APIs and other software files that Atomic provides to Client for use in connection with the configuration, integration and use of the Hosted Services.
+
+2. LICENSE GRANT
+
+Subject to your compliance with all of the terms and conditions of this Agreement, We grant to You and Your Client Users a revocable, non-exclusive, non-transferable and non-sublicensable license to use the Software during the Term of the Services Agreement to configure and integrate the Hosted Services with the Client Services, solely for Client’s own internal business use and not for distribution, resale, user interface design, or software development purposes.
+
+3. RESTRICTIONS AND PROHIBITED USES
+
+(a) You shall not copy, translate, reverse engineer, decompile, disassemble, or otherwise attempt to learn the design, structure, algorithms, ideas or source code of the Software or infringe on Atomic’s intellectual property rights, or encourage or permit any other third party to do so. Notwithstanding anything else, Client is not entitled to receive or access any source code of the Software.
+
+(b) You shall ensure that the Software is not reused by or with any applications other than in connection with the Client Services.  
+
+(c) You may not redistribute the Software or any part of the Software documentation, or sell, lease, lend or sublicense the Software or any component as an independent product.  You shall have no right to (nor will allow any third party to) sell, assign, lease, transfer, encumber, or otherwise suffer to exist any lien or security interest on the Software, Modifications or any derivative works.
+
+(d) You may not modify, distribute or convey the Software or any code contained therein so that such Software, code or any application to which it links, or which it is a part of, becomes subject to an Excluded License.  An Excluded License is defined as one that requires, as a condition of license, use, modification, distribution or conveyance, that (i) the code be disclosed or distributed in source code form; (ii) others have the right to modify or create derivative works of it; or (iii) it becomes redistributable at no charge.
+
+4. OWNERSHIP; NOTICES
+
+(a) This is a license agreement and not an agreement for sale. Atomic reserves ownership of all intellectual property rights inherent in or relating to the Software, which include, but are not limited to, all copyright, patent rights, all rights in relation to registered and unregistered trademarks (including service marks), confidential information (including trade secrets and know-how) and all rights other than those expressly granted by this Agreement.
+
+(b) Atomic continue owns all copyright and other intellectual property rights in the Software and any Modifications.  In the event that You create any Modifications, You agree to assign and hereby assign to Atomic all intellectual property rights in such Modifications.  
+
+(c) You must not change, remove, obscure or interfere with any copyright or trademark notices, acknowledgment, attribution, warning or disclaimer statement from, affixed to, incorporated in any of the files included in the Software or otherwise applied to in connection with the Software.
+
+5. TERMINATION
+
+This Agreement and Your right to use the Software and Modifications will terminate (a) upon expiration or termination of the  Services Agreement or (b) immediately if You fail to comply with any of the terms and conditions of this Agreement.  Upon termination, You agree to immediately cease using and destroy the Software or Modifications, including all accompanying documents.  The provisions of Sections 3, 4, 5, 6, 7 and 8 will survive any termination of this Agreement.
+
+6. DISCLAIMER OF WARRANTIES
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, ATOMIC AND ITS LICENSORS DISCLAIM ALL WARRANTIES AND CONDITIONS, EITHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND TITLE AND NON-INFRINGEMENT, WITH REGARD TO THE SOFTWARE. WE DO NOT GUARANTEE THAT THE OPERATION OF THE SOFTWARE OR THE CODE IT PRODUCES WILL BE UNINTERRUPTED OR ERROR-FREE, AND YOU ACKNOWLEDGE THAT IT IS NOT TECHNICALLY PRACTICABLE FOR US TO DO SO.
+
+7. LIMITATION OF LIABILITIES
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL ATOMIC OR ITS LICENSORS BE LIABLE UNDER ANY LEGAL OR EQUITABLE THEORY FOR ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES WHATSOEVER (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFITS, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION OR ANY OTHER PECUNIARY LAW) ARISING OUT OF THE USE OF OR INABILITY TO USE THE SOFTWARE OR THE CODE IT PRODUCES OR ANY OTHER SUBJECT MATTER RELATING TO THIS AGREEMENT, EVEN IF WE OR OUR RESELLERS HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. IN ANY CASE, OUR ENTIRE LIABILITY WITH RESPECT TO ANY SUBJECT MATER RELATING TO THIS AGREEMENT SHALL BE LIMITED TO THE GREATER OF (I) THE AMOUNT ACTUALLY PAID BY YOU FOR THE SOFTWARE OR (II) FIVE HUNDRED DOLLARS ($500).
+
+8. MISCELLANEOUS
+
+(a) The license granted herein applies only to the version of the Software available when purchased or downloaded in connection with the terms of this Agreement, and to any updates and/or upgrades to which you may be entitled and are provided.  Any previous or subsequent license granted to You for use of the Software shall be governed by the terms and conditions of the agreement entered in connection with purchase or download of that version of the Software. You agree that you will comply with all applicable laws and regulations with respect to the Software, including without limitation all export and re-export control laws and regulations.
+
+(b) You may not assign or transfer this Agreement without Atomic’s prior written consent. This Agreement may be assigned by Atomic in whole or part and will inure to the benefit of Atomic’s successors and assigns. 
+
+(c) You acknowledge that this Agreement is complete and is the exclusive representation of our agreement. No oral or written information given by Atomic, Our resellers, or otherwise on Our behalf shall create a warranty or collateral contract, or in any way increase the scope of this Agreement in any way, and You may not rely on any such oral or written information. No term or condition contained in any purchase order shall have any force or effect.
+
+(d) There are no implied licenses or other implied rights granted under this Agreement, and all rights, save for those expressly granted hereunder, shall remain with Us and our licensors. In addition, no licenses or immunities are granted to the combination of the Software and/or Modifications, as applicable, with any other software or hardware not delivered by Us or Our resellers to You under this Agreement.
+
+(e) If any provision in this Agreement shall be determined to be invalid, such provision shall be deemed omitted; the remainder of this Agreement shall continue in full force and effect. If any remedy provided is determined to have failed for its essential purpose, all limitations of liability and exclusions of damages set forth in this Agreement shall remain in effect.
+
+(f) This Agreement may be modified only by a written instrument signed by an authorized representative of each party. The failure of either party to enforce any provision of this Agreement may not be deemed a waiver of that or any other provision of this Agreement.
+
+(g) This Agreement shall be governed by and construed in accordance with the laws of the State of Utah without giving effect to choice of law principles that require the application of the laws of a different jurisdiction. At least thirty (30) days before initiating any legal action or proceeding in relation to this Agreement, the aggrieved party will notify the other party of the nature and basis of the dispute, and the parties will use good-faith efforts to resolve the dispute amicably; provided, however, that this will not diminish either party’s rights to seek or obtain temporary or preliminary injunctive relief to prevent or remedy any breach of confidentiality or infringement or misappropriation of intellectual property rights. Subject to the foregoing, any legal action or proceeding relating to this Agreement shall be brought exclusively in the state or federal courts located in the State of Utah.
+
+(h) If the Software or any related documentation is licensed to the U.S. Government or any agency thereof, it will be considered to be “commercial computer software” or “commercial computer software documentation,” as those terms are used in 48 CFR §12.212 or 48 CFR § 227.7202, and is being licensed with only those rights as are granted to all other licensees as set forth in this Agreement.
+***
+
+
