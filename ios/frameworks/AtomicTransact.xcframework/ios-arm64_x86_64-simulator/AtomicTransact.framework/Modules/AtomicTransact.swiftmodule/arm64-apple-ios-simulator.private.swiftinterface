@@ -1,18 +1,18 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 6.2.1 (swiftlang-6.2.1.4.8 clang-1700.4.4.1)
+// swift-compiler-version: Apple Swift version 6.2.3 (swiftlang-6.2.3.3.21 clang-1700.6.3.2)
 // swift-module-flags: -target arm64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 6 -enforce-exclusivity=checked -O -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-experimental-feature DebugDescriptionMacro -module-name AtomicTransact
-// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.1
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.3
 @_exported import AtomicTransact
 import Combine
 import Foundation
 import MuppetIOS
 import OSLog
-import QuantumIOS
 import SafariServices
 import Security
 import Swift
 import SwiftUI
 import UIKit
+import Uplink
 import WebKit
 import _Concurrency
 import _StringProcessing
@@ -49,14 +49,14 @@ public enum Atomic {
 }
 public struct AtomicConfig : Swift.Codable, Swift.Sendable {
   #if compiler(>=5.3) && $NonescapableTypes
-  public init(publicToken: Swift.String, scope: AtomicTransact.AtomicConfig.ScopeType, tasks: [AtomicTransact.AtomicConfig.Task], linkedAccount: Swift.String? = nil, deferredPaymentMethodStrategy: AtomicTransact.AtomicConfig.DeferredPaymentMethodStrategy? = nil, theme: AtomicTransact.AtomicConfig.Theme = Theme(dark: .system), language: Swift.String = Locale.current.languageCode == "es" ? "es" : "en", sessionContext: Swift.String? = nil, deeplink: AtomicTransact.AtomicConfig.Deeplink? = nil, metadata: [Swift.String : Swift.String]? = nil, search: AtomicTransact.AtomicConfig.Search? = nil, handoff: [Swift.String]? = nil, experiments: AtomicTransact.AtomicConfig.Experiments? = nil, features: AtomicTransact.AtomicConfig.Features? = nil, customer: AtomicTransact.AtomicConfig.Customer? = nil, uplinkSessionUrl: Swift.String? = nil)
+  public init(publicToken: Swift.String, scope: AtomicTransact.AtomicConfig.ScopeType, tasks: [AtomicTransact.AtomicConfig.Task], linkedAccount: Swift.String? = nil, deferredPaymentMethodStrategy: AtomicTransact.AtomicConfig.DeferredPaymentMethodStrategy? = nil, theme: AtomicTransact.AtomicConfig.Theme = Theme(dark: .system), language: Swift.String = Self.defaultLanguage, sessionContext: Swift.String? = nil, deeplink: AtomicTransact.AtomicConfig.Deeplink? = nil, metadata: [Swift.String : Swift.String]? = nil, search: AtomicTransact.AtomicConfig.Search? = nil, handoff: [Swift.String]? = nil, experiments: AtomicTransact.AtomicConfig.Experiments? = nil, features: AtomicTransact.AtomicConfig.Features? = nil, customer: AtomicTransact.AtomicConfig.Customer? = nil, uplinkSessionUrl: Swift.String? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  public init(demo: AtomicTransact.AtomicConfig.DemoMode, scope: AtomicTransact.AtomicConfig.ScopeType, tasks: [AtomicTransact.AtomicConfig.Task], linkedAccount: Swift.String? = nil, theme: AtomicTransact.AtomicConfig.Theme = Theme(dark: .system), language: Swift.String = Locale.current.languageCode == "es" ? "es" : "en", sessionContext: Swift.String? = nil, deeplink: AtomicTransact.AtomicConfig.Deeplink? = nil, metadata: [Swift.String : Swift.String]? = nil, search: AtomicTransact.AtomicConfig.Search? = nil, handoff: [Swift.String]? = nil, experiments: AtomicTransact.AtomicConfig.Experiments? = nil)
+  public init(demo: AtomicTransact.AtomicConfig.DemoMode, scope: AtomicTransact.AtomicConfig.ScopeType, tasks: [AtomicTransact.AtomicConfig.Task], linkedAccount: Swift.String? = nil, theme: AtomicTransact.AtomicConfig.Theme = Theme(dark: .system), language: Swift.String = Self.defaultLanguage, sessionContext: Swift.String? = nil, deeplink: AtomicTransact.AtomicConfig.Deeplink? = nil, metadata: [Swift.String : Swift.String]? = nil, search: AtomicTransact.AtomicConfig.Search? = nil, handoff: [Swift.String]? = nil, experiments: AtomicTransact.AtomicConfig.Experiments? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
   @available(*, deprecated, message: "Use `tasks` instead of `product`")
-  public init(publicToken: Swift.String, scope: AtomicTransact.AtomicConfig.ScopeType, product: AtomicTransact.AtomicConfig.ProductType, additionalProduct: AtomicTransact.AtomicConfig.ProductType? = nil, linkedAccount: Swift.String? = nil, theme: AtomicTransact.AtomicConfig.Theme = Theme(dark: .system), distribution: AtomicTransact.AtomicConfig.Distribution? = nil, language: Swift.String = Locale.current.languageCode == "es" ? "es" : "en", sessionContext: Swift.String? = nil, deeplink: AtomicTransact.AtomicConfig.Deeplink? = nil, metadata: [Swift.String : Swift.String]? = nil, search: AtomicTransact.AtomicConfig.Search? = nil, handoff: [Swift.String]? = nil, experiments: AtomicTransact.AtomicConfig.Experiments? = nil)
+  public init(publicToken: Swift.String, scope: AtomicTransact.AtomicConfig.ScopeType, product: AtomicTransact.AtomicConfig.ProductType, additionalProduct: AtomicTransact.AtomicConfig.ProductType? = nil, linkedAccount: Swift.String? = nil, theme: AtomicTransact.AtomicConfig.Theme = Theme(dark: .system), distribution: AtomicTransact.AtomicConfig.Distribution? = nil, language: Swift.String = Self.defaultLanguage, sessionContext: Swift.String? = nil, deeplink: AtomicTransact.AtomicConfig.Deeplink? = nil, metadata: [Swift.String : Swift.String]? = nil, search: AtomicTransact.AtomicConfig.Search? = nil, handoff: [Swift.String]? = nil, experiments: AtomicTransact.AtomicConfig.Experiments? = nil)
   #endif
   public struct Task : Swift.Codable, Swift.Sendable {
     public let product: AtomicTransact.AtomicConfig.ProductType?
@@ -206,6 +206,7 @@ public struct AtomicConfig : Swift.Codable, Swift.Sendable {
       case loginCompany(companyId: Swift.String, connectorId: Swift.String? = nil, singleSwitch: Swift.Bool? = false)
       case loginPayroll(connectorId: Swift.String, companyName: Swift.String)
       case addCard
+      case manualFallback
       public var id: Swift.String {
         get
       }
@@ -318,7 +319,7 @@ public struct AtomicConfig : Swift.Codable, Swift.Sendable {
     public func encode(to encoder: any Swift.Encoder) throws
     public init(from decoder: any Swift.Decoder) throws
   }
-  public let publicToken: Swift.String?
+  public var publicToken: Swift.String?
   public var tasks: [AtomicTransact.AtomicConfig.Task]?
   public let demo: AtomicTransact.AtomicConfig.DemoMode?
   public let product: AtomicTransact.AtomicConfig.ProductType?
@@ -338,6 +339,9 @@ public struct AtomicConfig : Swift.Codable, Swift.Sendable {
   public var features: AtomicTransact.AtomicConfig.Features?
   public var customer: AtomicTransact.AtomicConfig.Customer?
   public let uplinkSessionUrl: Swift.String?
+  public static var defaultLanguage: Swift.String {
+    get
+  }
   public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
 }
@@ -685,6 +689,24 @@ public struct TransactTaskStatusUpdate : Swift.Decodable, Swift.Sendable {
   }
   public init(from decoder: any Swift.Decoder) throws
 }
+@_Concurrency.MainActor final public class Quantum {
+  @_Concurrency.MainActor final public var muppet: MuppetIOS.Muppet?
+  @_Concurrency.MainActor final public var browser: MuppetIOS.Browser?
+  @_Concurrency.MainActor final public var page: MuppetIOS.Page?
+  public enum QuantumError : Swift.Error {
+    case missingPage
+    public static func == (a: AtomicTransact.Quantum.QuantumError, b: AtomicTransact.Quantum.QuantumError) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  @_Concurrency.MainActor public init(view: WebKit.WKWebView, controller: UIKit.UIViewController) async
+  @_Concurrency.MainActor final public func cleanup() async
+  @_Concurrency.MainActor final public func update(updatedPresentationSource source: UIKit.UIViewController)
+  @_Concurrency.MainActor public static func pageBuilder(browser: MuppetIOS.Browser, configuration: WebKit.WKWebViewConfiguration) -> MuppetIOS.Page
+  @objc deinit
+}
 extension AtomicTransact.Atomic.PauseTransactError : Swift.Equatable {}
 extension AtomicTransact.Atomic.PauseTransactError : Swift.Hashable {}
 extension AtomicTransact.AtomicConfig.Task.App : Swift.Equatable {}
@@ -729,3 +751,6 @@ extension AtomicTransact.TransactTaskStatusUpdate.ActionType : Swift.RawRepresen
 extension AtomicTransact.TransactTaskStatusUpdate.SwitchData.PaymentMethod.PaymentType : Swift.Equatable {}
 extension AtomicTransact.TransactTaskStatusUpdate.SwitchData.PaymentMethod.PaymentType : Swift.Hashable {}
 extension AtomicTransact.TransactTaskStatusUpdate.SwitchData.PaymentMethod.PaymentType : Swift.RawRepresentable {}
+extension AtomicTransact.Quantum : Swift.Sendable {}
+extension AtomicTransact.Quantum.QuantumError : Swift.Equatable {}
+extension AtomicTransact.Quantum.QuantumError : Swift.Hashable {}
