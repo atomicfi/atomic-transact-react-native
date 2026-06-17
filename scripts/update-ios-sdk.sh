@@ -60,14 +60,14 @@ if [ "$DYNAMIC" = true ]; then
   FRAMEWORKS=(
     "AtomicTransact-Dynamic.xcframework.tar.gz"
     "MuppetIOS-Dynamic.xcframework.tar.gz"
-    "QuantumIOS-Dynamic.xcframework.tar.gz"
+    "Uplink-Dynamic.xcframework.tar.gz"
   )
 else
   TARGET_VERSION="$VERSION"
   FRAMEWORKS=(
     "AtomicTransact.xcframework.tar.gz"
     "MuppetIOS.xcframework.tar.gz"
-    "QuantumIOS.xcframework.tar.gz"
+    "Uplink.xcframework.tar.gz"
   )
 fi
 

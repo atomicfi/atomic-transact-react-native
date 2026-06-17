@@ -6,47 +6,47 @@
 	<dict>
 		<key>Info.plist</key>
 		<data>
-		SUC0Cx8nt4aninGf3rbRz4Y88jo=
+		Tw7XrrzJn2TgKj/feL/gQfTc+Rc=
 		</data>
 		<key>Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		pnWmUm3dEcqEGsCJjwspAOp2p+8=
+		d8s6m2xjoncgWZzoJVpzcLDd/gQ=
 		</data>
 		<key>Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		oDDj9nFmf7dD2WGui9AEwkdtsb4=
+		hp1vhttITnz/Yu+R28AFgKHaPwI=
 		</data>
 		<key>Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		cfCgS39rqHVc69ZXi7td4TnRk4U=
+		Yujs7C+35zDxqV6lfnZ82bo5Zo8=
 		</data>
 		<key>Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		oDDj9nFmf7dD2WGui9AEwkdtsb4=
+		hp1vhttITnz/Yu+R28AFgKHaPwI=
 		</data>
 		<key>Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		w46ZRLIrLRfkHFgcuk9VSpbC8jQ=
+		qGaDL6RA5AXzrjJ7nd8WVI9lycw=
 		</data>
 		<key>Modules/MuppetIOS.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		pnWmUm3dEcqEGsCJjwspAOp2p+8=
+		d8s6m2xjoncgWZzoJVpzcLDd/gQ=
 		</data>
 		<key>Modules/MuppetIOS.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		CaoMBkzjucIiIG3sV8ha+cdGRKM=
+		SbPFP/JxfTZdLRy7PpifghcVETs=
 		</data>
 		<key>Modules/MuppetIOS.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		C0X+hynDlYv9b3+LH/xQRU1NlCc=
+		JP95g+W0CZf2VLsi3j89T3WP7Sk=
 		</data>
 		<key>Modules/MuppetIOS.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		CaoMBkzjucIiIG3sV8ha+cdGRKM=
+		SbPFP/JxfTZdLRy7PpifghcVETs=
 		</data>
 		<key>Modules/MuppetIOS.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		zawV0zzbG5QDEf2yq/rldFGQ+Uk=
+		+vvZULcq71GFFFrJAZGH4nLNf1k=
 		</data>
 		<key>PrivacyInfo.xcprivacy</key>
 		<data>
@@ -59,70 +59,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZyaVCjhwzkpYn4ls/7fVARS3VCEJaMne2tn3PHPWRSI=
+			9izI4yqqT7xGAqpnnJfZtx0pEADbVQLnXV+Fpsmk8pM=
 			</data>
 		</dict>
 		<key>Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			QLAIpjBjqS2CUCyyuFGg4YZ4/Hx99NddHt8jpswOgf4=
+			+Lqy6kVGNh//WREnrq5Q7/YUEOzdRQ/9HQDQKtJhHHA=
 			</data>
 		</dict>
 		<key>Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			xuo1+Ri2BPJNzqFQSt9tqLIn/hsznPHeWRmGvtzfvdw=
+			yM5YwrJyHmOOUqSTGZ9WGOqoNEWhXJjmCTjobqoHwzY=
 			</data>
 		</dict>
 		<key>Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			QLAIpjBjqS2CUCyyuFGg4YZ4/Hx99NddHt8jpswOgf4=
+			+Lqy6kVGNh//WREnrq5Q7/YUEOzdRQ/9HQDQKtJhHHA=
 			</data>
 		</dict>
 		<key>Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			78BhNxJoQtvnjaL5G/KStkLA1wRvISMZ/+Rdf9/dpH8=
+			FHCJOq5grK48KGvXU8ddaSnueyJFxNgDqngn4xFZ4/M=
 			</data>
 		</dict>
 		<key>Modules/MuppetIOS.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZyaVCjhwzkpYn4ls/7fVARS3VCEJaMne2tn3PHPWRSI=
+			9izI4yqqT7xGAqpnnJfZtx0pEADbVQLnXV+Fpsmk8pM=
 			</data>
 		</dict>
 		<key>Modules/MuppetIOS.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ERap4fBtfW1spXg6z8ONfLd9hcVFJKPw+bV4dgU+oMI=
+			QwJgbtpMxFeGWY29pw3gibirybf9mAes3Vtvpdvlbf8=
 			</data>
 		</dict>
 		<key>Modules/MuppetIOS.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZjDS0G1W8laKib86Mz309o6DLSvtIIZRZqlFStIUs98=
+			IikSaZwJlFk/9F8AgrqrPwJVtOpS+acorv5nye0MTDI=
 			</data>
 		</dict>
 		<key>Modules/MuppetIOS.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ERap4fBtfW1spXg6z8ONfLd9hcVFJKPw+bV4dgU+oMI=
+			QwJgbtpMxFeGWY29pw3gibirybf9mAes3Vtvpdvlbf8=
 			</data>
 		</dict>
 		<key>Modules/MuppetIOS.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yCCw9EqcAP0zSXX8G8JSEAaOzujJQi34B3fo1rdj48E=
+			xF7fT1opcO7OIJpMyooglu3UkTY4Bwexr8EBY3a04cU=
 			</data>
 		</dict>
 		<key>PrivacyInfo.xcprivacy</key>

@@ -2,7 +2,7 @@ name: Release Dynamic Variant
 
 # Cuts an opt-in `<version>-dynamic` release that mirrors an existing static
 # release tag, but vendors the dynamic-framework variants of AtomicTransact /
-# MuppetIOS / QuantumIOS instead of the static ones. Used for clients that hit
+# MuppetIOS / Uplink instead of the static ones. Used for clients that hit
 # Swift protocol witness thunk corruption (`swift_getAssociatedTypeWitnessSlowImpl`)
 # under `use_frameworks! :linkage => :static` when other Swift pods (Sentry,
 # Mixpanel, Stripe, etc.) are present in the same app.

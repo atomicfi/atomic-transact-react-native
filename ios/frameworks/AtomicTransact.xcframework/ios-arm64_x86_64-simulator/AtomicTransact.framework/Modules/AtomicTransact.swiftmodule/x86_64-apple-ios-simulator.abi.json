@@ -77,8 +77,8 @@
       },
       {
         "kind": "Import",
-        "name": "QuantumIOS",
-        "printedName": "QuantumIOS",
+        "name": "Uplink",
+        "printedName": "Uplink",
         "declKind": "Import",
         "moduleName": "AtomicTransact"
       },
@@ -6325,6 +6325,43 @@
                   },
                   {
                     "kind": "Var",
+                    "name": "manualFallback",
+                    "printedName": "manualFallback",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(AtomicTransact.AtomicConfig.Deeplink.Step.Type) -> AtomicTransact.AtomicConfig.Deeplink.Step",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Step",
+                            "printedName": "AtomicTransact.AtomicConfig.Deeplink.Step",
+                            "usr": "s:14AtomicTransact0A6ConfigV8DeeplinkV4StepO"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Metatype",
+                            "printedName": "AtomicTransact.AtomicConfig.Deeplink.Step.Type",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "Step",
+                                "printedName": "AtomicTransact.AtomicConfig.Deeplink.Step",
+                                "usr": "s:14AtomicTransact0A6ConfigV8DeeplinkV4StepO"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "declKind": "EnumElement",
+                    "usr": "s:14AtomicTransact0A6ConfigV8DeeplinkV4StepO14manualFallbackyA2GmF",
+                    "mangledName": "$s14AtomicTransact0A6ConfigV8DeeplinkV4StepO14manualFallbackyA2GmF",
+                    "moduleName": "AtomicTransact"
+                  },
+                  {
+                    "kind": "Var",
                     "name": "id",
                     "printedName": "id",
                     "children": [
@@ -11400,11 +11437,11 @@
             "mangledName": "$s14AtomicTransact0A6ConfigV11publicTokenSSSgvp",
             "moduleName": "AtomicTransact",
             "declAttributes": [
+              "HasInitialValue",
               "HasStorage",
               "AccessControl",
               "RawDocComment"
             ],
-            "isLet": true,
             "hasStorage": true,
             "accessors": [
               {
@@ -11433,6 +11470,56 @@
                 "moduleName": "AtomicTransact",
                 "implicit": true,
                 "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14AtomicTransact0A6ConfigV11publicTokenSSSgvs",
+                "mangledName": "$s14AtomicTransact0A6ConfigV11publicTokenSSSgvs",
+                "moduleName": "AtomicTransact",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14AtomicTransact0A6ConfigV11publicTokenSSSgvM",
+                "mangledName": "$s14AtomicTransact0A6ConfigV11publicTokenSSSgvM",
+                "moduleName": "AtomicTransact",
+                "implicit": true,
+                "accessorKind": "_modify"
               }
             ]
           },
@@ -13207,6 +13294,49 @@
                 "mangledName": "$s14AtomicTransact0A6ConfigV16uplinkSessionUrlSSSgvg",
                 "moduleName": "AtomicTransact",
                 "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "defaultLanguage",
+            "printedName": "defaultLanguage",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14AtomicTransact0A6ConfigV15defaultLanguageSSvpZ",
+            "mangledName": "$s14AtomicTransact0A6ConfigV15defaultLanguageSSvpZ",
+            "moduleName": "AtomicTransact",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14AtomicTransact0A6ConfigV15defaultLanguageSSvgZ",
+                "mangledName": "$s14AtomicTransact0A6ConfigV15defaultLanguageSSvgZ",
+                "moduleName": "AtomicTransact",
+                "static": true,
                 "accessorKind": "get"
               }
             ]
@@ -23772,6 +23902,757 @@
       },
       {
         "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AtomicTransact",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "AtomicTransact"
+      },
+      {
+        "kind": "Import",
+        "name": "WebKit",
+        "printedName": "WebKit",
+        "declKind": "Import",
+        "moduleName": "AtomicTransact"
+      },
+      {
+        "kind": "Import",
+        "name": "MuppetIOS",
+        "printedName": "MuppetIOS",
+        "declKind": "Import",
+        "moduleName": "AtomicTransact"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "Quantum",
+        "printedName": "Quantum",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "muppet",
+            "printedName": "muppet",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "MuppetIOS.Muppet?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Muppet",
+                    "printedName": "MuppetIOS.Muppet",
+                    "usr": "s:9MuppetIOS0A0C"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14AtomicTransact7QuantumC6muppet9MuppetIOS0E0CSgvp",
+            "mangledName": "$s14AtomicTransact7QuantumC6muppet9MuppetIOS0E0CSgvp",
+            "moduleName": "AtomicTransact",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "Custom",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "MuppetIOS.Muppet?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Muppet",
+                        "printedName": "MuppetIOS.Muppet",
+                        "usr": "s:9MuppetIOS0A0C"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14AtomicTransact7QuantumC6muppet9MuppetIOS0E0CSgvg",
+                "mangledName": "$s14AtomicTransact7QuantumC6muppet9MuppetIOS0E0CSgvg",
+                "moduleName": "AtomicTransact",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "MuppetIOS.Muppet?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Muppet",
+                        "printedName": "MuppetIOS.Muppet",
+                        "usr": "s:9MuppetIOS0A0C"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14AtomicTransact7QuantumC6muppet9MuppetIOS0E0CSgvs",
+                "mangledName": "$s14AtomicTransact7QuantumC6muppet9MuppetIOS0E0CSgvs",
+                "moduleName": "AtomicTransact",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14AtomicTransact7QuantumC6muppet9MuppetIOS0E0CSgvM",
+                "mangledName": "$s14AtomicTransact7QuantumC6muppet9MuppetIOS0E0CSgvM",
+                "moduleName": "AtomicTransact",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "browser",
+            "printedName": "browser",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "MuppetIOS.Browser?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Browser",
+                    "printedName": "MuppetIOS.Browser",
+                    "usr": "s:9MuppetIOS7BrowserC"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14AtomicTransact7QuantumC7browser9MuppetIOS7BrowserCSgvp",
+            "mangledName": "$s14AtomicTransact7QuantumC7browser9MuppetIOS7BrowserCSgvp",
+            "moduleName": "AtomicTransact",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "Custom",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "MuppetIOS.Browser?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Browser",
+                        "printedName": "MuppetIOS.Browser",
+                        "usr": "s:9MuppetIOS7BrowserC"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14AtomicTransact7QuantumC7browser9MuppetIOS7BrowserCSgvg",
+                "mangledName": "$s14AtomicTransact7QuantumC7browser9MuppetIOS7BrowserCSgvg",
+                "moduleName": "AtomicTransact",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "MuppetIOS.Browser?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Browser",
+                        "printedName": "MuppetIOS.Browser",
+                        "usr": "s:9MuppetIOS7BrowserC"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14AtomicTransact7QuantumC7browser9MuppetIOS7BrowserCSgvs",
+                "mangledName": "$s14AtomicTransact7QuantumC7browser9MuppetIOS7BrowserCSgvs",
+                "moduleName": "AtomicTransact",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14AtomicTransact7QuantumC7browser9MuppetIOS7BrowserCSgvM",
+                "mangledName": "$s14AtomicTransact7QuantumC7browser9MuppetIOS7BrowserCSgvM",
+                "moduleName": "AtomicTransact",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "page",
+            "printedName": "page",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "MuppetIOS.Page?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Page",
+                    "printedName": "MuppetIOS.Page",
+                    "usr": "s:9MuppetIOS4PageC"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:14AtomicTransact7QuantumC4page9MuppetIOS4PageCSgvp",
+            "mangledName": "$s14AtomicTransact7QuantumC4page9MuppetIOS4PageCSgvp",
+            "moduleName": "AtomicTransact",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "Custom",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "MuppetIOS.Page?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Page",
+                        "printedName": "MuppetIOS.Page",
+                        "usr": "s:9MuppetIOS4PageC"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14AtomicTransact7QuantumC4page9MuppetIOS4PageCSgvg",
+                "mangledName": "$s14AtomicTransact7QuantumC4page9MuppetIOS4PageCSgvg",
+                "moduleName": "AtomicTransact",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "MuppetIOS.Page?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Page",
+                        "printedName": "MuppetIOS.Page",
+                        "usr": "s:9MuppetIOS4PageC"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14AtomicTransact7QuantumC4page9MuppetIOS4PageCSgvs",
+                "mangledName": "$s14AtomicTransact7QuantumC4page9MuppetIOS4PageCSgvs",
+                "moduleName": "AtomicTransact",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:14AtomicTransact7QuantumC4page9MuppetIOS4PageCSgvM",
+                "mangledName": "$s14AtomicTransact7QuantumC4page9MuppetIOS4PageCSgvM",
+                "moduleName": "AtomicTransact",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "QuantumError",
+            "printedName": "QuantumError",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "missingPage",
+                "printedName": "missingPage",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(AtomicTransact.Quantum.QuantumError.Type) -> AtomicTransact.Quantum.QuantumError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "QuantumError",
+                        "printedName": "AtomicTransact.Quantum.QuantumError",
+                        "usr": "s:14AtomicTransact7QuantumC0C5ErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "AtomicTransact.Quantum.QuantumError.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "QuantumError",
+                            "printedName": "AtomicTransact.Quantum.QuantumError",
+                            "usr": "s:14AtomicTransact7QuantumC0C5ErrorO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:14AtomicTransact7QuantumC0C5ErrorO11missingPageyA2EmF",
+                "mangledName": "$s14AtomicTransact7QuantumC0C5ErrorO11missingPageyA2EmF",
+                "moduleName": "AtomicTransact"
+              },
+              {
+                "kind": "Function",
+                "name": "==",
+                "printedName": "==(_:_:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "QuantumError",
+                    "printedName": "AtomicTransact.Quantum.QuantumError",
+                    "usr": "s:14AtomicTransact7QuantumC0C5ErrorO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "QuantumError",
+                    "printedName": "AtomicTransact.Quantum.QuantumError",
+                    "usr": "s:14AtomicTransact7QuantumC0C5ErrorO"
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:14AtomicTransact7QuantumC0C5ErrorO2eeoiySbAE_AEtFZ",
+                "mangledName": "$s14AtomicTransact7QuantumC0C5ErrorO2eeoiySbAE_AEtFZ",
+                "moduleName": "AtomicTransact",
+                "static": true,
+                "implicit": true,
+                "funcSelfKind": "NonMutating"
+              },
+              {
+                "kind": "Var",
+                "name": "hashValue",
+                "printedName": "hashValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:14AtomicTransact7QuantumC0C5ErrorO9hashValueSivp",
+                "mangledName": "$s14AtomicTransact7QuantumC0C5ErrorO9hashValueSivp",
+                "moduleName": "AtomicTransact",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:14AtomicTransact7QuantumC0C5ErrorO9hashValueSivg",
+                    "mangledName": "$s14AtomicTransact7QuantumC0C5ErrorO9hashValueSivg",
+                    "moduleName": "AtomicTransact",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              },
+              {
+                "kind": "Function",
+                "name": "hash",
+                "printedName": "hash(into:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Hasher",
+                    "printedName": "Swift.Hasher",
+                    "paramValueOwnership": "InOut",
+                    "usr": "s:s6HasherV"
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:14AtomicTransact7QuantumC0C5ErrorO4hash4intoys6HasherVz_tF",
+                "mangledName": "$s14AtomicTransact7QuantumC0C5ErrorO4hash4intoys6HasherVz_tF",
+                "moduleName": "AtomicTransact",
+                "implicit": true,
+                "funcSelfKind": "NonMutating"
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:14AtomicTransact7QuantumC0C5ErrorO",
+            "mangledName": "$s14AtomicTransact7QuantumC0C5ErrorO",
+            "moduleName": "AtomicTransact",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Error",
+                "printedName": "Error",
+                "usr": "s:s5ErrorP",
+                "mangledName": "$ss5ErrorP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Sendable",
+                "printedName": "Sendable",
+                "usr": "s:s8SendableP",
+                "mangledName": "$ss8SendableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "SendableMetatype",
+                "printedName": "SendableMetatype",
+                "usr": "s:s16SendableMetatypeP",
+                "mangledName": "$ss16SendableMetatypeP"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(view:controller:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Quantum",
+                "printedName": "AtomicTransact.Quantum",
+                "usr": "s:14AtomicTransact7QuantumC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "WKWebView",
+                "printedName": "WebKit.WKWebView",
+                "usr": "c:objc(cs)WKWebView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:14AtomicTransact7QuantumC4view10controllerACSo9WKWebViewC_So16UIViewControllerCtYacfc",
+            "mangledName": "$s14AtomicTransact7QuantumC4view10controllerACSo9WKWebViewC_So16UIViewControllerCtYacfc",
+            "moduleName": "AtomicTransact",
+            "declAttributes": [
+              "Custom",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "cleanup",
+            "printedName": "cleanup()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14AtomicTransact7QuantumC7cleanupyyYaF",
+            "mangledName": "$s14AtomicTransact7QuantumC7cleanupyyYaF",
+            "moduleName": "AtomicTransact",
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "update",
+            "printedName": "update(updatedPresentationSource:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14AtomicTransact7QuantumC6update25updatedPresentationSourceySo16UIViewControllerC_tF",
+            "mangledName": "$s14AtomicTransact7QuantumC6update25updatedPresentationSourceySo16UIViewControllerC_tF",
+            "moduleName": "AtomicTransact",
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "pageBuilder",
+            "printedName": "pageBuilder(browser:configuration:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Page",
+                "printedName": "MuppetIOS.Page",
+                "usr": "s:9MuppetIOS4PageC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Browser",
+                "printedName": "MuppetIOS.Browser",
+                "usr": "s:9MuppetIOS7BrowserC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "WKWebViewConfiguration",
+                "printedName": "WebKit.WKWebViewConfiguration",
+                "usr": "c:objc(cs)WKWebViewConfiguration"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:14AtomicTransact7QuantumC11pageBuilder7browser13configuration9MuppetIOS4PageCAG7BrowserC_So22WKWebViewConfigurationCtFZ",
+            "mangledName": "$s14AtomicTransact7QuantumC11pageBuilder7browser13configuration9MuppetIOS4PageCAG7BrowserC_So22WKWebViewConfigurationCtFZ",
+            "moduleName": "AtomicTransact",
+            "static": true,
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:14AtomicTransact7QuantumC",
+        "mangledName": "$s14AtomicTransact7QuantumC",
+        "moduleName": "AtomicTransact",
+        "declAttributes": [
+          "Final",
+          "AccessControl",
+          "Custom"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
         "declKind": "Import",
@@ -23810,15 +24691,15 @@
       },
       {
         "kind": "Import",
-        "name": "MuppetIOS",
-        "printedName": "MuppetIOS",
+        "name": "Uplink",
+        "printedName": "Uplink",
         "declKind": "Import",
         "moduleName": "AtomicTransact"
       },
       {
         "kind": "Import",
-        "name": "QuantumIOS",
-        "printedName": "QuantumIOS",
+        "name": "MuppetIOS",
+        "printedName": "MuppetIOS",
         "declKind": "Import",
         "moduleName": "AtomicTransact"
       },
@@ -23862,13 +24743,6 @@
       },
       {
         "kind": "Import",
-        "name": "QuantumIOS",
-        "printedName": "QuantumIOS",
-        "declKind": "Import",
-        "moduleName": "AtomicTransact"
-      },
-      {
-        "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
         "declKind": "Import",
@@ -23896,8 +24770,32 @@
       },
       {
         "kind": "Import",
-        "name": "QuantumIOS",
-        "printedName": "QuantumIOS",
+        "name": "Uplink",
+        "printedName": "Uplink",
+        "declKind": "Import",
+        "moduleName": "AtomicTransact"
+      },
+      {
+        "kind": "Import",
+        "name": "MuppetIOS",
+        "printedName": "MuppetIOS",
+        "declKind": "Import",
+        "moduleName": "AtomicTransact"
+      },
+      {
+        "kind": "Import",
+        "name": "Uplink",
+        "printedName": "Uplink",
+        "declKind": "Import",
+        "moduleName": "AtomicTransact",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "MuppetIOS",
+        "printedName": "MuppetIOS",
         "declKind": "Import",
         "moduleName": "AtomicTransact"
       },
@@ -24573,13 +25471,6 @@
       "value": "\"com.atomicfi.transact.keychain\""
     },
     {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Data\/Logger.swift",
-      "kind": "StringLiteral",
-      "offset": 322,
-      "length": 10,
-      "value": "\"transact\""
-    },
-    {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/Atomic.swift",
       "kind": "BooleanLiteral",
       "offset": 9302,
@@ -24596,226 +25487,142 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 1998,
-      "length": 4,
-      "value": "\"es\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 2005,
-      "length": 4,
-      "value": "\"es\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 2012,
-      "length": 4,
-      "value": "\"en\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 4408,
-      "length": 4,
-      "value": "\"es\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 4415,
-      "length": 4,
-      "value": "\"es\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 4422,
-      "length": 4,
-      "value": "\"en\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 7173,
-      "length": 4,
-      "value": "\"es\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 7180,
-      "length": 4,
-      "value": "\"es\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 7187,
-      "length": 4,
-      "value": "\"en\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 10402,
+      "offset": 10312,
       "length": 9,
       "value": "\"pay-now\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "FloatLiteral",
-      "offset": 13653,
+      "offset": 13563,
       "length": 3,
       "value": "0.0"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "FloatLiteral",
-      "offset": 13690,
+      "offset": 13600,
       "length": 3,
       "value": "0.0"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "FloatLiteral",
-      "offset": 13726,
+      "offset": 13636,
       "length": 3,
       "value": "0.0"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "FloatLiteral",
-      "offset": 13763,
+      "offset": 13673,
       "length": 3,
       "value": "0.0"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 19775,
+      "offset": 19685,
       "length": 11,
       "value": "\"user-link\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 19815,
+      "offset": 19725,
       "length": 15,
       "value": "\"employer-link\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 19852,
+      "offset": 19762,
       "length": 10,
       "value": "\"pay-link\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 19883,
+      "offset": 19793,
       "length": 8,
       "value": "\"custom\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "BooleanLiteral",
-      "offset": 20282,
+      "offset": 20192,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "BooleanLiteral",
-      "offset": 23118,
+      "offset": 23140,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 27559,
+      "offset": 27581,
       "length": 5,
       "value": "\"ios\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 27830,
+      "offset": 27852,
       "length": 49,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 27854,
+      "offset": 27876,
       "length": 1,
       "value": "\".\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 27878,
+      "offset": 27900,
       "length": 1,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "IntegerLiteral",
-      "offset": 27918,
+      "offset": 27940,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 27955,
+      "offset": 27977,
       "length": 26,
       "value": "\".\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 27980,
+      "offset": 28002,
       "length": 1,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 28129,
+      "offset": 28151,
       "length": 18,
       "value": "\"MinimumOSVersion\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 28215,
+      "offset": 28237,
       "length": 19,
       "value": "\"DTPlatformVersion\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 30066,
-      "length": 4,
-      "value": "\"es\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 30073,
-      "length": 4,
-      "value": "\"es\""
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
-      "kind": "StringLiteral",
-      "offset": 30080,
-      "length": 4,
-      "value": "\"en\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicSwiftUI.swift",
@@ -25140,23 +25947,30 @@
       "value": "\"sheet\""
     },
     {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Logger.swift",
+      "kind": "StringLiteral",
+      "offset": 322,
+      "length": 10,
+      "value": "\"transact\""
+    },
+    {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 568,
+      "offset": 564,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController+Presentation.swift",
       "kind": "BooleanLiteral",
-      "offset": 2622,
+      "offset": 2635,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController+Presentation.swift",
       "kind": "BooleanLiteral",
-      "offset": 3573,
+      "offset": 3962,
       "length": 4,
       "value": "true"
     },
@@ -25165,7 +25979,7 @@
       "kind": "StringLiteral",
       "offset": 228,
       "length": 8,
-      "value": "\"3.31.0\""
+      "value": "\"3.33.0\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Shared\/AtomicDebug.swift",
