@@ -66,12 +66,12 @@
     "registry": "https://registry.npmjs.org"
   },
   "devDependencies": {
-    "@babel/core": "^7.29.0",
+    "@babel/core": "^8.0.1",
     "@commitlint/config-conventional": "^21.0.2",
     "@eslint/js": "^9.39.4",
     "@evilmartians/lefthook": "^2.1.6",
     "@expo/config-plugins": "^56.0.8",
-    "@react-native/babel-preset": "0.85.3",
+    "@react-native/babel-preset": "0.86.0",
     "@types/jest": "^30.0.0",
     "@types/react": "^19.2.14",
     "@typescript-eslint/parser": "^8.59.1",
@@ -84,8 +84,8 @@
     "jest": "^30.3.0",
     "prettier": "^3.8.3",
     "react": "19.2.7",
-    "react-native": "0.85.3",
-    "react-native-builder-bob": "^0.41.0",
+    "react-native": "0.86.0",
+    "react-native-builder-bob": "^0.43.0",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
