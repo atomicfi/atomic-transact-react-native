@@ -2579,7 +2579,7 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/Socket.swift",
       "kind": "BooleanLiteral",
-      "offset": 7516,
+      "offset": 7521,
       "length": 5,
       "value": "false"
     },
@@ -2796,35 +2796,35 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 11257,
+      "offset": 11707,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 12024,
+      "offset": 12474,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 12867,
+      "offset": 13317,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 12889,
+      "offset": 13339,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 12910,
+      "offset": 13360,
       "length": 4,
       "value": "true"
     },

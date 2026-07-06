@@ -11759,24 +11759,10 @@
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/WebViewRequests.swift",
-      "kind": "BooleanLiteral",
-      "offset": 10643,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/WebViewRequests.swift",
       "kind": "IntegerLiteral",
-      "offset": 10844,
+      "offset": 10790,
       "length": 4,
       "value": "8192"
-    },
-    {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/WebViewRequests.swift",
-      "kind": "StringLiteral",
-      "offset": 10487,
-      "length": 15,
-      "value": "\"MuppetIOS.StreamConverter\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Views\/AtomicWebViewController.swift",
