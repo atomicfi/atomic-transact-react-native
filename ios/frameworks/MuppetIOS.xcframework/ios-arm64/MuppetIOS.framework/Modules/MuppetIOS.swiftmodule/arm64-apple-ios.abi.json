@@ -6139,47 +6139,6 @@
           },
           {
             "kind": "Function",
-            "name": "traitCollectionDidChange",
-            "printedName": "traitCollectionDidChange(_:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Optional",
-                "printedName": "UIKit.UITraitCollection?",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "UITraitCollection",
-                    "printedName": "UIKit.UITraitCollection",
-                    "usr": "c:objc(cs)UITraitCollection"
-                  }
-                ],
-                "usr": "s:Sq"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "c:@M@MuppetIOS@objc(cs)AtomicWebViewController(im)traitCollectionDidChange:",
-            "mangledName": "$s9MuppetIOS23AtomicWebViewControllerC24traitCollectionDidChangeyySo07UITraitH0CSgF",
-            "moduleName": "MuppetIOS",
-            "overriding": true,
-            "objc_name": "traitCollectionDidChange:",
-            "declAttributes": [
-              "Dynamic",
-              "ObjC",
-              "Preconcurrency",
-              "Custom",
-              "Override",
-              "AccessControl"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
             "name": "hideAssistantTitle",
             "printedName": "hideAssistantTitle()",
             "children": [
@@ -11837,7 +11796,7 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Views\/AtomicWebViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 1796,
+      "offset": 1850,
       "length": 4,
       "value": "0.25"
     },
