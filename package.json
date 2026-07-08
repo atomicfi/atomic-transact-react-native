@@ -70,7 +70,7 @@
     "@commitlint/config-conventional": "^21.0.2",
     "@eslint/js": "^9.39.4",
     "@evilmartians/lefthook": "^2.1.6",
-    "@expo/config-plugins": "^56.0.8",
+    "@expo/config-plugins": "^57.0.3",
     "@react-native/babel-preset": "0.86.0",
     "@types/jest": "^30.0.0",
     "@types/react": "^19.2.14",
