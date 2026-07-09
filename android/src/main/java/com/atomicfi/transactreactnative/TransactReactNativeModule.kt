@@ -78,13 +78,14 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     config: ReadableMap,
     environment: ReadableMap,
     wrapperVersion: String,
+    setDebug: Boolean,
     promise: Promise,
   ) {
     val context = reactApplicationContext.currentActivity as Context
     val emitter = reactApplicationContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
     val environmentURL = parseEnvironment(environment)
     val token = buildConfigToken(config, wrapperVersion)
-    val sdkConfig = Config(token = token, environment = "CUSTOM", environmentURL = environmentURL)
+    val sdkConfig = Config(token = token, environment = "CUSTOM", environmentURL = environmentURL, debug = setDebug)
 
     UiThreadUtil.runOnUiThread {
       try {
@@ -118,6 +119,15 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
               data.put("failReason", JSONObject.NULL)
             }
             emitter.emit("onTaskStatusUpdate", data.toString())
+          }
+
+          override fun onDebugLog(
+            level: String,
+            tag: String,
+            message: String,
+            data: JSONObject
+          ) {
+            emitter.emit("onDebugLog", data.toString())
           }
         })
       } catch (e: Exception) {

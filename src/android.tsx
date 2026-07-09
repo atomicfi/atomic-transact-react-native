@@ -27,6 +27,7 @@ export const AtomicAndroid = {
     onFinish,
     onDataRequest,
     onClose,
+    setDebug,
   }: {
     TransactReactNative: any;
     config: any;
@@ -39,7 +40,11 @@ export const AtomicAndroid = {
     onDataRequest?: Function;
     onFinish?: Function;
     onClose?: Function;
+    setDebug?: boolean;
   }): void {
+    _addEventListener('onDebugLog', (log: any) => {
+      console.debug('[TransactNative]', log.message);
+    });
     _addEventListener('onClose', onClose);
     _addEventListener('onFinish', onFinish);
     _addEventListener('onLaunch', onLaunch);
@@ -48,6 +53,11 @@ export const AtomicAndroid = {
     _addEventListener('onTaskStatusUpdate', onTaskStatusUpdate);
     _addEventListener('onAuthStatusUpdate', onAuthStatusUpdate);
 
-    TransactReactNative.presentTransact(config, environment, wrapperVersion);
+    TransactReactNative.presentTransact(
+      config,
+      environment,
+      wrapperVersion,
+      setDebug ?? false
+    );
   },
 };
