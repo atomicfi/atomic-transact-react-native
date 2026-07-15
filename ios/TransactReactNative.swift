@@ -4,8 +4,9 @@ import UIKit
 @objc(TransactReactNative)
 class TransactReactNative: RCTEventEmitter {
 
-	// Data request handler that will be called when the response arrives
-	private var dataResponseHandler: ((Any) -> Void)? = nil
+	// Data-request continuations keyed by instanceId, so concurrent/overlapping requests across
+	// tasks don't collide (the previous single handler was overwritten — SDK-658).
+	private var dataResponseHandlers: [String: (Any) -> Void] = [:]
 	
 	private func parseEnvironment(_ environmentData: [String: Any]) -> AtomicTransact.TransactEnvironment {
 		guard let environment = environmentData["environment"] as? String else {
@@ -37,8 +38,8 @@ class TransactReactNative: RCTEventEmitter {
 		}
 	}
 	
-	@objc(presentTransact:environment:presentationStyle:setDebug:wrapperVersion:withResolver:withRejecter:)
-	func presentTransact(config: [String: Any], environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, wrapperVersion: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+	@objc(presentTransact:config:environment:presentationStyle:setDebug:wrapperVersion:withResolver:withRejecter:)
+	func presentTransact(instanceId: String, config: [String: Any], environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, wrapperVersion: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		let debugEnabled = setDebug?.boolValue ?? false
 
 		Task { @MainActor in
@@ -65,13 +66,13 @@ class TransactReactNative: RCTEventEmitter {
 				Atomic.presentTransact(
 					from: source, config: config, environment: parsedEnvironment, presentationStyle: parsedPresentationStyle,
 					onInteraction: { interaction in
-						self.sendEvent(withName: "onInteraction", body: ["name": interaction.name, "value": interaction.value])
+						self.sendEvent(withName: "onInteraction", body: ["instanceId": instanceId, "data": ["name": interaction.name, "value": interaction.value]])
 					},
 					onDataRequest: { request async -> TransactDataResponse? in
 						// Create a task to handle the async request to React Native
 						return await withCheckedContinuation { continuation in
 							// Store the completion handler
-								self.dataResponseHandler = { responseData in
+								self.dataResponseHandlers[instanceId] = { responseData in
 								if let responseDict = responseData as? [String: Any] {
 									// The SDK expects the response data to be passed directly
 									// Let the SDK handle the parsing internally
@@ -92,29 +93,44 @@ class TransactReactNative: RCTEventEmitter {
 							}
 
 							// Send event with request data to React Native
-							self.sendEvent(withName: "onDataRequest", body: request.data)
+							self.sendEvent(withName: "onDataRequest", body: ["instanceId": instanceId, "data": request.data])
 						}
 					},
 					onAuthStatusUpdate: { status in
-						self.sendEvent(withName: "onAuthStatusUpdate", body: status.serialize())
+						self.sendEvent(withName: "onAuthStatusUpdate", body: ["instanceId": instanceId, "data": status.serialize()])
 					},
 					onTaskStatusUpdate: { status in
-						self.sendEvent(withName: "onTaskStatusUpdate", body: status.serialize())
+						self.sendEvent(withName: "onTaskStatusUpdate", body: ["instanceId": instanceId, "data": status.serialize()])
 					},
 					onLaunch: {
-						self.sendEvent(withName: "onLaunch", body: [])
+						self.sendEvent(withName: "onLaunch", body: ["instanceId": instanceId, "data": NSNull()])
 					},
 					onCompletion: { result in
 						switch result {
 						case .finished(let response):
+							self.sendEvent(withName: "onFinish", body: ["instanceId": instanceId, "data": response.data])
 							resolve(["finished": response.data])
 						case .closed(let response):
+							self.sendEvent(withName: "onClose", body: ["instanceId": instanceId, "data": response.data])
 							resolve(["closed": response.data])
 						case .error:
 							resolve(["error": "Unknown error"])
 						default:
 							resolve(["error": "Unknown error"])
 						}
+					},
+					onError: { error in
+						// In-flow SDK error channel (distinct from onCompletion's terminal load errors).
+						// Routed per-task like every other event; not terminal on its own.
+						if case let .transactError(data) = error {
+							self.sendEvent(withName: "onError", body: ["instanceId": instanceId, "data": data])
+						} else {
+							self.sendEvent(withName: "onError", body: ["instanceId": instanceId, "data": NSNull()])
+						}
+					},
+					onCleanup: {
+						self.sendEvent(withName: "onCleanup", body: ["instanceId": instanceId, "data": NSNull()])
+						self.dataResponseHandlers[instanceId] = nil
 					}
 				)
 			}
@@ -124,35 +140,27 @@ class TransactReactNative: RCTEventEmitter {
 		}
 	}
 
-	// Method to receive response from React Native
-	@objc(resolveDataRequest:)
-	func resolveDataRequest(data: Any) -> Void {
-		// Call the stored response handler with the data from React Native
-		if let handler = dataResponseHandler {
+	// Receives a data-request response from React Native, routed to the originating task by id.
+	@objc(resolveDataRequest:data:)
+	func resolveDataRequest(instanceId: String, data: Any) -> Void {
+		if let handler = dataResponseHandlers[instanceId] {
 			handler(data)
-
-			// Clear the handler
-			dataResponseHandler = nil
+			dataResponseHandlers[instanceId] = nil
 		}
 	}
 
 	@objc(hideTransact:withRejecter:)
 	func hideTransact(resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		DispatchQueue.main.async {
-			do {
-				Atomic.hideTransact()
-			} catch {
-				reject("dismiss_error", "Error dismissing Transact", error)
-			}
+			// Atomic.hideTransact() is non-throwing and process-global (hides every presented
+			// session). Resolve so the JS promise settles instead of hanging forever.
+			Atomic.hideTransact()
+			resolve(nil)
 		}
 	}
-	
+
 	@objc override func supportedEvents() -> [String] {
-		return ["onInteraction", "onDataRequest", "onLaunch", "onCompletion", "onAuthStatusUpdate", "onTaskStatusUpdate", "onDebugLog"]
-	}
-	
-	@objc override static func requiresMainQueueSetup() -> Bool {
-		return true
+		return ["onInteraction", "onDataRequest", "onLaunch", "onFinish", "onClose", "onCleanup", "onError", "onAuthStatusUpdate", "onTaskStatusUpdate", "onDebugLog"]
 	}
 }
 

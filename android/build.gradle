@@ -88,6 +88,9 @@ dependencies {
 
   // transact deps end
   implementation "financial.atomic:transact:$transactVersion"
+  // Decode the JS data-request response into the SDK's @Serializable TransactDataResponse.
+  // (kotlinx-serialization-json is already a transitive runtime dep of the SDK.)
+  implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3"
 }
 
 if (isNewArchitectureEnabled()) {
