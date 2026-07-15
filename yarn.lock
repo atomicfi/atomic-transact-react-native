@@ -3267,6 +3267,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@expo/vector-icons@npm:^15.0.2":
+  version: 15.1.1
+  resolution: "@expo/vector-icons@npm:15.1.1"
+  peerDependencies:
+    expo-font: ">=14.0.4"
+    react: "*"
+    react-native: "*"
+  checksum: 10/204fafd5141c81bd55dd33f6c00cdc48ec1d37b6460be6fa3f851ccb235e1fad1097f22d034470daa49a5b839d058bbcadda1efd349c670c2fdce2ae65fb9bba
+  languageName: node
+  linkType: hard
+
 "@expo/ws-tunnel@npm:^2.0.0":
   version: 2.0.0
   resolution: "@expo/ws-tunnel@npm:2.0.0"
@@ -3896,16 +3907,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-picker/picker@npm:2.11.4":
-  version: 2.11.4
-  resolution: "@react-native-picker/picker@npm:2.11.4"
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 10/cb8f0b7bf52044a5bbb89db5a3f1be7bd3cdf3a04845f0475c492ec3f24e63cd915b993b23012b674d3503499efd8ff4eebe18561f4e38ba67b4c45742de4c74
-  languageName: node
-  linkType: hard
-
 "@react-native/assets-registry@npm:0.86.0":
   version: 0.86.0
   resolution: "@react-native/assets-registry@npm:0.86.0"
@@ -4079,6 +4080,23 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10/c2b509a10b3fa951a6add487558b7996cde6a624e77c55f0bcc6296e1ddd4fb7af1bde0abf3899718f60a3d2ab850cc977ed8da8766de9a14d4368b2e4533b4c
+  languageName: node
+  linkType: hard
+
+"@react-navigation/bottom-tabs@npm:^7.4.0":
+  version: 7.18.8
+  resolution: "@react-navigation/bottom-tabs@npm:7.18.8"
+  dependencies:
+    "@react-navigation/elements": "npm:^2.9.30"
+    color: "npm:^4.2.3"
+    sf-symbols-typescript: "npm:^2.1.0"
+  peerDependencies:
+    "@react-navigation/native": ^7.3.8
+    react: ">= 18.2.0"
+    react-native: "*"
+    react-native-safe-area-context: ">= 4.0.0"
+    react-native-screens: ">= 4.0.0"
+  checksum: 10/559f6deac94a8b5f710ad40570074e22b17a342c9a8b77a2146be58ca3a8d57601ba70a3f5f4157ed2ee60750f8336253da26fb807e8bad627c4a6641de32e8e
   languageName: node
   linkType: hard
 
@@ -7081,8 +7099,9 @@ __metadata:
   dependencies:
     "@atomicfi/transact-react-native": "link:.."
     "@babel/core": "npm:^8.0.1"
+    "@expo/vector-icons": "npm:^15.0.2"
     "@react-native-async-storage/async-storage": "npm:3.1.1"
-    "@react-native-picker/picker": "npm:2.11.4"
+    "@react-navigation/bottom-tabs": "npm:^7.4.0"
     "@react-navigation/native": "npm:^7.2.2"
     "@react-navigation/native-stack": "npm:^7.14.12"
     "@types/react": "npm:~19.2.14"
@@ -7092,7 +7111,9 @@ __metadata:
     eslint-plugin-prettier: "npm:^5.5.5"
     expo: "npm:~57.0.4"
     expo-build-properties: "npm:~57.0.3"
+    expo-clipboard: "npm:~57.0.0"
     expo-dev-client: "npm:~57.0.5"
+    expo-font: "npm:~57.0.0"
     expo-status-bar: "npm:~57.0.0"
     expo-updates: "npm:~57.0.6"
     prettier: "npm:^3.8.3"
@@ -7180,6 +7201,17 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 10/6d727d09912d10ce75c211a1a1c62bf4bbc4d05dd45c10ade0b8e0b8b89ac2432c730e22e8fff9b2116ce2ba4298bcf784816822c206968829febb6005ccbb90
+  languageName: node
+  linkType: hard
+
+"expo-clipboard@npm:~57.0.0":
+  version: 57.0.0
+  resolution: "expo-clipboard@npm:57.0.0"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10/fb3082f813236e7e8e0ecc3821c9cddd1233900674fb9fa6b5a5190ea8842d6105f6d3b75807360f777b485ea15676083980b0e34487c6931f6abdf7101ccc63
   languageName: node
   linkType: hard
 
