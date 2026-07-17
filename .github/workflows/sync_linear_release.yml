@@ -1,0 +1,22 @@
+name: Sync Linear Release
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          fetch-depth: 0
+
+      - uses: linear/linear-release-action@c0cb8354a362c24c6d3e0948f37fd66d07588e3f
+        with:
+          access_key: ${{ secrets.LINEAR_ACCESS_KEY_REACT_NATIVE }}
+          command: sync
+          timeout: 120
