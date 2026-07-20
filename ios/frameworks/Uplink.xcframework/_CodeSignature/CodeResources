@@ -4,37 +4,53 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>ios-arm64/Uplink.framework/Info.plist</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Info.plist</key>
 		<data>
-		CwGU9ZVChhf9CDXaY25bjgZ6QFw=
+		eJuLYC/XbycvI7cHwZZZHQVGnu4=
 		</data>
-		<key>ios-arm64/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.abi.json</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
 		eHqeD4VPMUFuvuq1+K5Frdi1wi8=
 		</data>
-		<key>ios-arm64/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
 		Iwc9+2xTKMU5sUg4XFnrM68B6YY=
 		</data>
-		<key>ios-arm64/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.swiftdoc</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
 		IqZnCCdmn3PPURflwx8bWYGlDk8=
 		</data>
-		<key>ios-arm64/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.swiftinterface</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
 		Iwc9+2xTKMU5sUg4XFnrM68B6YY=
 		</data>
-		<key>ios-arm64/Uplink.framework/PrivacyInfo.xcprivacy</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64e-apple-ios.abi.json</key>
+		<data>
+		eHqeD4VPMUFuvuq1+K5Frdi1wi8=
+		</data>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64e-apple-ios.private.swiftinterface</key>
+		<data>
+		dgNJgZsnTrgwV444PAQrXbTSZ0A=
+		</data>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64e-apple-ios.swiftdoc</key>
+		<data>
+		vQts36zcc4a2kq5+a5YBNpm4DGg=
+		</data>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64e-apple-ios.swiftinterface</key>
+		<data>
+		dgNJgZsnTrgwV444PAQrXbTSZ0A=
+		</data>
+		<key>ios-arm64_arm64e/Uplink.framework/PrivacyInfo.xcprivacy</key>
 		<data>
 		n1Tior/Z23JWo5dZj/4GmktJKDA=
 		</data>
-		<key>ios-arm64/Uplink.framework/Uplink</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Uplink</key>
 		<data>
-		o33nTzhESZ/tZzjrGl6RI8ZUgx4=
+		vSbihHQyo9jMTVtTGIMR1yw3mZ4=
 		</data>
 		<key>ios-arm64_x86_64-simulator/Uplink.framework/Info.plist</key>
 		<data>
-		gxMyuzhIMuhqKd/OepnnF+qHGXw=
+		YfrHnTXvek0akTjB5sBDh86yTLw=
 		</data>
 		<key>ios-arm64_x86_64-simulator/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -74,7 +90,7 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/Uplink.framework/Uplink</key>
 		<data>
-		7OuE4g0EVc76i7M6pVcIOVwmOSc=
+		T+gbXTpyKuYZ6VwBZ5a0M/es5x8=
 		</data>
 		<key>ios-arm64_x86_64-simulator/Uplink.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -83,60 +99,88 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>ios-arm64/Uplink.framework/Info.plist</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ezhwnXU/o/5ZqAZuTUChQrMEaC7mc7M+Hgrc2kVXQY4=
+			Zy6nSkFInKloLcXUfsewlkuQyjijq8ZoLlUJnZ2qHi4=
 			</data>
 		</dict>
-		<key>ios-arm64/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.abi.json</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			ODZpddDUW3o2FzYTAR9pi/so5iPwEggw7kDuHTDmMg4=
 			</data>
 		</dict>
-		<key>ios-arm64/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			A10tEll+6/rFU7N+QmxVDJSY0yhssFl4Za9ZWTtYLKI=
 			</data>
 		</dict>
-		<key>ios-arm64/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.swiftdoc</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			65misKWi3J13hBpTWn22M0aGzlvPz6n8A31ZCM39jwQ=
 			</data>
 		</dict>
-		<key>ios-arm64/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.swiftinterface</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			A10tEll+6/rFU7N+QmxVDJSY0yhssFl4Za9ZWTtYLKI=
 			</data>
 		</dict>
-		<key>ios-arm64/Uplink.framework/PrivacyInfo.xcprivacy</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64e-apple-ios.abi.json</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			ODZpddDUW3o2FzYTAR9pi/so5iPwEggw7kDuHTDmMg4=
+			</data>
+		</dict>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64e-apple-ios.private.swiftinterface</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qLql0pssOiVboF6CSvXEvGoenVwZ81lVvjzeSE/ccRQ=
+			</data>
+		</dict>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64e-apple-ios.swiftdoc</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			004JHOBdbE/E30Uu6rgC48U13kNUNalhPloqrkRAgec=
+			</data>
+		</dict>
+		<key>ios-arm64_arm64e/Uplink.framework/Modules/Uplink.swiftmodule/arm64e-apple-ios.swiftinterface</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			qLql0pssOiVboF6CSvXEvGoenVwZ81lVvjzeSE/ccRQ=
+			</data>
+		</dict>
+		<key>ios-arm64_arm64e/Uplink.framework/PrivacyInfo.xcprivacy</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			CmTZqdG2e1lBJxEXDqpQnDUADbiIfumJXtPyjCRyBaw=
 			</data>
 		</dict>
-		<key>ios-arm64/Uplink.framework/Uplink</key>
+		<key>ios-arm64_arm64e/Uplink.framework/Uplink</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			mYcbT6oOVrobNV0Zi8Ulqe9YlO7ZLtsrQv/TXwEG+gU=
+			F7hn5cB1JhWIUFauSVDOuljZvJDFiwlJXq3oPG7ABIk=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/Uplink.framework/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			WnYcmiKvptBtjr8kigjHPAqo/SYTBdM0WaWM7fkf9YE=
+			L8bEYmEXfmG9JIFvIMgEZ8wl+ZwReljsfsJ5KhYfthA=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/Uplink.framework/Modules/Uplink.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
@@ -206,7 +250,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qj+JEaW9KxNUwORZalWd+Wi15O9UkMdu1Xxp5u039Kk=
+			grzkXo+wuWFVb2J//42ViWXZNKEceu+zMJqf0FaJqkA=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/Uplink.framework/_CodeSignature/CodeResources</key>
