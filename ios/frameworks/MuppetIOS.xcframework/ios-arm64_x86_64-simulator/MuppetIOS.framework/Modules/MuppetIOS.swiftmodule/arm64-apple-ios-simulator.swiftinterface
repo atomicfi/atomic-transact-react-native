@@ -364,6 +364,7 @@ extension MuppetIOS.Browser : @_Concurrency.MainActor Swift.Equatable, @_Concurr
     case visible
     case hostblocked
     case error
+    case operationFailed
     case navigationFailed
     #if compiler(>=5.3) && $NonescapableTypes
     public init?(rawValue: Swift.String)
@@ -372,6 +373,47 @@ extension MuppetIOS.Browser : @_Concurrency.MainActor Swift.Equatable, @_Concurr
     public var rawValue: Swift.String {
       get
     }
+  }
+  public enum Operation : Swift.String, Swift.Sendable, Swift.Equatable {
+    case evaluate
+    case goto
+    case request
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init?(rawValue: Swift.String)
+    #endif
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public enum OperationFailureKind : Swift.String, Swift.Sendable, Swift.Equatable {
+    case javaScript
+    case invalidURL
+    case navigation
+    case timeout
+    case transport
+    case httpStatus
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init?(rawValue: Swift.String)
+    #endif
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public struct OperationFailure : Swift.Sendable, Swift.Equatable {
+    public let operation: MuppetIOS.Page.Operation
+    public let kind: MuppetIOS.Page.OperationFailureKind
+    public let errorDomain: Swift.String?
+    public let errorCode: Swift.Int?
+    public let method: Swift.String?
+    public let statusCode: Swift.Int?
+    public let domain: Swift.String?
+    public let timeoutMs: Swift.Int?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(operation: MuppetIOS.Page.Operation, kind: MuppetIOS.Page.OperationFailureKind, error: (any Swift.Error)? = nil, method: Swift.String? = nil, statusCode: Swift.Int? = nil, domain: Swift.String? = nil, timeoutMs: Swift.Int? = nil)
+    #endif
+    public static func == (a: MuppetIOS.Page.OperationFailure, b: MuppetIOS.Page.OperationFailure) -> Swift.Bool
   }
   @_Concurrency.MainActor final public var options: MuppetIOS.Page.Options
   @_Concurrency.MainActor final public let emitter: MuppetIOS.Emitter<MuppetIOS.Page.EventType>
@@ -442,5 +484,9 @@ extension MuppetIOS.Browser.EventType : Swift.Equatable {}
 extension MuppetIOS.Browser.EventType : Swift.Hashable {}
 extension MuppetIOS.Page.EventType : Swift.Hashable {}
 extension MuppetIOS.Page.EventType : Swift.RawRepresentable {}
+extension MuppetIOS.Page.Operation : Swift.Hashable {}
+extension MuppetIOS.Page.Operation : Swift.RawRepresentable {}
+extension MuppetIOS.Page.OperationFailureKind : Swift.Hashable {}
+extension MuppetIOS.Page.OperationFailureKind : Swift.RawRepresentable {}
 extension MuppetIOS.Page.PageError : Swift.Equatable {}
 extension MuppetIOS.Page.PageError : Swift.Hashable {}

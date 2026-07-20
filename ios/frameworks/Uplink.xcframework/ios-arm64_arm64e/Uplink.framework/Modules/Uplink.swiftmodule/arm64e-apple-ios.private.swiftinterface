@@ -1,0 +1,84 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2.1 (swiftlang-6.2.1.4.8 clang-1700.4.4.1)
+// swift-module-flags: -target arm64e-apple-ios15.0 -enable-objc-interop -enable-library-evolution -swift-version 6 -enforce-exclusivity=checked -O -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature ExistentialAny -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -module-name Uplink
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.1
+import Combine
+import CommonCrypto
+import CryptoKit
+import Foundation
+import MuppetIOS
+import OSLog
+import Swift
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public struct Address : Swift.Sendable, Swift.Hashable, Swift.Comparable, Swift.CustomStringConvertible, Swift.ExpressibleByIntegerLiteral {
+  public init(rawValue: Swift.UInt32)
+  public init(integerLiteral value: Swift.UInt32)
+  public static func < (lhs: Uplink.Address, rhs: Uplink.Address) -> Swift.Bool
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: Uplink.Address, b: Uplink.Address) -> Swift.Bool
+  public typealias IntegerLiteralType = Swift.UInt32
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol Event : Swift.Equatable, Swift.Sendable {
+}
+public enum WorkerEvent : Uplink.Event {
+  case connected(Uplink.Address)
+  case terminated(Uplink.Address)
+  case closed(Uplink.Address)
+  public static func == (a: Uplink.WorkerEvent, b: Uplink.WorkerEvent) -> Swift.Bool
+}
+public enum BrowserEvent : Uplink.Event {
+  case created(handle: Swift.String)
+  case closed(handle: Swift.String)
+  public static func == (a: Uplink.BrowserEvent, b: Uplink.BrowserEvent) -> Swift.Bool
+}
+public enum PageEvent : Uplink.Event {
+  case created(handle: Swift.String)
+  case request(url: Swift.String, method: Swift.String, headers: [Swift.String : Swift.String])
+  case response(url: Swift.String, status: Swift.Int, headers: [Swift.String : [Swift.String]])
+  case closed(handle: Swift.String)
+  case raw(event: MuppetIOS.Emitter<MuppetIOS.Page.EventType>.Event)
+  public static func == (a: Uplink.PageEvent, b: Uplink.PageEvent) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers public actor Worker {
+  final public let events: MuppetIOS.AsyncEmitter<any Uplink.Event>
+  public var muppet: MuppetIOS.Muppet
+  public func setAPIHost(_ host: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
+  public convenience init(controller: UIKit.UIViewController, existingBrowser browser: MuppetIOS.Browser? = nil) async
+  #endif
+  public func connect(session: Swift.String) async throws(Uplink.UplinkError)
+  public func accept() async
+  public typealias WatchCallback = nonisolated(nonsending) @Sendable (any Uplink.Event) async -> Swift.Void
+  public func watch(_ callback: @escaping Uplink.Worker.WatchCallback)
+  public func close() async
+  @objc deinit
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+  @_semantics("defaultActor") nonisolated final public var unownedExecutor: _Concurrency.UnownedSerialExecutor {
+    get
+  }
+}
+public enum UplinkDebug {
+  #if compiler(>=5.3) && $NonescapableTypes && $AsyncExecutionBehaviorAttributes
+  nonisolated(nonsending) public static func setDebug(isEnabled: Swift.Bool, forwardLogs forwarder: (@Sendable (Swift.String) -> Swift.Void)? = nil) async
+  #endif
+}
+public enum UplinkError : Swift.Error {
+  case unableToConnectToUplink
+  public static func == (a: Uplink.UplinkError, b: Uplink.UplinkError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension Uplink.UplinkError : Swift.Equatable {}
+extension Uplink.UplinkError : Swift.Hashable {}

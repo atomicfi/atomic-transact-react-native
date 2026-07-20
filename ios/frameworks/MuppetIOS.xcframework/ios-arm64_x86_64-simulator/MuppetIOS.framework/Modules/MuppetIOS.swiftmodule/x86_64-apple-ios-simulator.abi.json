@@ -8695,6 +8695,46 @@
               },
               {
                 "kind": "Var",
+                "name": "operationFailed",
+                "printedName": "operationFailed",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(MuppetIOS.Page.EventType.Type) -> MuppetIOS.Page.EventType",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "EventType",
+                        "printedName": "MuppetIOS.Page.EventType",
+                        "usr": "s:9MuppetIOS4PageC9EventTypeO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "MuppetIOS.Page.EventType.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "EventType",
+                            "printedName": "MuppetIOS.Page.EventType",
+                            "usr": "s:9MuppetIOS4PageC9EventTypeO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:9MuppetIOS4PageC9EventTypeO15operationFailedyA2EmF",
+                "mangledName": "$s9MuppetIOS4PageC9EventTypeO15operationFailedyA2EmF",
+                "moduleName": "MuppetIOS",
+                "declAttributes": [
+                  "RawDocComment"
+                ]
+              },
+              {
+                "kind": "Var",
                 "name": "navigationFailed",
                 "printedName": "navigationFailed",
                 "children": [
@@ -8854,6 +8894,1284 @@
                 ],
                 "usr": "s:SY",
                 "mangledName": "$sSY"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Sendable",
+                "printedName": "Sendable",
+                "usr": "s:s8SendableP",
+                "mangledName": "$ss8SendableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "SendableMetatype",
+                "printedName": "SendableMetatype",
+                "usr": "s:s16SendableMetatypeP",
+                "mangledName": "$ss16SendableMetatypeP"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "Operation",
+            "printedName": "Operation",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "evaluate",
+                "printedName": "evaluate",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(MuppetIOS.Page.Operation.Type) -> MuppetIOS.Page.Operation",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Operation",
+                        "printedName": "MuppetIOS.Page.Operation",
+                        "usr": "s:9MuppetIOS4PageC9OperationO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "MuppetIOS.Page.Operation.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Operation",
+                            "printedName": "MuppetIOS.Page.Operation",
+                            "usr": "s:9MuppetIOS4PageC9OperationO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:9MuppetIOS4PageC9OperationO8evaluateyA2EmF",
+                "mangledName": "$s9MuppetIOS4PageC9OperationO8evaluateyA2EmF",
+                "moduleName": "MuppetIOS"
+              },
+              {
+                "kind": "Var",
+                "name": "goto",
+                "printedName": "goto",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(MuppetIOS.Page.Operation.Type) -> MuppetIOS.Page.Operation",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Operation",
+                        "printedName": "MuppetIOS.Page.Operation",
+                        "usr": "s:9MuppetIOS4PageC9OperationO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "MuppetIOS.Page.Operation.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Operation",
+                            "printedName": "MuppetIOS.Page.Operation",
+                            "usr": "s:9MuppetIOS4PageC9OperationO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:9MuppetIOS4PageC9OperationO4gotoyA2EmF",
+                "mangledName": "$s9MuppetIOS4PageC9OperationO4gotoyA2EmF",
+                "moduleName": "MuppetIOS"
+              },
+              {
+                "kind": "Var",
+                "name": "request",
+                "printedName": "request",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(MuppetIOS.Page.Operation.Type) -> MuppetIOS.Page.Operation",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Operation",
+                        "printedName": "MuppetIOS.Page.Operation",
+                        "usr": "s:9MuppetIOS4PageC9OperationO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "MuppetIOS.Page.Operation.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Operation",
+                            "printedName": "MuppetIOS.Page.Operation",
+                            "usr": "s:9MuppetIOS4PageC9OperationO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:9MuppetIOS4PageC9OperationO7requestyA2EmF",
+                "mangledName": "$s9MuppetIOS4PageC9OperationO7requestyA2EmF",
+                "moduleName": "MuppetIOS"
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "MuppetIOS.Page.Operation?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Operation",
+                        "printedName": "MuppetIOS.Page.Operation",
+                        "usr": "s:9MuppetIOS4PageC9OperationO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:9MuppetIOS4PageC9OperationO8rawValueAESgSS_tcfc",
+                "mangledName": "$s9MuppetIOS4PageC9OperationO8rawValueAESgSS_tcfc",
+                "moduleName": "MuppetIOS",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:9MuppetIOS4PageC9OperationO8rawValueSSvp",
+                "mangledName": "$s9MuppetIOS4PageC9OperationO8rawValueSSvp",
+                "moduleName": "MuppetIOS",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:9MuppetIOS4PageC9OperationO8rawValueSSvg",
+                    "mangledName": "$s9MuppetIOS4PageC9OperationO8rawValueSSvg",
+                    "moduleName": "MuppetIOS",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:9MuppetIOS4PageC9OperationO",
+            "mangledName": "$s9MuppetIOS4PageC9OperationO",
+            "moduleName": "MuppetIOS",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "enumRawTypeName": "String",
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Sendable",
+                "printedName": "Sendable",
+                "usr": "s:s8SendableP",
+                "mangledName": "$ss8SendableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "SendableMetatype",
+                "printedName": "SendableMetatype",
+                "usr": "s:s16SendableMetatypeP",
+                "mangledName": "$ss16SendableMetatypeP"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "OperationFailureKind",
+            "printedName": "OperationFailureKind",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "javaScript",
+                "printedName": "javaScript",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(MuppetIOS.Page.OperationFailureKind.Type) -> MuppetIOS.Page.OperationFailureKind",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OperationFailureKind",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind",
+                        "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "OperationFailureKind",
+                            "printedName": "MuppetIOS.Page.OperationFailureKind",
+                            "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:9MuppetIOS4PageC20OperationFailureKindO10javaScriptyA2EmF",
+                "mangledName": "$s9MuppetIOS4PageC20OperationFailureKindO10javaScriptyA2EmF",
+                "moduleName": "MuppetIOS"
+              },
+              {
+                "kind": "Var",
+                "name": "invalidURL",
+                "printedName": "invalidURL",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(MuppetIOS.Page.OperationFailureKind.Type) -> MuppetIOS.Page.OperationFailureKind",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OperationFailureKind",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind",
+                        "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "OperationFailureKind",
+                            "printedName": "MuppetIOS.Page.OperationFailureKind",
+                            "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:9MuppetIOS4PageC20OperationFailureKindO10invalidURLyA2EmF",
+                "mangledName": "$s9MuppetIOS4PageC20OperationFailureKindO10invalidURLyA2EmF",
+                "moduleName": "MuppetIOS"
+              },
+              {
+                "kind": "Var",
+                "name": "navigation",
+                "printedName": "navigation",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(MuppetIOS.Page.OperationFailureKind.Type) -> MuppetIOS.Page.OperationFailureKind",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OperationFailureKind",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind",
+                        "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "OperationFailureKind",
+                            "printedName": "MuppetIOS.Page.OperationFailureKind",
+                            "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:9MuppetIOS4PageC20OperationFailureKindO10navigationyA2EmF",
+                "mangledName": "$s9MuppetIOS4PageC20OperationFailureKindO10navigationyA2EmF",
+                "moduleName": "MuppetIOS"
+              },
+              {
+                "kind": "Var",
+                "name": "timeout",
+                "printedName": "timeout",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(MuppetIOS.Page.OperationFailureKind.Type) -> MuppetIOS.Page.OperationFailureKind",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OperationFailureKind",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind",
+                        "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "OperationFailureKind",
+                            "printedName": "MuppetIOS.Page.OperationFailureKind",
+                            "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:9MuppetIOS4PageC20OperationFailureKindO7timeoutyA2EmF",
+                "mangledName": "$s9MuppetIOS4PageC20OperationFailureKindO7timeoutyA2EmF",
+                "moduleName": "MuppetIOS"
+              },
+              {
+                "kind": "Var",
+                "name": "transport",
+                "printedName": "transport",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(MuppetIOS.Page.OperationFailureKind.Type) -> MuppetIOS.Page.OperationFailureKind",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OperationFailureKind",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind",
+                        "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "OperationFailureKind",
+                            "printedName": "MuppetIOS.Page.OperationFailureKind",
+                            "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:9MuppetIOS4PageC20OperationFailureKindO9transportyA2EmF",
+                "mangledName": "$s9MuppetIOS4PageC20OperationFailureKindO9transportyA2EmF",
+                "moduleName": "MuppetIOS"
+              },
+              {
+                "kind": "Var",
+                "name": "httpStatus",
+                "printedName": "httpStatus",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(MuppetIOS.Page.OperationFailureKind.Type) -> MuppetIOS.Page.OperationFailureKind",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OperationFailureKind",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind",
+                        "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "OperationFailureKind",
+                            "printedName": "MuppetIOS.Page.OperationFailureKind",
+                            "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:9MuppetIOS4PageC20OperationFailureKindO10httpStatusyA2EmF",
+                "mangledName": "$s9MuppetIOS4PageC20OperationFailureKindO10httpStatusyA2EmF",
+                "moduleName": "MuppetIOS"
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "MuppetIOS.Page.OperationFailureKind?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OperationFailureKind",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind",
+                        "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:9MuppetIOS4PageC20OperationFailureKindO8rawValueAESgSS_tcfc",
+                "mangledName": "$s9MuppetIOS4PageC20OperationFailureKindO8rawValueAESgSS_tcfc",
+                "moduleName": "MuppetIOS",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:9MuppetIOS4PageC20OperationFailureKindO8rawValueSSvp",
+                "mangledName": "$s9MuppetIOS4PageC20OperationFailureKindO8rawValueSSvp",
+                "moduleName": "MuppetIOS",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:9MuppetIOS4PageC20OperationFailureKindO8rawValueSSvg",
+                    "mangledName": "$s9MuppetIOS4PageC20OperationFailureKindO8rawValueSSvg",
+                    "moduleName": "MuppetIOS",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:9MuppetIOS4PageC20OperationFailureKindO",
+            "mangledName": "$s9MuppetIOS4PageC20OperationFailureKindO",
+            "moduleName": "MuppetIOS",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "enumRawTypeName": "String",
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Sendable",
+                "printedName": "Sendable",
+                "usr": "s:s8SendableP",
+                "mangledName": "$ss8SendableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "SendableMetatype",
+                "printedName": "SendableMetatype",
+                "usr": "s:s16SendableMetatypeP",
+                "mangledName": "$ss16SendableMetatypeP"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "OperationFailure",
+            "printedName": "OperationFailure",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "operation",
+                "printedName": "operation",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Operation",
+                    "printedName": "MuppetIOS.Page.Operation",
+                    "usr": "s:9MuppetIOS4PageC9OperationO"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:9MuppetIOS4PageC16OperationFailureV9operationAC0D0Ovp",
+                "mangledName": "$s9MuppetIOS4PageC16OperationFailureV9operationAC0D0Ovp",
+                "moduleName": "MuppetIOS",
+                "declAttributes": [
+                  "HasStorage",
+                  "AccessControl"
+                ],
+                "isLet": true,
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Operation",
+                        "printedName": "MuppetIOS.Page.Operation",
+                        "usr": "s:9MuppetIOS4PageC9OperationO"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:9MuppetIOS4PageC16OperationFailureV9operationAC0D0Ovg",
+                    "mangledName": "$s9MuppetIOS4PageC16OperationFailureV9operationAC0D0Ovg",
+                    "moduleName": "MuppetIOS",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "kind",
+                "printedName": "kind",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OperationFailureKind",
+                    "printedName": "MuppetIOS.Page.OperationFailureKind",
+                    "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:9MuppetIOS4PageC16OperationFailureV4kindAC0dE4KindOvp",
+                "mangledName": "$s9MuppetIOS4PageC16OperationFailureV4kindAC0dE4KindOvp",
+                "moduleName": "MuppetIOS",
+                "declAttributes": [
+                  "HasStorage",
+                  "AccessControl"
+                ],
+                "isLet": true,
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "OperationFailureKind",
+                        "printedName": "MuppetIOS.Page.OperationFailureKind",
+                        "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:9MuppetIOS4PageC16OperationFailureV4kindAC0dE4KindOvg",
+                    "mangledName": "$s9MuppetIOS4PageC16OperationFailureV4kindAC0dE4KindOvg",
+                    "moduleName": "MuppetIOS",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "errorDomain",
+                "printedName": "errorDomain",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:9MuppetIOS4PageC16OperationFailureV11errorDomainSSSgvp",
+                "mangledName": "$s9MuppetIOS4PageC16OperationFailureV11errorDomainSSSgvp",
+                "moduleName": "MuppetIOS",
+                "declAttributes": [
+                  "HasStorage",
+                  "AccessControl"
+                ],
+                "isLet": true,
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Swift.String?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:9MuppetIOS4PageC16OperationFailureV11errorDomainSSSgvg",
+                    "mangledName": "$s9MuppetIOS4PageC16OperationFailureV11errorDomainSSSgvg",
+                    "moduleName": "MuppetIOS",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "errorCode",
+                "printedName": "errorCode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.Int?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:9MuppetIOS4PageC16OperationFailureV9errorCodeSiSgvp",
+                "mangledName": "$s9MuppetIOS4PageC16OperationFailureV9errorCodeSiSgvp",
+                "moduleName": "MuppetIOS",
+                "declAttributes": [
+                  "HasStorage",
+                  "AccessControl"
+                ],
+                "isLet": true,
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Swift.Int?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int",
+                            "printedName": "Swift.Int",
+                            "usr": "s:Si"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:9MuppetIOS4PageC16OperationFailureV9errorCodeSiSgvg",
+                    "mangledName": "$s9MuppetIOS4PageC16OperationFailureV9errorCodeSiSgvg",
+                    "moduleName": "MuppetIOS",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "method",
+                "printedName": "method",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:9MuppetIOS4PageC16OperationFailureV6methodSSSgvp",
+                "mangledName": "$s9MuppetIOS4PageC16OperationFailureV6methodSSSgvp",
+                "moduleName": "MuppetIOS",
+                "declAttributes": [
+                  "HasStorage",
+                  "AccessControl"
+                ],
+                "isLet": true,
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Swift.String?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:9MuppetIOS4PageC16OperationFailureV6methodSSSgvg",
+                    "mangledName": "$s9MuppetIOS4PageC16OperationFailureV6methodSSSgvg",
+                    "moduleName": "MuppetIOS",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "statusCode",
+                "printedName": "statusCode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.Int?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:9MuppetIOS4PageC16OperationFailureV10statusCodeSiSgvp",
+                "mangledName": "$s9MuppetIOS4PageC16OperationFailureV10statusCodeSiSgvp",
+                "moduleName": "MuppetIOS",
+                "declAttributes": [
+                  "HasStorage",
+                  "AccessControl"
+                ],
+                "isLet": true,
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Swift.Int?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int",
+                            "printedName": "Swift.Int",
+                            "usr": "s:Si"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:9MuppetIOS4PageC16OperationFailureV10statusCodeSiSgvg",
+                    "mangledName": "$s9MuppetIOS4PageC16OperationFailureV10statusCodeSiSgvg",
+                    "moduleName": "MuppetIOS",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "domain",
+                "printedName": "domain",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:9MuppetIOS4PageC16OperationFailureV6domainSSSgvp",
+                "mangledName": "$s9MuppetIOS4PageC16OperationFailureV6domainSSSgvp",
+                "moduleName": "MuppetIOS",
+                "declAttributes": [
+                  "HasStorage",
+                  "AccessControl"
+                ],
+                "isLet": true,
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Swift.String?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:9MuppetIOS4PageC16OperationFailureV6domainSSSgvg",
+                    "mangledName": "$s9MuppetIOS4PageC16OperationFailureV6domainSSSgvg",
+                    "moduleName": "MuppetIOS",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "timeoutMs",
+                "printedName": "timeoutMs",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.Int?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:9MuppetIOS4PageC16OperationFailureV9timeoutMsSiSgvp",
+                "mangledName": "$s9MuppetIOS4PageC16OperationFailureV9timeoutMsSiSgvp",
+                "moduleName": "MuppetIOS",
+                "declAttributes": [
+                  "HasStorage",
+                  "AccessControl"
+                ],
+                "isLet": true,
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Swift.Int?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int",
+                            "printedName": "Swift.Int",
+                            "usr": "s:Si"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:9MuppetIOS4PageC16OperationFailureV9timeoutMsSiSgvg",
+                    "mangledName": "$s9MuppetIOS4PageC16OperationFailureV9timeoutMsSiSgvg",
+                    "moduleName": "MuppetIOS",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(operation:kind:error:method:statusCode:domain:timeoutMs:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OperationFailure",
+                    "printedName": "MuppetIOS.Page.OperationFailure",
+                    "usr": "s:9MuppetIOS4PageC16OperationFailureV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Operation",
+                    "printedName": "MuppetIOS.Page.Operation",
+                    "usr": "s:9MuppetIOS4PageC9OperationO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OperationFailureKind",
+                    "printedName": "MuppetIOS.Page.OperationFailureKind",
+                    "usr": "s:9MuppetIOS4PageC20OperationFailureKindO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any Swift.Error)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.Int?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.Int?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:9MuppetIOS4PageC16OperationFailureV9operation4kind5error6method10statusCode6domain9timeoutMsAeC0D0O_AC0dE4KindOs5Error_pSgSSSgSiSgAsTtcfc",
+                "mangledName": "$s9MuppetIOS4PageC16OperationFailureV9operation4kind5error6method10statusCode6domain9timeoutMsAeC0D0O_AC0dE4KindOs5Error_pSgSSSgSiSgAsTtcfc",
+                "moduleName": "MuppetIOS",
+                "declAttributes": [
+                  "AccessControl"
+                ],
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Function",
+                "name": "==",
+                "printedName": "==(_:_:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OperationFailure",
+                    "printedName": "MuppetIOS.Page.OperationFailure",
+                    "usr": "s:9MuppetIOS4PageC16OperationFailureV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OperationFailure",
+                    "printedName": "MuppetIOS.Page.OperationFailure",
+                    "usr": "s:9MuppetIOS4PageC16OperationFailureV"
+                  }
+                ],
+                "declKind": "Func",
+                "usr": "s:9MuppetIOS4PageC16OperationFailureV2eeoiySbAE_AEtFZ",
+                "mangledName": "$s9MuppetIOS4PageC16OperationFailureV2eeoiySbAE_AEtFZ",
+                "moduleName": "MuppetIOS",
+                "static": true,
+                "implicit": true,
+                "funcSelfKind": "NonMutating"
+              }
+            ],
+            "declKind": "Struct",
+            "usr": "s:9MuppetIOS4PageC16OperationFailureV",
+            "mangledName": "$s9MuppetIOS4PageC16OperationFailureV",
+            "moduleName": "MuppetIOS",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Copyable",
+                "printedName": "Copyable",
+                "usr": "s:s8CopyableP",
+                "mangledName": "$ss8CopyableP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Escapable",
+                "printedName": "Escapable",
+                "usr": "s:s9EscapableP",
+                "mangledName": "$ss9EscapableP"
               },
               {
                 "kind": "Conformance",
@@ -11642,21 +12960,21 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/WebView.swift",
       "kind": "IntegerLiteral",
-      "offset": 1949,
+      "offset": 2096,
       "length": 13,
       "value": "1000000000"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/WebView.swift",
       "kind": "StringLiteral",
-      "offset": 2012,
+      "offset": 2159,
       "length": 65,
       "value": "\"WebView load timed out after \""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/WebView.swift",
       "kind": "StringLiteral",
-      "offset": 2068,
+      "offset": 2215,
       "length": 7,
       "value": "\" seconds\""
     },
@@ -11698,28 +13016,28 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/WebViewRequests.swift",
       "kind": "StringLiteral",
-      "offset": 8262,
+      "offset": 8359,
       "length": 5,
       "value": "\"GET\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/WebViewRequests.swift",
       "kind": "Dictionary",
-      "offset": 8343,
+      "offset": 8440,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/WebViewRequests.swift",
       "kind": "BooleanLiteral",
-      "offset": 8380,
+      "offset": 8477,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/WebViewRequests.swift",
       "kind": "IntegerLiteral",
-      "offset": 10790,
+      "offset": 10887,
       "length": 4,
       "value": "8192"
     },
@@ -11844,85 +13162,127 @@
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
+      "kind": "StringLiteral",
+      "offset": 1837,
+      "length": 12,
+      "value": "\"javascript\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
+      "kind": "StringLiteral",
+      "offset": 1876,
+      "length": 13,
+      "value": "\"invalid_url\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
+      "kind": "StringLiteral",
+      "offset": 1984,
+      "length": 13,
+      "value": "\"http_status\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 1644,
+      "offset": 3803,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "BooleanLiteral",
-      "offset": 1757,
+      "offset": 3916,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Array",
-      "offset": 1805,
+      "offset": 3964,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "IntegerLiteral",
-      "offset": 10873,
+      "offset": 13535,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 11880,
+      "offset": 14542,
       "length": 5,
       "value": "\"GET\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 11935,
+      "offset": 14597,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "BooleanLiteral",
-      "offset": 11964,
+      "offset": 14626,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 12262,
+      "offset": 14945,
       "length": 5,
       "value": "\"GET\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 12337,
+      "offset": 15016,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "BooleanLiteral",
-      "offset": 12366,
+      "offset": 15053,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
+      "kind": "StringLiteral",
+      "offset": 16217,
+      "length": 5,
+      "value": "\"GET\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
+      "kind": "Dictionary",
+      "offset": 16292,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
+      "kind": "BooleanLiteral",
+      "offset": 16321,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 13929,
+      "offset": 17884,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "IntegerLiteral",
-      "offset": 13958,
+      "offset": 17913,
       "length": 2,
       "value": "30"
     },

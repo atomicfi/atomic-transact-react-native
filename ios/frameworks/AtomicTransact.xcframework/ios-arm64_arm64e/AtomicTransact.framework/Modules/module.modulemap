@@ -1,0 +1,6 @@
+framework module AtomicTransact {
+  umbrella header "AtomicTransact.h"
+  export *
+
+  module * { export * }
+}
