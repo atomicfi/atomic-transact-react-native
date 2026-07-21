@@ -4,6 +4,11 @@ import { AtomicAndroid } from './android';
 import * as CONSTANTS from './constants';
 import type { PresentationStyleIOS, AppType, StepType } from './constants';
 import pkg from '../package.json';
+import {
+  addTransaction,
+  createInstanceId,
+  removeTransaction,
+} from './transactRegistry';
 
 const wrapperVersion: string = pkg.version;
 
@@ -96,6 +101,16 @@ export type {
 } from './constants';
 export type { DeeplinkOptions };
 
+export interface TransactTask {
+  /** Wrapper-generated id for this launch; every event for this task carries it. */
+  instanceId: string;
+  /**
+   * Stop receiving this task's callbacks on the JS side. Does not close the native UI
+   * (iOS dismiss is process-global); use it to detach a task you no longer care about.
+   */
+  remove(): void;
+}
+
 export const Atomic = {
   transact({
     config,
@@ -107,6 +122,8 @@ export const Atomic = {
     onClose,
     onAuthStatusUpdate,
     onTaskStatusUpdate,
+    onCleanup,
+    onError,
     presentationStyleIOS,
     setDebug,
   }: {
@@ -119,9 +136,12 @@ export const Atomic = {
     onLaunch?: Function;
     onFinish?: Function;
     onClose?: Function;
+    onCleanup?: Function;
+    /** In-flow SDK error. iOS only — Android surfaces no equivalent callback. */
+    onError?: Function;
     presentationStyleIOS?: PresentationStyleIOS;
     setDebug?: boolean;
-  }): void {
+  }): TransactTask {
     config.language = config.language || 'en';
     config.theme = config.theme || {};
     config.theme.dark =
@@ -129,18 +149,27 @@ export const Atomic = {
         ? config.theme.dark
         : Appearance.getColorScheme() === 'dark';
 
+    // One id per launch. Register the handlers BEFORE the native call so a fast-emitting
+    // native side can't deliver an event before the registry entry exists.
+    const instanceId = createInstanceId();
+    addTransaction(instanceId, {
+      onInteraction,
+      onDataRequest,
+      onAuthStatusUpdate,
+      onTaskStatusUpdate,
+      onLaunch,
+      onFinish,
+      onClose,
+      onCleanup,
+      onError,
+    });
+
     const args = {
       TransactReactNative,
+      instanceId,
       config,
       environment: environment || CONSTANTS.Environment.production,
       wrapperVersion,
-      onInteraction,
-      onLaunch,
-      onFinish,
-      onDataRequest,
-      onClose,
-      onAuthStatusUpdate,
-      onTaskStatusUpdate,
       presentationStyleIOS,
       setDebug,
     };
@@ -153,8 +182,11 @@ export const Atomic = {
         AtomicAndroid.transact(args);
         break;
       default:
+        removeTransaction(instanceId);
         throw new Error(`Unsupported OS: ${Platform.OS}`);
     }
+
+    return { instanceId, remove: () => removeTransaction(instanceId) };
   },
   hideTransact() {
     switch (Platform.OS) {

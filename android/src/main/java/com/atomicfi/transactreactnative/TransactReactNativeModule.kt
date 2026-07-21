@@ -8,11 +8,18 @@ import com.facebook.react.modules.core.DeviceEventManagerModule
 import financial.atomic.transact.Config
 import financial.atomic.transact.Transact
 import financial.atomic.transact.receiver.TransactBroadcastReceiver
-import org.json.JSONObject
 import java.lang.Exception
+import java.util.concurrent.ConcurrentHashMap
+import kotlinx.serialization.json.Json
+import org.json.JSONObject
 
 class TransactReactNativeModule(reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
+
+  // jsInstanceId -> receiver. Used only for instance-targeted commands (resolveDataRequest);
+  // event routing is handled by each receiver's own envelope. Entries are dropped on cleanup.
+  private val receivers = ConcurrentHashMap<String, TransactBroadcastReceiver>()
+  private val json = Json { ignoreUnknownKeys = true }
 
   override fun getName(): String {
     return NAME
@@ -47,20 +54,19 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     }
   }
 
-  private fun handleCallbackEvent(
-    eventName: String,
-    data: JSONObject,
-    fieldName: String,
+  // Every event is wrapped in a { instanceId, data } envelope so the JS layer can route it to the
+  // task that owns `instanceId` (SDK-658). `data` is null for argument-less events (onLaunch).
+  private fun emitEnvelope(
     emitter: DeviceEventManagerModule.RCTDeviceEventEmitter,
-    promise: Promise
+    eventName: String,
+    instanceId: String,
+    data: JSONObject?,
   ) {
-    val value = data.optString(fieldName)
-    val result = Arguments.createMap().apply {
-      putString(fieldName, value)
+    val envelope = JSONObject().apply {
+      put("instanceId", instanceId)
+      put("data", data ?: JSONObject.NULL)
     }
-
-    emitter.emit(eventName, data.toString())
-    promise.resolve(result)
+    emitter.emit(eventName, envelope.toString())
   }
 
   private fun buildConfigToken(config: ReadableMap, wrapperVersion: String): String {
@@ -75,13 +81,18 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
 
   @ReactMethod
   fun presentTransact(
+    instanceId: String,
     config: ReadableMap,
     environment: ReadableMap,
     wrapperVersion: String,
     setDebug: Boolean,
     promise: Promise,
   ) {
-    val context = reactApplicationContext.currentActivity as Context
+    val context = reactApplicationContext.currentActivity as? Context
+    if (context == null) {
+      promise.reject("no_activity", "No current Activity to present Transact from")
+      return
+    }
     val emitter = reactApplicationContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
     val environmentURL = parseEnvironment(environment)
     val token = buildConfigToken(config, wrapperVersion)
@@ -89,36 +100,40 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
 
     UiThreadUtil.runOnUiThread {
       try {
-        Transact.present(context, sdkConfig, object : TransactBroadcastReceiver() {
+        // Each launch gets its own receiver capturing this call's JS instanceId. The native SDK
+        // binds its own per-instance id to the receiver and routes broadcasts so this receiver
+        // only ever sees its own session's events (SDK-659). We re-tag each emit with the JS
+        // instanceId so the JS registry can route to this task's handlers.
+        val receiver = object : TransactBroadcastReceiver() {
           override fun onClose(data: JSONObject) {
-            handleCallbackEvent("onClose", data, "reason", emitter, promise)
+            emitEnvelope(emitter, "onClose", instanceId, data)
           }
 
           override fun onFinish(data: JSONObject) {
-            handleCallbackEvent("onFinish", data, "taskId", emitter, promise)
+            emitEnvelope(emitter, "onFinish", instanceId, data)
           }
 
           override fun onLaunch() {
-            emitter.emit("onLaunch", null)
+            emitEnvelope(emitter, "onLaunch", instanceId, null)
           }
 
           override fun onInteraction(data: JSONObject) {
-            emitter.emit("onInteraction", data.toString())
+            emitEnvelope(emitter, "onInteraction", instanceId, data)
           }
 
           override fun onDataRequest(data: JSONObject) {
-            emitter.emit("onDataRequest", data.toString())
+            emitEnvelope(emitter, "onDataRequest", instanceId, data)
           }
 
           override fun onAuthStatusUpdate(data: JSONObject) {
-            emitter.emit("onAuthStatusUpdate", data.toString())
+            emitEnvelope(emitter, "onAuthStatusUpdate", instanceId, data)
           }
 
           override fun onTaskStatusUpdate(data: JSONObject) {
             if (!data.has("failReason")) {
               data.put("failReason", JSONObject.NULL)
             }
-            emitter.emit("onTaskStatusUpdate", data.toString())
+            emitEnvelope(emitter, "onTaskStatusUpdate", instanceId, data)
           }
 
           override fun onDebugLog(
@@ -127,12 +142,45 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
             message: String,
             data: JSONObject
           ) {
+            // Debug log is process-global (no per-task instanceId), like iOS.
             emitter.emit("onDebugLog", data.toString())
           }
-        })
+
+          override fun onCleanup() {
+            // Terminal (carries no data): the JS registry tears down this task here. Drop our
+            // command-targeting ref.
+            emitEnvelope(emitter, "onCleanup", instanceId, null)
+            receivers.remove(instanceId)
+          }
+        }
+
+        receivers[instanceId] = receiver
+        Transact.present(context, sdkConfig, receiver)
+        // Resolve as a launch ack. Lifecycle callbacks are delivered via the enveloped events above.
+        promise.resolve(null)
       } catch (e: Exception) {
+        receivers.remove(instanceId)
         promise.reject(e)
       }
+    }
+  }
+
+  // Sends a data-request response back to the originating task. The JS layer calls this with the
+  // wrapper instanceId; we resolve the SDK's per-instance id from the bound receiver and target it
+  // so concurrent flows don't each receive the response.
+  @ReactMethod
+  fun resolveDataRequest(instanceId: String, response: ReadableMap?) {
+    if (response == null) {
+      return
+    }
+    val sdkInstanceId = receivers[instanceId]?.instanceId ?: return
+    try {
+      val responseJson = JSONObject(response.toHashMap()).toString()
+      val dataResponse =
+        json.decodeFromString(Config.TransactDataResponse.serializer(), responseJson)
+      Transact.sendData(reactApplicationContext, sdkInstanceId, dataResponse)
+    } catch (e: Exception) {
+      // Malformed/empty response — nothing to deliver.
     }
   }
 
