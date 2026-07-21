@@ -62,6 +62,7 @@ export const Step = {
   LOGIN_PAYROLL: 'login-payroll',
   SEARCH_COMPANY: 'search-company',
   SEARCH_PAYROLL: 'search-payroll',
+  ACCOUNT: 'account',
 } as const;
 
 export type StepType = (typeof Step)[keyof typeof Step] | (string & {});
