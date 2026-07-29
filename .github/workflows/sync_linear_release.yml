@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: linear/linear-release-action@c0cb8354a362c24c6d3e0948f37fd66d07588e3f
+      - uses: linear/linear-release-action@af56a9a388625921f3757a2f988e4d7aca958377
         with:
           access_key: ${{ secrets.LINEAR_ACCESS_KEY_REACT_NATIVE }}
           command: sync

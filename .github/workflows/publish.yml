@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
           registry-url: https://registry.npmjs.org
@@ -70,7 +70,7 @@ jobs:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: echo "version=${RELEASE_TAG#v}" >> "$GITHUB_OUTPUT"
 
-      - uses: linear/linear-release-action@c0cb8354a362c24c6d3e0948f37fd66d07588e3f
+      - uses: linear/linear-release-action@af56a9a388625921f3757a2f988e4d7aca958377
         with:
           access_key: ${{ secrets.LINEAR_ACCESS_KEY_REACT_NATIVE }}
           command: sync
@@ -79,7 +79,7 @@ jobs:
           links: |
             Source release=${{ github.event.release.html_url }}
 
-      - uses: linear/linear-release-action@c0cb8354a362c24c6d3e0948f37fd66d07588e3f
+      - uses: linear/linear-release-action@af56a9a388625921f3757a2f988e4d7aca958377
         with:
           access_key: ${{ secrets.LINEAR_ACCESS_KEY_REACT_NATIVE }}
           command: complete
