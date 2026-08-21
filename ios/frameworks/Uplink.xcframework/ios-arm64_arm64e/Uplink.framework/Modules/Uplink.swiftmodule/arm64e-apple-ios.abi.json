@@ -2579,7 +2579,7 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/Socket.swift",
       "kind": "BooleanLiteral",
-      "offset": 7521,
+      "offset": 7573,
       "length": 5,
       "value": "false"
     },
