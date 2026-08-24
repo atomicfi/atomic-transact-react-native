@@ -11,11 +11,11 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           fetch-depth: 0
 
-      - uses: linear/linear-release-action@c0cb8354a362c24c6d3e0948f37fd66d07588e3f
+      - uses: linear/linear-release-action@0a25abab892a91062ebf42260dbb2ce6277aa205
         with:
           access_key: ${{ secrets.LINEAR_ACCESS_KEY_REACT_NATIVE }}
           command: sync
