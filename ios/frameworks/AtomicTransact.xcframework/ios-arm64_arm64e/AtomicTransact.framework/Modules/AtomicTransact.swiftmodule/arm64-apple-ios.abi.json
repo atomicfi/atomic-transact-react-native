@@ -10231,9 +10231,120 @@
                 ]
               },
               {
+                "kind": "Var",
+                "name": "preScreenOnLoad",
+                "printedName": "preScreenOnLoad",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.Bool?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Bool",
+                        "printedName": "Swift.Bool",
+                        "usr": "s:Sb"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:14AtomicTransact0A6ConfigV8FeaturesV15preScreenOnLoadSbSgvp",
+                "mangledName": "$s14AtomicTransact0A6ConfigV8FeaturesV15preScreenOnLoadSbSgvp",
+                "moduleName": "AtomicTransact",
+                "declAttributes": [
+                  "HasInitialValue",
+                  "HasStorage",
+                  "AccessControl",
+                  "RawDocComment"
+                ],
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Swift.Bool?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Bool",
+                            "printedName": "Swift.Bool",
+                            "usr": "s:Sb"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:14AtomicTransact0A6ConfigV8FeaturesV15preScreenOnLoadSbSgvg",
+                    "mangledName": "$s14AtomicTransact0A6ConfigV8FeaturesV15preScreenOnLoadSbSgvg",
+                    "moduleName": "AtomicTransact",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Set",
+                    "printedName": "Set()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Swift.Bool?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Bool",
+                            "printedName": "Swift.Bool",
+                            "usr": "s:Sb"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:14AtomicTransact0A6ConfigV8FeaturesV15preScreenOnLoadSbSgvs",
+                    "mangledName": "$s14AtomicTransact0A6ConfigV8FeaturesV15preScreenOnLoadSbSgvs",
+                    "moduleName": "AtomicTransact",
+                    "implicit": true,
+                    "accessorKind": "set"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Modify",
+                    "printedName": "Modify()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:14AtomicTransact0A6ConfigV8FeaturesV15preScreenOnLoadSbSgvM",
+                    "mangledName": "$s14AtomicTransact0A6ConfigV8FeaturesV15preScreenOnLoadSbSgvM",
+                    "moduleName": "AtomicTransact",
+                    "implicit": true,
+                    "accessorKind": "_modify"
+                  }
+                ]
+              },
+              {
                 "kind": "Constructor",
                 "name": "init",
-                "printedName": "init(coAuth:manualDepositFlow:)",
+                "printedName": "init(coAuth:manualDepositFlow:preScreenOnLoad:)",
                 "children": [
                   {
                     "kind": "TypeNominal",
@@ -10270,11 +10381,26 @@
                     ],
                     "hasDefaultArg": true,
                     "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.Bool?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Bool",
+                        "printedName": "Swift.Bool",
+                        "usr": "s:Sb"
+                      }
+                    ],
+                    "hasDefaultArg": true,
+                    "usr": "s:Sq"
                   }
                 ],
                 "declKind": "Constructor",
-                "usr": "s:14AtomicTransact0A6ConfigV8FeaturesV6coAuth17manualDepositFlowAESbSg_AHtcfc",
-                "mangledName": "$s14AtomicTransact0A6ConfigV8FeaturesV6coAuth17manualDepositFlowAESbSg_AHtcfc",
+                "usr": "s:14AtomicTransact0A6ConfigV8FeaturesV6coAuth17manualDepositFlow15preScreenOnLoadAESbSg_A2Itcfc",
+                "mangledName": "$s14AtomicTransact0A6ConfigV8FeaturesV6coAuth17manualDepositFlow15preScreenOnLoadAESbSg_A2Itcfc",
                 "moduleName": "AtomicTransact",
                 "declAttributes": [
                   "AccessControl",
@@ -23997,6 +24123,13 @@
       },
       {
         "kind": "Import",
+        "name": "Network",
+        "printedName": "Network",
+        "declKind": "Import",
+        "moduleName": "AtomicTransact"
+      },
+      {
+        "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
         "declKind": "Import",
@@ -24775,6 +24908,16 @@
       },
       {
         "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "AtomicTransact",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "WebKit",
         "printedName": "WebKit",
         "declKind": "Import",
@@ -24819,6 +24962,23 @@
         "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "AtomicTransact"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "AtomicTransact",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "SafariServices",
+        "printedName": "SafariServices",
         "declKind": "Import",
         "moduleName": "AtomicTransact"
       },
@@ -25676,65 +25836,72 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 27817,
+      "offset": 28065,
       "length": 5,
       "value": "\"ios\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 28088,
+      "offset": 28336,
       "length": 49,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 28112,
+      "offset": 28360,
       "length": 1,
       "value": "\".\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 28136,
+      "offset": 28384,
       "length": 1,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "IntegerLiteral",
-      "offset": 28176,
+      "offset": 28424,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 28213,
+      "offset": 28461,
       "length": 26,
       "value": "\".\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 28238,
+      "offset": 28486,
       "length": 1,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 28387,
+      "offset": 28635,
       "length": 18,
       "value": "\"MinimumOSVersion\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
       "kind": "StringLiteral",
-      "offset": 28473,
+      "offset": 28721,
       "length": 19,
       "value": "\"DTPlatformVersion\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicConfig.swift",
+      "kind": "BooleanLiteral",
+      "offset": 31612,
+      "length": 4,
+      "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Public\/AtomicSwiftUI.swift",
@@ -25914,170 +26081,191 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "IntegerLiteral",
-      "offset": 205,
+      "offset": 220,
       "length": 2,
       "value": "32"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "IntegerLiteral",
-      "offset": 263,
+      "offset": 278,
       "length": 2,
       "value": "16"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "BooleanLiteral",
-      "offset": 301,
+      "offset": 316,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 951,
+      "offset": 1103,
       "length": 33,
       "value": "\"https:\/\/telemetry.atomicfi.com\/\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "Dictionary",
-      "offset": 1010,
+      "offset": 1162,
       "length": 49,
       "value": "[(\"X-API-KEY\", \"f51065dc9169be0ae68d2278d4928e9e\")]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 1270,
+      "offset": 1603,
       "length": 8,
       "value": "\"native\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 1350,
+      "offset": 1683,
       "length": 3,
       "value": "\"-\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "IntegerLiteral",
-      "offset": 1451,
+      "offset": 1784,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 1669,
+      "offset": 2002,
       "length": 12,
       "value": "\"os.version\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 1719,
+      "offset": 2052,
       "length": 22,
       "value": "\"sdk.platform_variant\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 1772,
+      "offset": 2105,
       "length": 13,
       "value": "\"sdk.version\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 1885,
+      "offset": 2218,
       "length": 16,
       "value": "\"sdk.min_deploy\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 2002,
+      "offset": 2335,
       "length": 19,
       "value": "\"sdk.xcode_version\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 2101,
+      "offset": 2434,
       "length": 14,
       "value": "\"CFBundleName\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 2153,
+      "offset": 2486,
       "length": 14,
       "value": "\"sdk.app_name\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 2249,
+      "offset": 2582,
       "length": 26,
       "value": "\"transact.ios.source_type\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 2367,
+      "offset": 2700,
       "length": 33,
       "value": "\"transact.ios.presentation_style\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 2747,
+      "offset": 3080,
       "length": 21,
       "value": "\"atomic.task.product\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 2919,
+      "offset": 3252,
       "length": 18,
       "value": "\"device.simulator\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 2941,
+      "offset": 3274,
       "length": 7,
       "value": "\"false\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 2975,
+      "offset": 3308,
       "length": 22,
       "value": "\"process.architecture\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "BooleanLiteral",
-      "offset": 7391,
+      "offset": 9209,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
+      "kind": "BooleanLiteral",
+      "offset": 9371,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
+      "kind": "BooleanLiteral",
+      "offset": 9415,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 14834,
+      "offset": 19069,
       "length": 13,
       "value": "\"full_screen\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
       "kind": "StringLiteral",
-      "offset": 14865,
+      "offset": 19100,
       "length": 7,
       "value": "\"sheet\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Analytics.swift",
+      "kind": "StringLiteral",
+      "offset": 19819,
+      "length": 31,
+      "value": "\"com.atomicfi.transact.network\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Utils\/Logger.swift",
@@ -26087,11 +26275,256 @@
       "value": "\"transact\""
     },
     {
-      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 390,
+      "length": 13,
+      "value": "1500000000"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 446,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
       "kind": "BooleanLiteral",
-      "offset": 564,
+      "offset": 750,
       "length": 5,
       "value": "false"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "BooleanLiteral",
+      "offset": 793,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "BooleanLiteral",
+      "offset": 978,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1051,
+      "length": 2,
+      "value": "14"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "StringLiteral",
+      "offset": 1116,
+      "length": 7,
+      "value": "\"xmark\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1299,
+      "length": 3,
+      "value": "141"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1305,
+      "length": 3,
+      "value": "255"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1317,
+      "length": 3,
+      "value": "147"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1323,
+      "length": 3,
+      "value": "255"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1334,
+      "length": 3,
+      "value": "178"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1340,
+      "length": 3,
+      "value": "255"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1352,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1386,
+      "length": 3,
+      "value": "105"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1392,
+      "length": 3,
+      "value": "255"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1404,
+      "length": 3,
+      "value": "111"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1410,
+      "length": 3,
+      "value": "255"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1421,
+      "length": 3,
+      "value": "140"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1427,
+      "length": 3,
+      "value": "255"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1439,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactLoadingOverlay.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1479,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 425,
+      "length": 13,
+      "value": "\"user_closed\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 467,
+      "length": 15,
+      "value": "\"sdk_dismissed\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 512,
+      "length": 16,
+      "value": "\"invalid_config\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 565,
+      "length": 23,
+      "value": "\"initialization_failed\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 626,
+      "length": 24,
+      "value": "\"initialization_timeout\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 683,
+      "length": 19,
+      "value": "\"navigation_failed\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "StringLiteral",
+      "offset": 732,
+      "length": 16,
+      "value": "\"transact_error\""
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1054,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2202,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2237,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2286,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2331,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2531,
+      "length": 14,
+      "value": "60000000000"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 9137,
+      "length": 4,
+      "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/AtomicTransact\/Views\/TransactViewController+Presentation.swift",
@@ -26112,7 +26545,7 @@
       "kind": "StringLiteral",
       "offset": 228,
       "length": 8,
-      "value": "\"3.34.0\""
+      "value": "\"3.35.0\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Shared\/AtomicDebug.swift",

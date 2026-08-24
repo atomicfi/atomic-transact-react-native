@@ -6,6 +6,7 @@
 import Combine
 import Foundation
 import MuppetIOS
+import Network
 import OSLog
 import SafariServices
 import Security
@@ -283,8 +284,9 @@ public struct AtomicConfig : Swift.Codable, Swift.Sendable {
   public struct Features : Swift.Codable, Swift.Sendable {
     public var manualDepositFlow: Swift.Bool?
     public var coAuth: Swift.Bool?
+    public var preScreenOnLoad: Swift.Bool?
     #if compiler(>=5.3) && $NonescapableTypes
-    public init(coAuth: Swift.Bool? = nil, manualDepositFlow: Swift.Bool? = nil)
+    public init(coAuth: Swift.Bool? = nil, manualDepositFlow: Swift.Bool? = nil, preScreenOnLoad: Swift.Bool? = nil)
     #endif
     public func encode(to encoder: any Swift.Encoder) throws
     public init(from decoder: any Swift.Decoder) throws
