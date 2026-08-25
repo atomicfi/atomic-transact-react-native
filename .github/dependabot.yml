@@ -4,6 +4,8 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     groups:
       npm-dependencies:
         patterns:
@@ -39,6 +41,8 @@ updates:
     directory: '/example'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     groups:
       # A new Expo SDK is a coordinated upgrade (native modules, RN,
       # React, gradle wrapper, iOS AppDelegate). Keep it in its own PR
@@ -85,6 +89,8 @@ updates:
     directory: '/android'
     schedule:
       interval: 'daily'
+    cooldown:
+      default-days: 7
     allow:
       - dependency-name: 'financial.atomic:transact'
 
@@ -92,6 +98,8 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     groups:
       github-actions:
         patterns:
