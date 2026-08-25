@@ -90,7 +90,7 @@ updates:
     schedule:
       interval: 'daily'
     cooldown:
-      default-days: 7
+      default-days: 0
     allow:
       - dependency-name: 'financial.atomic:transact'
 
