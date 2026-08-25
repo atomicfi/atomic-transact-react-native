@@ -80,35 +80,15 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
 
-      - name: 🔄 Verify EAS CLI installation
-        run: |
-          echo "EAS CLI version:"
-          yarn dlx eas-cli@latest --version
-
-      - name: 📋 Fix package.json main entry
-        working-directory: ./example
-        run: |
-          # EAS local builds require `main` to be "node_modules/expo/AppEntry.js".
-          # The checked-in value ("index.ts") works for local dev with Metro/Expo Go
-          # but causes EAS to fail to resolve the entry point during a local build.
-          # Check if jq is installed, if not install it
-          if ! command -v jq &> /dev/null; then
-            echo "Installing jq..."
-            sudo apt-get update && sudo apt-get install -y jq
-          fi
-
-          # Fix the main entry in package.json
-          if [ -f ./package.json ]; then
-            # Create a backup
-            cp package.json package.json.bak
-            # Update the package.json
-            jq '.main = "node_modules/expo/AppEntry.js"' package.json > package.json.tmp && mv package.json.tmp package.json
-            echo "Updated package.json main entry"
-            cat package.json | grep "main"
-          else
-            echo "package.json not found"
-            exit 1
-          fi
+      - name: 📦 Setup Gradle cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - name: 📱 Build Android Dev .apk
         working-directory: ./example
@@ -158,28 +138,15 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
 
-      - name: 🔄 Verify EAS CLI installation
-        run: |
-          echo "EAS CLI version:"
-          yarn dlx eas-cli@latest --version
-
-      - name: 📋 Fix package.json main entry
-        working-directory: ./example
-        run: |
-          # EAS local builds require `main` to be "node_modules/expo/AppEntry.js".
-          # The checked-in value ("index.ts") works for local dev with Metro/Expo Go
-          # but causes EAS to fail to resolve the entry point during a local build.
-          if [ -f ./package.json ]; then
-            # Create a backup
-            cp package.json package.json.bak
-            # Update the package.json
-            jq '.main = "node_modules/expo/AppEntry.js"' package.json > package.json.tmp && mv package.json.tmp package.json
-            echo "Updated package.json main entry"
-            cat package.json | grep "main"
-          else
-            echo "package.json not found"
-            exit 1
-          fi
+      - name: 📦 Setup CocoaPods cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: |
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods/repos
+          key: ${{ runner.os }}-cocoapods-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cocoapods-
 
       - name: 📱 Build iOS Dev .app
         working-directory: ./example
