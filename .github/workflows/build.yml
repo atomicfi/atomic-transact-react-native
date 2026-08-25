@@ -39,6 +39,10 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
 
+      - name: 🩺 Run expo-doctor
+        working-directory: ./example
+        run: npx -y expo-doctor
+
       - name: 🧪 Run TypeScript check
         run: yarn tsc
 

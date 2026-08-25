@@ -4,6 +4,8 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     groups:
       npm-dependencies:
         patterns:
@@ -14,31 +16,53 @@ updates:
         update-types: ['version-update:semver-major']
       - dependency-name: '@eslint/js'
         update-types: ['version-update:semver-major']
-      # typescript 6 deprecates baseUrl and other config we use
-      - dependency-name: 'typescript'
+      # react / react-native minor/major bumps must land with a matching
+      # Expo SDK upgrade — the example app is pinned to Expo's compat
+      # matrix, so we only accept patches here and roll the ecosystem
+      # forward by hand when we bump Expo.
+      - dependency-name: 'react'
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+      - dependency-name: '@types/react'
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+      - dependency-name: 'react-native'
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+      - dependency-name: '@react-native/*'
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+      # @babel/core 8.x breaks @react-native/babel-preset's ^7.4.0 peer
+      # requirement — RN's preset must move first.
+      - dependency-name: '@babel/core'
         update-types: ['version-update:semver-major']
 
   - package-ecosystem: 'npm'
     directory: '/example'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     groups:
+      # A new Expo SDK is a coordinated upgrade (native modules, RN,
+      # React, gradle wrapper, iOS AppDelegate). Keep it in its own PR
+      # so it doesn't get bundled with routine dependency bumps.
+      expo-sdk:
+        applies-to: version-updates
+        patterns:
+          - 'expo'
+          - 'expo-*'
+          - 'eslint-config-expo'
+        update-types:
+          - 'major'
+          - 'minor'
       npm-dependencies:
         patterns:
           - '*'
     ignore:
-      # Expo SDK 55 manages these via its compatibility matrix — only
-      # patch updates within the SDK's pinned versions are safe. Minor
-      # and major bumps must accompany an Expo SDK upgrade.
-      - dependency-name: 'expo'
-        update-types:
-          ['version-update:semver-major', 'version-update:semver-minor']
-      - dependency-name: 'expo-*'
-        update-types:
-          ['version-update:semver-major', 'version-update:semver-minor']
-      - dependency-name: 'eslint-config-expo'
-        update-types:
-          ['version-update:semver-major', 'version-update:semver-minor']
+      # Expo SDK bumps land through the `expo-sdk` group above; patch
+      # updates within the current SDK's compat matrix flow through the
+      # general group.
       - dependency-name: 'react'
         update-types:
           ['version-update:semver-major', 'version-update:semver-minor']
@@ -51,16 +75,22 @@ updates:
       - dependency-name: 'react-native-screens'
         update-types:
           ['version-update:semver-major', 'version-update:semver-minor']
-      # Same ecosystem-compat issues as the parent package
+      # Also managed by Expo's compat matrix.
+      - dependency-name: '@react-native-async-storage/async-storage'
+        update-types:
+          ['version-update:semver-major', 'version-update:semver-minor']
+      # Same ecosystem-compat issue as the parent package
       - dependency-name: 'eslint'
         update-types: ['version-update:semver-major']
-      - dependency-name: 'typescript'
+      - dependency-name: '@babel/core'
         update-types: ['version-update:semver-major']
 
   - package-ecosystem: 'gradle'
     directory: '/android'
     schedule:
       interval: 'daily'
+    cooldown:
+      default-days: 7
     allow:
       - dependency-name: 'financial.atomic:transact'
 
@@ -68,6 +98,8 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    cooldown:
+      default-days: 7
     groups:
       github-actions:
         patterns:
