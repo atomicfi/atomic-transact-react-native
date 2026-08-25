@@ -4,6 +4,9 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
     cooldown:
       default-days: 7
     groups:
@@ -41,6 +44,9 @@ updates:
     directory: '/example'
     schedule:
       interval: 'weekly'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
     cooldown:
       default-days: 7
     groups:
@@ -89,6 +95,9 @@ updates:
     directory: '/android'
     schedule:
       interval: 'daily'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
     cooldown:
       default-days: 0
     allow:
@@ -98,6 +107,9 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+    commit-message:
+      prefix: 'chore'
+      include: 'scope'
     cooldown:
       default-days: 7
     groups:
