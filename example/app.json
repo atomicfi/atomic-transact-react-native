@@ -6,11 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.atomicfi.transact.example",
@@ -29,7 +24,8 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-dev-client"
+      "expo-dev-client",
+      "expo-build-properties"
     ],
     "developmentClient": {
       "silentLaunch": false

@@ -5,8 +5,9 @@
 # XDE
 .expo/
 
-# Claude
+# AGENTS
 CLAUDE.md
+AGENTS.MD
 
 # Cursor
 .cursor/
