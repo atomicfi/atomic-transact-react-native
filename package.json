@@ -84,10 +84,10 @@
     "globals": "^17.5.0",
     "jest": "^30.3.0",
     "prettier": "^3.8.3",
-    "react": "19.2.3",
+    "react": "19.2.8",
     "react-native": "0.86.2",
     "react-native-builder-bob": "^0.43.0",
-    "typescript": "~6.0.3"
+    "typescript": "~7.0.2"
   },
   "peerDependencies": {
     "@expo/config-plugins": ">=10",
