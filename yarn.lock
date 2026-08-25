@@ -38,6 +38,7 @@ __metadata:
     "@expo/config-plugins": "npm:^57.0.3"
     "@react-native/babel-preset": "npm:0.86.2"
     "@types/jest": "npm:^30.0.0"
+    "@types/node": "npm:^26.3.0"
     "@types/react": "npm:^19.2.14"
     "@typescript-eslint/parser": "npm:^8.59.1"
     commitlint: "npm:^21.0.2"
@@ -51,7 +52,7 @@ __metadata:
     react: "npm:19.2.3"
     react-native: "npm:0.86.2"
     react-native-builder-bob: "npm:^0.43.0"
-    typescript: "npm:^5.9.3"
+    typescript: "npm:~6.0.3"
   peerDependencies:
     "@expo/config-plugins": ">=10"
     react: "*"
@@ -3386,6 +3387,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^26.3.0":
+  version: 26.3.0
+  resolution: "@types/node@npm:26.3.0"
+  dependencies:
+    undici-types: "npm:~8.3.0"
+  checksum: 10/77a9587a3c8ce2e4bf1547d70706f262ba6dca2a39012091df36f1729132c06485833fe6f74ffbd5271d12966d6b729f6343d5af95681b7a08d437115b125015
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:^19.2.14, @types/react@npm:~19.2.14":
   version: 19.2.17
   resolution: "@types/react@npm:19.2.17"
@@ -5902,7 +5912,7 @@ __metadata:
     react-native: "npm:0.86.2"
     react-native-safe-area-context: "npm:~5.7.0"
     react-native-screens: "npm:~4.26.1"
-    typescript: "npm:~5.9.3"
+    typescript: "npm:~6.0.3"
   languageName: unknown
   linkType: soft
 
@@ -10993,17 +11003,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.9.3, typescript@npm:~5.9.3":
-  version: 5.9.3
-  resolution: "typescript@npm:5.9.3"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10/c089d9d3da2729fd4ac517f9b0e0485914c4b3c26f80dc0cffcb5de1719a17951e92425d55db59515c1a7ddab65808466debb864d0d56dcf43f27007d0709594
-  languageName: node
-  linkType: hard
-
-"typescript@npm:^6.0.3":
+"typescript@npm:^6.0.3, typescript@npm:~6.0.3":
   version: 6.0.3
   resolution: "typescript@npm:6.0.3"
   bin:
@@ -11013,17 +11013,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.9.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~5.9.3#optional!builtin<compat/typescript>":
-  version: 5.9.3
-  resolution: "typescript@patch:typescript@npm%3A5.9.3#optional!builtin<compat/typescript>::version=5.9.3&hash=74658d"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10/5d416ad4f2ea564f515a3f919e901edbfa4b497cc17dd325c5726046c3eef7ed22d1f59c787267d478311f6f0a265ff790f8a6c7e9df3ea3471458f5ec81e8b7
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A^6.0.3#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^6.0.3#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~6.0.3#optional!builtin<compat/typescript>":
   version: 6.0.3
   resolution: "typescript@patch:typescript@npm%3A6.0.3#optional!builtin<compat/typescript>::version=6.0.3&hash=74658d"
   bin:
@@ -11049,6 +11039,13 @@ __metadata:
   version: 7.8.0
   resolution: "undici-types@npm:7.8.0"
   checksum: 10/fcff3fbab234f067fbd69e374ee2c198ba74c364ceaf6d93db7ca267e784457b5518cd01d0d2329b075f412574205ea3172a9a675facb49b4c9efb7141cd80b7
+  languageName: node
+  linkType: hard
+
+"undici-types@npm:~8.3.0":
+  version: 8.3.0
+  resolution: "undici-types@npm:8.3.0"
+  checksum: 10/6681d2837ac75a75ac1cc46090aa2b8ddc7c6b8ecc295a6cdb06838752a730da3d8afeecf05e5ab7903160eafad3a8b6ffa1927e5ded260590f4d4fef18646d5
   languageName: node
   linkType: hard
 

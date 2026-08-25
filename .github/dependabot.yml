@@ -14,9 +14,6 @@ updates:
         update-types: ['version-update:semver-major']
       - dependency-name: '@eslint/js'
         update-types: ['version-update:semver-major']
-      # typescript 6 deprecates baseUrl and other config we use
-      - dependency-name: 'typescript'
-        update-types: ['version-update:semver-major']
       # react / react-native minor/major bumps must land with a matching
       # Expo SDK upgrade — the example app is pinned to Expo's compat
       # matrix, so we only accept patches here and roll the ecosystem
@@ -78,10 +75,8 @@ updates:
       - dependency-name: '@react-native-async-storage/async-storage'
         update-types:
           ['version-update:semver-major', 'version-update:semver-minor']
-      # Same ecosystem-compat issues as the parent package
+      # Same ecosystem-compat issue as the parent package
       - dependency-name: 'eslint'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'typescript'
         update-types: ['version-update:semver-major']
       - dependency-name: '@babel/core'
         update-types: ['version-update:semver-major']
