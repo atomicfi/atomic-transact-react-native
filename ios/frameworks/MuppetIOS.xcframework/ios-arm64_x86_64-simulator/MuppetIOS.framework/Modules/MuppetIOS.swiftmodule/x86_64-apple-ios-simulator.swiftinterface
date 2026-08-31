@@ -347,6 +347,7 @@ extension MuppetIOS.Browser : @_Concurrency.MainActor Swift.Equatable, @_Concurr
   public struct Options {
     public var hideOnClose: Swift.Bool
     public var preventTryingUniversalLinks: Swift.Bool
+    public var universalLinkHostAllowList: [Swift.String]
   }
   public enum EventType : Swift.String, Swift.Sendable, Swift.Equatable {
     case console

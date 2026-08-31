@@ -8064,6 +8064,117 @@
                     "accessorKind": "_modify"
                   }
                 ]
+              },
+              {
+                "kind": "Var",
+                "name": "universalLinkHostAllowList",
+                "printedName": "universalLinkHostAllowList",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[Swift.String]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:9MuppetIOS4PageC7OptionsV26universalLinkHostAllowListSaySSGvp",
+                "mangledName": "$s9MuppetIOS4PageC7OptionsV26universalLinkHostAllowListSaySSGvp",
+                "moduleName": "MuppetIOS",
+                "declAttributes": [
+                  "HasInitialValue",
+                  "HasStorage",
+                  "AccessControl",
+                  "RawDocComment"
+                ],
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[Swift.String]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:9MuppetIOS4PageC7OptionsV26universalLinkHostAllowListSaySSGvg",
+                    "mangledName": "$s9MuppetIOS4PageC7OptionsV26universalLinkHostAllowListSaySSGvg",
+                    "moduleName": "MuppetIOS",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Set",
+                    "printedName": "Set()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[Swift.String]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:9MuppetIOS4PageC7OptionsV26universalLinkHostAllowListSaySSGvs",
+                    "mangledName": "$s9MuppetIOS4PageC7OptionsV26universalLinkHostAllowListSaySSGvs",
+                    "moduleName": "MuppetIOS",
+                    "implicit": true,
+                    "accessorKind": "set"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Modify",
+                    "printedName": "Modify()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:9MuppetIOS4PageC7OptionsV26universalLinkHostAllowListSaySSGvM",
+                    "mangledName": "$s9MuppetIOS4PageC7OptionsV26universalLinkHostAllowListSaySSGvM",
+                    "moduleName": "MuppetIOS",
+                    "implicit": true,
+                    "accessorKind": "_modify"
+                  }
+                ]
               }
             ],
             "declKind": "Struct",
@@ -13162,127 +13273,134 @@
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
+      "kind": "Array",
+      "offset": 743,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 1837,
+      "offset": 2066,
       "length": 12,
       "value": "\"javascript\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 1876,
+      "offset": 2105,
       "length": 13,
       "value": "\"invalid_url\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 1984,
+      "offset": 2213,
       "length": 13,
       "value": "\"http_status\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 3803,
+      "offset": 4032,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "BooleanLiteral",
-      "offset": 3916,
+      "offset": 4145,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Array",
-      "offset": 3964,
+      "offset": 4193,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "IntegerLiteral",
-      "offset": 13535,
+      "offset": 13764,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 14542,
+      "offset": 14771,
       "length": 5,
       "value": "\"GET\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 14597,
+      "offset": 14826,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "BooleanLiteral",
-      "offset": 14626,
+      "offset": 14855,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 14945,
+      "offset": 15174,
       "length": 5,
       "value": "\"GET\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 15016,
+      "offset": 15245,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "BooleanLiteral",
-      "offset": 15053,
+      "offset": 15282,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 16217,
+      "offset": 16446,
       "length": 5,
       "value": "\"GET\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 16292,
+      "offset": 16521,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "BooleanLiteral",
-      "offset": 16321,
+      "offset": 16550,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 17884,
+      "offset": 18113,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "IntegerLiteral",
-      "offset": 17913,
+      "offset": 18142,
       "length": 2,
       "value": "30"
     },
