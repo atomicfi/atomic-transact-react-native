@@ -70,7 +70,7 @@ jobs:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: echo "version=${RELEASE_TAG#v}" >> "$GITHUB_OUTPUT"
 
-      - uses: linear/linear-release-action@0a25abab892a91062ebf42260dbb2ce6277aa205
+      - uses: linear/linear-release-action@3f31fcf14c110cc53579fcc3575a26d469c413b4
         with:
           access_key: ${{ secrets.LINEAR_ACCESS_KEY_REACT_NATIVE }}
           command: sync
@@ -79,7 +79,7 @@ jobs:
           links: |
             Source release=${{ github.event.release.html_url }}
 
-      - uses: linear/linear-release-action@0a25abab892a91062ebf42260dbb2ce6277aa205
+      - uses: linear/linear-release-action@3f31fcf14c110cc53579fcc3575a26d469c413b4
         with:
           access_key: ${{ secrets.LINEAR_ACCESS_KEY_REACT_NATIVE }}
           command: complete
