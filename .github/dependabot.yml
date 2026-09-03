@@ -3,93 +3,146 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'weekly'
+      # Poll daily so new Expo-family releases trigger alignment promptly. The
+      # cooldown below still holds routine packages for seven days.
+      interval: 'daily'
     commit-message:
       prefix: 'chore'
       include: 'scope'
     cooldown:
       default-days: 7
+      # Let Expo-family releases trigger the compatibility workflow immediately
+      # instead of waiting behind the general cooldown.
+      exclude:
+        - '@expo/*'
+        - '@types/react'
+        - 'expo'
+        - 'expo-*'
+        - 'eslint-config-expo'
+        - 'react-native-safe-area-context'
+        - 'react-native-screens'
+        - 'typescript'
     groups:
-      npm-dependencies:
+      # Expo controls these versions as a compatibility cohort. Dependabot may
+      # propose patches, but CI only accepts the group after Expo's fixer agrees.
+      expo-compatible-patches:
+        applies-to: version-updates
+        patterns:
+          - '@expo/*'
+          - '@types/react'
+          - 'expo'
+          - 'expo-*'
+          - 'eslint-config-expo'
+          - 'react-native-safe-area-context'
+          - 'react-native-screens'
+          - 'typescript'
+        update-types:
+          - 'patch'
+      # A new Expo SDK is proposed as one coordinated PR. The alignment workflow
+      # lets the new Expo CLI choose matching React Native and native-module
+      # versions, so the dependency migration itself does not require hand edits.
+      expo-sdk:
+        applies-to: version-updates
+        patterns:
+          - '@expo/*'
+          - 'expo'
+          - 'expo-*'
+          - 'eslint-config-expo'
+        update-types:
+          - 'minor'
+          - 'major'
+      development-dependencies:
+        dependency-type: 'development'
         patterns:
           - '*'
+        exclude-patterns:
+          - '@expo/*'
+          - '@react-native/*'
+          - '@react-native-async-storage/async-storage'
+          - '@types/react'
+          - 'expo'
+          - 'expo-*'
+          - 'eslint-config-expo'
+          - 'react'
+          - 'react-native'
+          - 'react-native-safe-area-context'
+          - 'react-native-screens'
+          - 'typescript'
+        update-types:
+          - 'minor'
+          - 'patch'
+      production-dependencies:
+        dependency-type: 'production'
+        patterns:
+          - '*'
+        exclude-patterns:
+          - '@expo/*'
+          - '@react-native/*'
+          - '@react-native-async-storage/async-storage'
+          - '@types/react'
+          - 'expo'
+          - 'expo-*'
+          - 'eslint-config-expo'
+          - 'react'
+          - 'react-native'
+          - 'react-native-safe-area-context'
+          - 'react-native-screens'
+          - 'typescript'
+        update-types:
+          - 'minor'
+          - 'patch'
+    # Security updates stay independent. Running Expo's fixer on a security PR
+    # could revert the remediation to an older SDK-recommended version.
     ignore:
       # eslint 10 isn't supported by @typescript-eslint/parser v8 yet
       - dependency-name: 'eslint'
         update-types: ['version-update:semver-major']
       - dependency-name: '@eslint/js'
         update-types: ['version-update:semver-major']
-      # react / react-native minor/major bumps must land with a matching
-      # Expo SDK upgrade — the example app is pinned to Expo's compat
-      # matrix, so we only accept patches here and roll the ecosystem
-      # forward by hand when we bump Expo.
-      - dependency-name: 'react'
-        update-types:
-          ['version-update:semver-major', 'version-update:semver-minor']
-      - dependency-name: '@types/react'
-        update-types:
-          ['version-update:semver-major', 'version-update:semver-minor']
-      - dependency-name: 'react-native'
-        update-types:
-          ['version-update:semver-major', 'version-update:semver-minor']
-      - dependency-name: '@react-native/*'
-        update-types:
-          ['version-update:semver-major', 'version-update:semver-minor']
       # @babel/core 8.x breaks @react-native/babel-preset's ^7.4.0 peer
       # requirement — RN's preset must move first.
       - dependency-name: '@babel/core'
         update-types: ['version-update:semver-major']
-
-  - package-ecosystem: 'npm'
-    directory: '/example'
-    schedule:
-      interval: 'weekly'
-    commit-message:
-      prefix: 'chore'
-      include: 'scope'
-    cooldown:
-      default-days: 7
-    groups:
-      # A new Expo SDK is a coordinated upgrade (native modules, RN,
-      # React, gradle wrapper, iOS AppDelegate). Keep it in its own PR
-      # so it doesn't get bundled with routine dependency bumps.
-      expo-sdk:
-        applies-to: version-updates
-        patterns:
-          - 'expo'
-          - 'expo-*'
-          - 'eslint-config-expo'
+      # The root updater sees every Yarn workspace, so Expo compatibility rules
+      # live here. Exact React/React Native pins and peripheral minor/major bumps
+      # move only when Expo's fixer selects them. Security updates are unaffected
+      # by these version-update filters.
+      - dependency-name: '@react-native/*'
         update-types:
-          - 'major'
-          - 'minor'
-      npm-dependencies:
-        patterns:
-          - '*'
-    ignore:
-      # Expo SDK bumps land through the `expo-sdk` group above; patch
-      # updates within the current SDK's compat matrix flow through the
-      # general group.
-      - dependency-name: 'react'
-        update-types:
-          ['version-update:semver-major', 'version-update:semver-minor']
-      - dependency-name: 'react-native'
-        update-types:
-          ['version-update:semver-major', 'version-update:semver-minor']
-      - dependency-name: 'react-native-safe-area-context'
-        update-types:
-          ['version-update:semver-major', 'version-update:semver-minor']
-      - dependency-name: 'react-native-screens'
-        update-types:
-          ['version-update:semver-major', 'version-update:semver-minor']
-      # Also managed by Expo's compat matrix.
+          - 'version-update:semver-patch'
+          - 'version-update:semver-minor'
+          - 'version-update:semver-major'
       - dependency-name: '@react-native-async-storage/async-storage'
         update-types:
-          ['version-update:semver-major', 'version-update:semver-minor']
-      # Same ecosystem-compat issue as the parent package
-      - dependency-name: 'eslint'
-        update-types: ['version-update:semver-major']
-      - dependency-name: '@babel/core'
-        update-types: ['version-update:semver-major']
+          - 'version-update:semver-patch'
+          - 'version-update:semver-minor'
+          - 'version-update:semver-major'
+      - dependency-name: 'react'
+        update-types:
+          - 'version-update:semver-patch'
+          - 'version-update:semver-minor'
+          - 'version-update:semver-major'
+      - dependency-name: 'react-native'
+        update-types:
+          - 'version-update:semver-patch'
+          - 'version-update:semver-minor'
+          - 'version-update:semver-major'
+      - dependency-name: '@types/react'
+        update-types:
+          - 'version-update:semver-minor'
+          - 'version-update:semver-major'
+      - dependency-name: 'react-native-safe-area-context'
+        update-types:
+          - 'version-update:semver-minor'
+          - 'version-update:semver-major'
+      - dependency-name: 'react-native-screens'
+        update-types:
+          - 'version-update:semver-minor'
+          - 'version-update:semver-major'
+      - dependency-name: 'typescript'
+        update-types:
+          - 'version-update:semver-minor'
+          - 'version-update:semver-major'
 
   - package-ecosystem: 'gradle'
     directory: '/android'
@@ -99,7 +152,10 @@ updates:
       prefix: 'chore'
       include: 'scope'
     cooldown:
-      default-days: 0
+      # GitHub's supported cooldown range starts at one day. Excluding the only
+      # allowed dependency preserves immediate native SDK update checks.
+      exclude:
+        - 'financial.atomic:transact'
     allow:
       - dependency-name: 'financial.atomic:transact'
 

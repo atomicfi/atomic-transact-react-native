@@ -13,16 +13,23 @@ on:
         description: 'iOS SDK version (e.g., 3.27.2)'
         required: true
         type: string
+      app_client_id:
+        description: 'Client ID for the dependency automation GitHub App'
+        required: false
+        type: string
     secrets:
+      DEPENDENCY_AUTOMATION_APP_PRIVATE_KEY:
+        description: 'Private key for the dependency automation GitHub App'
+        required: false
       token:
-        required: true
+        description: 'Deprecated personal access token used during App migration'
+        required: false
 
 jobs:
   update-ios-sdk:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
 
     steps:
       - name: Determine version
@@ -31,14 +38,53 @@ jobs:
           INPUT_VERSION: ${{ inputs.version }}
         run: |
           VERSION="${INPUT_VERSION#v}"
+          if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Expected a stable semantic version such as 3.27.2, got: $INPUT_VERSION" >&2
+            exit 1
+          fi
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "branch=chore/update-ios-sdk-${VERSION}" >> "$GITHUB_OUTPUT"
+
+      # A called workflow uses the caller repository's context and secrets. The
+      # App credentials are therefore explicit inputs for cross-repository calls,
+      # while a direct dispatch can use this repository's variable and secret.
+      - name: Create dependency automation token
+        id: app-token
+        if: >-
+          ${{
+            (
+              github.repository == 'atomicfi/atomic-transact-react-native' &&
+              vars.DEPENDENCY_AUTOMATION_APP_CLIENT_ID != ''
+            ) ||
+            inputs.app_client_id != ''
+          }}
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ inputs.app_client_id || vars.DEPENDENCY_AUTOMATION_APP_CLIENT_ID }}
+          private-key: ${{ secrets.DEPENDENCY_AUTOMATION_APP_PRIVATE_KEY }}
+          owner: atomicfi
+          repositories: atomic-transact-react-native
+          permission-contents: write
+          permission-pull-requests: write
+
+      - name: Require an automation credential
+        env:
+          APP_TOKEN: ${{ steps.app-token.outputs.token }}
+          AUTOMATION_TOKEN: ${{ steps.app-token.outputs.token || secrets.token }}
+        run: |
+          if [[ -z "$AUTOMATION_TOKEN" ]]; then
+            echo "No GitHub App credentials were provided." >&2
+            exit 1
+          fi
+          if [[ -z "$APP_TOKEN" ]]; then
+            echo "::warning::Using the deprecated personal access token. Migrate this caller to the dependency automation GitHub App."
+          fi
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           ref: master
           repository: atomicfi/atomic-transact-react-native
-          token: ${{ secrets.token || secrets.GITHUB_TOKEN }}
+          token: ${{ steps.app-token.outputs.token || secrets.token }}
 
       - name: Update iOS SDK frameworks
         env:
@@ -57,13 +103,22 @@ jobs:
       - name: Create Pull Request
         if: steps.changes.outputs.has_changes == 'true'
         env:
-          GH_TOKEN: ${{ secrets.token || secrets.GITHUB_TOKEN }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token || secrets.token }}
           VERSION: ${{ steps.version.outputs.version }}
           BRANCH: ${{ steps.version.outputs.branch }}
         run: |
-
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [[ -n "$APP_SLUG" ]]; then
+            [[ "$APP_SLUG" =~ ^[A-Za-z0-9-]+$ ]]
+            BOT_ID="$(gh api "/users/${APP_SLUG}%5Bbot%5D" --jq '.id')"
+            [[ "$BOT_ID" =~ ^[0-9]+$ ]]
+            git config user.name "${APP_SLUG}[bot]"
+            git config user.email "${BOT_ID}+${APP_SLUG}[bot]@users.noreply.github.com"
+          else
+            # Temporary attribution for callers still using the deprecated PAT.
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+          fi
 
           git checkout -b "$BRANCH"
           git add ios/frameworks/ atomicfi-transact-react-native.podspec

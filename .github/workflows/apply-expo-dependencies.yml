@@ -1,0 +1,265 @@
+name: Apply Expo Dependency Alignment
+
+on:
+  workflow_run:
+    workflows: [Prepare Expo Dependency Alignment]
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: apply-expo-dependencies-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    if: >-
+      ${{
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.event == 'pull_request' &&
+        github.event.workflow_run.actor.login == 'dependabot[bot]' &&
+        (
+          github.event.workflow_run.path == '.github/workflows/expo-dependencies.yml' ||
+          startsWith(github.event.workflow_run.path, '.github/workflows/expo-dependencies.yml@')
+        ) &&
+        github.event.workflow_run.head_repository.full_name == github.repository &&
+        (
+          startsWith(github.event.workflow_run.head_branch, 'dependabot/npm_and_yarn/expo-compatible-patches-') ||
+          startsWith(github.event.workflow_run.head_branch, 'dependabot/npm_and_yarn/expo-sdk-')
+        )
+      }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Download untrusted candidate
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: expo-alignment-${{ github.event.workflow_run.id }}-${{ github.event.workflow_run.run_attempt }}
+          path: ${{ runner.temp }}/incoming
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+
+      - name: 🔒 Validate source run and pull request
+        id: source
+        shell: bash
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          EVENT_HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          EVENT_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          GH_TOKEN: ${{ github.token }}
+          INCOMING: ${{ runner.temp }}/incoming
+        run: |
+          set -euo pipefail
+          [[ "$EVENT_HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$EVENT_HEAD_BRANCH" =~ ^dependabot/npm_and_yarn/(expo-compatible-patches|expo-sdk)-[A-Za-z0-9._/-]+$ ]]
+          git check-ref-format "refs/heads/$EVENT_HEAD_BRANCH"
+
+          expected_entries=(
+            'example|d'
+            'example/app.json|f'
+            'example/package.json|f'
+            'metadata.json|f'
+            'package.json|f'
+          )
+          mapfile -t actual_entries < <(
+            find "$INCOMING" -mindepth 1 -printf '%P|%y\n' | sort
+          )
+          [[ "${actual_entries[*]}" == "${expected_entries[*]}" ]]
+
+          metadata="$INCOMING/metadata.json"
+          jq -e \
+            --arg repository "$GITHUB_REPOSITORY" \
+            --arg head_sha "$EVENT_HEAD_SHA" \
+            --arg head_branch "$EVENT_HEAD_BRANCH" \
+            'type == "object" and
+             (keys | sort) == ["head_branch", "head_sha", "pr_number", "repository"] and
+             .repository == $repository and
+             .head_sha == $head_sha and
+             .head_branch == $head_branch and
+             (.pr_number | type) == "number" and
+             .pr_number > 0 and
+             (.pr_number | floor) == .pr_number' \
+            "$metadata" >/dev/null
+
+          pr_number="$(jq -r '.pr_number' "$metadata")"
+          [[ "$pr_number" =~ ^[0-9]+$ ]]
+
+          pr="$RUNNER_TEMP/pull-request.json"
+          gh api "repos/${GITHUB_REPOSITORY}/pulls/${pr_number}" > "$pr"
+          jq -e \
+            --arg repository "$GITHUB_REPOSITORY" \
+            --arg base "$DEFAULT_BRANCH" \
+            --arg head_sha "$EVENT_HEAD_SHA" \
+            --arg head_branch "$EVENT_HEAD_BRANCH" \
+            '.state == "open" and
+             .user.login == "dependabot[bot]" and
+             .base.ref == $base and
+             .head.repo.full_name == $repository and
+             .head.sha == $head_sha and
+             .head.ref == $head_branch' \
+            "$pr" >/dev/null
+
+          mapfile -t pr_files < <(
+            gh api --paginate \
+              "repos/${GITHUB_REPOSITORY}/pulls/${pr_number}/files" \
+              --jq '.[].filename'
+          )
+          ((${#pr_files[@]} > 0))
+          for file in "${pr_files[@]}"; do
+            case "$file" in
+              package.json|example/package.json|example/app.json|yarn.lock) ;;
+              *)
+                echo "Unexpected file in Expo Dependabot PR: $file" >&2
+                exit 1
+                ;;
+            esac
+          done
+
+          {
+            echo "head_branch=$EVENT_HEAD_BRANCH"
+            echo "head_sha=$EVENT_HEAD_SHA"
+            echo "pr_number=$pr_number"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: 🏗 Checkout exact pull-request head without credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ steps.source.outputs.head_sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: 🔒 Validate alignment candidate
+        id: candidate
+        shell: bash
+        env:
+          CI: '1'
+          GH_TOKEN: ${{ github.token }}
+          INCOMING: ${{ runner.temp }}/incoming
+          TRUSTED_SHA: ${{ github.sha }}
+          YARN_ENABLE_SCRIPTS: 'false'
+        run: |
+          set -euo pipefail
+          [[ "$TRUSTED_SHA" =~ ^[0-9a-f]{40}$ ]]
+
+          validator="$RUNNER_TEMP/validate-expo-alignment-patch.js"
+          gh api \
+            --method GET \
+            -H 'Accept: application/vnd.github.raw+json' \
+            "repos/${GITHUB_REPOSITORY}/contents/scripts/validate-expo-alignment-patch.js" \
+            -f ref="$TRUSTED_SHA" > "$validator"
+
+          cp "$INCOMING/package.json" package.json
+          cp "$INCOMING/example/package.json" example/package.json
+          cp "$INCOMING/example/app.json" example/app.json
+
+          if git diff --quiet HEAD -- \
+            package.json example/package.json example/app.json; then
+            echo 'has_changes=false' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git add -- \
+            package.json \
+            example/package.json \
+            example/app.json
+          node "$validator" "$GITHUB_WORKSPACE"
+
+          # The checked-in Yarn binary regenerates the lockfile without running
+          # package lifecycle scripts. PR-produced package code is never executed.
+          corepack enable
+          yarn install --no-immutable --mode=skip-build
+
+          mapfile -d '' changed_files < <(
+            {
+              git diff --name-only -z HEAD
+              git ls-files --others --exclude-standard -z
+            }
+          )
+          for file in "${changed_files[@]}"; do
+            case "$file" in
+              package.json|example/package.json|example/app.json|yarn.lock) ;;
+              *)
+                echo "Lockfile generation changed an unexpected file: $file" >&2
+                exit 1
+                ;;
+            esac
+          done
+
+          git add -- \
+            package.json \
+            example/package.json \
+            example/app.json \
+            yarn.lock
+          node "$validator" "$GITHUB_WORKSPACE"
+          git diff --cached --check HEAD --
+          echo 'has_changes=true' >> "$GITHUB_OUTPUT"
+
+      - name: 🔒 Recheck current pull-request head
+        if: steps.candidate.outputs.has_changes == 'true'
+        shell: bash
+        env:
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          EXPECTED_BRANCH: ${{ steps.source.outputs.head_branch }}
+          EXPECTED_SHA: ${{ steps.source.outputs.head_sha }}
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ steps.source.outputs.pr_number }}
+        run: |
+          set -euo pipefail
+          pr="$RUNNER_TEMP/current-pull-request.json"
+          gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}" > "$pr"
+          jq -e \
+            --arg repository "$GITHUB_REPOSITORY" \
+            --arg base "$DEFAULT_BRANCH" \
+            --arg head_sha "$EXPECTED_SHA" \
+            --arg head_branch "$EXPECTED_BRANCH" \
+            '.state == "open" and
+             .user.login == "dependabot[bot]" and
+             .base.ref == $base and
+             .head.repo.full_name == $repository and
+             .head.sha == $head_sha and
+             .head.ref == $head_branch' \
+            "$pr" >/dev/null
+
+      # This narrow write credential does not exist until validation is complete.
+      - name: 🔑 Create repo-scoped aligner token
+        if: steps.candidate.outputs.has_changes == 'true'
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.DEPENDENCY_AUTOMATION_APP_CLIENT_ID }}
+          private-key: ${{ secrets.DEPENDENCY_AUTOMATION_APP_PRIVATE_KEY }}
+          permission-contents: write
+
+      - name: 🤖 Commit alignment to Dependabot branch
+        if: steps.candidate.outputs.has_changes == 'true'
+        shell: bash
+        env:
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+          EXPECTED_BRANCH: ${{ steps.source.outputs.head_branch }}
+          EXPECTED_SHA: ${{ steps.source.outputs.head_sha }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          set -euo pipefail
+          [[ "$APP_SLUG" =~ ^[A-Za-z0-9-]+$ ]]
+
+          bot_id="$(gh api "/users/${APP_SLUG}%5Bbot%5D" --jq '.id')"
+          [[ "$bot_id" =~ ^[0-9]+$ ]]
+          git config user.name "${APP_SLUG}[bot]"
+          git config user.email "${bot_id}+${APP_SLUG}[bot]@users.noreply.github.com"
+          git commit \
+            --no-gpg-sign \
+            --no-verify \
+            -m 'chore(deps): align Expo dependency cohort [dependabot skip]'
+
+          gh auth setup-git --hostname github.com --force
+          git push \
+            --force-with-lease="refs/heads/${EXPECTED_BRANCH}:${EXPECTED_SHA}" \
+            origin \
+            "HEAD:refs/heads/${EXPECTED_BRANCH}"
