@@ -44,6 +44,8 @@
   ],
   "scripts": {
     "example": "yarn workspace TransactReactNativeExample",
+    "deps:expo:check": "node scripts/expo-dependencies.js check",
+    "deps:expo:update": "node scripts/expo-dependencies.js fix",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",

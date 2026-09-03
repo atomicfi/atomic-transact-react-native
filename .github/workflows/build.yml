@@ -4,11 +4,14 @@ on:
   pull_request:
     branches: [master]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 env:
-  EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-  EXPO_APPLE_ID: ${{ secrets.EXPO_APPLE_ID }}
-  EXPO_APPLE_PASSWORD: ${{ secrets.EXPO_APPLE_PASSWORD }}
-  EXPO_TEAM_ID: ${{ secrets.EXPO_TEAM_ID }}
   NODE_OPTIONS: --openssl-legacy-provider
 
 jobs:
@@ -21,12 +24,12 @@ jobs:
       - name: 🏗 Setup Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
-          node-version-file: ".nvmrc"
-          cache: "yarn"
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
 
       - name: 📦 Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+        run: echo "dir=$(yarn config get cacheFolder)" >> "$GITHUB_OUTPUT"
 
       - name: 📦 Setup yarn cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
@@ -37,11 +40,20 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: 📦 Install dependencies
-        run: yarn install
+        run: yarn install --immutable
 
-      - name: 🩺 Run expo-doctor
-        working-directory: ./example
-        run: npx -y expo-doctor
+      # The preparation workflow fixes Expo Dependabot PRs. Keep this job
+      # read-only so an unaligned SHA fails and the aligned follow-up passes.
+      - name: 🩺 Check Dependabot Expo alignment
+        if: >-
+          ${{
+            github.event.pull_request.user.login == 'dependabot[bot]' &&
+            (
+              startsWith(github.event.pull_request.head.ref, 'dependabot/npm_and_yarn/expo-compatible-patches-') ||
+              startsWith(github.event.pull_request.head.ref, 'dependabot/npm_and_yarn/expo-sdk-')
+            )
+          }}
+        run: yarn deps:expo:check
 
       - name: 🧪 Run TypeScript check
         run: yarn tsc
@@ -54,7 +66,12 @@ jobs:
 
   build-android:
     needs: lint
+    # These builds require Expo credentials. Keep all secrets out of
+    # dependency-PR code, including follow-up commits made by the aligner app.
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
     runs-on: ubuntu-latest
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
     steps:
       - name: 🏗 Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -62,12 +79,12 @@ jobs:
       - name: 🏗 Setup Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
-          node-version-file: ".nvmrc"
-          cache: "yarn"
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
 
       - name: 📦 Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+        run: echo "dir=$(yarn config get cacheFolder)" >> "$GITHUB_OUTPUT"
 
       - name: 📦 Setup yarn cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
@@ -78,7 +95,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: 📦 Install dependencies
-        run: yarn install
+        run: yarn install --immutable
 
       - name: 📦 Setup Gradle cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
@@ -107,7 +124,13 @@ jobs:
 
   build-ios:
     needs: lint
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
     runs-on: macos-latest
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      EXPO_APPLE_ID: ${{ secrets.EXPO_APPLE_ID }}
+      EXPO_APPLE_PASSWORD: ${{ secrets.EXPO_APPLE_PASSWORD }}
+      EXPO_TEAM_ID: ${{ secrets.EXPO_TEAM_ID }}
     steps:
       - name: 🏗 Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -120,12 +143,12 @@ jobs:
       - name: 🏗 Setup Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
-          node-version-file: ".nvmrc"
-          cache: "yarn"
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
 
       - name: 📦 Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+        run: echo "dir=$(yarn config get cacheFolder)" >> "$GITHUB_OUTPUT"
 
       - name: 📦 Setup yarn cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
@@ -136,7 +159,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: 📦 Install dependencies
-        run: yarn install
+        run: yarn install --immutable
 
       - name: 📦 Setup CocoaPods cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9

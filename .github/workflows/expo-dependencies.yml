@@ -1,0 +1,87 @@
+name: Prepare Expo Dependency Alignment
+
+on:
+  pull_request:
+    branches: [master]
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'package.json'
+      - 'example/package.json'
+      - 'example/app.json'
+      - 'yarn.lock'
+permissions:
+  contents: read
+
+concurrency:
+  group: prepare-expo-dependencies-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  align-dependabot-update:
+    if: >-
+      ${{
+        github.event.pull_request.user.login == 'dependabot[bot]' &&
+        github.event.pull_request.head.repo.full_name == github.repository &&
+        (
+          startsWith(github.event.pull_request.head.ref, 'dependabot/npm_and_yarn/expo-compatible-patches-') ||
+          startsWith(github.event.pull_request.head.ref, 'dependabot/npm_and_yarn/expo-sdk-')
+        )
+      }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Checkout exact PR head
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: 🩺 Generate and verify Expo alignment
+        env:
+          CI: '1'
+          YARN_ENABLE_SCRIPTS: 'false'
+        run: |
+          set -euo pipefail
+          corepack enable
+          yarn install --immutable --mode=skip-build
+          yarn deps:expo:update
+          yarn deps:expo:check
+
+      # The trusted writer treats this artifact only as data and never executes it.
+      - name: 📦 Package alignment candidate
+        shell: bash
+        env:
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          output="$RUNNER_TEMP/expo-alignment"
+          mkdir -p "$output/example"
+          cp package.json "$output/"
+          cp example/package.json example/app.json "$output/example/"
+
+          jq -n \
+            --argjson pr_number "$PR_NUMBER" \
+            --arg repository "$GITHUB_REPOSITORY" \
+            --arg head_sha "$HEAD_SHA" \
+            --arg head_branch "$HEAD_BRANCH" \
+            '{
+              pr_number: $pr_number,
+              repository: $repository,
+              head_sha: $head_sha,
+              head_branch: $head_branch
+            }' > "$output/metadata.json"
+
+      - name: 📤 Upload alignment candidate
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: expo-alignment-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/expo-alignment
+          retention-days: 1
+          if-no-files-found: error
