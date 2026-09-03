@@ -50,7 +50,8 @@
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
-    "prepare": "bob build && cp package.json lib/package.json"
+    "prepare": "bob build && cp package.json lib/package.json",
+    "prepack": "bob build && cp package.json lib/package.json"
   },
   "keywords": [
     "react-native",
