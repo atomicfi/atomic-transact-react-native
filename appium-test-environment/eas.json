@@ -7,7 +7,6 @@
     "appium": {
       "developmentClient": false,
       "distribution": "internal",
-      "channel": "appium",
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease"
