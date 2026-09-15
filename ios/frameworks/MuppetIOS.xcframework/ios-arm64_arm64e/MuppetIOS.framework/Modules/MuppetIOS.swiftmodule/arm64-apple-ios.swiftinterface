@@ -277,6 +277,8 @@ extension WebKit.WKWebView {
   @_Concurrency.MainActor @preconcurrency weak public var webView: MuppetIOS.AtomicWebView!
   @_Concurrency.MainActor @preconcurrency public var cancel: (nonisolated(nonsending) () async -> Swift.Void)?
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewSafeAreaInsetsDidChange()
   @_Concurrency.MainActor @preconcurrency public func hideAssistantTitle()
   @_Concurrency.MainActor @preconcurrency public func showAssistant(title: Swift.String)
   #if compiler(>=5.3) && $NonescapableTypes
