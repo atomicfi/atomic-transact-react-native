@@ -7,8 +7,15 @@
     "start": "expo start",
     "android": "expo run:android",
     "prebuild": "expo prebuild --clean",
-    "build:android": "eas build --platform android --profile appium",
-    "build:ios": "eas build --platform ios --profile appium"
+    "prebuild:android": "expo prebuild --clean --platform android",
+    "prebuild:ios": "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 expo prebuild --clean --platform ios",
+    "pods": "cd ios && LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 pod install",
+    "build:local:android": "yarn prebuild:android && cd android && JAVA_HOME=\"$(/usr/libexec/java_home -v 17)\" ./gradlew :app:assembleRelease -x lint -x lintVitalAnalyzeRelease -x lintVitalRelease && echo \"APK: $(pwd)/app/build/outputs/apk/release/app-release.apk\"",
+    "build:local:ios": "yarn prebuild:ios && cd ios && xcodebuild -workspace AppiumTestEnvironment.xcworkspace -scheme AppiumTestEnvironment -configuration Release -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' -derivedDataPath ./build CODE_SIGNING_ALLOWED=NO build && echo \"APP: $(pwd)/build/Build/Products/Release-iphonesimulator/AppiumTestEnvironment.app\"",
+    "build:eas:android": "eas build --platform android --profile appium",
+    "build:eas:ios": "eas build --platform ios --profile appium",
+    "build:eas:android:local": "eas build --platform android --profile appium --local",
+    "build:eas:ios:local": "eas build --platform ios --profile appium --local"
   },
   "dependencies": {
     "@atomicfi/transact-react-native": "link:..",

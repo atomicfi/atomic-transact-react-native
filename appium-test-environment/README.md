@@ -36,37 +36,41 @@ On iOS the contract is different: parameters arrive as **process environment var
 ## Building
 
 The suite needs a **standalone** build: no dev client, no Metro. A dev-client build would sit at the
-dev launcher with no JS loaded once Appium reinstalls the APK (installing resets the app storage
-that holds the bundle URL).
+dev launcher with no JS loaded once Appium reinstalls the app, because installing resets the app
+storage that holds the bundle URL.
 
-Android, locally:
-
-```bash
-yarn appium-app prebuild
-cd android && ./gradlew :app:assembleRelease -x lint
-# -> android/app/build/outputs/apk/release/app-release.apk
-```
-
-iOS, locally:
+### Local toolchain (fast, use while iterating)
 
 ```bash
-npx expo prebuild --clean --platform ios
-cd ios && LANG=en_US.UTF-8 pod install
-xcodebuild -workspace AppiumTestEnvironment.xcworkspace -scheme AppiumTestEnvironment \
-  -configuration Release -sdk iphonesimulator -destination 'id=<simulator udid>' \
-  -derivedDataPath ./build CODE_SIGNING_ALLOWED=NO build
-# -> ios/build/Build/Products/Release-iphonesimulator/AppiumTestEnvironment.app
+yarn appium-app build:local:android   # -> android/app/build/outputs/apk/release/app-release.apk
+yarn appium-app build:local:ios       # -> ios/build/Build/Products/Release-iphonesimulator/AppiumTestEnvironment.app
 ```
 
-`LANG` on the `pod install` matters: without a UTF-8 locale CocoaPods dies in Ruby's unicode
-normalization (`Unicode Normalization not appropriate for ASCII-8BIT`) before it reads the Podfile.
+Each runs `expo prebuild --clean` and then Gradle or xcodebuild, printing the artifact path. Two
+things they handle that are easy to get wrong by hand:
 
-Via EAS (the `appium` profile is standalone — `developmentClient: false`, internal distribution,
-APK rather than AAB so Appium can install it):
+- **JDK 17** is pinned via `/usr/libexec/java_home -v 17`. Newer JDKs fail inside the Kotlin Gradle
+  plugin with an internal compiler error.
+- **A UTF-8 locale** is set for anything that runs CocoaPods. Without it `pod install` dies in
+  Ruby's unicode normalization (`Unicode Normalization not appropriate for ASCII-8BIT`) before it
+  even reads the Podfile.
+
+### EAS
 
 ```bash
-yarn appium-app build:android
+yarn appium-app build:eas:android         # cloud
+yarn appium-app build:eas:ios
+yarn appium-app build:eas:android:local   # same pipeline, on this machine
+yarn appium-app build:eas:ios:local
 ```
+
+Prefer the EAS builds when you care about producing what CI produces — same pipeline, no drift.
+
+**`--local` builds from git, not your working tree.** EAS archives the project through the VCS, so
+uncommitted changes are silently excluded and you can end up testing stale code. (It is also what
+surfaces filename-casing mismatches: a `.gitignore` entry whose case does not match the file is
+invisible on macOS but fails the EAS upload.) Commit first, or use the local-toolchain scripts while
+iterating. They are also clean builds each time, where xcodebuild reuses `derivedDataPath`.
 
 ## Running the conformance suite against it
 

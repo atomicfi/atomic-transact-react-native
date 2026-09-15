@@ -6,3 +6,8 @@
 
 node_modules/
 .expo/
+
+# `eas build --local` drops its artifact here, named with a timestamp.
+build-*.apk
+build-*.tar.gz
+build-*.ipa
