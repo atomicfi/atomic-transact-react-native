@@ -6139,6 +6139,66 @@
           },
           {
             "kind": "Function",
+            "name": "viewDidAppear",
+            "printedName": "viewDidAppear(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@MuppetIOS@objc(cs)AtomicWebViewController(im)viewDidAppear:",
+            "mangledName": "$s9MuppetIOS23AtomicWebViewControllerC13viewDidAppearyySbF",
+            "moduleName": "MuppetIOS",
+            "overriding": true,
+            "objc_name": "viewDidAppear:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "viewSafeAreaInsetsDidChange",
+            "printedName": "viewSafeAreaInsetsDidChange()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@MuppetIOS@objc(cs)AtomicWebViewController(im)viewSafeAreaInsetsDidChange",
+            "mangledName": "$s9MuppetIOS23AtomicWebViewControllerC27viewSafeAreaInsetsDidChangeyyF",
+            "moduleName": "MuppetIOS",
+            "overriding": true,
+            "objc_name": "viewSafeAreaInsetsDidChange",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Preconcurrency",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "hideAssistantTitle",
             "printedName": "hideAssistantTitle()",
             "children": [
@@ -13148,7 +13208,7 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/WebViewRequests.swift",
       "kind": "IntegerLiteral",
-      "offset": 10887,
+      "offset": 10895,
       "length": 4,
       "value": "8192"
     },
@@ -13323,84 +13383,84 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "IntegerLiteral",
-      "offset": 13764,
+      "offset": 13772,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 14771,
+      "offset": 15108,
       "length": 5,
       "value": "\"GET\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 14826,
+      "offset": 15163,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "BooleanLiteral",
-      "offset": 14855,
+      "offset": 15192,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 15174,
+      "offset": 15511,
       "length": 5,
       "value": "\"GET\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 15245,
+      "offset": 15582,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "BooleanLiteral",
-      "offset": 15282,
+      "offset": 15619,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 16446,
+      "offset": 16783,
       "length": 5,
       "value": "\"GET\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 16521,
+      "offset": 16858,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "BooleanLiteral",
-      "offset": 16550,
+      "offset": 16887,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 18113,
+      "offset": 18450,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "IntegerLiteral",
-      "offset": 18142,
+      "offset": 18479,
       "length": 2,
       "value": "30"
     },
