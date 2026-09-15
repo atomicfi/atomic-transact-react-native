@@ -1,4 +1,5 @@
 #import <React/RCTBridgeModule.h>
+#import <os/log.h>
 
 /**
  * Bridges the Appium conformance contract to JS on iOS.
@@ -43,9 +44,21 @@ RCT_EXPORT_METHOD(getLaunchExtras
 /**
  * Log under the same tag the Android harness uses. The iOS specs assert on UI rather than logs, so
  * this is for diagnosing runs rather than for any assertion.
+ *
+ * Emitted through os_log as well as NSLog: NSLog only reaches a console attached to the process, so
+ * an Appium-driven run (where Appium owns the launch) shows nothing. os_log is readable live with
+ *
+ *   xcrun simctl spawn <udid> log stream --predicate 'subsystem == "com.atomicfi.appium"'
  */
 RCT_EXPORT_METHOD(log : (NSString *)message)
 {
+  static os_log_t harnessLog;
+  static dispatch_once_t once;
+  dispatch_once(&once, ^{
+    harnessLog = os_log_create("com.atomicfi.appium", "AppiumTestEnvironment");
+  });
+
+  os_log(harnessLog, "AppiumTestEnvironment: %{public}@", message);
   NSLog(@"AppiumTestEnvironment: %@", message);
 }
 
