@@ -1,0 +1,26 @@
+{
+  "name": "TransactAppiumTestEnvironment",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "private": true,
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "prebuild": "expo prebuild --clean",
+    "build:android": "eas build --platform android --profile appium",
+    "build:ios": "eas build --platform ios --profile appium"
+  },
+  "dependencies": {
+    "@atomicfi/transact-react-native": "link:..",
+    "expo": "~57.0.18",
+    "expo-build-properties": "~57.0.15",
+    "expo-status-bar": "~57.0.0",
+    "react": "19.2.3",
+    "react-native": "0.86.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@types/react": "~19.2.14",
+    "typescript": "~6.0.3"
+  }
+}
