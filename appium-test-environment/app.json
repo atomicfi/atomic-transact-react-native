@@ -2,6 +2,7 @@
   "expo": {
     "name": "AppiumTestEnvironment",
     "slug": "atomic-appium-test-environment",
+    "owner": "atomicfi",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
