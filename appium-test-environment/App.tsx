@@ -37,28 +37,46 @@ export default function App() {
   // `atomictest://pause`, mirroring the native iOS test app's PauseStatus label.
   const [pauseStatus, setPauseStatus] = useState('');
   const lastLaunchId = useRef<string | null>(null);
-  // Set when a custom flow hides Transact, cleared once the confirmation alert is presented.
-  const pendingDismissAlert = useRef<string | null>(null);
 
   /**
-   * Present the custom-flow confirmation alert once Transact has dismissed.
+   * Alerts are presented one at a time.
    *
-   * The close/cleanup callbacks fire as dismissal *starts*, so presenting synchronously from them
-   * puts the alert up while Transact still owns the screen and it is silently dropped. Scheduling
-   * it a beat later lets the dismissal finish first. The flag is cleared only when the alert is
-   * actually presented, so an early call cannot swallow it.
+   * iOS shows only the topmost alert, and the specs match on it by title — so a second alert
+   * presented while one is up hides the first from XCUITest. In the auth-dismiss flow the task
+   * completes moments after Transact hides, so the "Task Completed" alert would land on top of the
+   * dismiss alert the spec is waiting for. The native iOS test app queues alerts the same way,
+   * presenting the next only once the current one is acknowledged.
    */
-  const showPendingDismissAlert = useCallback((delayMs: number = 800) => {
-    if (!pendingDismissAlert.current) return;
+  const alertQueue = useRef<{ title: string; message?: string }[]>([]);
+  const alertShowing = useRef(false);
 
-    setTimeout(() => {
-      const title = pendingDismissAlert.current;
-      if (!title) return;
-      pendingDismissAlert.current = null;
-      log(`Presenting dismiss alert: ${title}`);
-      Alert.alert(title, undefined, [{ text: 'Okay' }]);
-    }, delayMs);
+  const presentNextAlert = useCallback(() => {
+    if (alertShowing.current) return;
+
+    const next = alertQueue.current.shift();
+    if (!next) return;
+
+    alertShowing.current = true;
+    log(`Presenting alert: ${next.title}`);
+    Alert.alert(next.title, next.message, [
+      {
+        text: 'Okay',
+        onPress: () => {
+          alertShowing.current = false;
+          presentNextAlert();
+        },
+      },
+    ]);
   }, []);
+
+  const enqueueAlert = useCallback(
+    (title: string, message?: string) => {
+      alertQueue.current.push({ title, message });
+      // A short delay lets a dismissal animation finish; presenting into one is dropped by UIKit.
+      setTimeout(presentNextAlert, 300);
+    },
+    [presentNextAlert]
+  );
 
   const launch = useCallback(
     (extras: LaunchExtras) => {
@@ -136,9 +154,7 @@ export default function App() {
               // view controller, so one fired while Transact is still dismissing is silently dropped.
               // Driven off the close/cleanup callbacks rather than a fixed delay, with a backstop in
               // case neither fires.
-              pendingDismissAlert.current = customFlow;
-              // Backstop in case neither close nor cleanup fires.
-              setTimeout(() => showPendingDismissAlert(0), 3000);
+              enqueueAlert(customFlow);
             }
           }
         },
@@ -150,7 +166,7 @@ export default function App() {
             Platform.OS === 'ios' &&
             String(state).toUpperCase() === 'COMPLETED'
           ) {
-            Alert.alert(
+            enqueueAlert(
               'Task Completed',
               `company: ${update?.company?.name ?? 'unknown'}`
             );
@@ -195,7 +211,6 @@ export default function App() {
         },
         onClose: (data: any) => {
           log(`RECEIVER close ${stringify(data)}`);
-          showPendingDismissAlert();
         },
         onFinish: (data: any) => {
           log(`RECEIVER finish ${stringify(data)}`);
@@ -203,13 +218,12 @@ export default function App() {
             log(`Finished with Handoff: ${data.handoff}`);
             // The iOS handoff spec looks for an element labelled with this exact string.
             if (Platform.OS === 'ios') {
-              Alert.alert(`Finished with Handoff: ${data.handoff}`);
+              enqueueAlert(`Finished with Handoff: ${data.handoff}`);
             }
           }
         },
         onCleanup: () => {
           log('callback:Cleanup');
-          showPendingDismissAlert();
         },
         onError: (error: any) => {
           log(`RECEIVER error ${stringify(error)}`);
@@ -218,7 +232,7 @@ export default function App() {
 
       log(`transact-launch:${launchId ?? 'no-launch-id'}`);
     },
-    [showPendingDismissAlert]
+    [enqueueAlert]
   );
 
   useEffect(() => {

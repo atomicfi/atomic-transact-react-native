@@ -99,13 +99,27 @@ the feature is unsupported so a failing spec says why rather than timing out sil
   pause/resume. Affects both platforms.
 - **`FRAGMENT_FLOW`** (`c1PaylinkFlow.e2e.ts`) — the RN SDK presents Transact itself and exposes no
   fragment host.
-- **`DISMISS_ON_AUTH_STATUS_UPDATE_AUTHENTICATED`** (`authStatusUpdate.e2e.ts`) — unsupported on
-  Android (`Atomic.hideTransact()` is iOS-only). On iOS it is implemented but **not yet working**:
-  the spec looks for an alert titled with the custom flow name after Transact hides, and that alert
-  is not reliably appearing. It passed once and has failed consistently since. Unresolved — the
-  payload shape and the bridge's `onAuthStatusUpdate` wiring were both checked and look correct, so
-  the next step is capturing the app's console during an Appium-driven run (`log stream` does not
-  capture the harness's NSLog output; `simctl launch --console-pty` does, but Appium owns the
-  launch) to confirm whether the callback fires and `hideTransact` runs at all.
+- **`DISMISS_ON_AUTH_STATUS_UPDATE_AUTHENTICATED`** (`authStatusUpdate.e2e.ts`) — works on iOS,
+  unsupported on Android: `Atomic.hideTransact()` is iOS-only in the bridge. The Android harness
+  logs that when the flow is requested.
+
+## Gotchas worth knowing
+
+Things that cost real debugging time here:
+
+- **`hideTransact` is a hide, not a close.** It emits no `onClose`/`onCleanup`, and the task keeps
+  running — Transact re-presents itself afterwards to show the summary. Do not treat the absence of
+  a close callback as evidence that it failed.
+- **Alerts must be queued.** iOS shows only the topmost alert and the specs match on it by title, so
+  a second alert presented while one is up hides the first from XCUITest. The auth-dismiss flow and
+  the task-completed alert land within a second of each other. `enqueueAlert` serializes them; the
+  native iOS test app does the same thing with its `nextAlertPresentation`.
+- **The `atomictest://` scheme collides with the native iOS test app**, which registers it too. With
+  both installed, `simctl openurl` routes to whichever iOS picks, so deep-link commands can land in
+  the wrong app. Anything relying on those (`pauseTransact`) needs a distinct scheme first.
+- **RN's `Linking` does not receive those URLs anyway.** The generated `AppDelegate` does
+  `super.application(app, open:options:) || RCTLinkingManager.application(...)`, so when Expo's
+  implementation handles the URL and returns true, `RCTLinkingManager` is never called and JS sees
+  no `url` event. A command channel here needs an Expo AppDelegate subscriber or `expo-linking`.
 - **Deferred payment data response** (`deferredPayment.e2e.ts`) — the `onDataRequest` response only
   round-trips on iOS; on Android the returned value never reaches the SDK.
