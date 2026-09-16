@@ -128,6 +128,14 @@ jobs:
           npm install -g appium@2.19.0
           appium driver install uiautomator2@4.2.7
 
+      # The runner image ships an sdkmanager too old for the current SDK metadata ("SDK XML
+      # version 4"), which makes the emulator-runner action fail to download the emulator with
+      # "Error on ZipFile unknown archive". Installing current command-line tools first avoids it.
+      - name: 🏗 Setup Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3.2.2
+        with:
+          packages: 'tools platform-tools emulator'
+
       # Hardware acceleration for the emulator.
       - name: 🏗 Enable KVM
         run: |
@@ -154,6 +162,7 @@ jobs:
         env:
           ATOMIC_API_KEY: ${{ secrets.MOLECULAR_BANK_API_KEY }}
           ATOMIC_API_SECRET: ${{ secrets.MOLECULAR_BANK_API_SECRET }}
+          WDIO_CONNECTION_RETRY_TIMEOUT: 300000
           ANDROID_DEVICE_NAME: emulator-5554
           ANDROID_APP_PATH: ${{ github.workspace }}/appium-test-environment/android/app/build/outputs/apk/release/app-release.apk
 
@@ -240,6 +249,11 @@ jobs:
           echo "IOS_UDID=$UDID" >> "$GITHUB_ENV"
           echo "IOS_PLATFORM_VERSION=$VERSION" >> "$GITHUB_ENV"
 
+      # Compiling WebDriverAgent takes longer than the session-creation timeout, so the first
+      # session times out if it has to build WDA itself. Build it up front instead.
+      - name: 🏗 Prebuild WebDriverAgent
+        run: appium driver run xcuitest build-wda --sim-udid "$IOS_UDID"
+
       - name: 🧪 Run the conformance suite
         working-directory: ./conformance/appium
         run: |
@@ -249,6 +263,7 @@ jobs:
         env:
           ATOMIC_API_KEY: ${{ secrets.MOLECULAR_BANK_API_KEY }}
           ATOMIC_API_SECRET: ${{ secrets.MOLECULAR_BANK_API_SECRET }}
+          WDIO_CONNECTION_RETRY_TIMEOUT: 300000
           IOS_APP_PATH: ${{ github.workspace }}/appium-test-environment/ios/build/Build/Products/Release-iphonesimulator/AppiumTestEnvironment.app
 
       - name: 📦 Upload Appium server log
