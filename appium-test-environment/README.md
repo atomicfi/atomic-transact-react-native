@@ -72,6 +72,19 @@ surfaces filename-casing mismatches: a `.gitignore` entry whose case does not ma
 invisible on macOS but fails the EAS upload.) Commit first, or use the local-toolchain scripts while
 iterating. They are also clean builds each time, where xcodebuild reuses `derivedDataPath`.
 
+## CI
+
+`.github/workflows/appium-e2e.yml` runs on every pull request: lint/typecheck/unit tests, then
+builds this app for both platforms with `eas build --local` and runs the conformance suite against
+it on AWS Device Farm — the same path the native SDK repos use.
+
+Each test job passes `target_app_kind: react-native` plus this app's identifier, because the suite
+defaults to the native test apps. `TARGET_APP_KIND` also gates the specs covering APIs this wrapper
+does not expose (SDK-370, SDK-784, SDK-785, SDK-786), so they report as skipped rather than failing.
+
+Device Farm runs on real devices, so iOS builds with the `appium-device` profile (a signed `.ipa`)
+rather than the simulator build the local scripts produce.
+
 ## Running the conformance suite against it
 
 ```bash

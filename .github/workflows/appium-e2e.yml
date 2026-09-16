@@ -1,0 +1,131 @@
+name: React Native
+
+on:
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_OPTIONS: --openssl-legacy-provider
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: 📦 Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> "$GITHUB_OUTPUT"
+
+      - name: 📦 Setup yarn cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: 📦 Install dependencies
+        run: yarn install --immutable
+
+      # The preparation workflow fixes Expo Dependabot PRs. Keep this job
+      # read-only so an unaligned SHA fails and the aligned follow-up passes.
+      - name: 🩺 Check Dependabot Expo alignment
+        if: >-
+          ${{
+            github.event.pull_request.user.login == 'dependabot[bot]' &&
+            (
+              startsWith(github.event.pull_request.head.ref, 'dependabot/npm_and_yarn/expo-compatible-patches-') ||
+              startsWith(github.event.pull_request.head.ref, 'dependabot/npm_and_yarn/expo-sdk-')
+            )
+          }}
+        run: yarn deps:expo:check
+
+      - name: 🧪 Run TypeScript check
+        run: yarn tsc
+
+      - name: 🧹 Run ESLint
+        run: yarn lint
+
+      - name: ✅ Run unit tests
+        run: yarn test
+
+  # Builds require Expo credentials, and the e2e runs require AWS. Keep all
+  # secrets out of dependency-PR code, including follow-up commits made by the
+  # aligner app.
+  build-upload-android:
+    name: Build & Upload Android
+    needs: lint
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
+    uses: ./.github/workflows/build-upload-appium-test-app.yml
+    with:
+      platform: android
+      app_name: AppiumTestEnvironment-rn-${{ github.run_id }}.apk
+    secrets:
+      CONFORMANCE_REPO_PULL_KEY: ${{ secrets.CONFORMANCE_REPO_PULL_KEY }}
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+  build-upload-ios:
+    name: Build & Upload iOS
+    needs: lint
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
+    uses: ./.github/workflows/build-upload-appium-test-app.yml
+    with:
+      platform: ios
+      app_name: AppiumTestEnvironment-rn-${{ github.run_id }}.ipa
+    secrets:
+      CONFORMANCE_REPO_PULL_KEY: ${{ secrets.CONFORMANCE_REPO_PULL_KEY }}
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      EXPO_APPLE_ID: ${{ secrets.EXPO_APPLE_ID }}
+      EXPO_APPLE_PASSWORD: ${{ secrets.EXPO_APPLE_PASSWORD }}
+      EXPO_TEAM_ID: ${{ secrets.EXPO_TEAM_ID }}
+
+  # The suite defaults to the native test apps, so each run has to name the
+  # React Native app it is driving. TARGET_APP_KIND also gates the specs that
+  # cover APIs this wrapper does not expose (SDK-370, SDK-784, SDK-785, SDK-786).
+  test-android:
+    name: Test Android
+    needs: build-upload-android
+    uses: atomicfi/mobile-conformance-tests/.github/workflows/appium_aws.yml@main
+    with:
+      app_arn: ${{ needs.build-upload-android.outputs.upload_arn }}
+      test_variant: android
+      test_name: react-native-android
+      ref: main
+      target_app_kind: react-native
+      android_app_package: com.atomicfi.appiumtestenvironment.rn
+    secrets:
+      MOLECULAR_BANK_API_KEY: ${{ secrets.MOLECULAR_BANK_API_KEY }}
+      MOLECULAR_BANK_API_SECRET: ${{ secrets.MOLECULAR_BANK_API_SECRET }}
+      GITHUB_DEPLOY_KEY: ${{ secrets.CONFORMANCE_REPO_PULL_KEY }}
+
+  test-ios:
+    name: Test iOS
+    needs: build-upload-ios
+    uses: atomicfi/mobile-conformance-tests/.github/workflows/appium_aws.yml@main
+    with:
+      app_arn: ${{ needs.build-upload-ios.outputs.upload_arn }}
+      test_variant: ios
+      test_name: react-native-ios
+      ref: main
+      target_app_kind: react-native
+      ios_bundle_id: com.atomicfi.AppiumTestEnvironment.rn
+    secrets:
+      MOLECULAR_BANK_API_KEY: ${{ secrets.MOLECULAR_BANK_API_KEY }}
+      MOLECULAR_BANK_API_SECRET: ${{ secrets.MOLECULAR_BANK_API_SECRET }}
+      GITHUB_DEPLOY_KEY: ${{ secrets.CONFORMANCE_REPO_PULL_KEY }}
