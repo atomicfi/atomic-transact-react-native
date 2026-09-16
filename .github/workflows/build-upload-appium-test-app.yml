@@ -125,12 +125,12 @@ jobs:
   upload:
     name: Upload to Device Farm (${{ inputs.platform }})
     needs: build
-    uses: atomicfi/mobile-conformance-tests/.github/workflows/upload_aws_test_app.yml@main
+    uses: atomicfi/mobile-conformance-tests/.github/workflows/upload_aws_test_app.yml@braxton/sdk-774-wrapper-test-targets
     with:
       artifact_name: ${{ inputs.app_name }}
       app_type: ${{ inputs.platform == 'ios' && 'IOS_APP' || 'ANDROID_APP' }}
       app_name: ${{ inputs.app_name }}
       cleanup_previous: ${{ inputs.cleanup_previous }}
-      ref: main
+      ref: braxton/sdk-774-wrapper-test-targets
     secrets:
       GITHUB_DEPLOY_KEY: ${{ secrets.CONFORMANCE_REPO_PULL_KEY }}

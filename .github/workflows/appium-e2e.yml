@@ -101,12 +101,12 @@ jobs:
   test-android:
     name: Test Android
     needs: build-upload-android
-    uses: atomicfi/mobile-conformance-tests/.github/workflows/appium_aws.yml@main
+    uses: atomicfi/mobile-conformance-tests/.github/workflows/appium_aws.yml@braxton/sdk-774-wrapper-test-targets
     with:
       app_arn: ${{ needs.build-upload-android.outputs.upload_arn }}
       test_variant: android
       test_name: react-native-android
-      ref: main
+      ref: braxton/sdk-774-wrapper-test-targets
       target_app_kind: react-native
       android_app_package: com.atomicfi.appiumtestenvironment.rn
     secrets:
@@ -117,12 +117,12 @@ jobs:
   test-ios:
     name: Test iOS
     needs: build-upload-ios
-    uses: atomicfi/mobile-conformance-tests/.github/workflows/appium_aws.yml@main
+    uses: atomicfi/mobile-conformance-tests/.github/workflows/appium_aws.yml@braxton/sdk-774-wrapper-test-targets
     with:
       app_arn: ${{ needs.build-upload-ios.outputs.upload_arn }}
       test_variant: ios
       test_name: react-native-ios
-      ref: main
+      ref: braxton/sdk-774-wrapper-test-targets
       target_app_kind: react-native
       ios_bundle_id: com.atomicfi.AppiumTestEnvironment.rn
     secrets:
