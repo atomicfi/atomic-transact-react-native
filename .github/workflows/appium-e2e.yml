@@ -121,10 +121,12 @@ jobs:
         working-directory: ./conformance/appium
         run: npm ci --include=dev
 
+      # Pinned to the versions this suite is verified against. `appium driver install uiautomator2`
+      # unpinned resolves to a driver that requires an Appium 3 server and fails against 2.x.
       - name: 🏗 Install Appium and the UiAutomator2 driver
         run: |
-          npm install -g appium@2
-          appium driver install uiautomator2
+          npm install -g appium@2.19.0
+          appium driver install uiautomator2@4.2.7
 
       # Hardware acceleration for the emulator.
       - name: 🏗 Enable KVM
@@ -218,10 +220,12 @@ jobs:
         working-directory: ./conformance/appium
         run: npm ci --include=dev
 
+      # Pinned for the same reason as the Android job: an unpinned xcuitest driver requires an
+      # Appium 3 server.
       - name: 🏗 Install Appium and the XCUITest driver
         run: |
-          npm install -g appium@2
-          appium driver install xcuitest
+          npm install -g appium@2.19.0
+          appium driver install xcuitest@9.10.1
 
       - name: 📱 Boot a simulator
         run: |
