@@ -5,8 +5,12 @@ on:
     branches: [master]
   workflow_dispatch:
 
+# id-token is for the AWS OIDC auth in the Device Farm upload/test workflows. A called workflow
+# cannot be granted permissions its caller lacks, so declaring only `contents: read` here fails
+# validation before any job starts.
 permissions:
   contents: read
+  id-token: write
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
