@@ -125,5 +125,9 @@ Things that cost real debugging time here:
   `super.application(app, open:options:) || RCTLinkingManager.application(...)`, so when Expo's
   implementation handles the URL and returns true, `RCTLinkingManager` is never called and JS sees
   no `url` event. A command channel here needs an Expo AppDelegate subscriber or `expo-linking`.
+- **Handoff** (`handoff.e2e.ts`) — a `handoff` config value does not take effect through the bridge
+  on either platform: Transact runs past the handoff point, and neither `onFinish` carrying a
+  handoff nor `onCleanup` ever fires. Tried both the array the native SDKs take and the plain string
+  the bridge's `Config` type declares; no difference. Needs a look on the SDK side.
 - **Deferred payment data response** (`deferredPayment.e2e.ts`) — the `onDataRequest` response only
   round-trips on iOS; on Android the returned value never reaches the SDK.
