@@ -105,7 +105,7 @@ jobs:
   test-android:
     name: Test Android
     needs: build-upload-android
-    uses: atomicfi/mobile-conformance-tests/.github/workflows/appium_aws.yml@braxton/sdk-774-wrapper-test-targets
+    uses: atomicfi/mobile-conformance-tests/.github/workflows/appium_aws.yml@607b6fcdc6e862ecba8c69b49b9b14f67e6ce2d7
     with:
       app_arn: ${{ needs.build-upload-android.outputs.upload_arn }}
       test_variant: android
@@ -121,7 +121,7 @@ jobs:
   test-ios:
     name: Test iOS
     needs: build-upload-ios
-    uses: atomicfi/mobile-conformance-tests/.github/workflows/appium_aws.yml@braxton/sdk-774-wrapper-test-targets
+    uses: atomicfi/mobile-conformance-tests/.github/workflows/appium_aws.yml@607b6fcdc6e862ecba8c69b49b9b14f67e6ce2d7
     with:
       app_arn: ${{ needs.build-upload-ios.outputs.upload_arn }}
       test_variant: ios
