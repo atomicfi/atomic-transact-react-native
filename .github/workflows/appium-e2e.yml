@@ -1,0 +1,351 @@
+name: React Native
+
+on:
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_OPTIONS: --openssl-legacy-provider
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: 📦 Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> "$GITHUB_OUTPUT"
+
+      - name: 📦 Setup yarn cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: 📦 Install dependencies
+        run: yarn install --immutable
+
+      # The preparation workflow fixes Expo Dependabot PRs. Keep this job
+      # read-only so an unaligned SHA fails and the aligned follow-up passes.
+      - name: 🩺 Check Dependabot Expo alignment
+        if: >-
+          ${{
+            github.event.pull_request.user.login == 'dependabot[bot]' &&
+            (
+              startsWith(github.event.pull_request.head.ref, 'dependabot/npm_and_yarn/expo-compatible-patches-') ||
+              startsWith(github.event.pull_request.head.ref, 'dependabot/npm_and_yarn/expo-sdk-')
+            )
+          }}
+        run: yarn deps:expo:check
+
+      - name: 🧪 Run TypeScript check
+        run: yarn tsc
+
+      - name: 🧹 Run ESLint
+        run: yarn lint
+
+      - name: ✅ Run unit tests
+        run: yarn test
+
+  # The conformance suite lives in a private repo, so it is checked out with a read-only deploy
+  # key rather than called as a reusable workflow: this repo is public, and a public repo cannot
+  # consume a private repo's workflows.
+  #
+  # The suite's wdio:*:rn scripts supply TARGET_APP_KIND and this app's identifiers, so nothing
+  # here needs to repeat them. TARGET_APP_KIND also gates the specs covering APIs this wrapper does
+  # not expose (SDK-370, SDK-784, SDK-785, SDK-786), plus c1PaylinkFlow, which is native-only by
+  # design; captureLoginDom and captureDepositFlow are env-gated dev tools that register no tests.
+  # None of them fail the run, so the job summary names each one rather than counting it as passed.
+  e2e-android:
+    name: E2E Android (emulator)
+    needs: lint
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🏗 Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: 🏗 Checkout conformance tests
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: atomicfi/mobile-conformance-tests
+          ref: braxton/sdk-791-wrapper-test-targets
+          ssh-key: ${{ secrets.CONFORMANCE_REPO_PULL_KEY }}
+          path: conformance
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: 🏗 Set up JDK 17
+        uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: 📦 Install dependencies
+        run: yarn install --immutable
+
+      - name: 📦 Setup Gradle cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: 📱 Build the Appium test app
+        run: yarn appium-app build:local:android
+
+      - name: 📦 Install the conformance suite
+        working-directory: ./conformance/appium
+        run: npm ci --include=dev
+
+      # Pinned to the versions this suite is verified against. `appium driver install uiautomator2`
+      # unpinned resolves to a driver that requires an Appium 3 server and fails against 2.x.
+      - name: 🏗 Install Appium and the UiAutomator2 driver
+        run: |
+          npm install -g appium@2.19.0
+          appium driver install uiautomator2@4.2.7
+
+      # The runner image ships an sdkmanager too old for the current SDK metadata ("SDK XML
+      # version 4"), which makes the emulator-runner action fail to download the emulator with
+      # "Error on ZipFile unknown archive". Installing current command-line tools first avoids it.
+      - name: 🏗 Setup Android SDK
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3.2.2
+        with:
+          # The action's default package list includes the legacy `tools` package, which Google has
+          # removed from the repository; asking for it fails the whole step.
+          packages: 'platform-tools emulator'
+          # Otherwise the step echoes the full text of every SDK licence it accepts — on its own
+          # 40% of this job's log.
+          log-accepted-android-sdk-licenses: false
+
+      # Hardware acceleration for the emulator.
+      - name: 🏗 Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+            | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: 🧪 Run the conformance suite
+        uses: reactivecircus/android-emulator-runner@62dbb605bba737720e10b196cb4220d374026a6d # v2.33.0
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          # Transact runs in a WebView, so the emulator needs to be a Google APIs image; the
+          # default AOSP image ships no WebView provider Chromedriver can attach to.
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
+          disable-animations: true
+          script: |
+            appium --allow-cors --allow-insecure=uiautomator2:chromedriver_autodownload,uiautomator2:adb_shell > appium.log 2>&1 &
+            until curl -sf http://127.0.0.1:4723/status > /dev/null; do sleep 2; done
+            cd conformance/appium && npm run wdio:android:rn
+        env:
+          ATOMIC_API_KEY: ${{ secrets.MOLECULAR_BANK_API_KEY }}
+          ATOMIC_API_SECRET: ${{ secrets.MOLECULAR_BANK_API_SECRET }}
+          WDIO_CONNECTION_RETRY_TIMEOUT: 300000
+          # A spec that logs in to a real provider can spend most of mocha's default 120s just
+          # getting there: the fallback chain gives each company 20s before moving on.
+          WDIO_MOCHA_TIMEOUT: 300000
+          ANDROID_DEVICE_NAME: emulator-5554
+          ANDROID_APP_PATH: ${{ github.workspace }}/appium-test-environment/android/app/build/outputs/apk/release/app-release.apk
+
+      # Renders the suite's JUnit XML into the job summary and annotates each failing test.
+      # Purely presentational: the script always exits 0, so it can neither double-fail a job the
+      # wdio step already failed nor redden a green one. It has to be its own step rather than a
+      # line in the run block above, because a non-zero wdio exit aborts the rest of that block --
+      # the emulator-runner action runs each script line in its own shell, and the iOS job's
+      # `bash -e` stops at the failing command just the same.
+      - name: 📋 Summarize the conformance results
+        if: always()
+        working-directory: ./conformance/appium
+        env:
+          SUMMARY_PLATFORM: Android
+        # No redirect: the script appends the summary to $GITHUB_STEP_SUMMARY itself and keeps
+        # stdout for the ::error:: annotations, which GitHub only acts on when it reads them from
+        # the step's own output.
+        run: node scripts/junit-summary.mjs test-results/junit test/e2e
+
+      - name: 📦 Upload JUnit results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          # Must differ per job: the two run in parallel and upload-artifact rejects a duplicate
+          # name within a run.
+          name: junit-android
+          path: ./conformance/appium/test-results/junit
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: 📦 Upload Appium server log
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: appium-log-android
+          path: ./appium.log
+          retention-days: 7
+          if-no-files-found: ignore
+
+  e2e-ios:
+    name: E2E iOS (simulator)
+    needs: lint
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
+    runs-on: macos-latest
+    env:
+      # CocoaPods dies in Ruby's unicode normalization without a UTF-8 locale.
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
+    steps:
+      - name: 🏗 Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: 🏗 Checkout conformance tests
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: atomicfi/mobile-conformance-tests
+          ref: braxton/sdk-791-wrapper-test-targets
+          ssh-key: ${{ secrets.CONFORMANCE_REPO_PULL_KEY }}
+          path: conformance
+
+      - name: 🏗 Select Xcode
+        uses: maxim-lobanov/setup-xcode@ed7a3b1fda3918c0306d1b724322adc0b8cc0a90
+        with:
+          xcode-version: latest-stable
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+
+      - name: 📦 Install dependencies
+        run: yarn install --immutable
+
+      - name: 📦 Setup CocoaPods cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: |
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods/repos
+          key: ${{ runner.os }}-cocoapods-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cocoapods-
+
+      # A simulator build needs no signing, which is why this runs on a public repo with no Apple
+      # credentials. Raw xcodebuild output ran to 34k lines — 97.8% of this job's log — so it goes
+      # through xcbeautify, which is preinstalled on the runner and keeps warnings and errors.
+      # pipefail so a failed build still fails the step rather than passing through the formatter.
+      - name: 📱 Build the Appium test app
+        run: |
+          set -o pipefail
+          yarn appium-app build:local:ios | xcbeautify
+
+      - name: 📦 Install the conformance suite
+        working-directory: ./conformance/appium
+        run: npm ci --include=dev
+
+      # Pinned for the same reason as the Android job: an unpinned xcuitest driver requires an
+      # Appium 3 server.
+      - name: 🏗 Install Appium and the XCUITest driver
+        run: |
+          npm install -g appium@2.19.0
+          appium driver install xcuitest@9.10.1
+
+      - name: 📱 Boot a simulator
+        run: |
+          UDID=$(xcrun simctl list devices available -j \
+            | jq -r '[.devices | to_entries[] | select(.key | test("iOS")) | .value[] | select(.name | test("^iPhone 1[0-9]"))] | last | .udid')
+          RUNTIME=$(xcrun simctl list devices available -j \
+            | jq -r '[.devices | to_entries[] | select(.key | test("iOS")) | select([.value[] | .udid] | index("'"$UDID"'")) | .key] | last')
+          VERSION=$(echo "$RUNTIME" | sed -E 's/.*iOS-([0-9]+)-([0-9]+)$/\1.\2/')
+          echo "Booting $UDID (iOS $VERSION)"
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID" -b
+          echo "IOS_UDID=$UDID" >> "$GITHUB_ENV"
+          echo "IOS_PLATFORM_VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      # Compiling WebDriverAgent takes longer than the session-creation timeout, so the first
+      # session times out if it has to build WDA itself. Build it up front instead.
+      - name: 🏗 Prebuild WebDriverAgent
+        run: appium driver run xcuitest build-wda --sim-udid "$IOS_UDID"
+
+      - name: 🧪 Run the conformance suite
+        working-directory: ./conformance/appium
+        run: |
+          appium --allow-cors > "$GITHUB_WORKSPACE/appium.log" 2>&1 &
+          until curl -sf http://127.0.0.1:4723/status > /dev/null; do sleep 2; done
+          npm run wdio:ios:rn
+        env:
+          ATOMIC_API_KEY: ${{ secrets.MOLECULAR_BANK_API_KEY }}
+          ATOMIC_API_SECRET: ${{ secrets.MOLECULAR_BANK_API_SECRET }}
+          WDIO_CONNECTION_RETRY_TIMEOUT: 300000
+          # A spec that logs in to a real provider can spend most of mocha's default 120s just
+          # getting there: the fallback chain gives each company 20s before moving on.
+          WDIO_MOCHA_TIMEOUT: 300000
+          # The runner has no visible Simulator window. Without this the driver restarts the
+          # simulator to make one appear and then times out waiting for that reboot.
+          IOS_HEADLESS: 'true'
+          IOS_SIMULATOR_STARTUP_TIMEOUT: 300000
+          IOS_APP_PATH: ${{ github.workspace }}/appium-test-environment/ios/build/Build/Products/Release-iphonesimulator/AppiumTestEnvironment.app
+
+      # Renders the suite's JUnit XML into the job summary and annotates each failing test.
+      # Purely presentational: the script always exits 0, so it can neither double-fail a job the
+      # wdio step already failed nor redden a green one. It has to be its own step rather than a
+      # line in the run block above, because a non-zero wdio exit aborts the rest of that block --
+      # the emulator-runner action runs each script line in its own shell, and the iOS job's
+      # `bash -e` stops at the failing command just the same.
+      - name: 📋 Summarize the conformance results
+        if: always()
+        working-directory: ./conformance/appium
+        env:
+          SUMMARY_PLATFORM: iOS
+        # No redirect: the script appends the summary to $GITHUB_STEP_SUMMARY itself and keeps
+        # stdout for the ::error:: annotations, which GitHub only acts on when it reads them from
+        # the step's own output.
+        run: node scripts/junit-summary.mjs test-results/junit test/e2e
+
+      - name: 📦 Upload JUnit results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          # Must differ per job: the two run in parallel and upload-artifact rejects a duplicate
+          # name within a run.
+          name: junit-ios
+          path: ./conformance/appium/test-results/junit
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: 📦 Upload Appium server log
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: appium-log-ios
+          path: ./appium.log
+          retention-days: 7
+          if-no-files-found: ignore

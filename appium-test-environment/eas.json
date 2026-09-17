@@ -1,0 +1,25 @@
+{
+  "cli": {
+    "version": ">= 7.8.0",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "appium": {
+      "developmentClient": false,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
+      },
+      "ios": {
+        "simulator": true
+      }
+    },
+    "appium-device": {
+      "extends": "appium",
+      "ios": {
+        "simulator": false
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "AppiumTestEnvironment",
+    "slug": "atomic-appium-test-environment",
+    "owner": "atomicfi",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "atomictest",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.atomicfi.AppiumTestEnvironment.rn",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.atomicfi.appiumtestenvironment.rn"
+    },
+    "plugins": [
+      "./plugin/withAppiumTestEnvironment",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "2.1.20",
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "c2ae6425-b3b2-4a8b-bbf1-9ccf4e835c74"
+      }
+    }
+  }
+}
