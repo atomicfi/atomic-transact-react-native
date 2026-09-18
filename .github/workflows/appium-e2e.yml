@@ -119,6 +119,19 @@ jobs:
       - name: 📱 Build the Appium test app
         run: yarn appium-app build:local:android
 
+      # Keep the installable app so a red run can be reproduced locally. Appears under Artifacts
+      # on the run summary.
+      - name: 📦 Upload the test app
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: appium-test-app-android
+          path: appium-test-environment/android/app/build/outputs/apk/release/app-release.apk
+          retention-days: 7
+          if-no-files-found: ignore
+          # An APK is already a zip; recompressing it costs time and saves nothing.
+          compression-level: 0
+
       - name: 📦 Install the conformance suite
         working-directory: ./conformance/appium
         run: npm ci --include=dev
@@ -265,6 +278,29 @@ jobs:
         run: |
           set -o pipefail
           yarn appium-app build:local:ios | xcbeautify
+
+      # Keep the installable app so a red run can be reproduced locally. ditto rather than handing
+      # the bundle straight to upload-artifact: an artifact zip drops the executable bit and
+      # flattens symlinks, leaving a .app that will not install.
+      - name: 📦 Package the test app
+        if: always()
+        run: |
+          APP="$PWD/appium-test-environment/ios/build/Build/Products/Release-iphonesimulator/AppiumTestEnvironment.app"
+          if [ ! -d "$APP" ]; then
+            echo "No app bundle at $APP; nothing to package."
+            exit 0
+          fi
+          ditto -c -k --sequesterRsrc --keepParent "$APP" "$RUNNER_TEMP/AppiumTestEnvironment.app.zip"
+
+      - name: 📦 Upload the test app
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: appium-test-app-ios
+          path: ${{ runner.temp }}/AppiumTestEnvironment.app.zip
+          retention-days: 7
+          if-no-files-found: ignore
+          compression-level: 0
 
       - name: 📦 Install the conformance suite
         working-directory: ./conformance/appium
