@@ -106,16 +106,6 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install --immutable
 
-      - name: 📦 Setup Gradle cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
       # Most pushes -- a workflow tweak, a lint rule, a README -- change nothing the app is built
       # from, and the build is a third of this job. The key covers every source the app is built
       # out of, both platforms' native code included, so an Android-only edit also rebuilds iOS:
@@ -128,6 +118,19 @@ jobs:
         with:
           path: appium-test-environment/android/app/build/outputs/apk/release/app-release.apk
           key: ${{ runner.os }}-appium-test-app-${{ hashFiles('appium-test-environment/**', 'src/**', 'android/**', 'ios/**', 'plugin/**', '*.podspec', 'package.json', 'yarn.lock') }}
+
+      # Only the build consumes these, so on a cache hit they are pure overhead: a restore, and a
+      # save on the way out.
+      - name: 📦 Setup Gradle cache
+        if: steps.test-app-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - name: 📱 Build the Appium test app
         if: steps.test-app-cache.outputs.cache-hit != 'true'
@@ -266,6 +269,14 @@ jobs:
         with:
           xcode-version: latest-stable
 
+      # latest-stable moves. A cached .app was built by whichever Xcode was current at the time, so
+      # the version belongs in the key: a runner image bump should rebuild rather than reuse a
+      # bundle from a different toolchain.
+      - name: 🏗 Record the Xcode version
+        id: xcode
+        run: |
+          echo "version=$(xcodebuild -version | awk 'NR==1 {v=$2} NR==2 {b=$3} END {print v"-"b}')" >> "$GITHUB_OUTPUT"
+
       - name: 🏗 Setup Node.js
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
@@ -274,16 +285,6 @@ jobs:
 
       - name: 📦 Install dependencies
         run: yarn install --immutable
-
-      - name: 📦 Setup CocoaPods cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
-        with:
-          path: |
-            ~/Library/Caches/CocoaPods
-            ~/.cocoapods/repos
-          key: ${{ runner.os }}-cocoapods-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cocoapods-
 
       # A simulator build needs no signing, which is why this runs on a public repo with no Apple
       # credentials. Raw xcodebuild output ran to 34k lines — 97.8% of this job's log — so it goes
@@ -300,7 +301,20 @@ jobs:
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
         with:
           path: appium-test-environment/ios/build/Build/Products/Release-iphonesimulator/AppiumTestEnvironment.app
-          key: ${{ runner.os }}-appium-test-app-${{ hashFiles('appium-test-environment/**', 'src/**', 'android/**', 'ios/**', 'plugin/**', '*.podspec', 'package.json', 'yarn.lock') }}
+          key: ${{ runner.os }}-appium-test-app-${{ steps.xcode.outputs.version }}-${{ hashFiles('appium-test-environment/**', 'src/**', 'android/**', 'ios/**', 'plugin/**', '*.podspec', 'package.json', 'yarn.lock') }}
+
+      # Only the build consumes these, so on a cache hit they are pure overhead: a restore, and a
+      # save on the way out that cost 21s and 53s in two recent runs.
+      - name: 📦 Setup CocoaPods cache
+        if: steps.test-app-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: |
+            ~/Library/Caches/CocoaPods
+            ~/.cocoapods/repos
+          key: ${{ runner.os }}-cocoapods-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cocoapods-
 
       - name: 📱 Build the Appium test app
         if: steps.test-app-cache.outputs.cache-hit != 'true'
@@ -356,9 +370,14 @@ jobs:
           echo "IOS_PLATFORM_VERSION=$VERSION" >> "$GITHUB_ENV"
 
       # Compiling WebDriverAgent takes longer than the session-creation timeout, so the first
-      # session times out if it has to build WDA itself. Build it up front instead.
+      # session times out if it has to build WDA itself. Build it up front instead, and have the
+      # driver reuse it rather than run build-for-testing again (IOS_USE_PREBUILT_WDA below).
+      #
+      # --sdk rather than --sim-udid: build-wda reads only --name and --sdk, so the udid was
+      # silently ignored and the script picked whichever iPhone matched the newest installed SDK,
+      # which is not necessarily the runtime the suite runs against.
       - name: 🏗 Prebuild WebDriverAgent
-        run: appium driver run xcuitest build-wda --sim-udid "$IOS_UDID"
+        run: appium driver run xcuitest build-wda --sdk "$IOS_PLATFORM_VERSION"
 
       - name: 🧪 Run the conformance suite
         working-directory: ./conformance/appium
@@ -369,13 +388,20 @@ jobs:
         env:
           ATOMIC_API_KEY: ${{ secrets.MOLECULAR_BANK_API_KEY }}
           ATOMIC_API_SECRET: ${{ secrets.MOLECULAR_BANK_API_SECRET }}
-          WDIO_CONNECTION_RETRY_TIMEOUT: 300000
+          # Past the worst session creation observed. At 300s the client gave up on one that was
+          # still running and posted two more while the server kept working on the first: three
+          # sessions racing for one simulator, and 15 minutes gone before the first test. This
+          # does not make a hang shorter, it stops one from being multiplied. Commands inside a
+          # test are still capped by WDIO_MOCHA_TIMEOUT; only session creation runs outside it.
+          WDIO_CONNECTION_RETRY_TIMEOUT: 600000
           # A spec that logs in to a real provider can spend most of mocha's default 120s just
           # getting there: the fallback chain gives each company 20s before moving on.
           WDIO_MOCHA_TIMEOUT: 300000
           # The runner has no visible Simulator window. Without this the driver restarts the
           # simulator to make one appear and then times out waiting for that reboot.
           IOS_HEADLESS: 'true'
+          # Reuse the WDA built above instead of rebuilding it inside the first session.
+          IOS_USE_PREBUILT_WDA: 'true'
           IOS_SIMULATOR_STARTUP_TIMEOUT: 300000
           IOS_APP_PATH: ${{ github.workspace }}/appium-test-environment/ios/build/Build/Products/Release-iphonesimulator/AppiumTestEnvironment.app
 
