@@ -205,14 +205,15 @@ jobs:
         # the step's own output.
         run: node scripts/junit-summary.mjs test-results/junit test/e2e
 
-      - name: 📦 Upload JUnit results
+      # The JUnit XML behind the summary above, plus a screenshot of any failed test.
+      - name: 📦 Upload the test results
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           # Must differ per job: the two run in parallel and upload-artifact rejects a duplicate
           # name within a run.
-          name: junit-android
-          path: ./conformance/appium/test-results/junit
+          name: test-results-android
+          path: ./conformance/appium/test-results
           retention-days: 7
           if-no-files-found: ignore
 
@@ -366,14 +367,15 @@ jobs:
         # the step's own output.
         run: node scripts/junit-summary.mjs test-results/junit test/e2e
 
-      - name: 📦 Upload JUnit results
+      # The JUnit XML behind the summary above, plus a screenshot of any failed test.
+      - name: 📦 Upload the test results
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           # Must differ per job: the two run in parallel and upload-artifact rejects a duplicate
           # name within a run.
-          name: junit-ios
-          path: ./conformance/appium/test-results/junit
+          name: test-results-ios
+          path: ./conformance/appium/test-results
           retention-days: 7
           if-no-files-found: ignore
 
