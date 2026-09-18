@@ -116,7 +116,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      # Most pushes -- a workflow tweak, a lint rule, a README -- change nothing the app is built
+      # from, and the build is a third of this job. The key covers every source the app is built
+      # out of, both platforms' native code included, so an Android-only edit also rebuilds iOS:
+      # over-invalidating costs one build, while missing an input hands the suite a stale app and
+      # calls it green. No restore-keys for the same reason -- a partial match is exactly that
+      # stale app.
+      - name: 📦 Restore the built test app
+        id: test-app-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: appium-test-environment/android/app/build/outputs/apk/release/app-release.apk
+          key: ${{ runner.os }}-appium-test-app-${{ hashFiles('appium-test-environment/**', 'src/**', 'android/**', 'ios/**', 'plugin/**', '*.podspec', 'package.json', 'yarn.lock') }}
+
       - name: 📱 Build the Appium test app
+        if: steps.test-app-cache.outputs.cache-hit != 'true'
         run: yarn appium-app build:local:android
 
       # Keep the installable app so a red run can be reproduced locally. Appears under Artifacts
@@ -275,7 +289,21 @@ jobs:
       # credentials. Raw xcodebuild output ran to 34k lines — 97.8% of this job's log — so it goes
       # through xcbeautify, which is preinstalled on the runner and keeps warnings and errors.
       # pipefail so a failed build still fails the step rather than passing through the formatter.
+      # Most pushes -- a workflow tweak, a lint rule, a README -- change nothing the app is built
+      # from, and the build is a third of this job. The key covers every source the app is built
+      # out of, both platforms' native code included, so an Android-only edit also rebuilds iOS:
+      # over-invalidating costs one build, while missing an input hands the suite a stale app and
+      # calls it green. No restore-keys for the same reason -- a partial match is exactly that
+      # stale app.
+      - name: 📦 Restore the built test app
+        id: test-app-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: appium-test-environment/ios/build/Build/Products/Release-iphonesimulator/AppiumTestEnvironment.app
+          key: ${{ runner.os }}-appium-test-app-${{ hashFiles('appium-test-environment/**', 'src/**', 'android/**', 'ios/**', 'plugin/**', '*.podspec', 'package.json', 'yarn.lock') }}
+
       - name: 📱 Build the Appium test app
+        if: steps.test-app-cache.outputs.cache-hit != 'true'
         run: |
           set -o pipefail
           yarn appium-app build:local:ios | xcbeautify
