@@ -3,6 +3,7 @@ import globals from 'globals';
 import pluginPrettier from 'eslint-plugin-prettier';
 import configPrettier from 'eslint-config-prettier';
 import tsParser from '@typescript-eslint/parser';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
 
 export default [
   // Global ignores
@@ -79,8 +80,18 @@ export default [
     languageOptions: {
       parser: tsParser,
     },
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+    },
     rules: {
       'no-undef': 'off', // TypeScript handles this
+
+      // The base rule reads a parameter name in a type or interface signature as an unused
+      // variable -- `log(message: string): void` counts `message` as dead. Those names are
+      // documentation, not bindings. The TypeScript-aware rule knows the difference and still
+      // reports genuinely unused code; `_name` opts a real parameter out.
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
     },
   },
 

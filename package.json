@@ -51,7 +51,8 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
     "prepare": "bob build && cp package.json lib/package.json",
-    "prepack": "bob build && cp package.json lib/package.json"
+    "prepack": "bob build && cp package.json lib/package.json",
+    "appium-app": "yarn workspace TransactAppiumTestEnvironment"
   },
   "keywords": [
     "react-native",
@@ -78,6 +79,7 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^26.3.0",
     "@types/react": "^19.2.14",
+    "@typescript-eslint/eslint-plugin": "^8.59.1",
     "@typescript-eslint/parser": "^8.59.1",
     "commitlint": "^21.0.2",
     "del-cli": "^7.0.0",
@@ -103,7 +105,8 @@
     }
   },
   "workspaces": [
-    "example"
+    "example",
+    "appium-test-environment"
   ],
   "resolutions": {
     "@eslint/eslintrc/js-yaml": "^4.3.1",
