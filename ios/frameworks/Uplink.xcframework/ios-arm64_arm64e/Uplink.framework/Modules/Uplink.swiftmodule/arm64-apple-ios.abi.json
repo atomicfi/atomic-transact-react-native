@@ -50,6 +50,23 @@
       },
       {
         "kind": "Import",
+        "name": "Network",
+        "printedName": "Network",
+        "declKind": "Import",
+        "moduleName": "Uplink"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "Uplink",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -2775,56 +2792,56 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 4978,
+      "offset": 5025,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 6607,
+      "offset": 6654,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 6630,
+      "offset": 6677,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 11707,
+      "offset": 11870,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 12474,
+      "offset": 12637,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 13317,
+      "offset": 13480,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 13339,
+      "offset": 13502,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 13360,
+      "offset": 13523,
       "length": 4,
       "value": "true"
     },
@@ -3349,14 +3366,14 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/PageHandler.swift",
       "kind": "IntegerLiteral",
-      "offset": 19482,
+      "offset": 19507,
       "length": 3,
       "value": "600"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/PageHandler.swift",
       "kind": "IntegerLiteral",
-      "offset": 19514,
+      "offset": 19539,
       "length": 3,
       "value": "100"
     },
@@ -3364,13 +3381,13 @@
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/PageScripts.swift",
       "kind": "StringLiteral",
       "offset": 149,
-      "length": 7898,
-      "value": "\"(function() {\n  try {\n    if (!window.addedRequestInterceptor) {\n      window.broadcastRequest = function(request) {\n        if (!request || !request.url) return;\n         if (window.MuppetPage && typeof window.MuppetPage.dispatch === 'function') {\n          try {\n            \/\/ Mirror TS: dispatch object; bridge serializes to JSON for native\n            window.MuppetPage.dispatch({\n              type: 'xhr',\n              request: request\n            });\n          } catch (e) {}\n        }\n      };\n\n      window.getLowerCasedHeaders = function(headers) {\n        headers = headers || {};\n        var lowerCasedHeaders = {};\n        for (var key in headers) {\n          if (Object.prototype.hasOwnProperty.call(headers, key)) {\n            lowerCasedHeaders[String(key).toLowerCase()] = headers[key];\n          }\n        }\n        return lowerCasedHeaders;\n      };\n\n      window.originalFetch = window.fetch;\n\n      window.fetch = async function() {\n        var startTime = new Date();\n        var args = Array.prototype.slice.call(arguments);\n        var request = {\n          type: 'fetch',\n          url: '',\n          method: '',\n          headers: {},\n          data: {}\n        };\n\n        var stringify = function(value) { return (value == null) ? '' : String(value); };\n\n        var fetchRequest = (args[0] instanceof Request) ? args[0] : new Request(args[0], args[1]);\n\n        var requestBody;\n        var requestHeaders = {};\n\n        try {\n          fetchRequest.headers.forEach(function(value, key) {\n            requestHeaders[key] = value;\n          });\n\n          requestHeaders = window.getLowerCasedHeaders(requestHeaders);\n\n          requestBody = requestHeaders['content-type'] && requestHeaders['content-type'].includes('application\/json')\n            ? await fetchRequest.clone().json()\n            : await fetchRequest.clone().text();\n        } catch (error) {\n          console.error('Error parsing fetch request', error);\n        }\n\n        try {\n          request.url = stringify(fetchRequest.url);\n          request.method = stringify(fetchRequest.method).toLowerCase();\n          request.headers = requestHeaders;\n          request.data = requestBody;\n        } catch (error) {\n          console.error('Error running request interceptor', error);\n        }\n\n        var response = await window.originalFetch(fetchRequest);\n        var endTime = new Date();\n        request.startTime = startTime.toISOString();\n        request.endTime = endTime.toISOString();\n        request.duration = endTime - startTime;\n\n        var tmpHeaders = {};\n        try {\n          response.headers.forEach(function(value, key) {\n            tmpHeaders[key] = value;\n          });\n        } catch (e) {\n          \/\/ ignore header iteration errors\n        }\n        var responseHeaders = window.getLowerCasedHeaders(tmpHeaders);\n\n        try {\n          var responseCopy = response.clone();\n          var responseBody = (responseHeaders['content-type'] && responseHeaders['content-type'].includes('application\/json'))\n            ? await responseCopy.json()\n            : await responseCopy.text();\n\n          request.response = {\n            status: response.status,\n            headers: responseHeaders,\n            data: responseBody\n          };\n        } catch (error) {\n          console.error('Error running response interceptor', error);\n        }\n\n        window.broadcastRequest(request);\n\n        return response;\n      };\n\n      var openCopy = XMLHttpRequest.prototype.open;\n      var sendCopy = XMLHttpRequest.prototype.send;\n\n      XMLHttpRequest.prototype.open = function(method, url) {\n        this.url = url;\n        this.method = (method || '').toLowerCase();\n\n        this.addEventListener('load', function() {\n          var endTime = new Date();\n          var responseHeaders = {};\n          var raw = this.getAllResponseHeaders();\n          if (raw) {\n            raw.trim().split(\/[\\r\\n]+\/).forEach(function(line) {\n              var parts = line.split(': ');\n              var header = parts.shift();\n              if (header) responseHeaders[header] = parts.join(': ');\n            });\n          }\n\n          responseHeaders = window.getLowerCasedHeaders(responseHeaders);\n\n          try {\n            var responseBody = (responseHeaders['content-type'] && responseHeaders['content-type'].includes('application\/json') && typeof this.response === 'string')\n              ? JSON.parse(this.response)\n              : this.response;\n\n            if (this.request) {\n              this.request.startTime = this.requestStartTime.toISOString();\n              this.request.endTime = endTime.toISOString();\n              this.request.duration = endTime - this.requestStartTime;\n              this.request.response = {\n                status: this.status,\n                headers: responseHeaders,\n                data: responseBody\n              };\n            }\n          } catch (error) {\n            console.error('Error running response interceptor', error);\n          }\n\n          if (this.request) window.broadcastRequest(this.request);\n        });\n\n        return openCopy.apply(this, arguments);\n      };\n\n      XMLHttpRequest.prototype.wrappedSetRequestHeader = XMLHttpRequest.prototype.setRequestHeader;\n\n      XMLHttpRequest.prototype.setRequestHeader = function(header, value) {\n        this.wrappedSetRequestHeader(header, value);\n        this.requestHeaders = this.requestHeaders || {};\n        this.requestHeaders[String(header).toLowerCase()] = value;\n      };\n\n      XMLHttpRequest.prototype.send = function(body) {\n        var startTime = new Date();\n        this.requestStartTime = startTime;\n        var request = {\n          type: 'xhr',\n          url: '',\n          method: '',\n          headers: {},\n          data: {}\n        };\n\n        try {\n          var requestHeaders = window.getLowerCasedHeaders(this.requestHeaders);\n          var requestBody = (requestHeaders['content-type'] && requestHeaders['content-type'].includes('application\/json') && typeof body === 'string')\n            ? JSON.parse(body)\n            : body;\n\n          request.url = this.url;\n          request.method = this.method;\n          request.headers = requestHeaders;\n          request.data = requestBody;\n          this.request = request;\n        } catch (error) {\n          console.error('Error running request interceptor', error);\n        }\n\n        return sendCopy.apply(this, arguments);\n      };\n\n      window.addedRequestInterceptor = true;\n    }\n  } catch (e) {\n    console.error('request interception script error', e);\n  }\n})()\""
+      "length": 8429,
+      "value": "\"(function() {\n  try {\n    if (!window.addedRequestInterceptor) {\n      window.broadcastRequest = function(request) {\n        if (!request || !request.url) return;\n         if (window.MuppetPage && typeof window.MuppetPage.dispatch === 'function') {\n          try {\n            \/\/ Mirror TS: dispatch object; bridge serializes to JSON for native\n            window.MuppetPage.dispatch({\n              type: 'xhr',\n              request: request\n            });\n          } catch (e) {}\n        }\n      };\n\n      window.nextRequestId = function() {\n        try {\n          if (window.crypto && typeof window.crypto.randomUUID === 'function') {\n            return window.crypto.randomUUID();\n          }\n        } catch (e) {}\n        window.requestIdCounter = (window.requestIdCounter || 0) + 1;\n        return 'req-' + Date.now() + '-' + window.requestIdCounter;\n      };\n\n      window.getLowerCasedHeaders = function(headers) {\n        headers = headers || {};\n        var lowerCasedHeaders = {};\n        for (var key in headers) {\n          if (Object.prototype.hasOwnProperty.call(headers, key)) {\n            lowerCasedHeaders[String(key).toLowerCase()] = headers[key];\n          }\n        }\n        return lowerCasedHeaders;\n      };\n\n      window.originalFetch = window.fetch;\n\n      window.fetch = async function() {\n        var startTime = new Date();\n        var args = Array.prototype.slice.call(arguments);\n        var request = {\n          id: window.nextRequestId(),\n          type: 'fetch',\n          url: '',\n          method: '',\n          headers: {},\n          data: {}\n        };\n\n        var stringify = function(value) { return (value == null) ? '' : String(value); };\n\n        var fetchRequest = (args[0] instanceof Request) ? args[0] : new Request(args[0], args[1]);\n\n        var requestBody;\n        var requestHeaders = {};\n\n        try {\n          fetchRequest.headers.forEach(function(value, key) {\n            requestHeaders[key] = value;\n          });\n\n          requestHeaders = window.getLowerCasedHeaders(requestHeaders);\n\n          requestBody = requestHeaders['content-type'] && requestHeaders['content-type'].includes('application\/json')\n            ? await fetchRequest.clone().json()\n            : await fetchRequest.clone().text();\n        } catch (error) {\n          console.error('Error parsing fetch request', error);\n        }\n\n        try {\n          request.url = stringify(fetchRequest.url);\n          request.method = stringify(fetchRequest.method).toLowerCase();\n          request.headers = requestHeaders;\n          request.data = requestBody;\n        } catch (error) {\n          console.error('Error running request interceptor', error);\n        }\n\n        var response = await window.originalFetch(fetchRequest);\n        var endTime = new Date();\n        request.startTime = startTime.toISOString();\n        request.endTime = endTime.toISOString();\n        request.duration = endTime - startTime;\n\n        var tmpHeaders = {};\n        try {\n          response.headers.forEach(function(value, key) {\n            tmpHeaders[key] = value;\n          });\n        } catch (e) {\n          \/\/ ignore header iteration errors\n        }\n        var responseHeaders = window.getLowerCasedHeaders(tmpHeaders);\n\n        try {\n          var responseCopy = response.clone();\n          var responseBody = (responseHeaders['content-type'] && responseHeaders['content-type'].includes('application\/json'))\n            ? await responseCopy.json()\n            : await responseCopy.text();\n\n          request.response = {\n            status: response.status,\n            headers: responseHeaders,\n            data: responseBody\n          };\n        } catch (error) {\n          console.error('Error running response interceptor', error);\n        }\n\n        window.broadcastRequest(request);\n\n        return response;\n      };\n\n      var openCopy = XMLHttpRequest.prototype.open;\n      var sendCopy = XMLHttpRequest.prototype.send;\n\n      XMLHttpRequest.prototype.open = function(method, url) {\n        this.url = url;\n        this.method = (method || '').toLowerCase();\n\n        this.addEventListener('load', function() {\n          var endTime = new Date();\n          var responseHeaders = {};\n          var raw = this.getAllResponseHeaders();\n          if (raw) {\n            raw.trim().split(\/[\\r\\n]+\/).forEach(function(line) {\n              var parts = line.split(': ');\n              var header = parts.shift();\n              if (header) responseHeaders[header] = parts.join(': ');\n            });\n          }\n\n          responseHeaders = window.getLowerCasedHeaders(responseHeaders);\n\n          try {\n            var responseBody = (responseHeaders['content-type'] && responseHeaders['content-type'].includes('application\/json') && typeof this.response === 'string')\n              ? JSON.parse(this.response)\n              : this.response;\n\n            if (this.request) {\n              this.request.startTime = this.requestStartTime.toISOString();\n              this.request.endTime = endTime.toISOString();\n              this.request.duration = endTime - this.requestStartTime;\n              this.request.response = {\n                status: this.status,\n                headers: responseHeaders,\n                data: responseBody\n              };\n            }\n          } catch (error) {\n            console.error('Error running response interceptor', error);\n          }\n\n          if (this.request) window.broadcastRequest(this.request);\n        });\n\n        return openCopy.apply(this, arguments);\n      };\n\n      XMLHttpRequest.prototype.wrappedSetRequestHeader = XMLHttpRequest.prototype.setRequestHeader;\n\n      XMLHttpRequest.prototype.setRequestHeader = function(header, value) {\n        this.wrappedSetRequestHeader(header, value);\n        this.requestHeaders = this.requestHeaders || {};\n        this.requestHeaders[String(header).toLowerCase()] = value;\n      };\n\n      XMLHttpRequest.prototype.send = function(body) {\n        var startTime = new Date();\n        this.requestStartTime = startTime;\n        var request = {\n          id: window.nextRequestId(),\n          type: 'xhr',\n          url: '',\n          method: '',\n          headers: {},\n          data: {}\n        };\n\n        try {\n          var requestHeaders = window.getLowerCasedHeaders(this.requestHeaders);\n          var requestBody = (requestHeaders['content-type'] && requestHeaders['content-type'].includes('application\/json') && typeof body === 'string')\n            ? JSON.parse(body)\n            : body;\n\n          request.url = this.url;\n          request.method = this.method;\n          request.headers = requestHeaders;\n          request.data = requestBody;\n          this.request = request;\n        } catch (error) {\n          console.error('Error running request interceptor', error);\n        }\n\n        return sendCopy.apply(this, arguments);\n      };\n\n      window.addedRequestInterceptor = true;\n    }\n  } catch (e) {\n    console.error('request interception script error', e);\n  }\n})()\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/PageScripts.swift",
       "kind": "StringLiteral",
-      "offset": 8082,
+      "offset": 8613,
       "length": 792,
       "value": "\"(function() {\n  if (!document.querySelector('[autocomplete=\"one-time-code\"]')) {\n    window.uplinkPasswordManager = document.querySelector(\n      '#uplink-password-manager'\n    )\n\n    if (!window.uplinkPasswordManager) {\n      window.uplinkPasswordManager = document.createElement('input')\n      window.uplinkPasswordManager.id = 'uplink-password-manager'\n      window.uplinkPasswordManager.type = 'password'\n      window.uplinkPasswordManager.style.opacity = '0'\n      window.uplinkPasswordManager.style.height = '0'\n      window.uplinkPasswordManager.style.width = '0'\n      document.body?.appendChild(window.uplinkPasswordManager)\n    }\n  }\n})()\""
     },

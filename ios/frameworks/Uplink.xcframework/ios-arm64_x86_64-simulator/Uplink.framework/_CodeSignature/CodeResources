@@ -10,11 +10,11 @@
 		</data>
 		<key>Modules/Uplink.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		+GSFevjPCcWsmh9lWT2jtBBHp6s=
+		P4ds/2H0dU9m10eQO09lNsbcSvQ=
 		</data>
 		<key>Modules/Uplink.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		2wb1sSMles+V/OJOE8rPwsgB2MQ=
+		o3PfYIicUaKX70yXscd3ZbZg/HA=
 		</data>
 		<key>Modules/Uplink.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -22,19 +22,19 @@
 		</data>
 		<key>Modules/Uplink.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		2wb1sSMles+V/OJOE8rPwsgB2MQ=
+		o3PfYIicUaKX70yXscd3ZbZg/HA=
 		</data>
 		<key>Modules/Uplink.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		xSwSYTmV1uS9IkNNoXwpcYEh3+c=
+		qOiF5m2rSn2TiXCIY4lCey1JD+U=
 		</data>
 		<key>Modules/Uplink.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		+GSFevjPCcWsmh9lWT2jtBBHp6s=
+		P4ds/2H0dU9m10eQO09lNsbcSvQ=
 		</data>
 		<key>Modules/Uplink.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		azcbjxApSStQpmwbaOmo8qk9cNg=
+		sEDE0ZqHTpzQo3O2Xo8d2X6xSK0=
 		</data>
 		<key>Modules/Uplink.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -42,11 +42,11 @@
 		</data>
 		<key>Modules/Uplink.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		azcbjxApSStQpmwbaOmo8qk9cNg=
+		sEDE0ZqHTpzQo3O2Xo8d2X6xSK0=
 		</data>
 		<key>Modules/Uplink.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		iL9Ag8wQicePadEe46aC4W91C00=
+		C+sKx70Eau/ob/nqnkk4iJs6Lww=
 		</data>
 		<key>PrivacyInfo.xcprivacy</key>
 		<data>
@@ -59,14 +59,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			2lOc35OxHMVcSO8qXjv2+3WaRpSmkD77piDOKwrawRI=
+			lK0k6kPG/tSTPuqRZqYRjLIb6C+Xc6KkbQzww4Cfu2M=
 			</data>
 		</dict>
 		<key>Modules/Uplink.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			lYfFcmOXgH3ROHbl8Q39Lt7OF/aXq0HHsJAUB22yu04=
+			Y6K5G2egR5ECkXlV/QGvJEshpJkdsjnsas6uCejDFe0=
 			</data>
 		</dict>
 		<key>Modules/Uplink.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -80,28 +80,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lYfFcmOXgH3ROHbl8Q39Lt7OF/aXq0HHsJAUB22yu04=
+			Y6K5G2egR5ECkXlV/QGvJEshpJkdsjnsas6uCejDFe0=
 			</data>
 		</dict>
 		<key>Modules/Uplink.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8kbZ1AcLacTempd5CIv1l2uko2jcAtegCjL9dcVEMZg=
+			aSSFM8dE1EZ/N3MGc0ZeriSK7ZVZyqrqSPwkT5KgHvk=
 			</data>
 		</dict>
 		<key>Modules/Uplink.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2lOc35OxHMVcSO8qXjv2+3WaRpSmkD77piDOKwrawRI=
+			lK0k6kPG/tSTPuqRZqYRjLIb6C+Xc6KkbQzww4Cfu2M=
 			</data>
 		</dict>
 		<key>Modules/Uplink.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ac6KRGNdvkwpIb/FBOz3GSxPtJRlIOOjgjMiZbIE96Q=
+			hGjbFFQQXO9EXhkguwCUFhJ/bfCAlO2Ey1grCJMK4B8=
 			</data>
 		</dict>
 		<key>Modules/Uplink.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -115,14 +115,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ac6KRGNdvkwpIb/FBOz3GSxPtJRlIOOjgjMiZbIE96Q=
+			hGjbFFQQXO9EXhkguwCUFhJ/bfCAlO2Ey1grCJMK4B8=
 			</data>
 		</dict>
 		<key>Modules/Uplink.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			dOwDlKM3ch4RpCgUW6sPANKBmll+YgTTZ8McIEACtwM=
+			TuVv5wdnP8KvYroK9oIvx2bZdoLIe7g2AOSuJiInAmo=
 			</data>
 		</dict>
 		<key>PrivacyInfo.xcprivacy</key>

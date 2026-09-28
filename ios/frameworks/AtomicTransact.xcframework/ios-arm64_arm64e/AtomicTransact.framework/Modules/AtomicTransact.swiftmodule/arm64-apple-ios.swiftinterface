@@ -21,10 +21,10 @@ import _SwiftConcurrencyShims
 import os
 public enum Atomic {
   #if compiler(>=5.3) && $NonescapableTypes
-  @_Concurrency.MainActor public static func presentTransact(from source: UIKit.UIViewController, config: AtomicTransact.AtomicConfig, environment: AtomicTransact.TransactEnvironment = .production, presentationStyle: UIKit.UIModalPresentationStyle = .formSheet, onInteraction: ((AtomicTransact.TransactInteraction) -> ())? = nil, onDataRequest: ((AtomicTransact.TransactDataRequest) async -> AtomicTransact.TransactDataResponse?)? = nil, onAuthStatusUpdate: ((AtomicTransact.TransactAuthStatusUpdate) -> ())? = nil, onTaskStatusUpdate: ((AtomicTransact.TransactTaskStatusUpdate) -> ())? = nil, onLaunch: (() -> ())? = nil, onCompletion: ((AtomicTransact.TransactResponse) -> ())? = nil, onError: ((AtomicTransact.TransactError) -> ())? = nil, onCleanup: (() -> ())? = nil)
+  @_Concurrency.MainActor public static func presentTransact(from source: UIKit.UIViewController, config: AtomicTransact.AtomicConfig, environment: AtomicTransact.TransactEnvironment = .production, presentationStyle: UIKit.UIModalPresentationStyle = .formSheet, onInteraction: ((AtomicTransact.TransactInteraction) -> Swift.Void)? = nil, onDataRequest: ((AtomicTransact.TransactDataRequest) async -> AtomicTransact.TransactDataResponse?)? = nil, onAuthStatusUpdate: ((AtomicTransact.TransactAuthStatusUpdate) -> Swift.Void)? = nil, onTaskStatusUpdate: ((AtomicTransact.TransactTaskStatusUpdate) -> Swift.Void)? = nil, onLaunch: (() -> Swift.Void)? = nil, onCompletion: ((AtomicTransact.TransactResponse) -> Swift.Void)? = nil, onError: ((AtomicTransact.TransactError) -> Swift.Void)? = nil, onCleanup: (() -> Swift.Void)? = nil)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
-  @_Concurrency.MainActor public static func presentTransact(from source: UIKit.UIViewController, config: AtomicTransact.AtomicConfig, environment: AtomicTransact.TransactEnvironment = .production, presentationStyle: UIKit.UIModalPresentationStyle = .formSheet, onInteraction: ((AtomicTransact.TransactInteraction) -> ())? = nil, onDataRequest: @escaping (AtomicTransact.TransactDataRequest) -> (), onAuthStatusUpdate: ((AtomicTransact.TransactAuthStatusUpdate) -> ())? = nil, onTaskStatusUpdate: ((AtomicTransact.TransactTaskStatusUpdate) -> ())? = nil, onLaunch: (() -> ())? = nil, onCompletion: ((AtomicTransact.TransactResponse) -> ())? = nil, onError: ((AtomicTransact.TransactError) -> ())? = nil, onCleanup: (() -> ())? = nil)
+  @_Concurrency.MainActor public static func presentTransact(from source: UIKit.UIViewController, config: AtomicTransact.AtomicConfig, environment: AtomicTransact.TransactEnvironment = .production, presentationStyle: UIKit.UIModalPresentationStyle = .formSheet, onInteraction: ((AtomicTransact.TransactInteraction) -> Swift.Void)? = nil, onDataRequest: @escaping (AtomicTransact.TransactDataRequest) -> Swift.Void, onAuthStatusUpdate: ((AtomicTransact.TransactAuthStatusUpdate) -> Swift.Void)? = nil, onTaskStatusUpdate: ((AtomicTransact.TransactTaskStatusUpdate) -> Swift.Void)? = nil, onLaunch: (() -> Swift.Void)? = nil, onCompletion: ((AtomicTransact.TransactResponse) -> Swift.Void)? = nil, onError: ((AtomicTransact.TransactError) -> Swift.Void)? = nil, onCleanup: (() -> Swift.Void)? = nil)
   #endif
   @_Concurrency.MainActor public static var interactions: Combine.AnyPublisher<AtomicTransact.TransactInteraction, Swift.Never> {
     get
@@ -32,7 +32,7 @@ public enum Atomic {
   public static func dismissTransact()
   public static func hideTransact()
   #if compiler(>=5.3) && $NonescapableTypes
-  public static func setDebug(isEnabled: Swift.Bool, forwardLogs forwarder: (@Sendable (Swift.String) -> ())? = nil) async
+  public static func setDebug(isEnabled: Swift.Bool, forwardLogs forwarder: (@Sendable (Swift.String) -> Swift.Void)? = nil) async
   #endif
   public enum PauseTransactError : Swift.Error {
     case transactNotPresented
@@ -350,7 +350,7 @@ public struct AtomicConfig : Swift.Codable, Swift.Sendable {
 }
 extension SwiftUICore.View {
   #if compiler(>=5.3) && $NonescapableTypes
-  @_Concurrency.MainActor @preconcurrency public func atomicTransact(isPresented: SwiftUICore.Binding<Swift.Bool>, config: @escaping () -> AtomicTransact.AtomicConfig, environment: AtomicTransact.TransactEnvironment = .production, presentsFullscreen: Swift.Bool = false, onInteraction: ((AtomicTransact.TransactInteraction) -> ())? = nil, onDataRequest: ((AtomicTransact.TransactDataRequest) async -> AtomicTransact.TransactDataResponse?)? = nil, onAuthStatusUpdate: ((AtomicTransact.TransactAuthStatusUpdate) -> ())? = nil, onTaskStatusUpdate: ((AtomicTransact.TransactTaskStatusUpdate) -> ())? = nil, onLaunch: (() -> ())? = nil, onCompletion: ((AtomicTransact.TransactResponse) -> ())? = nil, onError: ((AtomicTransact.TransactError) -> ())? = nil) -> some SwiftUICore.View
+  @_Concurrency.MainActor @preconcurrency public func atomicTransact(isPresented: SwiftUICore.Binding<Swift.Bool>, config: @escaping () -> AtomicTransact.AtomicConfig, environment: AtomicTransact.TransactEnvironment = .production, presentsFullscreen: Swift.Bool = false, onInteraction: ((AtomicTransact.TransactInteraction) -> Swift.Void)? = nil, onDataRequest: ((AtomicTransact.TransactDataRequest) async -> AtomicTransact.TransactDataResponse?)? = nil, onAuthStatusUpdate: ((AtomicTransact.TransactAuthStatusUpdate) -> Swift.Void)? = nil, onTaskStatusUpdate: ((AtomicTransact.TransactTaskStatusUpdate) -> Swift.Void)? = nil, onLaunch: (() -> Swift.Void)? = nil, onCompletion: ((AtomicTransact.TransactResponse) -> Swift.Void)? = nil, onError: ((AtomicTransact.TransactError) -> Swift.Void)? = nil) -> some SwiftUICore.View
   
   #endif
   @_Concurrency.MainActor @preconcurrency public func atomicTransactPresenter(_ presenter: AtomicTransact.TransactPresenter) -> some SwiftUICore.View
@@ -359,7 +359,7 @@ extension SwiftUICore.View {
 @_Concurrency.MainActor final public class TransactPresenter {
   @_Concurrency.MainActor public init()
   #if compiler(>=5.3) && $NonescapableTypes
-  @_Concurrency.MainActor final public func presentTransact(config: AtomicTransact.AtomicConfig, environment: AtomicTransact.TransactEnvironment = .production, presentationStyle: UIKit.UIModalPresentationStyle = .formSheet, onInteraction: ((AtomicTransact.TransactInteraction) -> ())? = nil, onDataRequest: ((AtomicTransact.TransactDataRequest) async -> AtomicTransact.TransactDataResponse?)? = nil, onAuthStatusUpdate: ((AtomicTransact.TransactAuthStatusUpdate) -> ())? = nil, onTaskStatusUpdate: ((AtomicTransact.TransactTaskStatusUpdate) -> ())? = nil, onLaunch: (() -> ())? = nil, onCompletion: ((AtomicTransact.TransactResponse) -> ())? = nil, onError: ((AtomicTransact.TransactError) -> ())? = nil)
+  @_Concurrency.MainActor final public func presentTransact(config: AtomicTransact.AtomicConfig, environment: AtomicTransact.TransactEnvironment = .production, presentationStyle: UIKit.UIModalPresentationStyle = .formSheet, onInteraction: ((AtomicTransact.TransactInteraction) -> Swift.Void)? = nil, onDataRequest: ((AtomicTransact.TransactDataRequest) async -> AtomicTransact.TransactDataResponse?)? = nil, onAuthStatusUpdate: ((AtomicTransact.TransactAuthStatusUpdate) -> Swift.Void)? = nil, onTaskStatusUpdate: ((AtomicTransact.TransactTaskStatusUpdate) -> Swift.Void)? = nil, onLaunch: (() -> Swift.Void)? = nil, onCompletion: ((AtomicTransact.TransactResponse) -> Swift.Void)? = nil, onError: ((AtomicTransact.TransactError) -> Swift.Void)? = nil)
   #endif
   @objc deinit
 }
