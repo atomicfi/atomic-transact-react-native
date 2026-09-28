@@ -4,6 +4,7 @@
 // swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.1
 import Combine
 import Foundation
+import Network
 import OSLog
 import Swift
 import UIKit
@@ -274,19 +275,21 @@ extension WebKit.WKWebView {
   @objc deinit
 }
 @objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency public class AtomicWebViewController : UIKit.UIViewController {
-  @_Concurrency.MainActor @preconcurrency weak public var webView: MuppetIOS.AtomicWebView!
+  @_Concurrency.MainActor @preconcurrency final public let webView: MuppetIOS.AtomicWebView
   @_Concurrency.MainActor @preconcurrency public var cancel: (nonisolated(nonsending) () async -> Swift.Void)?
-  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
-  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
-  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewSafeAreaInsetsDidChange()
-  @_Concurrency.MainActor @preconcurrency public func hideAssistantTitle()
-  @_Concurrency.MainActor @preconcurrency public func showAssistant(title: Swift.String)
+  @_Concurrency.MainActor @preconcurrency public init(webView: MuppetIOS.AtomicWebView)
+  @_Concurrency.MainActor @preconcurrency @objc convenience dynamic public init()
   #if compiler(>=5.3) && $NonescapableTypes
   @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
   #endif
   #if compiler(>=5.3) && $NonescapableTypes
   @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
   #endif
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewSafeAreaInsetsDidChange()
+  @_Concurrency.MainActor @preconcurrency public func hideAssistantTitle()
+  @_Concurrency.MainActor @preconcurrency public func showAssistant(title: Swift.String)
   @objc deinit
 }
 @_Concurrency.MainActor final public class Browser {
@@ -326,7 +329,8 @@ extension MuppetIOS.Browser : @_Concurrency.MainActor Swift.Equatable, @_Concurr
   @_Concurrency.MainActor final public var browsers: Swift.Set<MuppetIOS.Browser> {
     get
   }
-  @_Concurrency.MainActor public init(source: UIKit.UIViewController)
+  @_Concurrency.MainActor public init(source: UIKit.UIViewController, websiteDataStore: WebKit.WKWebsiteDataStore = Muppet.makeWebsiteDataStore())
+  @_Concurrency.MainActor public static func makeWebsiteDataStore() -> WebKit.WKWebsiteDataStore
   @_Concurrency.MainActor final public func update(source: UIKit.UIViewController)
   #if compiler(>=5.3) && $NonescapableTypes
   @_Concurrency.MainActor final public func getBrowser(handle: Swift.String) -> MuppetIOS.Browser?
@@ -341,7 +345,7 @@ extension MuppetIOS.Browser : @_Concurrency.MainActor Swift.Equatable, @_Concurr
   @_Concurrency.MainActor public static func defaultPageBuilder(browser: MuppetIOS.Browser, configuration: WebKit.WKWebViewConfiguration) -> MuppetIOS.Page
   @_Concurrency.MainActor final public var pageBuilder: @_Concurrency.MainActor @Sendable (MuppetIOS.Browser, WebKit.WKWebViewConfiguration) -> MuppetIOS.Page
   #if compiler(>=5.3) && $NonescapableTypes
-  @_Concurrency.MainActor public static func setDebug(isEnabled: Swift.Bool, forwardLogs forwarder: (@Sendable (Swift.String) -> ())? = nil) async
+  @_Concurrency.MainActor public static func setDebug(isEnabled: Swift.Bool, forwardLogs forwarder: (@Sendable (Swift.String) -> Swift.Void)? = nil) async
   #endif
   @objc deinit
 }
@@ -430,7 +434,7 @@ extension MuppetIOS.Browser : @_Concurrency.MainActor Swift.Equatable, @_Concurr
   @_Concurrency.MainActor final public func setCookie(_ cookie: MuppetIOS.Cookie) async
   @_Concurrency.MainActor final public func addUserScript(script: Swift.String)
   @discardableResult
-  @_Concurrency.MainActor final public func evaluate(_ script: Swift.String) async -> MuppetIOS.JSON
+  @_Concurrency.MainActor final public func evaluate(_ script: Swift.String, arguments: [Swift.String : Any] = [:]) async -> MuppetIOS.JSON
   @_Concurrency.MainActor final public func setUserAgent(_ userAgent: Swift.String)
   @_Concurrency.MainActor final public var currentUserAgent: Swift.String {
     get
