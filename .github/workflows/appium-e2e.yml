@@ -73,10 +73,19 @@ jobs:
   # here needs to repeat them. TARGET_APP_KIND also gates out the specs that do not apply to this
   # wrapper, plus env-gated dev tools that register no tests. None of them fail the run, so the job
   # summary names each one rather than counting it as passed.
+  #
+  # Dependabot PRs run both E2E jobs only when they bump the Android SDK, so the bump is tested
+  # before it merges; its other bumps skip them. Dependabot names that branch after the dependency:
+  # `.../financial.atomic-transact-<version>`. iOS SDK bumps come from the dependency automation
+  # app rather than Dependabot, so they already run E2E. A Dependabot-triggered run only receives
+  # Dependabot secrets, so CONFORMANCE_REPO_PULL_KEY, MOLECULAR_BANK_API_KEY and
+  # MOLECULAR_BANK_API_SECRET must exist there as well as under Actions.
   e2e-android:
     name: E2E Android (emulator)
     needs: lint
-    if: github.event.pull_request.user.login != 'dependabot[bot]'
+    if: >-
+      github.event.pull_request.user.login != 'dependabot[bot]' ||
+      contains(github.head_ref, '/financial.atomic-transact-')
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Checkout repository
@@ -183,7 +192,11 @@ jobs:
       - name: 🧪 Run the conformance suite
         uses: reactivecircus/android-emulator-runner@62dbb605bba737720e10b196cb4220d374026a6d # v2.33.0
         with:
-          api-level: 34
+          # Transact Android 3.25.0+ needs WebView's MULTI_PROFILE feature (WebView 119+) and closes
+          # with `unsupported-provider` without it. The emulator can't update its WebView, so the
+          # image's own has to be new enough: API 34 ships 113, API 35 ships 124. API 36 (WebView 133)
+          # also works but is slow enough on this runner that specs time out.
+          api-level: 35
           target: google_apis
           arch: x86_64
           profile: pixel_6
@@ -196,6 +209,8 @@ jobs:
           # restarts the stuck process instead; an ANR in the app under test still fails its spec.
           script: |
             adb shell settings put global hide_error_dialogs 1
+            adb logcat -c
+            adb logcat -v threadtime > logcat.txt 2>&1 &
             appium --allow-cors --allow-insecure=uiautomator2:chromedriver_autodownload,uiautomator2:adb_shell > appium.log 2>&1 &
             until curl -sf http://127.0.0.1:4723/status > /dev/null; do sleep 2; done
             cd conformance/appium && npm run wdio:android:rn
@@ -246,10 +261,21 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
+      - name: 📦 Upload the emulator logcat
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: logcat-android
+          path: ./logcat.txt
+          retention-days: 7
+          if-no-files-found: ignore
+
   e2e-ios:
     name: E2E iOS (simulator)
     needs: lint
-    if: github.event.pull_request.user.login != 'dependabot[bot]'
+    if: >-
+      github.event.pull_request.user.login != 'dependabot[bot]' ||
+      contains(github.head_ref, '/financial.atomic-transact-')
     runs-on: macos-latest
     env:
       # CocoaPods dies in Ruby's unicode normalization without a UTF-8 locale.
