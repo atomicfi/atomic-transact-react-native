@@ -16,7 +16,7 @@ jest.mock('../android', () => ({
   AtomicAndroid: { transact: (...args: any[]) => mockAndroidTransact(...args) },
 }));
 
-import { Atomic, Step } from '../index';
+import { Atomic, Handoff, Step } from '../index';
 
 beforeEach(() => {
   mockIOSTransact.mockClear();
@@ -69,5 +69,57 @@ describe('account deeplink config', () => {
       companyId: 'co-1',
     });
     expect(serialized.deeplink.accountId).toBeUndefined();
+  });
+});
+
+describe('handoff config', () => {
+  const baseConfig = {
+    publicToken: 'pt-abc-123',
+    scope: 'user-link',
+    tasks: [{ operation: 'deposit' }],
+  };
+
+  it('exposes the handoff views Transact accepts', () => {
+    expect(Handoff).toEqual({
+      EXIT_PROMPT: 'exit-prompt',
+      AUTHENTICATION_SUCCESS: 'authentication-success',
+      HIGH_LATENCY: 'high-latency',
+      SELECTED_COMPANY: 'selected-company',
+    });
+  });
+
+  it('forwards a handoff array unchanged', () => {
+    Atomic.transact({
+      config: {
+        ...baseConfig,
+        handoff: [Handoff.AUTHENTICATION_SUCCESS, Handoff.EXIT_PROMPT],
+      },
+    });
+
+    const { config } = mockIOSTransact.mock.calls[0][0];
+    expect(JSON.parse(JSON.stringify(config)).handoff).toEqual([
+      'authentication-success',
+      'exit-prompt',
+    ]);
+  });
+
+  it('wraps a single string in an array, which is the only shape Transact accepts', () => {
+    Atomic.transact({
+      config: {
+        ...baseConfig,
+        // The Config type used to declare a string, so existing callers may still pass one.
+        handoff: 'authentication-success' as any,
+      },
+    });
+
+    const { config } = mockIOSTransact.mock.calls[0][0];
+    expect(config.handoff).toEqual(['authentication-success']);
+  });
+
+  it('leaves handoff unset when none is given', () => {
+    Atomic.transact({ config: { ...baseConfig } });
+
+    const { config } = mockIOSTransact.mock.calls[0][0];
+    expect(config).not.toHaveProperty('handoff');
   });
 });

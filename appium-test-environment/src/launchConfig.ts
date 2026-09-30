@@ -93,10 +93,12 @@ export function buildConfig(extras: LaunchExtras): Record<string, unknown> {
     config.deeplink = deeplink;
   }
 
-  // The bridge types handoff as a string and passes the config through verbatim, so send the
-  // comma-separated value as-is rather than the array the native SDKs take.
-  const handoff = extras.TRANSACT_HANDOFF?.trim();
-  if (handoff) {
+  // The suite sends a comma-separated list; Transact takes an array, as the native test apps pass.
+  const handoff = (extras.TRANSACT_HANDOFF || '')
+    .split(',')
+    .map((value) => value.trim())
+    .filter(Boolean);
+  if (handoff.length > 0) {
     config.handoff = handoff;
   }
 
