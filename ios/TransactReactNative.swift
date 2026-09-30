@@ -38,6 +38,29 @@ class TransactReactNative: RCTEventEmitter {
 		}
 	}
 	
+	// RCTPresentedViewController() is nil while no window scene is in the foreground: during launch
+	// before the window is key, or while the app is inactive or backgrounded. Wait briefly for one
+	// before giving up, so a call made as the app finishes launching still presents.
+	private func waitForPresentingViewController() async -> UIViewController? {
+		let deadline = Date().addingTimeInterval(2)
+		while Date() < deadline {
+			if let source = RCTPresentedViewController() {
+				return source
+			}
+			try? await Task.sleep(nanoseconds: 100_000_000)
+		}
+		return RCTPresentedViewController()
+	}
+
+	// A launch that fails before Transact presents gets no other callback, so it must reject; the
+	// JS layer delivers the rejection to onError.
+	private func rejectLaunch(_ reject: RCTPromiseRejectBlock, code: String, message: String, debugEnabled: Bool) {
+		if debugEnabled {
+			sendEvent(withName: "onDebugLog", body: ["message": "\(code): \(message)"])
+		}
+		reject(code, message, nil)
+	}
+
 	@objc(presentTransact:config:environment:presentationStyle:setDebug:wrapperVersion:withResolver:withRejecter:)
 	func presentTransact(instanceId: String, config: [String: Any], environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, wrapperVersion: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		let debugEnabled = setDebug?.boolValue ?? false
@@ -47,7 +70,10 @@ class TransactReactNative: RCTEventEmitter {
 				self.sendEvent(withName: "onDebugLog", body: ["message": logMessage])
 			})
 
-			guard let source = RCTPresentedViewController() else { return }
+			guard let source = await self.waitForPresentingViewController() else {
+				self.rejectLaunch(reject, code: "no_presenting_view_controller", message: "No view controller to present Transact from", debugEnabled: debugEnabled)
+				return
+			}
 
 			let decoder = JSONDecoder()
 			let parsedEnvironment = self.parseEnvironment(environment)
@@ -59,7 +85,12 @@ class TransactReactNative: RCTEventEmitter {
 
 				json["platform"] = AtomicConfig.Platform(suffixed: "react-\(wrapperVersion)").encode()
 
-				guard let data = try? JSONSerialization.data(withJSONObject: json, options: []) else { return }
+				// JSONSerialization raises an Objective-C exception, not a Swift error, on an invalid object.
+				guard JSONSerialization.isValidJSONObject(json),
+					let data = try? JSONSerialization.data(withJSONObject: json, options: []) else {
+					self.rejectLaunch(reject, code: "config_serialization_failed", message: "The Transact config could not be serialized to JSON", debugEnabled: debugEnabled)
+					return
+				}
 
 				let config = try decoder.decode(AtomicConfig.self, from: data)
 
@@ -135,7 +166,7 @@ class TransactReactNative: RCTEventEmitter {
 				)
 			}
 			catch let error {
-				reject("config error", String(describing: error), NSError(domain: "com.atomicfi", code: 500, userInfo: nil))
+				self.rejectLaunch(reject, code: "config_decode_failed", message: String(describing: error), debugEnabled: debugEnabled)
 			}
 		}
 	}

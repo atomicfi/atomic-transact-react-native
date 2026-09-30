@@ -26,6 +26,7 @@ export type TransactEventName =
   | 'onCleanup'
   // In-flow SDK error. iOS-only today: the iOS SDK exposes a dedicated `onError`
   // channel (`.transactError`), Android surfaces no equivalent to the host receiver.
+  // Also carries iOS launch failures (see `failTransaction`).
   | 'onError';
 
 export interface TransactHandlers {
@@ -70,6 +71,23 @@ export function addTransaction(
 
 export function removeTransaction(instanceId: string): void {
   transactions.delete(instanceId);
+}
+
+// A launch the native side rejected before Transact presented (iOS: no view controller to present
+// from, or a config it could not serialize or decode). Nothing else will arrive for it, so this is
+// the only place the integrator can hear about it: report `{ code, message }` through onError and
+// tear the entry down. The entry is removed first so a throwing handler cannot leak it.
+export function failTransaction(instanceId: string, error: unknown): void {
+  const handlers = transactions.get(instanceId);
+  removeTransaction(instanceId);
+  const { code, message } = (error ?? {}) as {
+    code?: unknown;
+    message?: unknown;
+  };
+  handlers?.onError?.({
+    code: typeof code === 'string' ? code : 'launch_failed',
+    message: typeof message === 'string' ? message : String(error),
+  });
 }
 
 export function hasTransaction(instanceId: string): boolean {
