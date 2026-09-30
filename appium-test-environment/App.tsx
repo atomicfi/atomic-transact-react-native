@@ -160,9 +160,12 @@ export default function App() {
         onTaskStatusUpdate: (update: any) => {
           const state = update?.status ?? stringify(update);
           log(`RECEIVER task status updated ${state}`);
-          // The iOS deferred-payment spec waits for an alert titled exactly 'Task Completed'.
+          // The iOS deferred-payment spec waits for an alert titled exactly 'Task Completed'. Like the
+          // native iOS test app, skip it when a handoff is configured: it would sit on top of the
+          // 'Finished with Handoff' alert the handoff spec looks for.
           if (
             Platform.OS === 'ios' &&
+            !config.handoff &&
             String(state).toUpperCase() === 'COMPLETED'
           ) {
             enqueueAlert(

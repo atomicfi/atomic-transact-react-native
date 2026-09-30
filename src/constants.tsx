@@ -66,3 +66,15 @@ export const Step = {
 } as const;
 
 export type StepType = (typeof Step)[keyof typeof Step] | (string & {});
+
+// Views Transact hands off to the host app instead of showing. Transact emits the matching
+// event (onFinish or onClose) in their place, with `handoff` set to the value in its data.
+export const Handoff = {
+  EXIT_PROMPT: 'exit-prompt',
+  AUTHENTICATION_SUCCESS: 'authentication-success',
+  HIGH_LATENCY: 'high-latency',
+  SELECTED_COMPANY: 'selected-company',
+} as const;
+
+export type HandoffType =
+  (typeof Handoff)[keyof typeof Handoff] | (string & {});

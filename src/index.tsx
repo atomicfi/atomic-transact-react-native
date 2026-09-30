@@ -2,7 +2,12 @@ import { Appearance, NativeModules, Platform } from 'react-native';
 import { AtomicIOS } from './ios';
 import { AtomicAndroid } from './android';
 import * as CONSTANTS from './constants';
-import type { PresentationStyleIOS, AppType, StepType } from './constants';
+import type {
+  PresentationStyleIOS,
+  AppType,
+  StepType,
+  HandoffType,
+} from './constants';
 import pkg from '../package.json';
 import {
   addTransaction,
@@ -77,7 +82,12 @@ interface Config {
   deeplink?: DeeplinkOptions;
   metadata?: Object;
   search?: Object;
-  handoff?: String;
+  /**
+   * Views to hand off to the host app instead of showing them, e.g.
+   * `[Handoff.AUTHENTICATION_SUCCESS]`. Transact emits `onFinish` or `onClose` in their
+   * place, with `handoff` set in the event data. Must be an array, as in the native SDKs.
+   */
+  handoff?: HandoffType[];
   experiments?: Object;
   tasks: Task[];
   customer?: Customer;
@@ -92,12 +102,14 @@ export const {
   PresentationStyles,
   App,
   Step,
+  Handoff,
 } = CONSTANTS;
 export type {
   TransactEnvironment,
   PresentationStyleIOS,
   AppType,
   StepType,
+  HandoffType,
 } from './constants';
 export type { DeeplinkOptions };
 
@@ -148,6 +160,12 @@ export const Atomic = {
       config.theme.dark !== undefined
         ? config.theme.dark
         : Appearance.getColorScheme() === 'dark';
+
+    // Transact only accepts an array: iOS fails to decode anything else, and on Android Transact
+    // rejects the config as invalid. This type used to declare a string, so wrap one.
+    if (typeof config.handoff === 'string') {
+      config.handoff = [config.handoff];
+    }
 
     // One id per launch. Register the handlers BEFORE the native call so a fast-emitting
     // native side can't deliver an event before the registry entry exists.
