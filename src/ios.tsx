@@ -1,6 +1,7 @@
 import { NativeEventEmitter } from 'react-native';
 import * as CONSTANTS from './constants';
 import {
+  failTransaction,
   handleNativeEvent,
   removeTransaction,
   type TransactEventName,
@@ -85,7 +86,8 @@ export const AtomicIOS = {
           removeTransaction(instanceId);
         }
       })
-      .catch(() => removeTransaction(instanceId));
+      // The launch failed before Transact presented, so no other callback will fire for it.
+      .catch((error: unknown) => failTransaction(instanceId, error));
   },
   hideTransact(TransactReactNative: any): Promise<void> {
     return TransactReactNative.hideTransact();

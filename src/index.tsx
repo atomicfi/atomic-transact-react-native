@@ -137,7 +137,11 @@ export const Atomic = {
     onFinish?: Function;
     onClose?: Function;
     onCleanup?: Function;
-    /** In-flow SDK error. iOS only — Android surfaces no equivalent callback. */
+    /**
+     * In-flow SDK error. iOS only — Android surfaces no equivalent callback. Also called with
+     * `{ code, message }` when Transact fails to launch: `no_presenting_view_controller`,
+     * `config_serialization_failed` or `config_decode_failed`.
+     */
     onError?: Function;
     presentationStyleIOS?: PresentationStyleIOS;
     setDebug?: boolean;

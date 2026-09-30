@@ -3,6 +3,7 @@ import {
   addTransaction,
   createInstanceId,
   dispatchEvent,
+  failTransaction,
   getActiveCount,
   handleNativeEvent,
   hasTransaction,
@@ -120,6 +121,70 @@ describe('teardown semantics (onCleanup only)', () => {
     expect(getActiveCount()).toBe(1);
     removeTransaction('A');
     expect(getActiveCount()).toBe(0);
+  });
+});
+
+describe('failTransaction (launch rejected before Transact presented)', () => {
+  it('reports the rejection code and message to onError and evicts the entry', () => {
+    const onError = jest.fn();
+    addTransaction('A', { onError });
+
+    failTransaction('A', {
+      code: 'no_presenting_view_controller',
+      message: 'No view controller to present Transact from',
+    });
+
+    expect(onError).toHaveBeenCalledTimes(1);
+    expect(onError).toHaveBeenCalledWith({
+      code: 'no_presenting_view_controller',
+      message: 'No view controller to present Transact from',
+    });
+    expect(hasTransaction('A')).toBe(false);
+  });
+
+  it('only reports to the task whose launch failed', () => {
+    const a = jest.fn();
+    const b = jest.fn();
+    addTransaction('A', { onError: a });
+    addTransaction('B', { onError: b });
+
+    failTransaction('A', { code: 'config_decode_failed', message: 'bad' });
+
+    expect(a).toHaveBeenCalledTimes(1);
+    expect(b).not.toHaveBeenCalled();
+    expect(hasTransaction('B')).toBe(true);
+  });
+
+  it('falls back to a generic code for a rejection without one', () => {
+    const onError = jest.fn();
+    addTransaction('A', { onError });
+
+    failTransaction('A', 'boom');
+
+    expect(onError).toHaveBeenCalledWith({
+      code: 'launch_failed',
+      message: 'boom',
+    });
+  });
+
+  it('still evicts the entry when there is no onError handler, or it throws', () => {
+    addTransaction('A', {});
+    failTransaction('A', { code: 'x', message: 'y' });
+    expect(hasTransaction('A')).toBe(false);
+
+    addTransaction('B', {
+      onError: () => {
+        throw new Error('handler failed');
+      },
+    });
+    expect(() => failTransaction('B', { code: 'x', message: 'y' })).toThrow(
+      'handler failed'
+    );
+    expect(hasTransaction('B')).toBe(false);
+  });
+
+  it('is a safe no-op for an unknown instanceId', () => {
+    expect(() => failTransaction('nope', { code: 'x' })).not.toThrow();
   });
 });
 
