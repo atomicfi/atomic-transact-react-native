@@ -106,7 +106,7 @@ jobs:
           cache: 'yarn'
 
       - name: 🏗 Set up JDK 17
-        uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
         with:
           distribution: temurin
           java-version: 17
@@ -172,7 +172,7 @@ jobs:
       # version 4"), which makes the emulator-runner action fail to download the emulator with
       # "Error on ZipFile unknown archive". Installing current command-line tools first avoids it.
       - name: 🏗 Setup Android SDK
-        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3.2.2
+        uses: android-actions/setup-android@be39fa834029ff78f1a44aa3bb0819b8fc2bd8fd # v4.0.4
         with:
           # The action's default package list includes the legacy `tools` package, which Google has
           # removed from the repository; asking for it fails the whole step.
@@ -190,7 +190,7 @@ jobs:
           sudo udevadm trigger --name-match=kvm
 
       - name: 🧪 Run the conformance suite
-        uses: reactivecircus/android-emulator-runner@62dbb605bba737720e10b196cb4220d374026a6d # v2.33.0
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
         with:
           # Transact Android 3.25.0+ needs WebView's MULTI_PROFILE feature (WebView 119+) and closes
           # with `unsupported-provider` without it. The emulator can't update its WebView, so the
