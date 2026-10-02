@@ -102,21 +102,14 @@ export default function App() {
       log(`Config: ${stringify(config)}`);
       setStatus('Transact launched');
 
-      // The native test apps implement these; the RN bridge has no equivalent on Android, so say so
-      // rather than launching and letting the spec time out with no explanation.
+      // The native test apps implement this; the RN bridge has no equivalent, so say so rather than
+      // launching and letting the spec time out with no explanation.
       const customFlow = extras.TRANSACT_CUSTOM_FLOW?.toUpperCase();
       if (customFlow) {
         log(`Custom flow requested: ${customFlow}`);
         if (customFlow === 'FRAGMENT_FLOW') {
           log(
             'Custom flow FRAGMENT_FLOW is not supported: the React Native SDK presents Transact itself and exposes no fragment host.'
-          );
-        } else if (
-          customFlow === 'DISMISS_ON_AUTH_STATUS_UPDATE_AUTHENTICATED' &&
-          Platform.OS === 'android'
-        ) {
-          log(
-            'Custom flow DISMISS_ON_AUTH_STATUS_UPDATE_AUTHENTICATED is not supported on Android: Atomic.hideTransact() is iOS-only.'
           );
         }
       }
@@ -147,16 +140,16 @@ export default function App() {
             state === 'AUTHENTICATED' &&
             customFlow === 'DISMISS_ON_AUTH_STATUS_UPDATE_AUTHENTICATED'
           ) {
-            // Atomic.hideTransact() is iOS-only in the bridge, so this custom flow only works here.
+            log('Hiding Transact on AUTHENTICATED');
+            Atomic.hideTransact();
+            // The native iOS test app then shows an alert titled with the custom flow name, which
+            // is what the spec asserts on (`~DISMISS_ON_AUTH_STATUS_UPDATE_AUTHENTICATED`). The
+            // Android spec looks for this app's home screen instead.
+            //
+            // It has to wait until Transact is actually gone: RN presents alerts from the topmost
+            // view controller, so one fired while Transact is still dismissing is silently dropped.
+            // enqueueAlert defers presentation briefly for that reason.
             if (Platform.OS === 'ios') {
-              log('Hiding Transact on AUTHENTICATED');
-              Atomic.hideTransact();
-              // The native iOS test app then shows an alert titled with the custom flow name, which
-              // is what the spec asserts on (`~DISMISS_ON_AUTH_STATUS_UPDATE_AUTHENTICATED`).
-              //
-              // It has to wait until Transact is actually gone: RN presents alerts from the topmost
-              // view controller, so one fired while Transact is still dismissing is silently dropped.
-              // enqueueAlert defers presentation briefly for that reason.
               enqueueAlert(customFlow);
             }
           }

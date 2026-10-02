@@ -83,4 +83,7 @@ export const AtomicAndroid = {
       removeTransaction(instanceId);
     });
   },
+  hideTransact(TransactReactNative: any): Promise<void> {
+    return TransactReactNative.hideTransact();
+  },
 };

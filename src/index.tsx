@@ -118,7 +118,7 @@ export interface TransactTask {
   instanceId: string;
   /**
    * Stop receiving this task's callbacks on the JS side. Does not close the native UI
-   * (iOS dismiss is process-global); use it to detach a task you no longer care about.
+   * (hideTransact is process-global); use it to detach a task you no longer care about.
    */
   remove(): void;
 }
@@ -216,7 +216,8 @@ export const Atomic = {
         AtomicIOS.hideTransact(TransactReactNative);
         break;
       case 'android':
-        throw new Error(`Unsupported OS: ${Platform.OS}`);
+        AtomicAndroid.hideTransact(TransactReactNative);
+        break;
       default:
         throw new Error(`Unsupported OS: ${Platform.OS}`);
     }

@@ -184,6 +184,14 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     }
   }
 
+  // Hides, rather than closes, every presented session, like Atomic.hideTransact() on iOS: the
+  // SDK's DISMISS broadcast carries no instanceId, and no onClose/onCleanup fires.
+  @ReactMethod
+  fun hideTransact(promise: Promise) {
+    Transact.hideTransact(reactApplicationContext)
+    promise.resolve(null)
+  }
+
   companion object {
     const val NAME = "TransactReactNative"
   }
