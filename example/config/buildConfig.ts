@@ -54,7 +54,7 @@ export function useTransact(): {
       ...callbacks,
       // Log the request (via callbacks.onDataRequest) and return the configured
       // identity/card so deferred payments (deferredPaymentMethodStrategy: sdk)
-      // can resolve. The response round-trip is iOS-only in the RN bridge.
+      // can resolve.
       onDataRequest: (request: any) => {
         callbacks.onDataRequest(request);
         return makeResponse();
