@@ -1,5 +1,7 @@
 const mockIOSTransact = jest.fn();
 const mockAndroidTransact = jest.fn();
+const mockIOSHideTransact = jest.fn();
+const mockAndroidHideTransact = jest.fn();
 
 jest.mock('react-native', () => ({
   Platform: { OS: 'ios', select: (obj: any) => obj.ios ?? obj.default },
@@ -10,17 +12,26 @@ jest.mock('react-native', () => ({
 }));
 
 jest.mock('../ios', () => ({
-  AtomicIOS: { transact: (...args: any[]) => mockIOSTransact(...args) },
+  AtomicIOS: {
+    transact: (...args: any[]) => mockIOSTransact(...args),
+    hideTransact: (...args: any[]) => mockIOSHideTransact(...args),
+  },
 }));
 jest.mock('../android', () => ({
-  AtomicAndroid: { transact: (...args: any[]) => mockAndroidTransact(...args) },
+  AtomicAndroid: {
+    transact: (...args: any[]) => mockAndroidTransact(...args),
+    hideTransact: (...args: any[]) => mockAndroidHideTransact(...args),
+  },
 }));
 
+import { Platform } from 'react-native';
 import { Atomic, Handoff, Step } from '../index';
 
 beforeEach(() => {
   mockIOSTransact.mockClear();
   mockAndroidTransact.mockClear();
+  mockIOSHideTransact.mockClear();
+  mockAndroidHideTransact.mockClear();
 });
 
 describe('account deeplink config', () => {
@@ -121,5 +132,34 @@ describe('handoff config', () => {
 
     const { config } = mockIOSTransact.mock.calls[0][0];
     expect(config).not.toHaveProperty('handoff');
+  });
+});
+
+describe('hideTransact', () => {
+  const setOS = (os: string) => {
+    (Platform as any).OS = os;
+  };
+
+  afterEach(() => setOS('ios'));
+
+  it('hides Transact on iOS', () => {
+    Atomic.hideTransact();
+
+    expect(mockIOSHideTransact).toHaveBeenCalledTimes(1);
+    expect(mockAndroidHideTransact).not.toHaveBeenCalled();
+  });
+
+  it('hides Transact on Android', () => {
+    setOS('android');
+
+    expect(() => Atomic.hideTransact()).not.toThrow();
+    expect(mockAndroidHideTransact).toHaveBeenCalledTimes(1);
+    expect(mockIOSHideTransact).not.toHaveBeenCalled();
+  });
+
+  it('throws on other platforms', () => {
+    setOS('web');
+
+    expect(() => Atomic.hideTransact()).toThrow('Unsupported OS: web');
   });
 });
