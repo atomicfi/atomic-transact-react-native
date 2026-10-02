@@ -92,9 +92,6 @@ surfaces the `actionType`.
 - Actions run through `Atomic.transact()` with a task of
   `{ operation: 'action', action: { id }, headless }` and `scope: 'pay-link'` —
   there is no separate `presentAction()` API.
-- The `onDataRequest → response` round-trip and `hideTransact` ("dismiss after
-  auth") are iOS-only in the RN bridge, so the Data Request Provider screen and
-  dismiss-after-auth toggle from the native demos are intentionally omitted.
 
 ## Scripts
 
