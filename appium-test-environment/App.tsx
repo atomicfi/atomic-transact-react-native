@@ -136,11 +136,15 @@ export default function App() {
           log('callback:Interaction');
         },
         onAuthStatusUpdate: (update: any) => {
-          const state = String(update?.status ?? stringify(update));
+          // The bridge reports statuses in lower case; the native test app logs the SDK's enum
+          // names, which is what the specs match.
+          const state = String(
+            update?.status ?? stringify(update)
+          ).toUpperCase();
           log(`RECEIVER auth status updated ${state}`);
 
           if (
-            state.toUpperCase() === 'AUTHENTICATED' &&
+            state === 'AUTHENTICATED' &&
             customFlow === 'DISMISS_ON_AUTH_STATUS_UPDATE_AUTHENTICATED'
           ) {
             // Atomic.hideTransact() is iOS-only in the bridge, so this custom flow only works here.
@@ -158,7 +162,10 @@ export default function App() {
           }
         },
         onTaskStatusUpdate: (update: any) => {
-          const state = update?.status ?? stringify(update);
+          // Upper case for the same reason as the auth status above.
+          const state = String(
+            update?.status ?? stringify(update)
+          ).toUpperCase();
           log(`RECEIVER task status updated ${state}`);
           // The iOS deferred-payment spec waits for an alert titled exactly 'Task Completed'. Like the
           // native iOS test app, skip it when a handoff is configured: it would sit on top of the
@@ -166,7 +173,7 @@ export default function App() {
           if (
             Platform.OS === 'ios' &&
             !config.handoff &&
-            String(state).toUpperCase() === 'COMPLETED'
+            state === 'COMPLETED'
           ) {
             enqueueAlert(
               'Task Completed',
@@ -184,26 +191,38 @@ export default function App() {
           }
           log(`RECEIVER data request ${stringify(request?.fields ?? request)}`);
 
+          // The same card and identity the native and Flutter test apps send. The SDKs drop keys
+          // they don't model, so it has to be `postalCode`: sent as `zipCode`, it never arrives and
+          // the Android task stalls after the data request.
           const response = {
             card: { number: '4111222233334444', expiry: '12/29', cvv: '444' },
             identity: {
               firstName: 'first',
               lastName: 'last',
-              zipCode: '12345',
+              postalCode: '12345',
               address: 'somewhere',
+              address2: '',
               city: 'someplace',
               state: 'UT',
             },
           };
 
           if (Platform.OS === 'ios') {
-            // The native iOS test app gates the response behind an alert so the spec can prove the
-            // request reached the host app; the spec taps '~RESPOND!'. The alert is informational
-            // here — the response is returned immediately either way, and tapping it is what the
-            // spec waits on.
-            Alert.alert('Data request', 'Respond to the data request', [
-              { text: 'RESPOND!' },
-            ]);
+            // Like the native iOS test app, hold the response until the spec taps '~RESPOND!', which
+            // proves the request reached the host app. The bridge awaits the returned promise.
+            // Responding straight away lets the task finish first, and the 'Task Completed' alert
+            // then takes the place of this one before the spec can tap it.
+            return new Promise((resolve) => {
+              Alert.alert('Data request', 'Respond to the data request', [
+                {
+                  text: 'RESPOND!',
+                  onPress: () => {
+                    log('Sent data response');
+                    resolve(response);
+                  },
+                },
+              ]);
+            });
           }
 
           // The Android deferred-payment spec waits for this log line.
