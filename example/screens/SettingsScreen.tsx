@@ -186,6 +186,12 @@ const SettingsScreen: React.FC = () => {
             onValueChange={(value) => update({ presentFullscreen: value })}
           />
         ) : null}
+        <ToggleRow
+          title="Pause & Resume"
+          subtitle="Pause Transact on its first interaction 5s after launch, then resume it from an alert"
+          value={settings.pauseAndResume}
+          onValueChange={(value) => update({ pauseAndResume: value })}
+        />
       </Card>
 
       <View style={styles.spacer} />

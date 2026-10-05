@@ -25,6 +25,7 @@ export interface SettingsState {
   language: LanguageOption;
   debug: boolean;
   presentFullscreen: boolean;
+  pauseAndResume: boolean;
 }
 
 const DEFAULT_SETTINGS: SettingsState = {
@@ -39,6 +40,7 @@ const DEFAULT_SETTINGS: SettingsState = {
   language: 'system',
   debug: false,
   presentFullscreen: false,
+  pauseAndResume: false,
 };
 
 export interface DemoTheme {
