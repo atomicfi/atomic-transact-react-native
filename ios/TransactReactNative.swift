@@ -7,6 +7,20 @@ class TransactReactNative: RCTEventEmitter {
 	// Data-request continuations keyed by instanceId, so concurrent/overlapping requests across
 	// tasks don't collide (the previous single handler was overwritten — SDK-658).
 	private var dataResponseHandlers: [String: (Any) -> Void] = [:]
+
+	// Launches that haven't completed or cleaned up yet, by instanceId.
+	private var liveInstanceIds: Set<String> = []
+
+	// A paused session and the launches it could belong to. The SDK pauses whichever Transact is
+	// presented without saying which, so that's every launch live at the time.
+	private struct PausedSession {
+		let ref: Atomic.PausedTransactRef
+		var instanceIds: Set<String>
+	}
+
+	// Keyed by the JS pauseId: a PausedTransactRef can't cross the bridge, so the JS ref names one
+	// held here until it's resumed or its session ends.
+	private var pausedSessions: [String: PausedSession] = [:]
 	
 	private func parseEnvironment(_ environmentData: [String: Any]) -> AtomicTransact.TransactEnvironment {
 		guard let environment = environmentData["environment"] as? String else {
@@ -41,6 +55,7 @@ class TransactReactNative: RCTEventEmitter {
 	// RCTPresentedViewController() is nil while no window scene is in the foreground: during launch
 	// before the window is key, or while the app is inactive or backgrounded. Wait briefly for one
 	// before giving up, so a call made as the app finishes launching still presents.
+	@MainActor
 	private func waitForPresentingViewController() async -> UIViewController? {
 		let deadline = Date().addingTimeInterval(2)
 		while Date() < deadline {
@@ -50,6 +65,48 @@ class TransactReactNative: RCTEventEmitter {
 			try? await Task.sleep(nanoseconds: 100_000_000)
 		}
 		return RCTPresentedViewController()
+	}
+
+	// Whether a presentation or dismissal is in flight in any visible window. Transact's may not be in
+	// the key window.
+	@MainActor
+	private func isTransitioning() -> Bool {
+		let windows = UIApplication.shared.connectedScenes
+			.compactMap { $0 as? UIWindowScene }
+			.flatMap { $0.windows }
+			.filter { !$0.isHidden }
+		for window in windows {
+			var controller = window.rootViewController
+			while let current = controller {
+				if current.transitionCoordinator != nil || current.isBeingPresented || current.isBeingDismissed {
+					return true
+				}
+				controller = current.presentedViewController
+			}
+		}
+		return false
+	}
+
+	// Waits briefly for a presentation or dismissal in flight to finish. UIKit drops a presentation
+	// made mid-transition, and the SDK returns from pauseTransact as soon as Transact starts animating
+	// out: resuming before that dismissal finishes leaves Transact parked out of sight.
+	@MainActor
+	private func waitForTransitions() async {
+		let deadline = Date().addingTimeInterval(2)
+		while Date() < deadline, isTransitioning() {
+			try? await Task.sleep(nanoseconds: 50_000_000)
+		}
+	}
+
+	// An ended session can't be resumed: the SDK would bring back a session that already reported its
+	// end, or once cleaned up a torn-down screen the user can't close. Drop the paused sessions only
+	// this launch could have owned.
+	private func endSession(_ instanceId: String) {
+		liveInstanceIds.remove(instanceId)
+		for (pauseId, var session) in pausedSessions {
+			session.instanceIds.remove(instanceId)
+			pausedSessions[pauseId] = session.instanceIds.isEmpty ? nil : session
+		}
 	}
 
 	// A launch that fails before Transact presents gets no other callback, so it must reject; the
@@ -94,6 +151,7 @@ class TransactReactNative: RCTEventEmitter {
 
 				let config = try decoder.decode(AtomicConfig.self, from: data)
 
+				self.liveInstanceIds.insert(instanceId)
 				Atomic.presentTransact(
 					from: source, config: config, environment: parsedEnvironment, presentationStyle: parsedPresentationStyle,
 					onInteraction: { interaction in
@@ -137,6 +195,8 @@ class TransactReactNative: RCTEventEmitter {
 						self.sendEvent(withName: "onLaunch", body: ["instanceId": instanceId, "data": NSNull()])
 					},
 					onCompletion: { result in
+						// Finished, closed or failed, the SDK has hidden it for good: nothing to pause or resume.
+						self.endSession(instanceId)
 						switch result {
 						case .finished(let response):
 							self.sendEvent(withName: "onFinish", body: ["instanceId": instanceId, "data": response.data])
@@ -162,6 +222,7 @@ class TransactReactNative: RCTEventEmitter {
 					onCleanup: {
 						self.sendEvent(withName: "onCleanup", body: ["instanceId": instanceId, "data": NSNull()])
 						self.dataResponseHandlers[instanceId] = nil
+						self.endSession(instanceId)
 					}
 				)
 			}
@@ -186,6 +247,63 @@ class TransactReactNative: RCTEventEmitter {
 			// Atomic.hideTransact() is non-throwing and process-global (hides every presented
 			// session). Resolve so the JS promise settles instead of hanging forever.
 			Atomic.hideTransact()
+			resolve(nil)
+		}
+	}
+
+	// Pauses whichever Transact is presented, like Atomic.pauseTransact(): it isn't tied to a task.
+	@objc(pauseTransact:animated:withResolver:withRejecter:)
+	func pauseTransact(pauseId: String, animated: Bool, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+		Task { @MainActor in
+			// Let a presentation in flight finish first, e.g. a resume's: the SDK can't hide Transact
+			// while it's still animating in.
+			await self.waitForTransitions()
+			do {
+				let ref = try await Atomic.pauseTransact(animated: animated)
+				// A launch already known to be paused can't have answered this pause.
+				let paused = self.pausedSessions.values.filter { $0.instanceIds.count == 1 }.flatMap { $0.instanceIds }
+				self.pausedSessions[pauseId] = PausedSession(ref: ref, instanceIds: self.liveInstanceIds.subtracting(paused))
+				// Resolve once Transact is gone, so resuming straight away can present it again.
+				await self.waitForTransitions()
+				resolve(nil)
+			} catch Atomic.PauseTransactError.transactNotPresented {
+				// A paused Transact doesn't answer the SDK's request, so a second pause lands here too.
+				// Report it as Android does.
+				if self.pausedSessions.isEmpty {
+					reject("transact_not_presented", "No Transact is currently presented", nil)
+				} else {
+					reject("transact_already_paused", "Transact is already paused", nil)
+				}
+			} catch {
+				reject("pause_failed", String(describing: error), nil)
+			}
+		}
+	}
+
+	@objc(resumeTransact:animated:withResolver:withRejecter:)
+	func resumeTransact(pauseId: String, animated: Bool, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+		Task { @MainActor in
+			guard self.pausedSessions[pauseId] != nil else {
+				reject("no_paused_transact", "No paused Transact to resume", nil)
+				return
+			}
+
+			await self.waitForTransitions()
+			guard let source = await self.waitForPresentingViewController(), !self.isTransitioning() else {
+				// Keep the session, so the app can resume once it has a screen to present from.
+				reject("no_presenting_view_controller", "No view controller to resume Transact from", nil)
+				return
+			}
+
+			// Taken only now: a second resume of this ref, or the session's cleanup, may have happened
+			// while this one waited.
+			guard let session = self.pausedSessions.removeValue(forKey: pauseId) else {
+				reject("no_paused_transact", "No paused Transact to resume", nil)
+				return
+			}
+			session.ref.resume(source: source, animated: animated)
+			// Resolve once Transact is back, so pausing straight away can hide it again.
+			await self.waitForTransitions()
 			resolve(nil)
 		}
 	}

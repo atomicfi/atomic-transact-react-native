@@ -92,4 +92,20 @@ export const AtomicIOS = {
   hideTransact(TransactReactNative: any): Promise<void> {
     return TransactReactNative.hideTransact();
   },
+  // The native side holds the SDK's PausedTransactRef under pauseId until it's resumed or its
+  // session ends.
+  pauseTransact(
+    TransactReactNative: any,
+    pauseId: string,
+    animated: boolean
+  ): Promise<void> {
+    return TransactReactNative.pauseTransact(pauseId, animated);
+  },
+  resumeTransact(
+    TransactReactNative: any,
+    pauseId: string,
+    animated: boolean
+  ): Promise<void> {
+    return TransactReactNative.resumeTransact(pauseId, animated);
+  },
 };

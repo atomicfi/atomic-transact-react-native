@@ -123,6 +123,45 @@ export interface TransactTask {
   remove(): void;
 }
 
+export interface PauseTransactOptions {
+  /** Animate Transact out. Defaults to `true`. Android ignores it. */
+  animated?: boolean;
+}
+
+export interface ResumeTransactOptions {
+  /** Animate Transact back in. Defaults to `true`. Android ignores it. */
+  animated?: boolean;
+}
+
+/** A paused Transact session, returned by `Atomic.pauseTransact()`. */
+export interface PausedTransactRef {
+  /**
+   * Presents the paused Transact again, from the app's topmost screen. Resolves once it's back.
+   *
+   * Rejects with `no_paused_transact` once this session has been resumed or has ended. Rejects
+   * with `no_presenting_view_controller` (iOS) or `no_activity` (Android) while the app has no
+   * screen to present from, and with `resume_failed` (Android) if the SDK can't show it. The
+   * session stays paused in those cases, so resume again once the app is in the foreground.
+   */
+  resume(options?: ResumeTransactOptions): Promise<void>;
+}
+
+// Names each paused session for the native side, which holds the SDK's PausedTransactRef: it
+// can't cross the bridge. Process-unique, like a task's instanceId.
+let pauseCount = 0;
+
+// Pause and resume work the same way on both platforms, so they share one entry point.
+function pausePlatform(): typeof AtomicIOS | typeof AtomicAndroid {
+  switch (Platform.OS) {
+    case 'ios':
+      return AtomicIOS;
+    case 'android':
+      return AtomicAndroid;
+    default:
+      throw new Error(`Unsupported OS: ${Platform.OS}`);
+  }
+}
+
 export const Atomic = {
   transact({
     config,
@@ -221,5 +260,39 @@ export const Atomic = {
       default:
         throw new Error(`Unsupported OS: ${Platform.OS}`);
     }
+  },
+  /**
+   * Hides the presented Transact and returns a reference to present it again later, e.g. to
+   * show one of your own screens mid-flow. Resolves once Transact has left the screen.
+   *
+   * Like the native SDKs, it pauses a Transact rather than a particular task. Don't call it while
+   * an action is running, even alongside a presented Transact: on iOS it hides both and the ref
+   * may bring back only the action, and on Android it may pause the action and leave the
+   * presented Transact on screen.
+   *
+   * The session stays alive while paused. Its `onTaskStatusUpdate` and `onAuthStatusUpdate`
+   * callbacks keep arriving. No `onClose` or `onCleanup` fires for the pause. Your app can't close
+   * a paused session, so resume it when you're done: one that's never resumed keeps running until
+   * Transact ends it itself (e.g. on a handoff) or the app's process exits.
+   *
+   * On Android, JS timers don't run while Transact covers the app, so call this from a callback
+   * or another event rather than a `setTimeout`.
+   *
+   * Rejects with `transact_not_presented` when no Transact is showing, `transact_already_paused`
+   * when it's already paused, or `pause_failed`.
+   */
+  async pauseTransact({
+    animated = true,
+  }: PauseTransactOptions = {}): Promise<PausedTransactRef> {
+    // Inside an async function, so an unsupported OS or an unlinked module rejects too.
+    const platform = pausePlatform();
+    pauseCount += 1;
+    const pauseId = `rn-pause-${pauseCount}-${Date.now()}`;
+
+    await platform.pauseTransact(TransactReactNative, pauseId, animated);
+    return {
+      resume: async ({ animated: resumeAnimated = true } = {}) =>
+        platform.resumeTransact(TransactReactNative, pauseId, resumeAnimated),
+    };
   },
 };

@@ -18,6 +18,16 @@ RCT_EXTERN_METHOD(resolveDataRequest:(NSString *)instanceId data:(id)data)
 RCT_EXTERN_METHOD(hideTransact:(RCTPromiseResolveBlock)resolve
                  withRejecter:(RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(pauseTransact:(NSString *)pauseId
+                  animated:(BOOL)animated
+                  withResolver:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(resumeTransact:(NSString *)pauseId
+                  animated:(BOOL)animated
+                  withResolver:(RCTPromiseResolveBlock)resolve
+                  withRejecter:(RCTPromiseRejectBlock)reject)
+
 + (BOOL)requiresMainQueueSetup
 {
   return NO;
