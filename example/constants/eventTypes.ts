@@ -1,6 +1,7 @@
 // Event categories surfaced in the Events tab. Every category here maps to a
-// Transact callback the RN SDK actually forwards (plus `error` for demo-side
-// failures like a failed actions fetch).
+// Transact callback the RN SDK actually forwards, plus `pause`/`resume` for the
+// demo's own pauseTransact calls and `error` for demo-side failures like a
+// failed actions fetch.
 
 export type EventType =
   | 'launch'
@@ -10,6 +11,8 @@ export type EventType =
   | 'taskStatusUpdate'
   | 'finish'
   | 'close'
+  | 'pause'
+  | 'resume'
   | 'error';
 
 interface EventMeta {
@@ -26,6 +29,8 @@ export const EVENT_META: Record<EventType, EventMeta> = {
   taskStatusUpdate: { label: 'TASK', title: 'Task Status', color: '#06b6d4' },
   finish: { label: 'FINISH', title: 'Finish', color: '#22c55e' },
   close: { label: 'CLOSE', title: 'Close', color: '#64748b' },
+  pause: { label: 'PAUSE', title: 'Pause', color: '#f59e0b' },
+  resume: { label: 'RESUME', title: 'Resume', color: '#14b8a6' },
   error: { label: 'ERROR', title: 'Error', color: '#ef4444' },
 };
 

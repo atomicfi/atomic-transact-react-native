@@ -27,7 +27,7 @@ On iOS the contract is different: parameters arrive as **process environment var
 | What the suite does | How it's satisfied here |
 | --- | --- |
 | Passes `TRANSACT_*` as launch environment variables | `AppiumHarness.m` reads `NSProcessInfo` — Metro inlines `process.env` at build time, so JS cannot |
-| Sends `atomictest://pause` / `resume` deep links | `expo.scheme` registers `atomictest`; `App.tsx` listens through RN `Linking`, which does not receive them yet (see Gotchas) |
+| Sends `atomictest://pause` / `resume` deep links | `expo.scheme` registers `atomictest`; `App.tsx` listens through RN `Linking` and calls `Atomic.pauseTransact()` / `resume()` |
 | Reads the `PauseStatus` element | Rendered by `App.tsx` |
 | Waits for alerts titled `Task Completed` / `Finished with Handoff: …`, taps `RESPOND!` | `Alert.alert` — RN renders a real `UIAlertController`, so XCUITest sees those labels |
 
@@ -121,10 +121,9 @@ Behaviors that are easy to trip over:
   a second alert presented while one is up hides the first from XCUITest. The auth-dismiss flow and
   the task-completed alert land within a second of each other. `enqueueAlert` serializes them; the
   native iOS test app does the same thing with its `nextAlertPresentation`.
-- **The `atomictest://` scheme collides with the native iOS test app**, which registers it too. With
-  both installed, `simctl openurl` routes to whichever iOS picks, so deep-link commands can land in
-  the wrong app. Anything relying on those (`pauseTransact`) needs a distinct scheme first.
-- **RN's `Linking` does not receive those URLs anyway.** The generated `AppDelegate` does
-  `super.application(app, open:options:) || RCTLinkingManager.application(...)`, so when Expo's
-  implementation handles the URL and returns true, `RCTLinkingManager` is never called and JS sees
-  no `url` event. A command channel here needs an Expo AppDelegate subscriber or `expo-linking`.
+- **The `atomictest://` scheme is shared with the native iOS test app**, which registers it too. The
+  suite's `mobile: deepLink` passes this app's bundle id, so its commands land here; a bare
+  `simctl openurl` routes to whichever app iOS picks, and asks for confirmation first.
+- **Pause and resume emit no callbacks.** Like a hide, a pause fires no `onClose`/`onCleanup`, and
+  pausing on Android brings `MainActivity` back to the front, which re-emits `AppiumHarnessLaunch`
+  with the same `TRANSACT_LAUNCH_ID`; the launch dedupe ignores it.

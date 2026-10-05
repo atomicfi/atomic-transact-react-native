@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Alert, Linking, Platform, StyleSheet, Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Atomic } from '@atomicfi/transact-react-native';
+import type { PausedTransactRef } from '@atomicfi/transact-react-native';
 import {
   buildConfig,
   buildEnvironment,
@@ -31,12 +32,24 @@ const stringify = (value: unknown) => {
   }
 };
 
+// A bridge rejection carries the native error code alongside its message.
+const describeError = (error: unknown) => {
+  const { code, message } = (error ?? {}) as {
+    code?: unknown;
+    message?: unknown;
+  };
+  return code ? `${code}: ${message}` : String(error);
+};
+
 export default function App() {
   const [status, setStatus] = useState('Waiting for a launch intent…');
   // The iOS specs read this by accessibility id and expect the text 'paused' after
   // `atomictest://pause`, mirroring the native iOS test app's PauseStatus label.
   const [pauseStatus, setPauseStatus] = useState('');
   const lastLaunchId = useRef<string | null>(null);
+  const pausedTransact = useRef<PausedTransactRef | null>(null);
+  // Commands run one at a time, so a resume sent right behind a pause waits for its ref.
+  const commandQueue = useRef<Promise<void>>(Promise.resolve());
 
   /**
    * Alerts are presented one at a time.
@@ -77,6 +90,55 @@ export default function App() {
     },
     [presentNextAlert]
   );
+
+  /**
+   * Pause and resume commands: `atomictest://pause` / `resume` deep links on iOS,
+   * `PAUSE_TRANSACT` / `RESUME_TRANSACT` broadcasts on Android.
+   *
+   * The Android specs wait for the `Transact paused` / `Transact resumed` log lines and the iOS
+   * specs for PauseStatus to read `paused`, as the native test apps report them. Failures are
+   * worded to match neither.
+   */
+  const runCommand = useCallback((command: string) => {
+    const run = async () => {
+      switch (command.toUpperCase()) {
+        case 'PAUSE':
+        case 'PAUSE_TRANSACT':
+          setPauseStatus('');
+          try {
+            pausedTransact.current = await Atomic.pauseTransact();
+            log('Transact paused');
+            setPauseStatus('paused');
+          } catch (error) {
+            log(`Error pausing transact: ${describeError(error)}`);
+            setPauseStatus('pause-error');
+          }
+          return;
+        case 'RESUME':
+        case 'RESUME_TRANSACT': {
+          // Cleared rather than set to 'resumed': the spec pauses twice in one launch and reads
+          // PauseStatus the moment it appears, so nothing from the first round may linger.
+          setPauseStatus('');
+          const paused = pausedTransact.current;
+          if (!paused) {
+            log('No paused Transact to resume');
+            setPauseStatus('resume-error');
+            return;
+          }
+          try {
+            await paused.resume();
+            pausedTransact.current = null;
+            log('Transact resumed');
+          } catch (error) {
+            log(`Error resuming transact: ${describeError(error)}`);
+            setPauseStatus('resume-error');
+          }
+          return;
+        }
+      }
+    };
+    commandQueue.current = commandQueue.current.then(run);
+  }, []);
 
   const launch = useCallback(
     (extras: LaunchExtras) => {
@@ -280,16 +342,7 @@ export default function App() {
       if (!command) return;
 
       log(`RECEIVER command ${command}`);
-
-      if (command === 'pause' || command === 'resume') {
-        // The native iOS test app calls Atomic.pauseTransact() / resumeTransact() here. The React
-        // Native bridge exposes neither, so the status label reports the gap instead of silently
-        // leaving the spec to time out on a label that never changes.
-        setPauseStatus('pause-unsupported');
-        log(
-          `Command ${command} is not supported: the React Native SDK exposes no pause/resume API.`
-        );
-      }
+      runCommand(command);
     };
 
     Linking.getInitialURL().then(handleCommandUrl);
@@ -301,15 +354,8 @@ export default function App() {
       'AppiumHarnessCommand',
       (event: { command?: string; extras?: Record<string, string> }) => {
         log(`RECEIVER command ${event?.command} ${stringify(event?.extras)}`);
-        if (
-          event?.command === 'PAUSE_TRANSACT' ||
-          event?.command === 'RESUME_TRANSACT'
-        ) {
-          // The RN bridge exposes no pause/resume; logged so specs asserting on the broadcast
-          // still see it arrive, and so the gap is visible rather than silent.
-          log(
-            `Command ${event.command} is not supported by the React Native SDK`
-          );
+        if (event?.command) {
+          runCommand(event.command);
         }
       }
     );
@@ -319,18 +365,20 @@ export default function App() {
       commandSub?.remove();
       urlSub.remove();
     };
-  }, [launch]);
+  }, [launch, runCommand]);
 
   return (
     <View style={styles.container}>
       <StatusBar style="dark" />
-      <Text
-        accessibilityLabel="PauseStatus"
-        testID="PauseStatus"
-        style={styles.pauseStatus}
-      >
-        {pauseStatus}
-      </Text>
+      {/* Only while set: an empty element would still match `~PauseStatus`, and the spec reads its
+          text the moment it appears. testID only, like the native app's accessibilityIdentifier:
+          an accessibilityLabel would replace the text XCUITest reads. In the layout rather than
+          pinned to the top, where the status bar covers it and XCUITest counts it as not visible. */}
+      {pauseStatus ? (
+        <Text testID="PauseStatus" style={styles.pauseStatus}>
+          {pauseStatus}
+        </Text>
+      ) : null}
       <Text style={styles.title}>AppiumTestEnvironment</Text>
       <Text style={styles.status}>{status}</Text>
     </View>
@@ -348,8 +396,7 @@ const styles = StyleSheet.create({
   pauseStatus: {
     color: '#444444',
     fontSize: 12,
-    position: 'absolute',
-    top: 8,
+    marginBottom: 12,
   },
   status: {
     color: '#444444',
