@@ -3,6 +3,7 @@
 // swift-module-flags: -target arm64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 6 -enforce-exclusivity=checked -O -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature ExistentialAny -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -module-name MuppetIOS
 // swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.1
 import Combine
+import CoreFoundation
 import Foundation
 import Network
 import OSLog
@@ -133,6 +134,8 @@ public actor AsyncEmitter<T> where T : Swift.Sendable {
   case array([MuppetIOS.JSON])
   case string(Swift.String)
   case number(Swift.Double)
+  case integer(Swift.Int64)
+  case unsignedInteger(Swift.UInt64)
   case bool(Swift.Bool)
   case null
   #if compiler(>=5.3) && $NonescapableTypes
@@ -171,9 +174,9 @@ public actor AsyncEmitter<T> where T : Swift.Sendable {
   public var asAny: Any {
     get
   }
-  #if compiler(>=5.3) && $NonescapableTypes
-  public func value<T>() -> T?
-  #endif
+  public var asAnySendable: any Swift.Sendable {
+    get
+  }
   public var isNull: Swift.Bool {
     get
   }
@@ -194,8 +197,6 @@ public actor AsyncEmitter<T> where T : Swift.Sendable {
     get
   }
   #endif
-  public static func == (a: MuppetIOS.JSON, b: MuppetIOS.JSON) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
   public var hashValue: Swift.Int {
     get
   }
@@ -247,6 +248,10 @@ extension MuppetIOS.JSON : Swift.CustomDebugStringConvertible {
   public var debugDescription: Swift.String {
     get
   }
+}
+extension MuppetIOS.JSON {
+  public static func == (lhs: MuppetIOS.JSON, rhs: MuppetIOS.JSON) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
 }
 extension WebKit.WKWebView {
   public struct Response : Swift.Sendable, Swift.Codable {
@@ -460,6 +465,7 @@ extension MuppetIOS.Browser : @_Concurrency.MainActor Swift.Equatable, @_Concurr
   @_Concurrency.MainActor final public func makeChildPage(with configuration: WebKit.WKWebViewConfiguration) -> MuppetIOS.Page?
   #endif
   @_Concurrency.MainActor final public func goto(url urlString: Swift.String, headers: [Swift.String : Swift.String] = [:], timeout: Foundation.TimeInterval = 30) async throws
+  @_Concurrency.MainActor final public func goto(url: Foundation.URL, headers: [Swift.String : Swift.String] = [:], timeout: Foundation.TimeInterval = 30) async
   #if compiler(>=5.3) && $NonescapableTypes
   @_Concurrency.MainActor final public var currentURL: Swift.String? {
     get

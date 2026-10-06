@@ -3477,13 +3477,20 @@
       },
       {
         "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
+        "name": "CoreFoundation",
+        "printedName": "CoreFoundation",
         "declKind": "Import",
         "moduleName": "MuppetIOS",
         "declAttributes": [
           "RawDocComment"
         ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "MuppetIOS"
       },
       {
         "kind": "TypeDecl",
@@ -3714,6 +3721,112 @@
           },
           {
             "kind": "Var",
+            "name": "integer",
+            "printedName": "integer",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MuppetIOS.JSON.Type) -> (Swift.Int64) -> MuppetIOS.JSON",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Int64) -> MuppetIOS.JSON",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "JSON",
+                        "printedName": "MuppetIOS.JSON",
+                        "usr": "s:9MuppetIOS4JSONO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int64",
+                        "printedName": "Swift.Int64",
+                        "usr": "s:s5Int64V"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MuppetIOS.JSON.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "JSON",
+                        "printedName": "MuppetIOS.JSON",
+                        "usr": "s:9MuppetIOS4JSONO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:9MuppetIOS4JSONO7integeryACs5Int64VcACmF",
+            "mangledName": "$s9MuppetIOS4JSONO7integeryACs5Int64VcACmF",
+            "moduleName": "MuppetIOS",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "unsignedInteger",
+            "printedName": "unsignedInteger",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(MuppetIOS.JSON.Type) -> (Swift.UInt64) -> MuppetIOS.JSON",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.UInt64) -> MuppetIOS.JSON",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "JSON",
+                        "printedName": "MuppetIOS.JSON",
+                        "usr": "s:9MuppetIOS4JSONO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UInt64",
+                        "printedName": "Swift.UInt64",
+                        "usr": "s:s6UInt64V"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "MuppetIOS.JSON.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "JSON",
+                        "printedName": "MuppetIOS.JSON",
+                        "usr": "s:9MuppetIOS4JSONO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:9MuppetIOS4JSONO15unsignedIntegeryACs6UInt64VcACmF",
+            "mangledName": "$s9MuppetIOS4JSONO15unsignedIntegeryACs6UInt64VcACmF",
+            "moduleName": "MuppetIOS",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "bool",
             "printedName": "bool",
             "children": [
@@ -3829,7 +3942,8 @@
             "mangledName": "$s9MuppetIOS4JSONOyACypSgcfc",
             "moduleName": "MuppetIOS",
             "declAttributes": [
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "init_kind": "Designated"
           },
@@ -4070,7 +4184,8 @@
             "mangledName": "$s9MuppetIOS4JSONO8asDoubleSdSgvp",
             "moduleName": "MuppetIOS",
             "declAttributes": [
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "accessors": [
               {
@@ -4126,7 +4241,8 @@
             "mangledName": "$s9MuppetIOS4JSONO5asIntSiSgvp",
             "moduleName": "MuppetIOS",
             "declAttributes": [
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "accessors": [
               {
@@ -4229,7 +4345,8 @@
             "mangledName": "$s9MuppetIOS4JSONO5asAnyypvp",
             "moduleName": "MuppetIOS",
             "declAttributes": [
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "accessors": [
               {
@@ -4252,34 +4369,45 @@
             ]
           },
           {
-            "kind": "Function",
-            "name": "value",
-            "printedName": "value()",
+            "kind": "Var",
+            "name": "asAnySendable",
+            "printedName": "asAnySendable",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "Optional",
-                "printedName": "τ_0_0?",
+                "name": "Sendable",
+                "printedName": "any Swift.Sendable",
+                "usr": "s:s8SendableP"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:9MuppetIOS4JSONO13asAnySendables0F0_pvp",
+            "mangledName": "$s9MuppetIOS4JSONO13asAnySendables0F0_pvp",
+            "moduleName": "MuppetIOS",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "GenericTypeParam",
-                    "printedName": "τ_0_0"
+                    "name": "Sendable",
+                    "printedName": "any Swift.Sendable",
+                    "usr": "s:s8SendableP"
                   }
                 ],
-                "usr": "s:Sq"
+                "declKind": "Accessor",
+                "usr": "s:9MuppetIOS4JSONO13asAnySendables0F0_pvg",
+                "mangledName": "$s9MuppetIOS4JSONO13asAnySendables0F0_pvg",
+                "moduleName": "MuppetIOS",
+                "accessorKind": "get"
               }
-            ],
-            "declKind": "Func",
-            "usr": "s:9MuppetIOS4JSONO5valuexSgylF",
-            "mangledName": "$s9MuppetIOS4JSONO5valuexSgylF",
-            "moduleName": "MuppetIOS",
-            "genericSig": "<τ_0_0>",
-            "sugared_genericSig": "<T>",
-            "declAttributes": [
-              "AccessControl"
-            ],
-            "funcSelfKind": "NonMutating"
+            ]
           },
           {
             "kind": "Var",
@@ -4648,38 +4776,6 @@
             ]
           },
           {
-            "kind": "Function",
-            "name": "==",
-            "printedName": "==(_:_:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Bool",
-                "printedName": "Swift.Bool",
-                "usr": "s:Sb"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "JSON",
-                "printedName": "MuppetIOS.JSON",
-                "usr": "s:9MuppetIOS4JSONO"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "JSON",
-                "printedName": "MuppetIOS.JSON",
-                "usr": "s:9MuppetIOS4JSONO"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:9MuppetIOS4JSONO2eeoiySbAC_ACtFZ",
-            "mangledName": "$s9MuppetIOS4JSONO2eeoiySbAC_ACtFZ",
-            "moduleName": "MuppetIOS",
-            "static": true,
-            "implicit": true,
-            "funcSelfKind": "NonMutating"
-          },
-          {
             "kind": "Var",
             "name": "hashValue",
             "printedName": "hashValue",
@@ -4717,31 +4813,6 @@
                 "accessorKind": "get"
               }
             ]
-          },
-          {
-            "kind": "Function",
-            "name": "hash",
-            "printedName": "hash(into:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Hasher",
-                "printedName": "Swift.Hasher",
-                "paramValueOwnership": "InOut",
-                "usr": "s:s6HasherV"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:9MuppetIOS4JSONO4hash4intoys6HasherVz_tF",
-            "mangledName": "$s9MuppetIOS4JSONO4hash4intoys6HasherVz_tF",
-            "moduleName": "MuppetIOS",
-            "implicit": true,
-            "funcSelfKind": "NonMutating"
           },
           {
             "kind": "Constructor",
@@ -5211,6 +5282,71 @@
                 "accessorKind": "get"
               }
             ]
+          },
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "JSON",
+                "printedName": "MuppetIOS.JSON",
+                "usr": "s:9MuppetIOS4JSONO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "JSON",
+                "printedName": "MuppetIOS.JSON",
+                "usr": "s:9MuppetIOS4JSONO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9MuppetIOS4JSONO2eeoiySbAC_ACtFZ",
+            "mangledName": "$s9MuppetIOS4JSONO2eeoiySbAC_ACtFZ",
+            "moduleName": "MuppetIOS",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "hash",
+            "printedName": "hash(into:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Hasher",
+                "printedName": "Swift.Hasher",
+                "paramValueOwnership": "InOut",
+                "usr": "s:s6HasherV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9MuppetIOS4JSONO4hash4intoys6HasherVz_tF",
+            "mangledName": "$s9MuppetIOS4JSONO4hash4intoys6HasherVz_tF",
+            "moduleName": "MuppetIOS",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
           }
         ],
         "declKind": "Enum",
@@ -11475,6 +11611,62 @@
             "funcSelfKind": "NonMutating"
           },
           {
+            "kind": "Function",
+            "name": "goto",
+            "printedName": "goto(url:headers:timeout:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "hasDefaultArg": true,
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:9MuppetIOS4PageC4goto3url7headers7timeouty10Foundation3URLV_SDyS2SGSdtYaF",
+            "mangledName": "$s9MuppetIOS4PageC4goto3url7headers7timeouty10Foundation3URLV_SDyS2SGSdtYaF",
+            "moduleName": "MuppetIOS",
+            "declAttributes": [
+              "Final",
+              "Custom",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
             "kind": "Var",
             "name": "currentURL",
             "printedName": "currentURL",
@@ -13161,21 +13353,21 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/Cookie.swift",
       "kind": "StringLiteral",
-      "offset": 5538,
+      "offset": 5526,
       "length": 8,
       "value": "\"secure\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/Cookie.swift",
       "kind": "StringLiteral",
-      "offset": 5594,
+      "offset": 5582,
       "length": 9,
       "value": "\"expires\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Utils\/Cookie.swift",
       "kind": "StringLiteral",
-      "offset": 5630,
+      "offset": 5618,
       "length": 10,
       "value": "\"httpOnly\""
     },
@@ -13483,91 +13675,105 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 12010,
+      "offset": 12008,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "IntegerLiteral",
-      "offset": 14686,
+      "offset": 14684,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 15998,
+      "offset": 15996,
       "length": 5,
       "value": "\"GET\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 16053,
+      "offset": 16051,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "BooleanLiteral",
-      "offset": 16082,
+      "offset": 16080,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 16401,
+      "offset": 16399,
       "length": 5,
       "value": "\"GET\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 16472,
+      "offset": 16470,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "BooleanLiteral",
-      "offset": 16509,
+      "offset": 16507,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "StringLiteral",
-      "offset": 17711,
+      "offset": 17709,
       "length": 5,
       "value": "\"GET\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 17786,
+      "offset": 17784,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "BooleanLiteral",
-      "offset": 17815,
+      "offset": 17813,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "Dictionary",
-      "offset": 19652,
+      "offset": 19650,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
       "kind": "IntegerLiteral",
-      "offset": 19681,
+      "offset": 19679,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
+      "kind": "Dictionary",
+      "offset": 20010,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/MuppetIOS\/Page.swift",
+      "kind": "IntegerLiteral",
+      "offset": 20039,
       "length": 2,
       "value": "30"
     },
