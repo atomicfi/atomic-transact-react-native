@@ -4,6 +4,12 @@ on:
   pull_request:
     branches: [master]
   workflow_dispatch:
+    inputs:
+      conformance_ref:
+        description: "Branch, tag or SHA of atomicfi/mobile-conformance-tests to run (default: main)"
+        required: false
+        default: "main"
+        type: string
 
 permissions:
   contents: read
@@ -95,7 +101,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: atomicfi/mobile-conformance-tests
-          ref: main
+          ref: ${{ inputs.conformance_ref || 'main' }}
           ssh-key: ${{ secrets.CONFORMANCE_REPO_PULL_KEY }}
           path: conformance
 
@@ -161,12 +167,12 @@ jobs:
         working-directory: ./conformance/appium
         run: npm ci --include=dev
 
-      # Pinned to the versions this suite is verified against. `appium driver install uiautomator2`
-      # unpinned resolves to a driver that requires an Appium 3 server and fails against 2.x.
+      # Pinned to the versions this suite is verified against. The suite runs WebdriverIO 10, which
+      # requires Appium 3.
       - name: 🏗 Install Appium and the UiAutomator2 driver
         run: |
-          npm install -g appium@2.19.0
-          appium driver install uiautomator2@4.2.7
+          npm install -g appium@3.8.0
+          appium driver install uiautomator2@8.7.0
 
       # The runner image ships an sdkmanager too old for the current SDK metadata ("SDK XML
       # version 4"), which makes the emulator-runner action fail to download the emulator with
@@ -289,7 +295,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: atomicfi/mobile-conformance-tests
-          ref: main
+          ref: ${{ inputs.conformance_ref || 'main' }}
           ssh-key: ${{ secrets.CONFORMANCE_REPO_PULL_KEY }}
           path: conformance
 
@@ -378,12 +384,11 @@ jobs:
         working-directory: ./conformance/appium
         run: npm ci --include=dev
 
-      # Pinned for the same reason as the Android job: an unpinned xcuitest driver requires an
-      # Appium 3 server.
+      # Pinned for the same reason as the Android job.
       - name: 🏗 Install Appium and the XCUITest driver
         run: |
-          npm install -g appium@2.19.0
-          appium driver install xcuitest@9.10.1
+          npm install -g appium@3.8.0
+          appium driver install xcuitest@12.13.3
 
       - name: 📱 Boot a simulator
         run: |
