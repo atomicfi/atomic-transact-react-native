@@ -10,7 +10,7 @@
 		</data>
 		<key>Modules/Uplink.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		P4ds/2H0dU9m10eQO09lNsbcSvQ=
+		U+HQjCEgjKvJadloPwTOMlYR1Cs=
 		</data>
 		<key>Modules/Uplink.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Modules/Uplink.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		P4ds/2H0dU9m10eQO09lNsbcSvQ=
+		U+HQjCEgjKvJadloPwTOMlYR1Cs=
 		</data>
 		<key>Modules/Uplink.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -59,7 +59,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lK0k6kPG/tSTPuqRZqYRjLIb6C+Xc6KkbQzww4Cfu2M=
+			NiFJg9ZZhcr1vHoY5Ki6AKSi2tvlvh7KuQ8wyNy6zdM=
 			</data>
 		</dict>
 		<key>Modules/Uplink.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
@@ -94,7 +94,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lK0k6kPG/tSTPuqRZqYRjLIb6C+Xc6KkbQzww4Cfu2M=
+			NiFJg9ZZhcr1vHoY5Ki6AKSi2tvlvh7KuQ8wyNy6zdM=
 			</data>
 		</dict>
 		<key>Modules/Uplink.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
