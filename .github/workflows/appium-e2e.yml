@@ -206,6 +206,11 @@ jobs:
           target: google_apis
           arch: x86_64
           profile: pixel_6
+          # The action defaults to 2 cores and the profile's RAM. A starved emulator ANRs the launcher,
+          # and the "isn't responding" dialog then covers the app for every later spec. The ubuntu-latest
+          # runner has 4 vCPUs and 16 GB, so give the emulator all 4 cores and 4 GB.
+          cores: 4
+          ram-size: 4096M
           # Transact runs in a WebView, so the emulator needs to be a Google APIs image; the
           # default AOSP image ships no WebView provider Chromedriver can attach to.
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
