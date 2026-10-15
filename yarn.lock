@@ -1938,12 +1938,12 @@ __metadata:
   linkType: hard
 
 "@evilmartians/lefthook@npm:^2.1.6":
-  version: 2.2.0
-  resolution: "@evilmartians/lefthook@npm:2.2.0"
+  version: 2.2.2
+  resolution: "@evilmartians/lefthook@npm:2.2.2"
   bin:
     lefthook: bin/index.js
-  checksum: 10/a61966cfd1fc4c3307b231222833605f470581a35571185444c582a6b9abe32370eedad2e28d31055d26d39a224b37fee6ef89f5c0520141831a073777a5c1bc
-  conditions: (os=darwin | os=linux | os=win32) & (cpu=x64 | cpu=arm64 | cpu=ia32)
+  checksum: 10/7d707be7723f9257963e95a43ff13781c2b67aa17abf60f58c1701247a6903b6c4a271be38480b02b37b4727705d89bfb2d00bf4540642173ba95385d24fce0e
+  conditions: (os=darwin | os=linux | os=win32 | os=android) & (cpu=x64 | cpu=arm64 | cpu=ia32)
   languageName: node
   linkType: hard
 
