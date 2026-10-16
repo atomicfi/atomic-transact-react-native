@@ -3645,11 +3645,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:^26.3.0":
-  version: 26.6.4
-  resolution: "@types/node@npm:26.6.4"
+  version: 26.6.5
+  resolution: "@types/node@npm:26.6.5"
   dependencies:
     undici-types: "npm:~8.9.0"
-  checksum: 10/649173a03497020b8d3624a5149e0286bd175baf6d1df070c538637ccb256ce5554a76c5b63b454bda2cdb1821fa457e074477a75c3c78fc8f562d5c4a31cba8
+  checksum: 10/03780cc68280b566af47c0f673318e665258dbdcc953737a83c11593424d55aecb8b2642a573da33f76cb4dd5457379548388b78ab284cb3b762030e5d58b252
   languageName: node
   linkType: hard
 
@@ -5612,16 +5612,16 @@ __metadata:
   linkType: hard
 
 "del-cli@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "del-cli@npm:8.0.0"
+  version: 8.0.1
+  resolution: "del-cli@npm:8.0.1"
   dependencies:
     del: "npm:^9.0.1"
     meow: "npm:^14.1.0"
     presentable-error: "npm:^0.0.1"
   bin:
-    del: cli.js
+    del: del.js
     del-cli: cli.js
-  checksum: 10/c937a49a14364c064d2b8f2b248686da547b5daa557169e72351036f9cac08750058e99fed923f942b52ba8b94bdb7b3e51d14c1ea726561c016a317a3300506
+  checksum: 10/05fb356b787381ef55bc333fc9b391ec42f87a60bb90ab8e930822bee782c2158f6fa741cec78b27813625dc1d47971fc63586e3dfbf181244a7c89a11583bfe
   languageName: node
   linkType: hard
 
