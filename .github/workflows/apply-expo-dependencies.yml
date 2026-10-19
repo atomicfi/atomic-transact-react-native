@@ -56,17 +56,28 @@ jobs:
           [[ "$EVENT_HEAD_BRANCH" =~ ^dependabot/npm_and_yarn/(expo-compatible-patches|expo-sdk)-[A-Za-z0-9._/-]+$ ]]
           git check-ref-format "refs/heads/$EVENT_HEAD_BRANCH"
 
-          expected_entries=(
-            'example|d'
-            'example/app.json|f'
-            'example/package.json|f'
-            'metadata.json|f'
-            'package.json|f'
+          # Sort both lists with the same collation: '/' sorts before '|' in
+          # the C locale, so a hand-ordered list would never match.
+          mapfile -t expected_entries < <(
+            printf '%s\n' \
+              'appium-test-environment|d' \
+              'appium-test-environment/app.json|f' \
+              'appium-test-environment/package.json|f' \
+              'example|d' \
+              'example/app.json|f' \
+              'example/package.json|f' \
+              'metadata.json|f' \
+              'package.json|f' |
+              LC_ALL=C sort
           )
           mapfile -t actual_entries < <(
-            find "$INCOMING" -mindepth 1 -printf '%P|%y\n' | sort
+            find "$INCOMING" -mindepth 1 -printf '%P|%y\n' | LC_ALL=C sort
           )
-          [[ "${actual_entries[*]}" == "${expected_entries[*]}" ]]
+          if [[ "${actual_entries[*]}" != "${expected_entries[*]}" ]]; then
+            echo "Unexpected alignment artifact contents:" >&2
+            printf '  %s\n' "${actual_entries[@]}" >&2
+            exit 1
+          fi
 
           metadata="$INCOMING/metadata.json"
           jq -e \
@@ -109,7 +120,10 @@ jobs:
           ((${#pr_files[@]} > 0))
           for file in "${pr_files[@]}"; do
             case "$file" in
-              package.json|example/package.json|example/app.json|yarn.lock) ;;
+              package.json|yarn.lock) ;;
+              example/package.json|example/app.json) ;;
+              appium-test-environment/package.json) ;;
+              appium-test-environment/app.json) ;;
               *)
                 echo "Unexpected file in Expo Dependabot PR: $file" >&2
                 exit 1
@@ -158,17 +172,25 @@ jobs:
           cp "$INCOMING/package.json" package.json
           cp "$INCOMING/example/package.json" example/package.json
           cp "$INCOMING/example/app.json" example/app.json
+          cp "$INCOMING/appium-test-environment/package.json" \
+            appium-test-environment/package.json
+          cp "$INCOMING/appium-test-environment/app.json" \
+            appium-test-environment/app.json
 
-          if git diff --quiet HEAD -- \
-            package.json example/package.json example/app.json; then
+          manifests=(
+            package.json
+            example/package.json
+            example/app.json
+            appium-test-environment/package.json
+            appium-test-environment/app.json
+          )
+
+          if git diff --quiet HEAD -- "${manifests[@]}"; then
             echo 'has_changes=false' >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          git add -- \
-            package.json \
-            example/package.json \
-            example/app.json
+          git add -- "${manifests[@]}"
           node "$validator" "$GITHUB_WORKSPACE"
 
           # The checked-in Yarn binary regenerates the lockfile without running
@@ -184,7 +206,10 @@ jobs:
           )
           for file in "${changed_files[@]}"; do
             case "$file" in
-              package.json|example/package.json|example/app.json|yarn.lock) ;;
+              package.json|yarn.lock) ;;
+              example/package.json|example/app.json) ;;
+              appium-test-environment/package.json) ;;
+              appium-test-environment/app.json) ;;
               *)
                 echo "Lockfile generation changed an unexpected file: $file" >&2
                 exit 1
@@ -192,11 +217,7 @@ jobs:
             esac
           done
 
-          git add -- \
-            package.json \
-            example/package.json \
-            example/app.json \
-            yarn.lock
+          git add -- "${manifests[@]}" yarn.lock
           node "$validator" "$GITHUB_WORKSPACE"
           git diff --cached --check HEAD --
           echo 'has_changes=true' >> "$GITHUB_OUTPUT"

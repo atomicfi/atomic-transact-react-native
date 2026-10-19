@@ -8,6 +8,8 @@ on:
       - 'package.json'
       - 'example/package.json'
       - 'example/app.json'
+      - 'appium-test-environment/package.json'
+      - 'appium-test-environment/app.json'
       - 'yarn.lock'
 permissions:
   contents: read
@@ -62,9 +64,12 @@ jobs:
         run: |
           set -euo pipefail
           output="$RUNNER_TEMP/expo-alignment"
-          mkdir -p "$output/example"
+          mkdir -p "$output/example" "$output/appium-test-environment"
           cp package.json "$output/"
           cp example/package.json example/app.json "$output/example/"
+          cp appium-test-environment/package.json \
+            appium-test-environment/app.json \
+            "$output/appium-test-environment/"
 
           jq -n \
             --argjson pr_number "$PR_NUMBER" \

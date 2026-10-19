@@ -4,34 +4,43 @@ const { join } = require('node:path');
 
 const ROOT_DIRECTORY = join(__dirname, '..');
 const ROOT_PACKAGE_PATH = join(ROOT_DIRECTORY, 'package.json');
-const EXAMPLE_PACKAGE_PATH = join(ROOT_DIRECTORY, 'example', 'package.json');
+// Every Expo app workspace must stay on the Expo SDK cohort. The example app
+// is the source of truth for the root's shared development dependencies.
+const APP_WORKSPACES = [
+  { name: 'example', manifest: 'example/package.json' },
+  {
+    name: 'TransactAppiumTestEnvironment',
+    manifest: 'appium-test-environment/package.json',
+  },
+];
+const [EXAMPLE_WORKSPACE] = APP_WORKSPACES;
 
 const SHARED_DEPENDENCIES = [
   {
     name: 'react',
     rootSection: 'devDependencies',
-    exampleSection: 'dependencies',
+    appSection: 'dependencies',
   },
   {
     name: 'react-native',
     rootSection: 'devDependencies',
-    exampleSection: 'dependencies',
+    appSection: 'dependencies',
   },
   {
     name: '@react-native/babel-preset',
-    exampleName: 'react-native',
+    appName: 'react-native',
     rootSection: 'devDependencies',
-    exampleSection: 'dependencies',
+    appSection: 'dependencies',
   },
   {
     name: '@types/react',
     rootSection: 'devDependencies',
-    exampleSection: 'devDependencies',
+    appSection: 'devDependencies',
   },
   {
     name: 'typescript',
     rootSection: 'devDependencies',
-    exampleSection: 'devDependencies',
+    appSection: 'devDependencies',
   },
 ];
 
@@ -51,68 +60,73 @@ function dependencyVersion(specifier, dependency, manifest) {
   return match[1];
 }
 
-function sharedDependencyState(rootPackage, examplePackage) {
+function sharedDependencyState(rootPackage, workspace, appPackage) {
   return SHARED_DEPENDENCIES.map((dependency) => {
-    const exampleName = dependency.exampleName ?? dependency.name;
+    const appName = dependency.appName ?? dependency.name;
     const rootSpecifier =
       rootPackage[dependency.rootSection]?.[dependency.name];
-    const exampleSpecifier =
-      examplePackage[dependency.exampleSection]?.[exampleName];
+    const appSpecifier = appPackage[dependency.appSection]?.[appName];
 
-    if (!rootSpecifier || !exampleSpecifier) {
+    if (!rootSpecifier || !appSpecifier) {
       throw new Error(
-        `${dependency.name} must exist in the root and ${exampleName} must exist in the example manifest`
+        `${dependency.name} must exist in the root and ${appName} must exist in ${workspace.manifest}`
       );
     }
 
     return {
       ...dependency,
       rootSpecifier,
-      exampleSpecifier,
+      appSpecifier,
       rootVersion: dependencyVersion(
         rootSpecifier,
         dependency.name,
         'package.json'
       ),
-      exampleVersion: dependencyVersion(
-        exampleSpecifier,
-        exampleName,
-        'example/package.json'
-      ),
+      appVersion: dependencyVersion(appSpecifier, appName, workspace.manifest),
     };
   });
 }
 
-function checkSharedDependencies(rootPackage, examplePackage) {
-  const mismatches = sharedDependencyState(rootPackage, examplePackage).filter(
-    ({ rootVersion, exampleVersion }) => rootVersion !== exampleVersion
+function checkSharedDependencies(rootPackage) {
+  const mismatches = APP_WORKSPACES.flatMap((workspace) =>
+    sharedDependencyState(
+      rootPackage,
+      workspace,
+      readPackage(join(ROOT_DIRECTORY, workspace.manifest))
+    )
+      .filter(({ rootVersion, appVersion }) => rootVersion !== appVersion)
+      .map((dependency) => ({ ...dependency, workspace }))
   );
 
   if (mismatches.length > 0) {
     const details = mismatches
       .map(
-        ({ name, rootSpecifier, exampleSpecifier }) =>
-          `  - ${name}: root ${rootSpecifier}, example ${exampleSpecifier}`
+        ({ name, rootSpecifier, appSpecifier, workspace }) =>
+          `  - ${name}: root ${rootSpecifier}, ${workspace.manifest} ${appSpecifier}`
       )
       .join('\n');
 
     throw new Error(`Shared Expo dependencies are not aligned:\n${details}`);
   }
 
-  console.log('Shared root and example dependencies are aligned');
+  console.log('Shared root and app workspace dependencies are aligned');
 }
 
 function syncSharedDependencies(rootPackage, examplePackage) {
   const updates = [];
 
-  for (const dependency of sharedDependencyState(rootPackage, examplePackage)) {
-    if (dependency.rootVersion === dependency.exampleVersion) {
+  for (const dependency of sharedDependencyState(
+    rootPackage,
+    EXAMPLE_WORKSPACE,
+    examplePackage
+  )) {
+    if (dependency.rootVersion === dependency.appVersion) {
       continue;
     }
 
     const rangePrefix = dependency.rootSpecifier.match(/^[~^]/)?.[0] ?? '';
     rootPackage[dependency.rootSection][dependency.name] =
-      `${rangePrefix}${dependency.exampleVersion}`;
+      `${rangePrefix}${dependency.appVersion}`;
     updates.push(dependency.name);
   }
 
@@ -146,28 +160,28 @@ function main() {
   const mode = process.argv[2];
 
   if (mode === 'check') {
-    runYarn(['workspace', 'example', 'expo', 'install', '--check']);
-    checkSharedDependencies(
-      readPackage(ROOT_PACKAGE_PATH),
-      readPackage(EXAMPLE_PACKAGE_PATH)
-    );
+    for (const workspace of APP_WORKSPACES) {
+      runYarn(['workspace', workspace.name, 'expo', 'install', '--check']);
+    }
+    checkSharedDependencies(readPackage(ROOT_PACKAGE_PATH));
     return;
   }
 
   if (mode === 'fix') {
-    runYarn(['workspace', 'example', 'expo', 'install', '--fix']);
+    for (const workspace of APP_WORKSPACES) {
+      runYarn(['workspace', workspace.name, 'expo', 'install', '--fix']);
+    }
 
     const rootPackage = readPackage(ROOT_PACKAGE_PATH);
-    const examplePackage = readPackage(EXAMPLE_PACKAGE_PATH);
+    const examplePackage = readPackage(
+      join(ROOT_DIRECTORY, EXAMPLE_WORKSPACE.manifest)
+    );
     syncSharedDependencies(rootPackage, examplePackage);
 
     // This command intentionally updates the root manifest, so CI's default
     // immutable install mode must be disabled while regenerating the lockfile.
     runYarn(['install', '--no-immutable']);
-    checkSharedDependencies(
-      readPackage(ROOT_PACKAGE_PATH),
-      readPackage(EXAMPLE_PACKAGE_PATH)
-    );
+    checkSharedDependencies(readPackage(ROOT_PACKAGE_PATH));
     return;
   }
 

@@ -3,10 +3,13 @@ const { readFileSync } = require('node:fs');
 const { join, resolve } = require('node:path');
 const { isDeepStrictEqual } = require('node:util');
 
+const APP_DIRECTORIES = ['example', 'appium-test-environment'];
 const ALLOWED_FILES = new Set([
   'package.json',
-  'example/package.json',
-  'example/app.json',
+  ...APP_DIRECTORIES.flatMap((directory) => [
+    `${directory}/package.json`,
+    `${directory}/app.json`,
+  ]),
   'yarn.lock',
 ]);
 const ROOT_DEPENDENCIES = new Set([
@@ -16,7 +19,7 @@ const ROOT_DEPENDENCIES = new Set([
   '@types/react',
   'typescript',
 ]);
-const EXAMPLE_DEPENDENCIES = new Set([
+const APP_DEPENDENCIES = new Set([
   '@react-native-async-storage/async-storage',
   '@types/react',
   'eslint-config-expo',
@@ -110,7 +113,7 @@ function isExpoDependency(name) {
     name === 'expo' ||
     name.startsWith('expo-') ||
     name.startsWith('@expo/') ||
-    EXAMPLE_DEPENDENCIES.has(name)
+    APP_DEPENDENCIES.has(name)
   );
 }
 
@@ -141,27 +144,27 @@ function validateManifest(file, before, after, allowed) {
   }
 }
 
-function validateAppConfig(before, after, examplePackage) {
+function validateAppConfig(file, before, after, appPackage) {
   if (JSON.stringify(before) === JSON.stringify(after)) return;
 
   const oldPlugins = before.expo?.plugins;
   const newPlugins = after.expo?.plugins;
 
   if (!Array.isArray(oldPlugins) || !Array.isArray(newPlugins)) {
-    fail('example/app.json may only add Expo plugins');
+    fail(`${file} may only add Expo plugins`);
   }
 
   const additions = newPlugins.slice(oldPlugins.length);
   const declared = {
-    ...examplePackage.dependencies,
-    ...examplePackage.devDependencies,
+    ...appPackage.dependencies,
+    ...appPackage.devDependencies,
   };
   const seen = new Set(
     oldPlugins.map((plugin) => (Array.isArray(plugin) ? plugin[0] : plugin))
   );
 
   if (additions.length === 0) {
-    fail('example/app.json contains unsafe Expo plugin changes');
+    fail(`${file} contains unsafe Expo plugin changes`);
   }
 
   for (const plugin of additions) {
@@ -171,7 +174,7 @@ function validateAppConfig(before, after, examplePackage) {
       !Object.hasOwn(declared, plugin) ||
       seen.has(plugin)
     ) {
-      fail('example/app.json contains unsafe Expo plugin changes');
+      fail(`${file} contains unsafe Expo plugin changes`);
     }
 
     seen.add(plugin);
@@ -180,7 +183,7 @@ function validateAppConfig(before, after, examplePackage) {
   const expected = JSON.parse(JSON.stringify(before));
   expected.expo.plugins = [...oldPlugins, ...additions];
   if (!isDeepStrictEqual(expected, after)) {
-    fail('example/app.json contains changes outside Expo plugin additions');
+    fail(`${file} contains changes outside Expo plugin additions`);
   }
 }
 
@@ -192,22 +195,22 @@ function dependencyVersion(specifier, name) {
   return specifier.replace(/^[~^]/, '');
 }
 
-function validateSharedDependencies(rootPackage, examplePackage) {
+function validateSharedDependencies(rootPackage, file, appPackage) {
   for (const [
     name,
     rootSection,
-    exampleSection,
-    exampleName = name,
+    appSection,
+    appName = name,
   ] of SHARED_DEPENDENCIES) {
     const rootSpecifier = rootPackage[rootSection]?.[name];
-    const exampleSpecifier = examplePackage[exampleSection]?.[exampleName];
+    const appSpecifier = appPackage[appSection]?.[appName];
 
     if (
       dependencyVersion(rootSpecifier, name) !==
-      dependencyVersion(exampleSpecifier, name)
+      dependencyVersion(appSpecifier, name)
     ) {
       fail(
-        `${name} is not aligned: root ${rootSpecifier}, example ${exampleSpecifier}`
+        `${name} is not aligned: root ${rootSpecifier}, ${file} ${appSpecifier}`
       );
     }
   }
@@ -236,10 +239,6 @@ function main() {
   const staged = stagedFiles(directory);
   const rootBefore = readJson(directory, 'package.json', true);
   const rootAfter = readJson(directory, 'package.json');
-  const exampleBefore = readJson(directory, 'example/package.json', true);
-  const exampleAfter = readJson(directory, 'example/package.json');
-  const appBefore = readJson(directory, 'example/app.json', true);
-  const appAfter = readJson(directory, 'example/app.json');
 
   validateManifest(
     'package.json',
@@ -248,14 +247,27 @@ function main() {
     (section, name) =>
       section === 'devDependencies' && ROOT_DEPENDENCIES.has(name)
   );
-  validateManifest(
-    'example/package.json',
-    exampleBefore,
-    exampleAfter,
-    (_section, name) => isExpoDependency(name)
-  );
-  validateAppConfig(appBefore, appAfter, exampleAfter);
-  validateSharedDependencies(rootAfter, exampleAfter);
+
+  for (const appDirectory of APP_DIRECTORIES) {
+    const manifest = `${appDirectory}/package.json`;
+    const appConfig = `${appDirectory}/app.json`;
+    const packageAfter = readJson(directory, manifest);
+
+    validateManifest(
+      manifest,
+      readJson(directory, manifest, true),
+      packageAfter,
+      (_section, name) => isExpoDependency(name)
+    );
+    validateAppConfig(
+      appConfig,
+      readJson(directory, appConfig, true),
+      readJson(directory, appConfig),
+      packageAfter
+    );
+    validateSharedDependencies(rootAfter, manifest, packageAfter);
+  }
+
   validateLockfile(directory, staged);
 
   console.log(`Validated Expo alignment changes: ${[...staged].join(', ')}`);
