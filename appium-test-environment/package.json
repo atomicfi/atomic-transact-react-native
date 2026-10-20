@@ -19,9 +19,9 @@
   },
   "dependencies": {
     "@atomicfi/transact-react-native": "link:..",
-    "expo": "~57.0.18",
-    "expo-build-properties": "~57.0.15",
-    "expo-status-bar": "~57.0.0",
+    "expo": "~58.0.16",
+    "expo-build-properties": "~58.0.11",
+    "expo-status-bar": "~58.0.3",
     "react": "19.2.3",
     "react-native": "0.86.3"
   },
