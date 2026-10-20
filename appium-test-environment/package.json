@@ -19,15 +19,15 @@
   },
   "dependencies": {
     "@atomicfi/transact-react-native": "link:..",
-    "expo": "~57.0.18",
-    "expo-build-properties": "~57.0.15",
-    "expo-status-bar": "~57.0.0",
-    "react": "19.2.3",
-    "react-native": "0.86.3"
+    "expo": "~58.0.16",
+    "expo-build-properties": "~58.0.11",
+    "expo-status-bar": "~58.0.3",
+    "react": "19.3.0",
+    "react-native": "0.88.0"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
-    "@types/react": "~19.2.14",
+    "@types/react": "~19.3.0",
     "typescript": "~6.0.3"
   }
 }
