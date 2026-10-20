@@ -336,7 +336,7 @@ export default function App() {
     );
 
     // iOS receives commands as `atomictest://<command>` deep links rather than broadcasts.
-    const handleCommandUrl = (url: string | null) => {
+    const handleCommandUrl = (url: string | null | undefined) => {
       if (!url) return;
       const command = url.replace(/^atomictest:\/\//, '').split(/[/?]/)[0];
       if (!command) return;
