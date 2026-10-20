@@ -13,7 +13,14 @@ const APP_WORKSPACES = [
     manifest: 'appium-test-environment/package.json',
   },
 ];
-const [EXAMPLE_WORKSPACE] = APP_WORKSPACES;
+const [EXAMPLE_WORKSPACE, ...OTHER_APP_WORKSPACES] = APP_WORKSPACES;
+// Versions `expo install` manages besides expo, expo-* and @expo/* packages.
+const EXPO_MANAGED_DEPENDENCIES = new Set([
+  '@types/react',
+  'react',
+  'react-native',
+  'typescript',
+]);
 
 const SHARED_DEPENDENCIES = [
   {
@@ -140,6 +147,56 @@ function syncSharedDependencies(rootPackage, examplePackage) {
   }
 }
 
+function isExpoManaged(name) {
+  return (
+    name === 'expo' ||
+    name.startsWith('expo-') ||
+    name.startsWith('@expo/') ||
+    EXPO_MANAGED_DEPENDENCIES.has(name)
+  );
+}
+
+// Only one `expo install --fix` can safely change dependencies per run. A
+// second one crashes with ERR_MODULE_NOT_FOUND when Yarn re-hoists the
+// @expo/cli it is running from, so the other app workspaces copy the
+// example's Expo-managed versions instead.
+function syncAppWorkspaces(examplePackage) {
+  const exampleDependencies = {
+    ...examplePackage.devDependencies,
+    ...examplePackage.dependencies,
+  };
+
+  for (const workspace of OTHER_APP_WORKSPACES) {
+    const path = join(ROOT_DIRECTORY, workspace.manifest);
+    const appPackage = readPackage(path);
+    const updates = [];
+
+    for (const section of ['dependencies', 'devDependencies']) {
+      for (const [name, specifier] of Object.entries(
+        appPackage[section] ?? {}
+      )) {
+        const exampleSpecifier = exampleDependencies[name];
+
+        if (
+          !isExpoManaged(name) ||
+          !exampleSpecifier ||
+          exampleSpecifier === specifier
+        ) {
+          continue;
+        }
+
+        appPackage[section][name] = exampleSpecifier;
+        updates.push(name);
+      }
+    }
+
+    if (updates.length > 0) {
+      writeFileSync(path, `${JSON.stringify(appPackage, null, 2)}\n`, 'utf8');
+      console.log(`Aligned ${workspace.manifest}: ${updates.join(', ')}`);
+    }
+  }
+}
+
 function runYarn(arguments_) {
   const command = process.platform === 'win32' ? 'yarn.cmd' : 'yarn';
   const result = spawnSync(command, arguments_, {
@@ -168,19 +225,24 @@ function main() {
   }
 
   if (mode === 'fix') {
-    for (const workspace of APP_WORKSPACES) {
-      runYarn(['workspace', workspace.name, 'expo', 'install', '--fix']);
-    }
+    runYarn(['workspace', EXAMPLE_WORKSPACE.name, 'expo', 'install', '--fix']);
 
     const rootPackage = readPackage(ROOT_PACKAGE_PATH);
     const examplePackage = readPackage(
       join(ROOT_DIRECTORY, EXAMPLE_WORKSPACE.manifest)
     );
+    syncAppWorkspaces(examplePackage);
     syncSharedDependencies(rootPackage, examplePackage);
 
     // This command intentionally updates the root manifest, so CI's default
     // immutable install mode must be disabled while regenerating the lockfile.
     runYarn(['install', '--no-immutable']);
+
+    // Picks up Expo packages the example doesn't use. Every workspace now
+    // shares the example's versions, so this is normally a no-op.
+    for (const workspace of OTHER_APP_WORKSPACES) {
+      runYarn(['workspace', workspace.name, 'expo', 'install', '--fix']);
+    }
     checkSharedDependencies(readPackage(ROOT_PACKAGE_PATH));
     return;
   }
