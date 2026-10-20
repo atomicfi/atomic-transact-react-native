@@ -22,6 +22,9 @@ export const PresentationStyles = {
 export type PresentationStyleIOS =
   (typeof PresentationStyles)[keyof typeof PresentationStyles];
 
+export type PresentationStyleAndroid =
+  (typeof PresentationStyles)[keyof typeof PresentationStyles];
+
 export interface TransactEnvironment {
   environment: 'production' | 'sandbox' | 'custom';
   transactPath?: string;

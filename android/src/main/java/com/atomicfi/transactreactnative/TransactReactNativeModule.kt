@@ -175,11 +175,19 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     )
   }
 
+  // Full screen unless JS asks for "formSheet", matching the native SDK's default.
+  private fun parsePresentationStyle(presentationStyle: String?): Config.PresentationStyle =
+    when (presentationStyle) {
+      "formSheet" -> Config.PresentationStyle.FORM_SHEET
+      else -> Config.PresentationStyle.FULL_SCREEN
+    }
+
   @ReactMethod
   fun presentTransact(
     instanceId: String,
     config: ReadableMap,
     environment: ReadableMap,
+    presentationStyle: String?,
     wrapperVersion: String,
     setDebug: Boolean,
     promise: Promise,
@@ -192,7 +200,13 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     val emitter = reactApplicationContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
     val environmentURL = parseEnvironment(environment)
     val token = buildConfigToken(config, wrapperVersion)
-    val sdkConfig = Config(token = token, environment = "CUSTOM", environmentURL = environmentURL, debug = setDebug)
+    val sdkConfig = Config(
+      token = token,
+      environment = "CUSTOM",
+      environmentURL = environmentURL,
+      debug = setDebug,
+      presentationStyle = parsePresentationStyle(presentationStyle),
+    )
 
     UiThreadUtil.runOnUiThread {
       try {

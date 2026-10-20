@@ -185,7 +185,16 @@ const SettingsScreen: React.FC = () => {
             value={settings.presentFullscreen}
             onValueChange={(value) => update({ presentFullscreen: value })}
           />
-        ) : null}
+        ) : (
+          <ToggleRow
+            title="Present as Form Sheet"
+            subtitle="Use formSheet instead of fullScreen (Android)"
+            value={settings.presentFormSheetAndroid}
+            onValueChange={(value) =>
+              update({ presentFormSheetAndroid: value })
+            }
+          />
+        )}
         <ToggleRow
           title="Pause & Resume"
           subtitle="Pause Transact on its first interaction 5s after launch, then resume it from an alert"
