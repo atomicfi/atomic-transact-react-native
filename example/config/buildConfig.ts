@@ -39,6 +39,7 @@ export function useTransact(): {
     theme,
     language,
     presentationStyleIOS,
+    presentationStyleAndroid,
   } = useSettings();
   const callbacks = useTransactCallbacks();
   const { logEvent } = useEventLog();
@@ -120,6 +121,7 @@ export function useTransact(): {
       config: build(l) as any,
       environment: transactEnvironment,
       presentationStyleIOS,
+      presentationStyleAndroid,
       setDebug: settings.debug,
       ...callbacks,
       onInteraction: (interaction: any) => {

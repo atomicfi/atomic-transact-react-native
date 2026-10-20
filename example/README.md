@@ -42,6 +42,7 @@ Configure everything shared across flows (persisted on device):
 - **Language** — System / English / Spanish / French.
 - **Debug** — enables webview inspection and SDK debug logging.
 - **Present Fullscreen** (iOS) — use `fullScreen` instead of `formSheet`.
+- **Present as Form Sheet** (Android) — use `formSheet` instead of `fullScreen`.
 - **Pause & Resume** — calls `Atomic.pauseTransact()` on the first Transact
   interaction 5s or more after a User Link or Pay Link launch, the way an app
   would step out to one of its own screens mid-flow, and resumes it from the

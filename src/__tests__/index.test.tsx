@@ -25,7 +25,7 @@ jest.mock('../android', () => ({
 }));
 
 import { Platform } from 'react-native';
-import { Atomic, Handoff, Step } from '../index';
+import { Atomic, Handoff, PresentationStyles, Step } from '../index';
 
 beforeEach(() => {
   mockIOSTransact.mockClear();
@@ -132,6 +132,54 @@ describe('handoff config', () => {
 
     const { config } = mockIOSTransact.mock.calls[0][0];
     expect(config).not.toHaveProperty('handoff');
+  });
+});
+
+describe('presentationStyleAndroid', () => {
+  const baseConfig = {
+    publicToken: 'pt-abc-123',
+    scope: 'user-link',
+    tasks: [{ operation: 'deposit' }],
+  };
+
+  afterEach(() => {
+    (Platform as any).OS = 'ios';
+  });
+
+  it('forwards the style to the Android bridge', () => {
+    (Platform as any).OS = 'android';
+
+    Atomic.transact({
+      config: { ...baseConfig },
+      presentationStyleAndroid: PresentationStyles.formSheet,
+    });
+
+    expect(mockAndroidTransact.mock.calls[0][0].presentationStyleAndroid).toBe(
+      'formSheet'
+    );
+  });
+
+  it('leaves the style unset when none is given, so Android stays full screen', () => {
+    (Platform as any).OS = 'android';
+
+    Atomic.transact({ config: { ...baseConfig } });
+
+    expect(
+      mockAndroidTransact.mock.calls[0][0].presentationStyleAndroid
+    ).toBeUndefined();
+  });
+
+  it('keeps the style out of the config sent to Transact', () => {
+    (Platform as any).OS = 'android';
+
+    Atomic.transact({
+      config: { ...baseConfig },
+      presentationStyleAndroid: PresentationStyles.formSheet,
+    });
+
+    expect(mockAndroidTransact.mock.calls[0][0].config).not.toHaveProperty(
+      'presentationStyleAndroid'
+    );
   });
 });
 

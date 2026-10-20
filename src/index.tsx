@@ -4,6 +4,7 @@ import { AtomicAndroid } from './android';
 import * as CONSTANTS from './constants';
 import type {
   PresentationStyleIOS,
+  PresentationStyleAndroid,
   AppType,
   StepType,
   HandoffType,
@@ -107,6 +108,7 @@ export const {
 export type {
   TransactEnvironment,
   PresentationStyleIOS,
+  PresentationStyleAndroid,
   AppType,
   StepType,
   HandoffType,
@@ -176,6 +178,7 @@ export const Atomic = {
     onCleanup,
     onError,
     presentationStyleIOS,
+    presentationStyleAndroid,
     setDebug,
   }: {
     config: Config;
@@ -194,7 +197,14 @@ export const Atomic = {
      * `config_serialization_failed` or `config_decode_failed`.
      */
     onError?: Function;
+    /** How iOS presents Transact. Defaults to `PresentationStyles.formSheet`. Android ignores it. */
     presentationStyleIOS?: PresentationStyleIOS;
+    /**
+     * How Android presents Transact. Defaults to `PresentationStyles.fullScreen`.
+     * `PresentationStyles.formSheet` opens it as a modal sheet over the dimmed app: a bottom sheet
+     * on phones, a centered card on large screens. iOS ignores it.
+     */
+    presentationStyleAndroid?: PresentationStyleAndroid;
     setDebug?: boolean;
   }): TransactTask {
     config.language = config.language || 'en';
@@ -232,6 +242,7 @@ export const Atomic = {
       environment: environment || CONSTANTS.Environment.production,
       wrapperVersion,
       presentationStyleIOS,
+      presentationStyleAndroid,
       setDebug,
     };
 

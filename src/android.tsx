@@ -58,6 +58,7 @@ export const AtomicAndroid = {
     config,
     environment,
     wrapperVersion,
+    presentationStyleAndroid,
     setDebug,
   }: {
     TransactReactNative: any;
@@ -65,6 +66,7 @@ export const AtomicAndroid = {
     config: any;
     environment?: CONSTANTS.TransactEnvironment;
     wrapperVersion: string;
+    presentationStyleAndroid?: CONSTANTS.PresentationStyleAndroid;
     setDebug?: boolean;
   }): void {
     installListeners(TransactReactNative);
@@ -72,6 +74,7 @@ export const AtomicAndroid = {
       instanceId,
       config,
       environment,
+      presentationStyleAndroid ?? null,
       wrapperVersion,
       setDebug ?? false
     ).catch(() => {

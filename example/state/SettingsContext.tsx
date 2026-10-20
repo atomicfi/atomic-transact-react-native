@@ -4,6 +4,7 @@ import {
   PresentationStyles,
 } from '@atomicfi/transact-react-native';
 import type {
+  PresentationStyleAndroid,
   PresentationStyleIOS,
   TransactEnvironment,
 } from '@atomicfi/transact-react-native';
@@ -25,6 +26,7 @@ export interface SettingsState {
   language: LanguageOption;
   debug: boolean;
   presentFullscreen: boolean;
+  presentFormSheetAndroid: boolean;
   pauseAndResume: boolean;
 }
 
@@ -40,6 +42,7 @@ const DEFAULT_SETTINGS: SettingsState = {
   language: 'system',
   debug: false,
   presentFullscreen: false,
+  presentFormSheetAndroid: false,
   pauseAndResume: false,
 };
 
@@ -58,6 +61,7 @@ interface SettingsContextValue {
   theme: DemoTheme;
   language: string | undefined;
   presentationStyleIOS: PresentationStyleIOS;
+  presentationStyleAndroid: PresentationStyleAndroid;
 }
 
 const SettingsContext = createContext<SettingsContextValue | null>(null);
@@ -113,6 +117,12 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({
       ? PresentationStyles.fullScreen
       : PresentationStyles.formSheet;
 
+    // Each platform keeps its SDK default (iOS form sheet, Android full screen)
+    // until its toggle is flipped.
+    const presentationStyleAndroid = settings.presentFormSheetAndroid
+      ? PresentationStyles.formSheet
+      : PresentationStyles.fullScreen;
+
     return {
       settings,
       update,
@@ -122,6 +132,7 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({
       theme,
       language,
       presentationStyleIOS,
+      presentationStyleAndroid,
     };
   }, [settings, setSettings]);
 
