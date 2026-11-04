@@ -6,11 +6,11 @@
 	<dict>
 		<key>ios-arm64_arm64e/MuppetIOS.framework/Info.plist</key>
 		<data>
-		Ofw/JWjs1PXODKy30hCE8L6dM6E=
+		Qh23emqOVe+AZ0JPr5nZuKFUyNY=
 		</data>
 		<key>ios-arm64_arm64e/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		kc6VAXaL955rvbqUMpGCFpRw5qM=
+		ADbUyQFpOO9JqCJYsOmnVDAW938=
 		</data>
 		<key>ios-arm64_arm64e/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>ios-arm64_arm64e/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64e-apple-ios.abi.json</key>
 		<data>
-		kc6VAXaL955rvbqUMpGCFpRw5qM=
+		ADbUyQFpOO9JqCJYsOmnVDAW938=
 		</data>
 		<key>ios-arm64_arm64e/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64e-apple-ios.private.swiftinterface</key>
 		<data>
@@ -42,7 +42,7 @@
 		</data>
 		<key>ios-arm64_arm64e/MuppetIOS.framework/MuppetIOS</key>
 		<data>
-		+mj6M33lNJVni7o22QZ6PVM5RK0=
+		Cs9v0+W0rvl/OePhg6cwHpUiBzU=
 		</data>
 		<key>ios-arm64_arm64e/MuppetIOS.framework/PrivacyInfo.xcprivacy</key>
 		<data>
@@ -50,11 +50,11 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Info.plist</key>
 		<data>
-		u5p7xAzM27mILBzP6YZN0+5hTPg=
+		PJamn0LrotXV9cw7ynlJvtwrvEg=
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		kc6VAXaL955rvbqUMpGCFpRw5qM=
+		ADbUyQFpOO9JqCJYsOmnVDAW938=
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -70,7 +70,7 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		kc6VAXaL955rvbqUMpGCFpRw5qM=
+		ADbUyQFpOO9JqCJYsOmnVDAW938=
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -86,7 +86,7 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/MuppetIOS</key>
 		<data>
-		mRruFW3q5Vvdlca0FnHxjaMIe+c=
+		5ssZXDJmWgg2i1LkuJpkHoftqII=
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/PrivacyInfo.xcprivacy</key>
 		<data>
@@ -94,7 +94,7 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/_CodeSignature/CodeDirectory</key>
 		<data>
-		t1FBz9RdAP6/Ts1wKLo5v2QbvwU=
+		An1MsVS8Tgs6ywYnku5jgKVrUyQ=
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/_CodeSignature/CodeRequirements</key>
 		<data>
@@ -102,7 +102,7 @@
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/_CodeSignature/CodeResources</key>
 		<data>
-		/mtri3R3hsFtFqTnVPcVtBdJMtY=
+		J8a5nps2ZTPBbTd7DuF8JGA+eIk=
 		</data>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/_CodeSignature/CodeSignature</key>
 		<data>
@@ -115,14 +115,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5F8llbTDm354Qy9aRY3kIm6M8Vp5v1BhLl+Ji8YJcpk=
+			1Mua8po0kXQPFi5DEOEDbMgoMc5qacUXnnk5p5MiPYU=
 			</data>
 		</dict>
 		<key>ios-arm64_arm64e/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64-apple-ios.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8YitQF1H1o7xvUi4PUSwOsAsxfZINJA97211M5S4YNY=
+			A4sMKcUJYbeYZ3H6MeyeogFfZb/yPLlOYgyPpY16cmA=
 			</data>
 		</dict>
 		<key>ios-arm64_arm64e/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
@@ -150,7 +150,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8YitQF1H1o7xvUi4PUSwOsAsxfZINJA97211M5S4YNY=
+			A4sMKcUJYbeYZ3H6MeyeogFfZb/yPLlOYgyPpY16cmA=
 			</data>
 		</dict>
 		<key>ios-arm64_arm64e/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64e-apple-ios.private.swiftinterface</key>
@@ -178,7 +178,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bvfdatVSRyzrCBtrbA4FKAa4kflXvd6L/nikwME/VwE=
+			Cm6Anl75QfEgFcfL4EYpw4inTaS+184nGYLE0cXhFD0=
 			</data>
 		</dict>
 		<key>ios-arm64_arm64e/MuppetIOS.framework/PrivacyInfo.xcprivacy</key>
@@ -192,14 +192,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GvwaCjioRGBccgZcpivtuO6+v95ySH2m7T6Zt/LyUIk=
+			9awT3cE2UIRJlmt6gGQ9HScBlHTErsG2TDI01uDaW0k=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8YitQF1H1o7xvUi4PUSwOsAsxfZINJA97211M5S4YNY=
+			A4sMKcUJYbeYZ3H6MeyeogFfZb/yPLlOYgyPpY16cmA=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
@@ -227,7 +227,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8YitQF1H1o7xvUi4PUSwOsAsxfZINJA97211M5S4YNY=
+			A4sMKcUJYbeYZ3H6MeyeogFfZb/yPLlOYgyPpY16cmA=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/Modules/MuppetIOS.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
@@ -255,7 +255,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			/qwIWEmbcT40TNGfWKSNlri4lY6lhxlAh/gQXeDIAdA=
+			aZygkY/JMmAkPrDZm6Ay2fGYBlkGnGPB83LxZZ7yHMg=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/PrivacyInfo.xcprivacy</key>
@@ -269,7 +269,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			q8K9jv9pWSbP1jnVjiFdhd0Gz+53xCSnIGQRdKY83hY=
+			AQhHfpgao68Q1+PiS6W4gzFDJA1DIqmC7tMnso5DY4c=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/_CodeSignature/CodeRequirements</key>
@@ -283,7 +283,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			CI53AiQAuxa3Kz0YuinoUWu++eFl4tISTH3vrgAm714=
+			uFnBxYUetVMxxsSEkOo8R2zpEZeGCtUFBHlWxLOtmS8=
 			</data>
 		</dict>
 		<key>ios-arm64_x86_64-simulator/MuppetIOS.framework/_CodeSignature/CodeSignature</key>
