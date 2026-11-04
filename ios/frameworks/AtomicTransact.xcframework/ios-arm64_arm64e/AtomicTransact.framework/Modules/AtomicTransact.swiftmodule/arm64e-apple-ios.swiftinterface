@@ -354,6 +354,8 @@ extension SwiftUICore.View {
   #if compiler(>=5.3) && $NonescapableTypes
   @_Concurrency.MainActor final public func presentTransact(config: AtomicTransact.AtomicConfig, environment: AtomicTransact.TransactEnvironment = .production, presentationStyle: UIKit.UIModalPresentationStyle = .formSheet, onInteraction: ((AtomicTransact.TransactInteraction) -> Swift.Void)? = nil, onDataRequest: ((AtomicTransact.TransactDataRequest) async -> AtomicTransact.TransactDataResponse?)? = nil, onAuthStatusUpdate: ((AtomicTransact.TransactAuthStatusUpdate) -> Swift.Void)? = nil, onTaskStatusUpdate: ((AtomicTransact.TransactTaskStatusUpdate) -> Swift.Void)? = nil, onLaunch: (() -> Swift.Void)? = nil, onCompletion: ((AtomicTransact.TransactResponse) -> Swift.Void)? = nil, onError: ((AtomicTransact.TransactError) -> Swift.Void)? = nil)
   #endif
+  @discardableResult
+  @_Concurrency.MainActor final public func presentTransact(session: AtomicTransact.TransactSession, scope: AtomicTransact.AtomicConfig.ScopeType, tasks: [AtomicTransact.AtomicConfig.Task], presentationStyle: UIKit.UIModalPresentationStyle = .formSheet) -> AtomicTransact.TransactSession.TransactHandle
   @objc deinit
 }
 extension SwiftUICore.EnvironmentValues {
@@ -569,6 +571,41 @@ public enum TransactError : Swift.Error, Swift.Sendable {
   case invalidConfig
   case transactError(data: [Swift.String : any Swift.Sendable])
 }
+@_hasMissingDesignatedInitializers @_Concurrency.MainActor final public class TransactSession {
+  @_Concurrency.MainActor final public var onInteraction: ((AtomicTransact.TransactInteraction) -> Swift.Void)?
+  @_Concurrency.MainActor final public var onDataRequest: ((AtomicTransact.TransactDataRequest) async -> AtomicTransact.TransactDataResponse?)?
+  @_Concurrency.MainActor final public var onAuthStatusUpdate: ((AtomicTransact.TransactAuthStatusUpdate) -> Swift.Void)?
+  @_Concurrency.MainActor final public var onTaskStatusUpdate: ((AtomicTransact.TransactTaskStatusUpdate) -> Swift.Void)?
+  @_Concurrency.MainActor final public var onLaunch: (() -> Swift.Void)?
+  @_Concurrency.MainActor final public var onCompletion: ((AtomicTransact.TransactResponse) -> Swift.Void)?
+  @_Concurrency.MainActor final public var onCleanup: (() -> Swift.Void)?
+  @_Concurrency.MainActor final public var config: AtomicTransact.TransactSession.Config
+  public struct Config {
+    public var linkedAccount: Swift.String?
+    public var deferredPaymentMethodStrategy: AtomicTransact.AtomicConfig.DeferredPaymentMethodStrategy?
+    public var theme: AtomicTransact.AtomicConfig.Theme
+    public var language: Swift.String
+    public var sessionContext: Swift.String?
+    public var deeplink: AtomicTransact.AtomicConfig.Deeplink?
+    public var metadata: [Swift.String : Swift.String]?
+    public var search: AtomicTransact.AtomicConfig.Search?
+    public var handoff: [Swift.String]?
+    public var experiments: AtomicTransact.AtomicConfig.Experiments?
+    public var features: AtomicTransact.AtomicConfig.Features?
+    public var customer: AtomicTransact.AtomicConfig.Customer?
+    public var uplinkSessionUrl: Swift.String?
+  }
+  @_Concurrency.MainActor convenience public init(publicToken: Swift.String, environment: AtomicTransact.TransactEnvironment = .production)
+  @discardableResult
+  @_Concurrency.MainActor final public func present(from source: UIKit.UIViewController, presentationStyle: UIKit.UIModalPresentationStyle = .formSheet, scope: AtomicTransact.AtomicConfig.ScopeType, tasks: [AtomicTransact.AtomicConfig.Task]) -> AtomicTransact.TransactSession.TransactHandle
+  @_hasMissingDesignatedInitializers @_Concurrency.MainActor final public class TransactHandle {
+    @_Concurrency.MainActor final public func hide(animated: Swift.Bool = true)
+    @_Concurrency.MainActor final public func pause(animated: Swift.Bool = true) throws(AtomicTransact.Atomic.PauseTransactError)
+    @_Concurrency.MainActor final public func resume(source: UIKit.UIViewController, animated: Swift.Bool = true)
+    @objc deinit
+  }
+  @objc deinit
+}
 public struct TransactTaskStatusUpdate : Swift.Decodable, Swift.Sendable {
   public let taskId: Swift.String
   public let product: AtomicTransact.AtomicConfig.ProductType
@@ -692,6 +729,8 @@ extension AtomicTransact.TransactDataResponse.ValidationErrorType : Swift.RawRep
 extension AtomicTransact.TransactDataResponse.CardData.CardType : Swift.Equatable {}
 extension AtomicTransact.TransactDataResponse.CardData.CardType : Swift.Hashable {}
 extension AtomicTransact.TransactDataResponse.CardData.CardType : Swift.RawRepresentable {}
+extension AtomicTransact.TransactSession : Swift.Sendable {}
+extension AtomicTransact.TransactSession.TransactHandle : Swift.Sendable {}
 extension AtomicTransact.TransactTaskStatusUpdate.TaskStatus : Swift.Equatable {}
 extension AtomicTransact.TransactTaskStatusUpdate.TaskStatus : Swift.Hashable {}
 extension AtomicTransact.TransactTaskStatusUpdate.TaskStatus : Swift.RawRepresentable {}
