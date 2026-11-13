@@ -2573,31 +2573,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/cli@npm:^58.1.19":
-  version: 58.1.19
-  resolution: "@expo/cli@npm:58.1.19"
+"@expo/cli@npm:^58.1.20":
+  version: 58.1.20
+  resolution: "@expo/cli@npm:58.1.20"
   dependencies:
     2g: "npm:^1.0.1"
     "@expo/code-signing-certificates": "npm:^0.0.7"
-    "@expo/config": "npm:~58.0.11"
-    "@expo/config-plugins": "npm:~58.0.12"
+    "@expo/config": "npm:~58.0.12"
+    "@expo/config-plugins": "npm:~58.0.13"
     "@expo/devcert": "npm:^1.2.2"
-    "@expo/env": "npm:~2.5.4"
-    "@expo/image-utils": "npm:^0.12.6"
-    "@expo/inline-modules": "npm:^0.2.9"
+    "@expo/env": "npm:~2.6.0"
+    "@expo/image-utils": "npm:^0.12.7"
+    "@expo/inline-modules": "npm:^0.2.10"
     "@expo/json-file": "npm:^11.2.1"
     "@expo/log-box": "npm:^58.0.15"
     "@expo/log-box-utils": "npm:^58.0.2"
     "@expo/metro": "npm:~58.0.0"
-    "@expo/metro-config": "npm:58.0.21"
-    "@expo/metro-file-map": "npm:^58.0.5"
+    "@expo/metro-config": "npm:58.0.22"
+    "@expo/metro-file-map": "npm:^58.0.6"
     "@expo/osascript": "npm:^2.8.1"
     "@expo/package-manager": "npm:^1.14.2"
     "@expo/platforms": "npm:^58.0.1"
-    "@expo/plist": "npm:^0.10.1"
-    "@expo/prebuild-config": "npm:^58.0.19"
-    "@expo/require-utils": "npm:^58.0.5"
-    "@expo/router-server": "npm:^58.0.21"
+    "@expo/plist": "npm:^0.10.2"
+    "@expo/prebuild-config": "npm:^58.0.20"
+    "@expo/require-utils": "npm:^58.0.6"
+    "@expo/router-server": "npm:^58.0.22"
     "@expo/schema-utils": "npm:^58.0.3"
     "@expo/spawn-async": "npm:^1.8.0"
     "@expo/ws-tunnel": "npm:^2.0.1"
@@ -2615,10 +2615,8 @@ __metadata:
     compression: "npm:^1.7.4"
     connect: "npm:^3.7.0"
     dnssd-advertise: "npm:^1.1.6"
-    expo-server: "npm:^58.0.6"
+    expo-server: "npm:^58.1.0"
     fetch-nodeshim: "npm:^0.4.10"
-    getenv: "npm:^2.0.0"
-    glob: "npm:^13.0.0"
     lan-network: "npm:^0.2.1"
     multitars: "npm:^1.0.2"
     node-forge: "npm:^1.4.0"
@@ -2636,6 +2634,7 @@ __metadata:
     stacktrace-parser: "npm:^0.1.10"
     structured-headers: "npm:^0.4.1"
     terminal-link: "npm:^2.1.1"
+    tinyglobby: "npm:^0.2.15"
     toqr: "npm:^0.1.1"
     wrap-ansi: "npm:^7.0.0"
     ws: "npm:^8.12.1"
@@ -2653,7 +2652,7 @@ __metadata:
       optional: true
   bin:
     expo-internal: bin/cli.js
-  checksum: 10/4e9f09de72e0abca714e2c18cb6fb1b35fe023c48c1ac51d9df3423b1eaa0b2c57351e7cdc466aa72df3f4fdcf5b0acd34921af5638ac2ab7110311d4bf85890
+  checksum: 10/725a51577bb19bcc93c32cd4884c52cc63191f34e7861ebf6031fd986ec89b2a636b2c2d7b6c990cb5c65b9de3e322335de15c40a537e07b5f0bb55782ec0ddc
   languageName: node
   linkType: hard
 
@@ -2666,24 +2665,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/config-plugins@npm:^58.0.9, @expo/config-plugins@npm:~58.0.12":
-  version: 58.0.12
-  resolution: "@expo/config-plugins@npm:58.0.12"
+"@expo/config-plugins@npm:^58.0.9, @expo/config-plugins@npm:~58.0.13":
+  version: 58.0.13
+  resolution: "@expo/config-plugins@npm:58.0.13"
   dependencies:
     "@expo/config-types": "npm:^58.0.3"
     "@expo/json-file": "npm:~11.2.1"
-    "@expo/plist": "npm:^0.10.1"
-    "@expo/require-utils": "npm:^58.0.5"
+    "@expo/plist": "npm:^0.10.2"
+    "@expo/require-utils": "npm:^58.0.6"
     "@expo/sdk-runtime-versions": "npm:^1.0.1"
     chalk: "npm:^4.1.2"
     debug: "npm:^4.3.5"
-    getenv: "npm:^2.0.0"
     semver: "npm:^7.7.4"
     slugify: "npm:^1.6.6"
     tinyglobby: "npm:^0.2.15"
     xcode: "npm:^4.0.0"
     xml2js: "npm:0.6.0"
-  checksum: 10/8bef90ef0c1c3ba61b52ddc51bc5319df3b0157c7226f0725afe3742a0158ff6d41c31ee9794696cdbeb9755196fcf35a1819efd921f5654ccd710b210ceaf9e
+  checksum: 10/4471477bb59c3f6072411b73d288022014148a9ab1cdb12d767b08361b45dd99963a8ac4993649574c64b80a55d7947c6b81fc52705ec84a6a4969a0c913e3dd
   languageName: node
   linkType: hard
 
@@ -2694,20 +2692,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/config@npm:~58.0.11":
-  version: 58.0.11
-  resolution: "@expo/config@npm:58.0.11"
+"@expo/config@npm:~58.0.12":
+  version: 58.0.12
+  resolution: "@expo/config@npm:58.0.12"
   dependencies:
-    "@expo/config-plugins": "npm:~58.0.12"
+    "@expo/config-plugins": "npm:~58.0.13"
     "@expo/config-types": "npm:^58.0.3"
     "@expo/json-file": "npm:^11.2.1"
     "@expo/platforms": "npm:^58.0.1"
-    "@expo/require-utils": "npm:^58.0.5"
-    getenv: "npm:^2.0.0"
+    "@expo/require-utils": "npm:^58.0.6"
     resolve-workspace-root: "npm:^2.0.0"
     semver: "npm:^7.7.4"
     slugify: "npm:^1.3.4"
-  checksum: 10/61e92c6c6b3a7e42b0b8e38e7d43d6dc8bfd544d05c1eacfe15cde299438163e792d07e16f7e1b256fc940d92b9f4a6d9c93567fee58aa36dddec6f8ee055cbb
+  checksum: 10/4c6e7f9d1baac72bdec3fe6341ab00c5acd94eabce01cb338db8236072bd45d6659abe4b48b37ae735ccd53e9829a9cebc869f3f563af1a44bacd5497666f3c6
   languageName: node
   linkType: hard
 
@@ -2752,59 +2749,55 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/env@npm:^2.5.4, @expo/env@npm:~2.5.4":
-  version: 2.5.4
-  resolution: "@expo/env@npm:2.5.4"
+"@expo/env@npm:^2.6.0, @expo/env@npm:~2.6.0":
+  version: 2.6.0
+  resolution: "@expo/env@npm:2.6.0"
   dependencies:
     chalk: "npm:^4.0.0"
     debug: "npm:^4.3.4"
-    getenv: "npm:^2.0.0"
-  checksum: 10/78799754728307ac0933a217c2e8b53693ba189bd0f1551ae5c2ad6c62bfd27d074b925b6d339259a12c2b12bbec19bef58f23863aa3f8f23177de47a1e380f3
+  checksum: 10/96f28a44aad8fefd4efe1d9d64f35253fc415e9e33c2009f91bf1fdf53cca82b758ff61a7a6b2470cd004ce0f0da1ea94e0d9de5d6d2224614b73f8507008f4f
   languageName: node
   linkType: hard
 
-"@expo/fingerprint@npm:^0.21.9":
-  version: 0.21.9
-  resolution: "@expo/fingerprint@npm:0.21.9"
+"@expo/fingerprint@npm:^0.21.10":
+  version: 0.21.10
+  resolution: "@expo/fingerprint@npm:0.21.10"
   dependencies:
-    "@expo/env": "npm:^2.5.4"
+    "@expo/env": "npm:^2.6.0"
     "@expo/spawn-async": "npm:^1.8.0"
     arg: "npm:^5.0.2"
     chalk: "npm:^4.1.2"
     debug: "npm:^4.3.4"
-    getenv: "npm:^2.0.0"
-    glob: "npm:^13.0.0"
     ignore: "npm:^5.3.1"
-    minimatch: "npm:^10.2.2"
+    minimatch: "npm:^10.2.6"
     resolve-from: "npm:^5.0.0"
     semver: "npm:^7.7.4"
   bin:
     fingerprint: bin/cli.js
-  checksum: 10/d15c70d11d8dcedc2de1579b0515801b2ca780e173b3a7d0bb29e36564b85910b856477bd124b7d562eaa2acfdadaf1c89a44f8bf4c46878a002b8357c49b112
+  checksum: 10/abf84e4f6cae69a11094932d08ff0934f291c9f8aa43a7e83bfcef928f154d34989d3940591eae18deab602fd07317c28be71330a34311936b6ce31269a3c28a
   languageName: node
   linkType: hard
 
-"@expo/image-utils@npm:^0.12.6":
-  version: 0.12.6
-  resolution: "@expo/image-utils@npm:0.12.6"
+"@expo/image-utils@npm:^0.12.7":
+  version: 0.12.7
+  resolution: "@expo/image-utils@npm:0.12.7"
   dependencies:
-    "@expo/require-utils": "npm:^58.0.5"
+    "@expo/require-utils": "npm:^58.0.6"
     "@expo/spawn-async": "npm:^1.8.0"
     chalk: "npm:^4.0.0"
-    getenv: "npm:^2.0.0"
     jimp-compact: "npm:0.16.1"
     parse-png: "npm:^2.1.0"
     semver: "npm:^7.7.4"
-  checksum: 10/6d45842efb853078aa27b8d4dc5df45c400c4f49ac4d5bfbb42ae1316a7d21f1acc453aacc4168a7f15bc9270399fe1def1738523e97656b34ece4c976e52fb3
+  checksum: 10/542bb5314b3ee51f653e516e61fa9739ec6ff22591584043e00051acf3d0d93d5e088c7ad286b2fd1c64d1c97602786078d03c62c5779f869b5b0d83f81d2e6d
   languageName: node
   linkType: hard
 
-"@expo/inline-modules@npm:^0.2.9":
-  version: 0.2.9
-  resolution: "@expo/inline-modules@npm:0.2.9"
+"@expo/inline-modules@npm:^0.2.10":
+  version: 0.2.10
+  resolution: "@expo/inline-modules@npm:0.2.10"
   dependencies:
-    "@expo/config-plugins": "npm:~58.0.12"
-  checksum: 10/31c4c7ca8d073bbc3e081a419096270bfe8821c00ffd098f401a11b8df656a2cf7c79680707a72bf1883a11128efcd79f2c3507db80a4b2e4a4c601c5bd99212
+    "@expo/config-plugins": "npm:~58.0.13"
+  checksum: 10/874a24b1dc20088cfe1cf51583724b9e51ff85e22c914a1c91bb817855034b29f5b74adddffcd7b50f21eefcc381fd9dc4a973b887bd97405335c312c8a296b9
   languageName: node
   linkType: hard
 
@@ -2818,13 +2811,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/local-build-cache-provider@npm:^58.0.11":
-  version: 58.0.11
-  resolution: "@expo/local-build-cache-provider@npm:58.0.11"
+"@expo/local-build-cache-provider@npm:^58.0.12":
+  version: 58.0.12
+  resolution: "@expo/local-build-cache-provider@npm:58.0.12"
   dependencies:
-    "@expo/config": "npm:~58.0.11"
+    "@expo/config": "npm:~58.0.12"
     chalk: "npm:^4.1.2"
-  checksum: 10/355bbca8481b5762dbe1f9d45ca10428c8c4c9fbfa2cac71ad0da40c56cd753b07a6144cf40cfb3f31932b54dc15cea48179cc000082d0f37f8a178c208ad68e
+  checksum: 10/203c7b674111b735320d749575c53fc690643ae60eea3bfee776dc35bd194dfd3d1cc0e27062a9faf5f045bc130266e68e1af5a15e727589e896e1c4fc4cf21d
   languageName: node
   linkType: hard
 
@@ -2855,20 +2848,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/metro-config@npm:58.0.21, @expo/metro-config@npm:~58.0.21":
-  version: 58.0.21
-  resolution: "@expo/metro-config@npm:58.0.21"
+"@expo/metro-config@npm:58.0.22, @expo/metro-config@npm:~58.0.22":
+  version: 58.0.22
+  resolution: "@expo/metro-config@npm:58.0.22"
   dependencies:
     2g: "npm:^1.0.1"
     "@babel/code-frame": "npm:^7.20.0"
     "@babel/core": "npm:^7.20.0"
     "@babel/generator": "npm:^7.20.5"
-    "@expo/config": "npm:~58.0.11"
-    "@expo/env": "npm:~2.5.4"
+    "@expo/config": "npm:~58.0.12"
+    "@expo/env": "npm:~2.6.0"
     "@expo/json-file": "npm:~11.2.1"
     "@expo/metro": "npm:~58.0.0"
     "@expo/platforms": "npm:^58.0.1"
-    "@expo/require-utils": "npm:^58.0.5"
+    "@expo/require-utils": "npm:^58.0.6"
     "@expo/spawn-async": "npm:^1.8.0"
     "@jridgewell/gen-mapping": "npm:^0.3.13"
     "@jridgewell/remapping": "npm:^2.3.5"
@@ -2878,7 +2871,6 @@ __metadata:
     browserslist: "npm:^4.25.0"
     chalk: "npm:^4.1.0"
     debug: "npm:^4.3.2"
-    getenv: "npm:^2.0.0"
     hermes-parser: "npm:^0.36.0"
     jsc-safe-url: "npm:^0.2.4"
     lightningcss: "npm:^1.30.1"
@@ -2892,13 +2884,13 @@ __metadata:
   peerDependenciesMeta:
     expo:
       optional: true
-  checksum: 10/1eb34265ea00603e8ba8ab36112fb7f7f4754e36c376b3207a9922d08815030368c64b160da6fe1a7aff65b03ce1692f6a84b40f74a76df3498e9b584d3be499
+  checksum: 10/fb9ca26671f5b5af027ac8b25581379be2552bf532a3d92e674cce0c500a30514597424fe1e614198a83498cf3cfb19d585b3a1bd13f95fa8664fdcb3c6a6f7a
   languageName: node
   linkType: hard
 
-"@expo/metro-file-map@npm:^58.0.5":
-  version: 58.0.5
-  resolution: "@expo/metro-file-map@npm:58.0.5"
+"@expo/metro-file-map@npm:^58.0.6":
+  version: 58.0.6
+  resolution: "@expo/metro-file-map@npm:58.0.6"
   dependencies:
     2g: "npm:^1.0.1"
     debug: "npm:^4.3.4"
@@ -2906,7 +2898,7 @@ __metadata:
     invariant: "npm:^2.2.4"
     jest-worker: "npm:^29.7.0"
     walker: "npm:^1.0.8"
-  checksum: 10/8c77a51991d3bbc807b1fa0a333cc7392459fdfdd84827109f8f8b81d9f0e912f6e9ef7a3725c490cfa930ec0531ce347e696b73a036d70a222689c6adae61e1
+  checksum: 10/52e7d04bc7e2834e5884899cd39c6a9cdc16a8ba550e0b1a7f3e51296e5de4f06bb21cfebdbca73b0768425f1bdba9c145f37e6781c8b2d98ad571a2925bcff1
   languageName: node
   linkType: hard
 
@@ -2932,30 +2924,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/modules-macros-linux-arm64@npm:0.29.0":
-  version: 0.29.0
-  resolution: "@expo/modules-macros-linux-arm64@npm:0.29.0"
+"@expo/modules-macros-linux-arm64@npm:0.33.0":
+  version: 0.33.0
+  resolution: "@expo/modules-macros-linux-arm64@npm:0.33.0"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@expo/modules-macros-linux-x64@npm:0.29.0":
-  version: 0.29.0
-  resolution: "@expo/modules-macros-linux-x64@npm:0.29.0"
+"@expo/modules-macros-linux-x64@npm:0.33.0":
+  version: 0.33.0
+  resolution: "@expo/modules-macros-linux-x64@npm:0.33.0"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@expo/modules-macros-win32-arm64@npm:0.29.0":
-  version: 0.29.0
-  resolution: "@expo/modules-macros-win32-arm64@npm:0.29.0"
+"@expo/modules-macros-win32-arm64@npm:0.33.0":
+  version: 0.33.0
+  resolution: "@expo/modules-macros-win32-arm64@npm:0.33.0"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@expo/modules-macros-win32-x64@npm:0.29.0":
-  version: 0.29.0
-  resolution: "@expo/modules-macros-win32-x64@npm:0.29.0"
+"@expo/modules-macros-win32-x64@npm:0.33.0":
+  version: 0.33.0
+  resolution: "@expo/modules-macros-win32-x64@npm:0.33.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -2990,38 +2982,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@expo/plist@npm:^0.10.1":
-  version: 0.10.1
-  resolution: "@expo/plist@npm:0.10.1"
+"@expo/plist@npm:^0.10.2":
+  version: 0.10.2
+  resolution: "@expo/plist@npm:0.10.2"
   dependencies:
     "@xmldom/xmldom": "npm:^0.8.8"
-    base64-js: "npm:^1.5.1"
     xmlbuilder: "npm:^15.1.1"
-  checksum: 10/db4e8538535333f20273640493cff88d4a6a5c1105dafe74e9dd754dbbc53e23bcddfd542d7ab5f768841abd0c062c146496413cd488e88781e022136953f79d
+  checksum: 10/ebf48f68557d6df27641bb6830dbb9e62db15f62db9bd2fd838ccad6799b1fa6277c0850b0481d772bc77c05735cb6b1a002a21cb91f1a2309e7c8b76168a4c6
   languageName: node
   linkType: hard
 
-"@expo/prebuild-config@npm:^58.0.19":
-  version: 58.0.19
-  resolution: "@expo/prebuild-config@npm:58.0.19"
+"@expo/prebuild-config@npm:^58.0.20":
+  version: 58.0.20
+  resolution: "@expo/prebuild-config@npm:58.0.20"
   dependencies:
-    "@expo/config": "npm:~58.0.11"
-    "@expo/config-plugins": "npm:~58.0.12"
+    "@expo/config": "npm:~58.0.12"
+    "@expo/config-plugins": "npm:~58.0.13"
     "@expo/config-types": "npm:^58.0.3"
-    "@expo/image-utils": "npm:^0.12.6"
+    "@expo/image-utils": "npm:^0.12.7"
     "@expo/json-file": "npm:^11.2.1"
     "@react-native/normalize-colors": "npm:0.88.1"
     debug: "npm:^4.3.1"
-    expo-modules-autolinking: "npm:~58.0.17"
+    expo-modules-autolinking: "npm:~58.1.0"
     resolve-from: "npm:^5.0.0"
     semver: "npm:^7.7.4"
-  checksum: 10/c8b12d4f4c4589ce73e9ac0f4002943a3219a8e1f435ea7011082baddbed2152ba73d2757770e2cb848f41caeba8fba25422a07b1d02eb1993da1e3f4f4db3f2
+  checksum: 10/8b51880f8baaa532e75da7b6a82215c958e849e42d3fbfc723c3c87484e03d152cc5e917f21dc5c99ea04640872f3add18c38f8c4daa5e7e2d8fe88d3a2042b9
   languageName: node
   linkType: hard
 
-"@expo/require-utils@npm:^58.0.5":
-  version: 58.0.5
-  resolution: "@expo/require-utils@npm:58.0.5"
+"@expo/require-utils@npm:^58.0.6":
+  version: 58.0.6
+  resolution: "@expo/require-utils@npm:58.0.6"
   dependencies:
     "@babel/code-frame": "npm:^7.20.0"
     "@babel/core": "npm:^7.25.2"
@@ -3031,22 +3022,22 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10/e7f7ee8c29e03078540fd54f64c54c737387891a0fe15e6eff1ee12bd05e21753a65cea74dfc9d1a0abe084d6b2492a62987058b0b0064c1d323ba8e8c9cb478
+  checksum: 10/b67b633100320ef2e161b1f1a90767b64585c472aff6a7671541890202c2655b10ae814af715e3173dc8cba00ccd365f5c364f13fbde5da879edbd6b8e403d2b
   languageName: node
   linkType: hard
 
-"@expo/router-server@npm:^58.0.21":
-  version: 58.0.21
-  resolution: "@expo/router-server@npm:58.0.21"
+"@expo/router-server@npm:^58.0.22":
+  version: 58.0.22
+  resolution: "@expo/router-server@npm:58.0.22"
   dependencies:
     debug: "npm:^4.3.4"
   peerDependencies:
     "@expo/metro-runtime": ^58.0.17
     expo: "*"
-    expo-constants: ^58.0.15
-    expo-font: ^58.0.11
+    expo-constants: ^58.0.16
+    expo-font: ^58.0.12
     expo-router: "*"
-    expo-server: ^58.0.6
+    expo-server: ^58.1.0
     react: "*"
     react-dom: "*"
     react-server-dom-webpack: ~19.0.1 || ~19.1.2 || ~19.2.1 || ~19.3.0
@@ -3059,7 +3050,7 @@ __metadata:
       optional: true
     react-server-dom-webpack:
       optional: true
-  checksum: 10/e0f2edd9c84334d48f58735fe298cb113dc947a5761a9f7ce981369a257882f59fd2c835be61c9ce36ba046bb8ea561908c8bc60fc3036bcadbec4f9f76942b3
+  checksum: 10/97b03e8cab6497e77c1a9a5463a278cdf2b48949a0592038e12029951a77e04d5d5eb9a95301ebea13a1ac0c9d44afafc27e2c05174f45f0362f7f579bb8a9f3
   languageName: node
   linkType: hard
 
@@ -5481,9 +5472,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-preset-expo@npm:~58.0.24":
-  version: 58.0.24
-  resolution: "babel-preset-expo@npm:58.0.24"
+"babel-preset-expo@npm:~58.0.25":
+  version: 58.0.25
+  resolution: "babel-preset-expo@npm:58.0.25"
   dependencies:
     "@babel/generator": "npm:^7.20.5"
     "@babel/helper-module-imports": "npm:^7.25.9"
@@ -5530,7 +5521,7 @@ __metadata:
   peerDependencies:
     "@babel/runtime": ^7.20.0
     expo: "*"
-    expo-widgets: ^58.0.27
+    expo-widgets: ^58.0.28
     react-refresh: ">=0.14.0 <1.0.0"
   peerDependenciesMeta:
     "@babel/runtime":
@@ -5539,7 +5530,7 @@ __metadata:
       optional: true
     expo-widgets:
       optional: true
-  checksum: 10/e0666fc41f84295f3bb2a1347a2e4ac8d9f0620687e81d9b80c8eaddc4a81fa3ac8e1629fbfbf525a57e80837ebd5b21582477fc836541f4e9275c7add52d888
+  checksum: 10/7bf4eb6e4fd274bcc01b581a79a1e29f1bd5df1790ac19589e2c3063bf14fd8d3c257750e115bf45b2870ebb7bfa4561b15b1d61364a0c93135ca9a3b371e56c
   languageName: node
   linkType: hard
 
@@ -5653,6 +5644,15 @@ __metadata:
   dependencies:
     balanced-match: "npm:^4.0.2"
   checksum: 10/f259b2ddf04489da9512ad637ba6b4ef2d77abd4445d20f7f1714585f153435200a53fa6a2e4a5ee974df14ddad4cd16421f6f803e96e8b452bd48598878d0ee
+  languageName: node
+  linkType: hard
+
+"brace-expansion@npm:^5.0.8":
+  version: 5.0.13
+  resolution: "brace-expansion@npm:5.0.13"
+  dependencies:
+    balanced-match: "npm:^4.0.2"
+  checksum: 10/a2c4dc2481b7161c0c24875d23c38da209942a32cef4aad6fcab93da8f9bdd8b204f2777f7a803d7199f97507bf1d78c5664c17062d179aeda5f222b1d2bfbae
   languageName: node
   linkType: hard
 
@@ -7060,17 +7060,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-asset@npm:~58.0.20":
-  version: 58.0.20
-  resolution: "expo-asset@npm:58.0.20"
+"expo-asset@npm:~58.0.21":
+  version: 58.0.21
+  resolution: "expo-asset@npm:58.0.21"
   dependencies:
-    "@expo/image-utils": "npm:^0.12.6"
-    expo-constants: "npm:~58.0.15"
+    "@expo/image-utils": "npm:^0.12.7"
+    expo-constants: "npm:~58.0.16"
   peerDependencies:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: 10/889c3fb9e13d5f405de68e8878ca337dfc2f77d559d23f3d6466efee59640b0bd935be60f16cd847d3af25cd896fef50b7c89105451078bc9058bbad55bb7b04
+  checksum: 10/03c256a0980c868f3f604589d1fdf733771bcece58c11ea90493338a6aca29ab160153fb6e77ce87f73d1e1c921cc85e76f7c410f400b3de3f891ee323caf595
   languageName: node
   linkType: hard
 
@@ -7098,66 +7098,66 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-constants@npm:~58.0.15":
-  version: 58.0.15
-  resolution: "expo-constants@npm:58.0.15"
+"expo-constants@npm:~58.0.16":
+  version: 58.0.16
+  resolution: "expo-constants@npm:58.0.16"
   dependencies:
-    "@expo/env": "npm:~2.5.4"
-    "@expo/require-utils": "npm:^58.0.5"
+    "@expo/env": "npm:~2.6.0"
+    "@expo/require-utils": "npm:^58.0.6"
   peerDependencies:
     expo: "*"
     react-native: "*"
-  checksum: 10/24d263e1df4c90e28c0b110fd90d54e26884daf56e26df8edf1e9293b231ea99d81f5c2684a182e017676fa426fbf1b6045a35f206a37760d584af390d742643
+  checksum: 10/33cfb477dbf49ed969b5e3ffe77490a56d13a6874425496d2a193a0993a76f10ea2471b5ff817438e5f01040a3fcb277a0a56e3c8206846a4a671dd4ea4bbf77
   languageName: node
   linkType: hard
 
 "expo-dev-client@npm:~58.0.14":
-  version: 58.0.18
-  resolution: "expo-dev-client@npm:58.0.18"
+  version: 58.0.19
+  resolution: "expo-dev-client@npm:58.0.19"
   dependencies:
-    expo-dev-launcher: "npm:~58.0.18"
-    expo-dev-menu: "npm:~58.0.12"
-    expo-dev-menu-interface: "npm:~58.0.1"
+    expo-dev-launcher: "npm:~58.0.19"
+    expo-dev-menu: "npm:~58.0.13"
+    expo-dev-menu-interface: "npm:~58.0.2"
     expo-manifests: "npm:~58.0.1"
     expo-updates-interface: "npm:~58.0.1"
   peerDependencies:
     expo: "*"
-  checksum: 10/5520d9a34b6c46d0359e0fd8002f6ecf471fc9975d65d9505933bb484839a997ad9eef525f7da33b5f826ec99ce79adcab9e7c7eb9dd0399b0d4419858295bf1
+  checksum: 10/b7a2bcde34115835b0ee3ecf1507ef5a92c1cc4d354c9387415d18fc6b2b476e0e955de7abb8a77c58f939cafd1a8074627d80e634b8db923bd5f6a7032eac3b
   languageName: node
   linkType: hard
 
-"expo-dev-launcher@npm:~58.0.18":
-  version: 58.0.18
-  resolution: "expo-dev-launcher@npm:58.0.18"
+"expo-dev-launcher@npm:~58.0.19":
+  version: 58.0.19
+  resolution: "expo-dev-launcher@npm:58.0.19"
   dependencies:
     "@expo/schema-utils": "npm:^58.0.3"
-    expo-dev-menu: "npm:~58.0.12"
+    expo-dev-menu: "npm:~58.0.13"
     expo-manifests: "npm:~58.0.1"
   peerDependencies:
     expo: "*"
     react-native: "*"
-  checksum: 10/18b7ffedb111e54e5a7815302ffc919a8a8b5a150de0194bd0596ff6fa5319f34431feba87a46e990115272e89ae73d27fcf32db26cffa0dc2c74bfae4093726
+  checksum: 10/fb8e728592717ebf9eae539416664f72bf5cb0b4d7e2eb07a453aacb4e2bdbeecffcee24ec47212469184921c244584632a27eadd5bf402fa9f4c1239f93f5fc
   languageName: node
   linkType: hard
 
-"expo-dev-menu-interface@npm:~58.0.1":
-  version: 58.0.1
-  resolution: "expo-dev-menu-interface@npm:58.0.1"
+"expo-dev-menu-interface@npm:~58.0.2":
+  version: 58.0.2
+  resolution: "expo-dev-menu-interface@npm:58.0.2"
   peerDependencies:
     expo: "*"
-  checksum: 10/2c0c6c5eeb7710ae1a617e50b63e55ea88ccff18aa617f510804c6b4cf53f1b940d85dd7403eb949c17cba375579a7966dfc683e85e9f2776de1ce7e120bbac2
+  checksum: 10/0b44f4410e2776832978e8b5bf8224262d8474e42fa830006f64b5364b9dc51956740ed499228c2a32023cf2158b1c477d2638ab11638cbf15e27d31e29993f0
   languageName: node
   linkType: hard
 
-"expo-dev-menu@npm:~58.0.12":
-  version: 58.0.12
-  resolution: "expo-dev-menu@npm:58.0.12"
+"expo-dev-menu@npm:~58.0.13":
+  version: 58.0.13
+  resolution: "expo-dev-menu@npm:58.0.13"
   dependencies:
-    expo-dev-menu-interface: "npm:~58.0.1"
+    expo-dev-menu-interface: "npm:~58.0.2"
   peerDependencies:
     expo: "*"
     react-native: "*"
-  checksum: 10/843bbe2093501a84aac9f7796c61d8672a6a894e609ef470fdd9235c7879ca798da1fdd7148ec388c5f5eb4d3300a64e30d53e651df70e84a8a24560d12af1e9
+  checksum: 10/b8246827884bd6cfdb0c1cec1bc08119065cd4897c7db28b3a47b08b551efc65059da9c4ff4b6781c77e868c970b966631290ef1216e4c283f4bc64625277be1
   languageName: node
   linkType: hard
 
@@ -7178,14 +7178,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-font@npm:~58.0.11, expo-font@npm:~58.0.9":
-  version: 58.0.11
-  resolution: "expo-font@npm:58.0.11"
+"expo-font@npm:~58.0.12, expo-font@npm:~58.0.9":
+  version: 58.0.12
+  resolution: "expo-font@npm:58.0.12"
   peerDependencies:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: 10/8ad3f5bb8fa9de02121deab6862e4f2f2d3882f2d413b6a967657406e639a8a7f813e335fe9a05bf499b3fcbce2ba0e61a91ff57983f531f7c69b28a105343f5
+  checksum: 10/a4650cf89e12132bb25e2d88d5c23090c4ddb24c4ccda0ea5cdef7a3db96fc2f414bbf820342ae52ea713617a00df664df0ba70f49c5060cbbefd5e56babc50f
   languageName: node
   linkType: hard
 
@@ -7196,13 +7196,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-keep-awake@npm:~58.0.3":
-  version: 58.0.3
-  resolution: "expo-keep-awake@npm:58.0.3"
+"expo-keep-awake@npm:~58.0.4":
+  version: 58.0.4
+  resolution: "expo-keep-awake@npm:58.0.4"
   peerDependencies:
     expo: "*"
     react: "*"
-  checksum: 10/5bddf7a64e8fb7b7916ea48691b42afb0bdba611c22b4d6d430e33b5a28e9e0d74957f7f8627c8a96148665910f328b64742fc101b21277d489c5a96cec1807f
+  checksum: 10/3d712b9717187e5a34849b1619ae1f9c59fdc8d5cfd6eb5bca2f197043a05432e3fc82e3d26ef098a9eba6de6842ce13f95b8d51862d099f26991e599dcc2a08
   languageName: node
   linkType: hard
 
@@ -7217,39 +7217,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-modules-autolinking@npm:~58.0.17":
-  version: 58.0.17
-  resolution: "expo-modules-autolinking@npm:58.0.17"
+"expo-modules-autolinking@npm:~58.1.0":
+  version: 58.1.0
+  resolution: "expo-modules-autolinking@npm:58.1.0"
   dependencies:
     "@expo/platforms": "npm:^58.0.1"
-    "@expo/require-utils": "npm:^58.0.5"
+    "@expo/require-utils": "npm:^58.0.6"
     "@expo/spawn-async": "npm:^1.8.0"
     chalk: "npm:^4.1.0"
     commander: "npm:^7.2.0"
   bin:
     expo-modules-autolinking: bin/expo-modules-autolinking.js
-  checksum: 10/a17ee87b29ba206b2c2d5216ab2a44151a65bcfd09c85806b2778071f8299bc3acfb6b6716c95caa329bfde4cf768069b87f1afec04b2832f620c163b3672b3a
+  checksum: 10/2f0bd329b15e0249c17604de2ddea85b0d7537a19f63d3eb3286c3d9fbe494080ed7599d57a40f077785255f503b494528f87dc8904cff5fcf27387d26c6d742
   languageName: node
   linkType: hard
 
-"expo-modules-cli@npm:~0.4.0":
-  version: 0.4.0
-  resolution: "expo-modules-cli@npm:0.4.0"
+"expo-modules-cli@npm:~0.5.0":
+  version: 0.5.0
+  resolution: "expo-modules-cli@npm:0.5.0"
   dependencies:
     "@babel/parser": "npm:^7.20.0"
     arg: "npm:^5.0.2"
   bin:
     expo-modules: bin/expo-modules.js
-  checksum: 10/89186ce79d565c4ab27849dc0aec58b62580e562e08fb9245920008dc4507a6b1c23ce7c609e6f0ac6903fd64f82ce73480d6beb86289a1e1a5cc43c4290d41a
+  checksum: 10/a61605575c3f965bac51e80a670e2b993c522ca2f7eb9a0105ef8a9ec4a395859471e9dcdaff5ef0baa096a01abbfbb247316e97d22503108b40cd34893b6251
   languageName: node
   linkType: hard
 
-"expo-modules-core@npm:~58.0.30":
-  version: 58.0.30
-  resolution: "expo-modules-core@npm:58.0.30"
+"expo-modules-core@npm:~58.1.0":
+  version: 58.1.0
+  resolution: "expo-modules-core@npm:58.1.0"
   dependencies:
-    expo-modules-jsi: "npm:~58.0.22"
-    expo-modules-macros: "npm:0.29.0"
+    expo-modules-jsi: "npm:~58.0.23"
+    expo-modules-macros: "npm:0.33.0"
     invariant: "npm:^2.2.4"
   peerDependencies:
     react: "*"
@@ -7258,27 +7258,27 @@ __metadata:
   peerDependenciesMeta:
     react-native-worklets:
       optional: true
-  checksum: 10/e1d7cef91250e697f8df66c45ab6c44ea2a41a0bc7e9cd7ffae9e7014a6e63af6d2213994bc04dba3c2ef7ce04b509b1cf33226c93e4f63c11415881611d8643
+  checksum: 10/6619e72427475a5a284993058cf0fc9b6c8c0c38f727629c4f15b63e587df84cfed12f94760aa0ad57726d4e7060798beededf05c127cfe4a0d4beda335acae5
   languageName: node
   linkType: hard
 
-"expo-modules-jsi@npm:~58.0.22":
-  version: 58.0.22
-  resolution: "expo-modules-jsi@npm:58.0.22"
+"expo-modules-jsi@npm:~58.0.23":
+  version: 58.0.23
+  resolution: "expo-modules-jsi@npm:58.0.23"
   peerDependencies:
     react-native: "*"
-  checksum: 10/4d17d72bc5237cebf824c7d247378d45b43fe5a8ca6cc2b2ced6d858db739af21370ee44351db13e70ff3cfca0ba4c314a0b510ddcb820a59341c29f3a50389d
+  checksum: 10/1508c0690fda1662f8c010461bf37f1ce566d0d6360a510755cde38a6b0ce5073b1c508bb8a45d6b32fe756aa144d496a82d8f1bbede15a16a33942fb7620995
   languageName: node
   linkType: hard
 
-"expo-modules-macros@npm:0.29.0":
-  version: 0.29.0
-  resolution: "expo-modules-macros@npm:0.29.0"
+"expo-modules-macros@npm:0.33.0":
+  version: 0.33.0
+  resolution: "expo-modules-macros@npm:0.33.0"
   dependencies:
-    "@expo/modules-macros-linux-arm64": "npm:0.29.0"
-    "@expo/modules-macros-linux-x64": "npm:0.29.0"
-    "@expo/modules-macros-win32-arm64": "npm:0.29.0"
-    "@expo/modules-macros-win32-x64": "npm:0.29.0"
+    "@expo/modules-macros-linux-arm64": "npm:0.33.0"
+    "@expo/modules-macros-linux-x64": "npm:0.33.0"
+    "@expo/modules-macros-win32-arm64": "npm:0.33.0"
+    "@expo/modules-macros-win32-x64": "npm:0.33.0"
   dependenciesMeta:
     "@expo/modules-macros-linux-arm64":
       optional: true
@@ -7288,25 +7288,25 @@ __metadata:
       optional: true
     "@expo/modules-macros-win32-x64":
       optional: true
-  checksum: 10/d9aa78b68902cdb63b1aabf52149145024d08923d85bca3eff06d95152342f0a66282811c6c376d146e3a9a4ef77154f772899c60d94aa08f1a307504b9fe9dc
+  checksum: 10/b37ef13bb58e747441be58f3d263a1e9b0b54aecc70b16af96612821e1de790627a999d2df64f4ac584b03c1435f827c5d7eb541439186a2461f26d8b01d8ad7
   languageName: node
   linkType: hard
 
-"expo-server@npm:^58.0.6":
-  version: 58.0.6
-  resolution: "expo-server@npm:58.0.6"
-  checksum: 10/3db2e29016d5424fa5aa4aeb09619bcc448d1196bb9b91411e5000204c23377f71a846a50e9150464f24da26c5c441ad9c10810a108d7dd9ab546e51972640eb
+"expo-server@npm:^58.1.0":
+  version: 58.1.0
+  resolution: "expo-server@npm:58.1.0"
+  checksum: 10/e57cb8fc39f4f3fb9af4c3acd2b08fd183e1eaf8dd191b0aa33d035765e10fcd5ae4bc1ca5e56e78a2be1ab1c012b14760eef18b2bd2b25bdeab31f002b5c2e3
   languageName: node
   linkType: hard
 
 "expo-status-bar@npm:~58.0.3":
-  version: 58.0.4
-  resolution: "expo-status-bar@npm:58.0.4"
+  version: 58.0.5
+  resolution: "expo-status-bar@npm:58.0.5"
   peerDependencies:
     expo: "*"
     react: "*"
     react-native: "*"
-  checksum: 10/f5eb57343f5cc983176dcaa010b1af7325b2dd18018e21afaa3865f7ba20fee88fdde44bf20778ce0e0765f71ca55401c09437d5aa3aac133b61da812fdf8ea1
+  checksum: 10/8ff7938c313950291546c5ed11b82cfd27f66d87041a3f5f33a41dd6c1ed38f9e8f999146c7862b25501a0baa14b59c96da41cda2cc0e9ed0fcc6765bcc3768c
   languageName: node
   linkType: hard
 
@@ -7327,12 +7327,12 @@ __metadata:
   linkType: hard
 
 "expo-updates@npm:~58.0.17":
-  version: 58.0.21
-  resolution: "expo-updates@npm:58.0.21"
+  version: 58.0.22
+  resolution: "expo-updates@npm:58.0.22"
   dependencies:
     "@expo/code-signing-certificates": "npm:^0.0.7"
-    "@expo/env": "npm:^2.5.4"
-    "@expo/plist": "npm:^0.10.1"
+    "@expo/env": "npm:^2.6.0"
+    "@expo/plist": "npm:^0.10.2"
     "@expo/spawn-async": "npm:^1.8.0"
     "@react-native/asset-utils": "npm:0.88.1"
     arg: "npm:^4.1.0"
@@ -7342,7 +7342,6 @@ __metadata:
     expo-manifests: "npm:~58.0.1"
     expo-structured-headers: "npm:~58.0.1"
     expo-updates-interface: "npm:~58.0.1"
-    getenv: "npm:^2.0.0"
     ignore: "npm:^5.3.1"
     nullthrows: "npm:^1.1.1"
     resolve-from: "npm:^5.0.0"
@@ -7356,36 +7355,36 @@ __metadata:
       optional: true
   bin:
     expo-updates: bin/cli.js
-  checksum: 10/9276fff9d7339be49b5d4b0e3c190354acdd8f7704b958822a1529ebbaa49d982e7c9c700db0a6e4ba8e445f97d11834092caa65ba68e41eb582a266be1b23fd
+  checksum: 10/d54a4268253fe847cf9c1e6364263153350eb12265f1115aed89501aa38865a42132bcf6b0503243a4a3396067393977b3c4568b1256bc088269a1037097d41f
   languageName: node
   linkType: hard
 
 "expo@npm:~58.0.16":
-  version: 58.0.23
-  resolution: "expo@npm:58.0.23"
+  version: 58.0.24
+  resolution: "expo@npm:58.0.24"
   dependencies:
     "@babel/runtime": "npm:^7.20.0"
-    "@expo/cli": "npm:^58.1.19"
-    "@expo/config": "npm:~58.0.11"
-    "@expo/config-plugins": "npm:~58.0.12"
+    "@expo/cli": "npm:^58.1.20"
+    "@expo/config": "npm:~58.0.12"
+    "@expo/config-plugins": "npm:~58.0.13"
     "@expo/devtools": "npm:~58.0.2"
     "@expo/dom-webview": "npm:~58.0.2"
-    "@expo/fingerprint": "npm:^0.21.9"
-    "@expo/local-build-cache-provider": "npm:^58.0.11"
+    "@expo/fingerprint": "npm:^0.21.10"
+    "@expo/local-build-cache-provider": "npm:^58.0.12"
     "@expo/log-box": "npm:^58.0.15"
     "@expo/log-box-utils": "npm:^58.0.2"
     "@expo/metro": "npm:~58.0.0"
-    "@expo/metro-config": "npm:~58.0.21"
+    "@expo/metro-config": "npm:~58.0.22"
     "@ungap/structured-clone": "npm:^1.3.0"
-    babel-preset-expo: "npm:~58.0.24"
-    expo-asset: "npm:~58.0.20"
-    expo-constants: "npm:~58.0.15"
+    babel-preset-expo: "npm:~58.0.25"
+    expo-asset: "npm:~58.0.21"
+    expo-constants: "npm:~58.0.16"
     expo-file-system: "npm:~58.0.13"
-    expo-font: "npm:~58.0.11"
-    expo-keep-awake: "npm:~58.0.3"
-    expo-modules-autolinking: "npm:~58.0.17"
-    expo-modules-cli: "npm:~0.4.0"
-    expo-modules-core: "npm:~58.0.30"
+    expo-font: "npm:~58.0.12"
+    expo-keep-awake: "npm:~58.0.4"
+    expo-modules-autolinking: "npm:~58.1.0"
+    expo-modules-cli: "npm:~0.5.0"
+    expo-modules-core: "npm:~58.1.0"
     pretty-format: "npm:^29.7.0"
     react-refresh: "npm:^0.14.2"
     whatwg-url-minimum: "npm:^0.2.0"
@@ -7413,7 +7412,7 @@ __metadata:
     expo-modules: bin/modules
     expo-modules-autolinking: bin/autolinking
     fingerprint: bin/fingerprint
-  checksum: 10/82271413ce847922ee2fdfa67c6d51bac1aae0e07daddc4945849dd020d0fe85cbd8a81999bca4836c4a15945f50307d15e56532f690662bdd1b0d26d8772acc
+  checksum: 10/4168adf5208f613bbe20bd29556046c869386737c57e6c1765113f3c27fd6bee87e437a7bdcf82805f91fe36e34e72092c6b5d6e6d1d43c020e66f30f23a5b82
   languageName: node
   linkType: hard
 
@@ -7791,13 +7790,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"getenv@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "getenv@npm:2.0.0"
-  checksum: 10/ba25153e26c0960199b5de1a0c7bdfc661226c00e27bb194f829ed129843510ce230f9daa3b4d06f10056298a9c4e9afbbd358fc7632a545f299e370772b047a
-  languageName: node
-  linkType: hard
-
 "glob-parent@npm:^5.1.2":
   version: 5.1.2
   resolution: "glob-parent@npm:5.1.2"
@@ -7832,7 +7824,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^13.0.0, glob@npm:^13.0.6":
+"glob@npm:^13.0.6":
   version: 13.0.6
   resolution: "glob@npm:13.0.6"
   dependencies:
@@ -9944,6 +9936,15 @@ __metadata:
   dependencies:
     brace-expansion: "npm:^5.0.5"
   checksum: 10/19e87a931aff60ee7b9d80f39f817b8bfc54f61f8356ee3549fbf636dbccacacfec8d803eac73293955c4527cd085247dfc064bce4a5e349f8f3b85e2bf5da0f
+  languageName: node
+  linkType: hard
+
+"minimatch@npm:^10.2.6":
+  version: 10.2.6
+  resolution: "minimatch@npm:10.2.6"
+  dependencies:
+    brace-expansion: "npm:^5.0.8"
+  checksum: 10/a5e43f7c57d6061a77da320b42aa35ffff826030cf67c83c0eee47a26ede4d66486935881492b968c609bf27a7d48cc4b9f54b2806643cd8fb792fcf9240cc1b
   languageName: node
   linkType: hard
 
