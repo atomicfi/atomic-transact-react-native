@@ -55,3 +55,30 @@ describe('AtomicIOS.transact launch failures', () => {
     expect(hasTransaction('A')).toBe(true);
   });
 });
+
+describe('AtomicIOS.transact React Native version', () => {
+  const launchWithVersion = (reactNativeVersion?: string | null) => {
+    const presentTransact = jest.fn().mockReturnValue(new Promise(() => {}));
+    AtomicIOS.transact({
+      TransactReactNative: { presentTransact },
+      instanceId: 'A',
+      config: {},
+      wrapperVersion: '0.0.0',
+      reactNativeVersion,
+    });
+    return presentTransact;
+  };
+
+  it('passes the React Native version after the wrapper version', () => {
+    const presentTransact = launchWithVersion('0.87.0-rc.1');
+
+    expect(presentTransact.mock.calls[0][5]).toBe('0.0.0');
+    expect(presentTransact.mock.calls[0][6]).toBe('0.87.0-rc.1');
+  });
+
+  it('passes null when the React Native version is unavailable', () => {
+    const presentTransact = launchWithVersion();
+
+    expect(presentTransact.mock.calls[0][6]).toBeNull();
+  });
+});

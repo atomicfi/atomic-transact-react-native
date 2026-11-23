@@ -9,3 +9,26 @@ export function utf8Base64(input: string): string {
   }
   return btoa(binary);
 }
+
+type ReactNativeVersion = {
+  major: number;
+  minor: number;
+  patch: number;
+  // React Native types this as a number on macOS.
+  prerelease?: string | number | null;
+};
+
+// Formats Platform.constants.reactNativeVersion as major.minor.patch, plus -prerelease when
+// set. Returns null when the version isn't available, so native leaves it out of telemetry.
+export function formatReactNativeVersion(
+  version: ReactNativeVersion | null | undefined
+): string | null {
+  if (version == null) {
+    return null;
+  }
+  const { major, minor, patch, prerelease } = version;
+  const base = `${major}.${minor}.${patch}`;
+  return prerelease == null || prerelease === ''
+    ? base
+    : `${base}-${prerelease}`;
+}

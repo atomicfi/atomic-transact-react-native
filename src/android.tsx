@@ -58,6 +58,7 @@ export const AtomicAndroid = {
     config,
     environment,
     wrapperVersion,
+    reactNativeVersion,
     presentationStyleAndroid,
     setDebug,
   }: {
@@ -66,6 +67,7 @@ export const AtomicAndroid = {
     config: any;
     environment?: CONSTANTS.TransactEnvironment;
     wrapperVersion: string;
+    reactNativeVersion?: string | null;
     presentationStyleAndroid?: CONSTANTS.PresentationStyleAndroid;
     setDebug?: boolean;
   }): void {
@@ -76,6 +78,7 @@ export const AtomicAndroid = {
       environment,
       presentationStyleAndroid ?? null,
       wrapperVersion,
+      reactNativeVersion ?? null,
       setDebug ?? false
     ).catch(() => {
       // Launch failed (no foreground Activity, or a native setup throw): the native module

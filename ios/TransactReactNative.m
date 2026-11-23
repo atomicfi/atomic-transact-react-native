@@ -10,6 +10,7 @@ RCT_EXTERN_METHOD(presentTransact:(NSString *)instanceId
                   presentationStyle:(nullable NSString *)presentationStyle
                   setDebug:(nullable NSNumber *)setDebug
                   wrapperVersion:(NSString *)wrapperVersion
+                  reactNativeVersion:(nullable NSString *)reactNativeVersion
                   withResolver:(RCTPromiseResolveBlock)resolve
                   withRejecter:(RCTPromiseRejectBlock)reject)
 

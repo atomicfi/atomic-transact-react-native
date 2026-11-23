@@ -6,7 +6,10 @@ import { AtomicAndroid } from '../android';
 import { PresentationStyles } from '../constants';
 import type { PresentationStyleAndroid } from '../constants';
 
-const launch = (presentationStyleAndroid?: PresentationStyleAndroid) => {
+const launch = (
+  presentationStyleAndroid?: PresentationStyleAndroid,
+  reactNativeVersion?: string | null
+) => {
   const presentTransact = jest.fn().mockResolvedValue(null);
   AtomicAndroid.transact({
     TransactReactNative: { presentTransact },
@@ -14,6 +17,7 @@ const launch = (presentationStyleAndroid?: PresentationStyleAndroid) => {
     config: { publicToken: 'pt-abc-123' },
     environment: { environment: 'sandbox' },
     wrapperVersion: '0.0.0',
+    reactNativeVersion,
     presentationStyleAndroid,
     setDebug: true,
   });
@@ -30,6 +34,7 @@ describe('AtomicAndroid.transact presentation style', () => {
       { environment: 'sandbox' },
       'formSheet',
       '0.0.0',
+      null,
       true
     );
   });
@@ -44,5 +49,20 @@ describe('AtomicAndroid.transact presentation style', () => {
     const presentTransact = launch();
 
     expect(presentTransact.mock.calls[0][3]).toBeNull();
+  });
+});
+
+describe('AtomicAndroid.transact React Native version', () => {
+  it('passes the React Native version after the wrapper version', () => {
+    const presentTransact = launch(undefined, '0.86.3');
+
+    expect(presentTransact.mock.calls[0][4]).toBe('0.0.0');
+    expect(presentTransact.mock.calls[0][5]).toBe('0.86.3');
+  });
+
+  it('passes null when the React Native version is unavailable', () => {
+    const presentTransact = launch();
+
+    expect(presentTransact.mock.calls[0][5]).toBeNull();
   });
 });

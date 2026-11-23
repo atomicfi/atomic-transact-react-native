@@ -21,7 +21,15 @@ class TransactReactNative: RCTEventEmitter {
 	// Keyed by the JS pauseId: a PausedTransactRef can't cross the bridge, so the JS ref names one
 	// held here until it's resumed or its session ends.
 	private var pausedSessions: [String: PausedSession] = [:]
-	
+
+	// How the host app pulled in this module. The SDK ships as a prebuilt binary and can't tell,
+	// but this file compiles from source in the app's build.
+	#if SWIFT_PACKAGE
+	private static let packageManager = "swiftpm"
+	#else
+	private static let packageManager = "cocoapods"
+	#endif
+
 	private func parseEnvironment(_ environmentData: [String: Any]) -> AtomicTransact.TransactEnvironment {
 		guard let environment = environmentData["environment"] as? String else {
 			return .production // fallback to production if parsing fails
@@ -118,8 +126,8 @@ class TransactReactNative: RCTEventEmitter {
 		reject(code, message, nil)
 	}
 
-	@objc(presentTransact:config:environment:presentationStyle:setDebug:wrapperVersion:withResolver:withRejecter:)
-	func presentTransact(instanceId: String, config: [String: Any], environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, wrapperVersion: String, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
+	@objc(presentTransact:config:environment:presentationStyle:setDebug:wrapperVersion:reactNativeVersion:withResolver:withRejecter:)
+	func presentTransact(instanceId: String, config: [String: Any], environment: [String: Any], presentationStyle: String?, setDebug: NSNumber?, wrapperVersion: String, reactNativeVersion: String?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) -> Void {
 		let debugEnabled = setDebug?.boolValue ?? false
 
 		Task { @MainActor in
@@ -140,7 +148,13 @@ class TransactReactNative: RCTEventEmitter {
 
 				let parsedPresentationStyle = self.parsePresentationStyle(presentationStyle)
 
-				json["platform"] = AtomicConfig.Platform(suffixed: "react-\(wrapperVersion)").encode()
+				// The suffix keeps the wrapper's name ("react") so sdk.platform_variant doesn't change;
+				// hostFramework describes the React Native app it runs in.
+				let hostFramework = AtomicConfig.Platform.HostFramework(
+					name: "react-native", version: reactNativeVersion, packageManager: Self.packageManager)
+				json["platform"] = AtomicConfig.Platform(
+					suffixed: "react-\(wrapperVersion)", hostFramework: hostFramework
+				).encode()
 
 				// JSONSerialization raises an Objective-C exception, not a Swift error, on an invalid object.
 				guard JSONSerialization.isValidJSONObject(json),
