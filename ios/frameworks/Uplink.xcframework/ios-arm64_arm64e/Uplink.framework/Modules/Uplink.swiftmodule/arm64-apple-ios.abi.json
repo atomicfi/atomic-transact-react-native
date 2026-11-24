@@ -2827,21 +2827,21 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 13469,
+      "offset": 13780,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 13491,
+      "offset": 13802,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/UMP\/Socket\/UMPStream.swift",
       "kind": "BooleanLiteral",
-      "offset": 13512,
+      "offset": 13823,
       "length": 4,
       "value": "true"
     },
@@ -3366,14 +3366,14 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/PageHandler.swift",
       "kind": "IntegerLiteral",
-      "offset": 19507,
+      "offset": 19625,
       "length": 3,
       "value": "600"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/PageHandler.swift",
       "kind": "IntegerLiteral",
-      "offset": 19539,
+      "offset": 19657,
       "length": 3,
       "value": "100"
     },
@@ -3394,49 +3394,63 @@
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/Worker.swift",
       "kind": "Array",
-      "offset": 657,
+      "offset": 747,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/Worker.swift",
       "kind": "StringLiteral",
-      "offset": 819,
+      "offset": 909,
       "length": 26,
       "value": "\"https:\/\/api.uplink.build\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/Worker.swift",
       "kind": "Array",
-      "offset": 1667,
+      "offset": 1356,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/Worker.swift",
+      "kind": "Array",
+      "offset": 1410,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/Worker.swift",
+      "kind": "Array",
+      "offset": 1904,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/Worker.swift",
       "kind": "StringLiteral",
-      "offset": 2433,
+      "offset": 2670,
       "length": 13,
       "value": "\"auth-\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/Worker.swift",
       "kind": "StringLiteral",
-      "offset": 2445,
+      "offset": 2682,
       "length": 24,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/Worker.swift",
       "kind": "StringLiteral",
-      "offset": 2468,
+      "offset": 2705,
       "length": 24,
       "value": "\"Sec-WebSocket-Protocol\""
     },
     {
       "filePath": "\/Users\/runner\/work\/ios-sdk\/ios-sdk\/Frameworks\/Uplink\/Worker\/Worker.swift",
       "kind": "Array",
-      "offset": 3478,
+      "offset": 3761,
       "length": 2,
       "value": "[]"
     },

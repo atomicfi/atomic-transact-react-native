@@ -165,10 +165,19 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     emitter.emit(eventName, envelope.toString())
   }
 
-  private fun buildConfigToken(config: ReadableMap, wrapperVersion: String): String {
+  private fun buildConfigToken(
+    config: ReadableMap,
+    wrapperVersion: String,
+    reactNativeVersion: String?,
+  ): String {
     val configJson = JSONObject(config.toHashMap())
-    val platformMap = Config.Platform.suffixed("react-$wrapperVersion").encode()
-    configJson.put("platform", JSONObject(platformMap as Map<String, Any?>))
+    // The suffix keeps the wrapper's name ("react") so sdk.platform_variant doesn't change;
+    // hostFramework describes the React Native app it runs in.
+    val platformMap = Config.Platform.suffixed(
+      "react-$wrapperVersion",
+      Config.Platform.HostFramework("react-native", reactNativeVersion),
+    ).encode()
+    configJson.put("platform", JSONObject(platformMap))
     return Base64.encodeToString(
       configJson.toString().toByteArray(Charsets.UTF_8),
       Base64.NO_WRAP,
@@ -189,6 +198,7 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     environment: ReadableMap,
     presentationStyle: String?,
     wrapperVersion: String,
+    reactNativeVersion: String?,
     setDebug: Boolean,
     promise: Promise,
   ) {
@@ -199,7 +209,7 @@ class TransactReactNativeModule(reactContext: ReactApplicationContext) :
     }
     val emitter = reactApplicationContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
     val environmentURL = parseEnvironment(environment)
-    val token = buildConfigToken(config, wrapperVersion)
+    val token = buildConfigToken(config, wrapperVersion, reactNativeVersion)
     val sdkConfig = Config(
       token = token,
       environment = "CUSTOM",

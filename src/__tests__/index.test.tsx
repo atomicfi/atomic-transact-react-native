@@ -4,7 +4,13 @@ const mockIOSHideTransact = jest.fn();
 const mockAndroidHideTransact = jest.fn();
 
 jest.mock('react-native', () => ({
-  Platform: { OS: 'ios', select: (obj: any) => obj.ios ?? obj.default },
+  Platform: {
+    OS: 'ios',
+    select: (obj: any) => obj.ios ?? obj.default,
+    constants: {
+      reactNativeVersion: { major: 0, minor: 87, patch: 0, prerelease: 'rc.1' },
+    },
+  },
   NativeModules: { TransactReactNative: {} },
   Appearance: { getColorScheme: () => 'light' },
   NativeEventEmitter: jest.fn(),
@@ -179,6 +185,44 @@ describe('presentationStyleAndroid', () => {
 
     expect(mockAndroidTransact.mock.calls[0][0].config).not.toHaveProperty(
       'presentationStyleAndroid'
+    );
+  });
+});
+
+describe('React Native version', () => {
+  const baseConfig = {
+    publicToken: 'pt-abc-123',
+    scope: 'user-link',
+    tasks: [{ operation: 'deposit' }],
+  };
+
+  afterEach(() => {
+    (Platform as any).OS = 'ios';
+  });
+
+  it('sends the formatted version to the iOS bridge', () => {
+    Atomic.transact({ config: { ...baseConfig } });
+
+    expect(mockIOSTransact.mock.calls[0][0].reactNativeVersion).toBe(
+      '0.87.0-rc.1'
+    );
+  });
+
+  it('sends the formatted version to the Android bridge', () => {
+    (Platform as any).OS = 'android';
+
+    Atomic.transact({ config: { ...baseConfig } });
+
+    expect(mockAndroidTransact.mock.calls[0][0].reactNativeVersion).toBe(
+      '0.87.0-rc.1'
+    );
+  });
+
+  it('keeps the version out of the config sent to Transact', () => {
+    Atomic.transact({ config: { ...baseConfig } });
+
+    expect(mockIOSTransact.mock.calls[0][0].config).not.toHaveProperty(
+      'reactNativeVersion'
     );
   });
 });

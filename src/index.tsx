@@ -15,8 +15,13 @@ import {
   createInstanceId,
   removeTransaction,
 } from './transactRegistry';
+import { formatReactNativeVersion } from './utils';
 
 const wrapperVersion: string = pkg.version;
+// The host app's React Native version, which native reports as hostFramework.version.
+const reactNativeVersion = formatReactNativeVersion(
+  Platform.constants?.reactNativeVersion
+);
 
 const LINKING_ERROR =
   `The package '@atomicfi/transact-react-native' doesn't seem to be linked. Make sure: \n\n` +
@@ -241,6 +246,7 @@ export const Atomic = {
       config,
       environment: environment || CONSTANTS.Environment.production,
       wrapperVersion,
+      reactNativeVersion,
       presentationStyleIOS,
       presentationStyleAndroid,
       setDebug,

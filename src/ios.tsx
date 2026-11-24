@@ -57,6 +57,7 @@ export const AtomicIOS = {
     config,
     environment,
     wrapperVersion,
+    reactNativeVersion,
     presentationStyleIOS,
     setDebug,
   }: {
@@ -65,6 +66,7 @@ export const AtomicIOS = {
     config: any;
     environment?: CONSTANTS.TransactEnvironment;
     wrapperVersion: string;
+    reactNativeVersion?: string | null;
     presentationStyleIOS?: CONSTANTS.PresentationStyleIOS;
     setDebug?: boolean;
   }): void {
@@ -76,7 +78,8 @@ export const AtomicIOS = {
       environment,
       presentationStyleIOS,
       setDebug,
-      wrapperVersion
+      wrapperVersion,
+      reactNativeVersion ?? null
     )
       .then((event: any) => {
         // onFinish/onClose arrive as enveloped events and are routed by the registry.

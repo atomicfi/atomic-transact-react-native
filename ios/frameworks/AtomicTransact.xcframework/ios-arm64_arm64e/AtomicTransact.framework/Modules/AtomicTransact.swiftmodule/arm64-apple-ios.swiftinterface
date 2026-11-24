@@ -19,6 +19,686 @@ import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
 import os
+extension AtomicTransact.TransactAPI {
+  public struct Account : Swift.Codable, Swift.Sendable, Swift.Identifiable {
+    public let id: Swift.String
+    public let processing: Swift.Bool
+    public let connectionStatus: Swift.String
+    public let source: Swift.String
+    public let lastSyncedAt: Foundation.Date?
+    public let data: AtomicTransact.TransactAPI.Account.AccountData?
+    public let company: AtomicTransact.TransactAPI.CompanySummary
+    public let bills: [AtomicTransact.TransactAPI.Account.Bill]
+    public let recurringFinancialTransactions: [AtomicTransact.TransactAPI.RecurringFinancialTransaction]
+    public let expenses: [AtomicTransact.TransactAPI.Account.Expense]
+    public let suggestions: [AtomicTransact.TransactAPI.Suggestion]
+    public let actions: [AtomicTransact.TransactAPI.Action]
+    public let actionHistory: [AtomicTransact.TransactAPI.Account.ActionHistory]?
+    public let orders: [AtomicTransact.TransactAPI.Order]?
+    public let tasks: [AtomicTransact.TransactAPI.Account.WorkflowTask]?
+    public let taskWorkflowId: Swift.String?
+    public let lastUserMessageSent: AtomicTransact.TransactAPI.Account.LastUserMessageSent?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(id: Swift.String, processing: Swift.Bool, connectionStatus: Swift.String, source: Swift.String, lastSyncedAt: Foundation.Date? = nil, data: AtomicTransact.TransactAPI.Account.AccountData? = nil, company: AtomicTransact.TransactAPI.CompanySummary, bills: [AtomicTransact.TransactAPI.Account.Bill] = [], recurringFinancialTransactions: [AtomicTransact.TransactAPI.RecurringFinancialTransaction] = [], expenses: [AtomicTransact.TransactAPI.Account.Expense] = [], suggestions: [AtomicTransact.TransactAPI.Suggestion] = [], actions: [AtomicTransact.TransactAPI.Action] = [], actionHistory: [AtomicTransact.TransactAPI.Account.ActionHistory]? = nil, orders: [AtomicTransact.TransactAPI.Order]? = nil, tasks: [AtomicTransact.TransactAPI.Account.WorkflowTask]? = nil, taskWorkflowId: Swift.String? = nil, lastUserMessageSent: AtomicTransact.TransactAPI.Account.LastUserMessageSent? = nil)
+    #endif
+    public struct AccountData : Swift.Codable, Swift.Sendable {
+      public let category: Swift.String
+      public let identities: [AtomicTransact.TransactAPI.Account.Identity]
+      public let paymentMethods: [AtomicTransact.TransactAPI.PaymentMethod]
+      public let singleSignOnAccounts: [AtomicTransact.TransactAPI.Account.SingleSignOnAccount]?
+      public let balance: Foundation.Decimal?
+      public let transactionHistory: [AtomicTransact.TransactAPI.Account.TransactionHistoryItem]?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(category: Swift.String, identities: [AtomicTransact.TransactAPI.Account.Identity] = [], paymentMethods: [AtomicTransact.TransactAPI.PaymentMethod] = [], singleSignOnAccounts: [AtomicTransact.TransactAPI.Account.SingleSignOnAccount]? = nil, balance: Foundation.Decimal? = nil, transactionHistory: [AtomicTransact.TransactAPI.Account.TransactionHistoryItem]? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct Identity : Swift.Codable, Swift.Sendable {
+      public let firstName: Swift.String?
+      public let lastName: Swift.String?
+      public let dateOfBirth: Foundation.Date?
+      public let email: Swift.String?
+      public let phone: Swift.String?
+      public let ssn: Swift.String?
+      public let address: Swift.String?
+      public let address2: Swift.String?
+      public let city: Swift.String?
+      public let state: Swift.String?
+      public let postalCode: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(firstName: Swift.String? = nil, lastName: Swift.String? = nil, dateOfBirth: Foundation.Date? = nil, email: Swift.String? = nil, phone: Swift.String? = nil, ssn: Swift.String? = nil, address: Swift.String? = nil, address2: Swift.String? = nil, city: Swift.String? = nil, state: Swift.String? = nil, postalCode: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct SingleSignOnAccount : Swift.Codable, Swift.Sendable {
+      public let name: Swift.String?
+      public let companyName: Swift.String?
+      public let expired: Swift.Bool?
+      public let authorizedDate: Foundation.Date?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(name: Swift.String? = nil, companyName: Swift.String? = nil, expired: Swift.Bool? = nil, authorizedDate: Foundation.Date? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct TransactionHistoryItem : Swift.Codable, Swift.Sendable {
+      public let date: Foundation.Date
+      public let amount: Foundation.Decimal
+      public let transferMethod: Swift.String?
+      public let description: Swift.String?
+      public let fee: Foundation.Decimal?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(date: Foundation.Date, amount: Foundation.Decimal, transferMethod: Swift.String? = nil, description: Swift.String? = nil, fee: Foundation.Decimal? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct Bill : Swift.Codable, Swift.Sendable, Swift.Identifiable {
+      public let id: Swift.String
+      public let accountId: Swift.String
+      public let expenseId: Swift.String
+      public let sourceId: Swift.String
+      public let name: Swift.String
+      public let amount: Foundation.Decimal
+      public let amountDisclaimer: Swift.String?
+      public let autopayStatus: Swift.String?
+      public let billingCycle: Swift.String?
+      public let dueDate: Foundation.Date?
+      public let profiles: [AtomicTransact.TransactAPI.Account.Profile]
+      public let paymentMethod: AtomicTransact.TransactAPI.PaymentMethod?
+      public let paymentHistory: [AtomicTransact.TransactAPI.Account.PaymentHistoryItem]
+      public let items: [AtomicTransact.TransactAPI.Account.BillItem]
+      public let usage: [AtomicTransact.TransactAPI.Account.Usage]
+      public let plans: [AtomicTransact.TransactAPI.Account.Plan]
+      public let company: AtomicTransact.TransactAPI.CompanySummary?
+      public let actions: [AtomicTransact.TransactAPI.Action]
+      public let suggestions: [AtomicTransact.TransactAPI.Suggestion]
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(id: Swift.String, accountId: Swift.String, expenseId: Swift.String, sourceId: Swift.String, name: Swift.String, amount: Foundation.Decimal, amountDisclaimer: Swift.String? = nil, autopayStatus: Swift.String? = nil, billingCycle: Swift.String? = nil, dueDate: Foundation.Date? = nil, profiles: [AtomicTransact.TransactAPI.Account.Profile] = [], paymentMethod: AtomicTransact.TransactAPI.PaymentMethod? = nil, paymentHistory: [AtomicTransact.TransactAPI.Account.PaymentHistoryItem] = [], items: [AtomicTransact.TransactAPI.Account.BillItem] = [], usage: [AtomicTransact.TransactAPI.Account.Usage] = [], plans: [AtomicTransact.TransactAPI.Account.Plan] = [], company: AtomicTransact.TransactAPI.CompanySummary? = nil, actions: [AtomicTransact.TransactAPI.Action] = [], suggestions: [AtomicTransact.TransactAPI.Suggestion] = [])
+      #endif
+      public typealias ID = Swift.String
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct Expense : Swift.Codable, Swift.Sendable, Swift.Identifiable {
+      public let id: Swift.String
+      public let billId: Swift.String?
+      public let recurringFinancialTransactionId: Swift.String?
+      public let source: Swift.String?
+      public let name: Swift.String
+      public let amount: Foundation.Decimal
+      public let amountDisclaimer: Swift.String?
+      public let autopayStatus: Swift.String?
+      public let billingCycle: Swift.String?
+      public let dueDate: Foundation.Date?
+      public let paymentHistory: [AtomicTransact.TransactAPI.Account.PaymentHistoryItem]
+      public let paymentMethod: AtomicTransact.TransactAPI.PaymentMethod?
+      public let company: AtomicTransact.TransactAPI.CompanySummary?
+      public let actions: [AtomicTransact.TransactAPI.Action]
+      public let profiles: [AtomicTransact.TransactAPI.Account.Profile]?
+      public let items: [AtomicTransact.TransactAPI.Account.BillItem]?
+      public let usage: [AtomicTransact.TransactAPI.Account.Usage]?
+      public let plans: [AtomicTransact.TransactAPI.Account.Plan]?
+      public let suggestions: [AtomicTransact.TransactAPI.Suggestion]?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(id: Swift.String, billId: Swift.String? = nil, recurringFinancialTransactionId: Swift.String? = nil, source: Swift.String? = nil, name: Swift.String, amount: Foundation.Decimal, amountDisclaimer: Swift.String? = nil, autopayStatus: Swift.String? = nil, billingCycle: Swift.String? = nil, dueDate: Foundation.Date? = nil, paymentHistory: [AtomicTransact.TransactAPI.Account.PaymentHistoryItem] = [], paymentMethod: AtomicTransact.TransactAPI.PaymentMethod? = nil, company: AtomicTransact.TransactAPI.CompanySummary? = nil, actions: [AtomicTransact.TransactAPI.Action] = [], profiles: [AtomicTransact.TransactAPI.Account.Profile]? = nil, items: [AtomicTransact.TransactAPI.Account.BillItem]? = nil, usage: [AtomicTransact.TransactAPI.Account.Usage]? = nil, plans: [AtomicTransact.TransactAPI.Account.Plan]? = nil, suggestions: [AtomicTransact.TransactAPI.Suggestion]? = nil)
+      #endif
+      public typealias ID = Swift.String
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct Profile : Swift.Codable, Swift.Sendable {
+      public let name: Swift.String
+      public let lastUsed: Foundation.Date?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(name: Swift.String, lastUsed: Foundation.Date? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct PaymentHistoryItem : Swift.Codable, Swift.Sendable {
+      public let date: Foundation.Date
+      public let amount: Foundation.Decimal
+      public let isPending: Swift.Bool?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(date: Foundation.Date, amount: Foundation.Decimal, isPending: Swift.Bool? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct BillItem : Swift.Codable, Swift.Sendable {
+      public let description: Swift.String
+      public let amount: Foundation.Decimal
+      public let subitems: [AtomicTransact.TransactAPI.Account.LineItem]
+      public init(description: Swift.String, amount: Foundation.Decimal, subitems: [AtomicTransact.TransactAPI.Account.LineItem] = [])
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct LineItem : Swift.Codable, Swift.Sendable {
+      public let description: Swift.String
+      public let amount: Foundation.Decimal
+      public init(description: Swift.String, amount: Foundation.Decimal)
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct Usage : Swift.Codable, Swift.Sendable {
+      public let description: Swift.String
+      public let limit: Swift.Double?
+      public let unit: Swift.String?
+      public let used: Swift.Double?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(description: Swift.String, limit: Swift.Double? = nil, unit: Swift.String? = nil, used: Swift.Double? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct Plan : Swift.Codable, Swift.Sendable {
+      public let sourceId: Swift.String?
+      public let typeId: Swift.String?
+      public let status: Swift.String
+      public let description: Swift.String
+      public let amount: Foundation.Decimal?
+      public let freeTrial: Swift.Bool?
+      public let pendingChange: AtomicTransact.TransactAPI.Account.PendingPlanChange?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(sourceId: Swift.String? = nil, typeId: Swift.String? = nil, status: Swift.String, description: Swift.String, amount: Foundation.Decimal? = nil, freeTrial: Swift.Bool? = nil, pendingChange: AtomicTransact.TransactAPI.Account.PendingPlanChange? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct PendingPlanChange : Swift.Codable, Swift.Sendable {
+      public let startDate: Foundation.Date?
+      public let endDate: Foundation.Date?
+      public let status: Swift.String?
+      public let amount: Foundation.Decimal?
+      public let typeId: Swift.String?
+      public let description: Swift.String?
+      public let billingCycle: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(startDate: Foundation.Date? = nil, endDate: Foundation.Date? = nil, status: Swift.String? = nil, amount: Foundation.Decimal? = nil, typeId: Swift.String? = nil, description: Swift.String? = nil, billingCycle: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct ActionHistory : Swift.Codable, Swift.Sendable {
+      public let account: AtomicTransact.TransactAPI.AccountReference
+      public let bill: AtomicTransact.TransactAPI.BillReference?
+      public let plan: AtomicTransact.TransactAPI.PlanReference?
+      public let type: Swift.String?
+      public let status: Swift.String?
+      public let failReason: Swift.String?
+      public let createdAt: Foundation.Date?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(account: AtomicTransact.TransactAPI.AccountReference, bill: AtomicTransact.TransactAPI.BillReference? = nil, plan: AtomicTransact.TransactAPI.PlanReference? = nil, type: Swift.String? = nil, status: Swift.String? = nil, failReason: Swift.String? = nil, createdAt: Foundation.Date? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct WorkflowTask : Swift.Codable, Swift.Sendable, Swift.Identifiable {
+      public let id: Swift.String
+      public let managedBy: AtomicTransact.TransactAPI.Account.ManagedBy?
+      public let status: Swift.String
+      public let product: Swift.String
+      public let settings: AtomicTransact.TransactAPI.Account.TaskSettings?
+      public let failReason: Swift.String?
+      public let customFailureTitle: Swift.String?
+      public let customFailureMessage: Swift.String?
+      public let customSuccessTitle: Swift.String?
+      public let customSuccessMessage: Swift.String?
+      public let uplinkPageHandle: Swift.Int?
+      public let createdAt: Foundation.Date
+      public let completedAt: Foundation.Date?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(id: Swift.String, managedBy: AtomicTransact.TransactAPI.Account.ManagedBy? = nil, status: Swift.String, product: Swift.String, settings: AtomicTransact.TransactAPI.Account.TaskSettings? = nil, failReason: Swift.String? = nil, customFailureTitle: Swift.String? = nil, customFailureMessage: Swift.String? = nil, customSuccessTitle: Swift.String? = nil, customSuccessMessage: Swift.String? = nil, uplinkPageHandle: Swift.Int? = nil, createdAt: Foundation.Date, completedAt: Foundation.Date? = nil)
+      #endif
+      public typealias ID = Swift.String
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct ManagedBy : Swift.Codable, Swift.Sendable {
+      public let providerString: Swift.String?
+      public let company: AtomicTransact.TransactAPI.CompanySummary?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(providerString: Swift.String? = nil, company: AtomicTransact.TransactAPI.CompanySummary? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct TaskSettings : Swift.Codable, Swift.Sendable {
+      public let `switch`: AtomicTransact.TransactAPI.Account.SwitchSettings?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(switch: AtomicTransact.TransactAPI.Account.SwitchSettings? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct SwitchSettings : Swift.Codable, Swift.Sendable {
+      public let paymentMethod: AtomicTransact.TransactAPI.Account.SwitchPaymentMethod?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(paymentMethod: AtomicTransact.TransactAPI.Account.SwitchPaymentMethod? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct SwitchPaymentMethod : Swift.Codable, Swift.Sendable {
+      public let type: Swift.String?
+      public let token: Swift.String?
+      public let title: Swift.String?
+      public let lastFour: Swift.String?
+      public let brand: Swift.String?
+      public let description: Swift.String?
+      public let expiry: Foundation.Date?
+      public let isPrimary: Swift.Bool?
+      public let accountNumber: Swift.String?
+      public let routingNumber: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(type: Swift.String? = nil, token: Swift.String? = nil, title: Swift.String? = nil, lastFour: Swift.String? = nil, brand: Swift.String? = nil, description: Swift.String? = nil, expiry: Foundation.Date? = nil, isPrimary: Swift.Bool? = nil, accountNumber: Swift.String? = nil, routingNumber: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct LastUserMessageSent : Swift.Codable, Swift.Sendable {
+      public let messageType: Swift.String
+      public let payload: [Swift.String : MuppetIOS.JSON]?
+      public let taskId: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(messageType: Swift.String, payload: [Swift.String : MuppetIOS.JSON]? = nil, taskId: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public typealias ID = Swift.String
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct AccountReference : Swift.Codable, Swift.Sendable, Swift.Identifiable {
+    public let id: Swift.String
+    public let companyId: Swift.String?
+    public let isConnected: Swift.Bool?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(id: Swift.String, companyId: Swift.String? = nil, isConnected: Swift.Bool? = nil)
+    #endif
+    public typealias ID = Swift.String
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct Action : Swift.Codable, Swift.Sendable {
+    public let actionId: Swift.String
+    public let type: Swift.String
+    public let automated: Swift.Bool
+    public let disabled: Swift.Bool
+    public let canInitViaApi: Swift.Bool
+    public let isTestAccount: Swift.Bool?
+    public let testFlow: Swift.String?
+    public let testMerchantState: Swift.String?
+    public let bill: AtomicTransact.TransactAPI.Action.Bill?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(actionId: Swift.String, type: Swift.String, automated: Swift.Bool, disabled: Swift.Bool, canInitViaApi: Swift.Bool, isTestAccount: Swift.Bool? = nil, testFlow: Swift.String? = nil, testMerchantState: Swift.String? = nil, bill: AtomicTransact.TransactAPI.Action.Bill? = nil)
+    #endif
+    public struct Bill : Swift.Codable, Swift.Sendable, Swift.Identifiable {
+      public let id: Swift.String
+      public let name: Swift.String?
+      public let companyId: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(id: Swift.String, name: Swift.String? = nil, companyId: Swift.String? = nil)
+      #endif
+      public typealias ID = Swift.String
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct ActionExecutionResult : Swift.Codable, Swift.Sendable {
+    public let accountId: Swift.String?
+    public let taskWorkflow: AtomicTransact.TransactAPI.ActionExecutionResult.Workflow?
+    public let tasks: [AtomicTransact.TransactAPI.ActionExecutionResult.ExecutedTask]?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(accountId: Swift.String? = nil, taskWorkflow: AtomicTransact.TransactAPI.ActionExecutionResult.Workflow? = nil, tasks: [AtomicTransact.TransactAPI.ActionExecutionResult.ExecutedTask]? = nil)
+    #endif
+    public struct Workflow : Swift.Codable, Swift.Sendable {
+      public let id: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(id: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct ExecutedTask : Swift.Codable, Swift.Sendable {
+      public let id: Swift.String?
+      public let product: Swift.String?
+      public let actionType: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(id: Swift.String? = nil, product: Swift.String? = nil, actionType: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct BillReference : Swift.Codable, Swift.Sendable, Swift.Identifiable {
+    public let id: Swift.String
+    public let companyId: Swift.String?
+    public let sourceId: Swift.String?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(id: Swift.String, companyId: Swift.String? = nil, sourceId: Swift.String? = nil)
+    #endif
+    public typealias ID = Swift.String
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct Branding : Swift.Codable, Swift.Sendable {
+    public let color: Swift.String?
+    public let logo: AtomicTransact.TransactAPI.Logo?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(color: Swift.String? = nil, logo: AtomicTransact.TransactAPI.Logo? = nil)
+    #endif
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct Company : Swift.Codable, Swift.Sendable, Swift.Identifiable {
+    public let id: Swift.String
+    public let name: Swift.String
+    public let subtext: Swift.String?
+    public let status: Swift.String?
+    public let createdAt: Foundation.Date?
+    public let tags: [Swift.String]?
+    public let branding: AtomicTransact.TransactAPI.Branding?
+    public let availableProducts: [Swift.String]?
+    public let availableActions: [Swift.String]?
+    public let connector: AtomicTransact.TransactAPI.Company.Connector?
+    public let alternativeConnectors: [AtomicTransact.TransactAPI.Company.Connector]?
+    public let coAuthConnectors: [AtomicTransact.TransactAPI.Company.Connector]?
+    public let managedBy: [AtomicTransact.TransactAPI.Company.Manager]?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(id: Swift.String, name: Swift.String, subtext: Swift.String? = nil, status: Swift.String? = nil, createdAt: Foundation.Date? = nil, tags: [Swift.String]? = nil, branding: AtomicTransact.TransactAPI.Branding? = nil, availableProducts: [Swift.String]? = nil, availableActions: [Swift.String]? = nil, connector: AtomicTransact.TransactAPI.Company.Connector? = nil, alternativeConnectors: [AtomicTransact.TransactAPI.Company.Connector]? = nil, coAuthConnectors: [AtomicTransact.TransactAPI.Company.Connector]? = nil, managedBy: [AtomicTransact.TransactAPI.Company.Manager]? = nil)
+    #endif
+    public struct Connector : Swift.Codable, Swift.Sendable, Swift.Identifiable {
+      public let id: Swift.String
+      public let availableProducts: [Swift.String]?
+      public let capabilities: AtomicTransact.TransactAPI.Company.Connector.Capabilities?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(id: Swift.String, availableProducts: [Swift.String]? = nil, capabilities: AtomicTransact.TransactAPI.Company.Connector.Capabilities? = nil)
+      #endif
+      public struct Capabilities : Swift.Codable, Swift.Sendable {
+        public let distributionTypes: [Swift.String]?
+        public let supportedPaymentMethods: [Swift.String]?
+        public let authenticationMethods: [Swift.String]?
+        #if compiler(>=5.3) && $NonescapableTypes
+        public init(distributionTypes: [Swift.String]? = nil, supportedPaymentMethods: [Swift.String]? = nil, authenticationMethods: [Swift.String]? = nil)
+        #endif
+        public func encode(to encoder: any Swift.Encoder) throws
+        public init(from decoder: any Swift.Decoder) throws
+      }
+      public typealias ID = Swift.String
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct Manager : Swift.Codable, Swift.Sendable, Swift.Identifiable {
+      public let id: Swift.String
+      public let name: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(id: Swift.String, name: Swift.String? = nil)
+      #endif
+      public typealias ID = Swift.String
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public typealias ID = Swift.String
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct CompanyPage : Swift.Codable, Swift.Sendable {
+    public let companies: [AtomicTransact.TransactAPI.Company]
+    public let total: Swift.Int?
+    public let limit: Swift.Int?
+    public let skip: Swift.Int?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(companies: [AtomicTransact.TransactAPI.Company] = [], total: Swift.Int? = nil, limit: Swift.Int? = nil, skip: Swift.Int? = nil)
+    #endif
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct CompanySummary : Swift.Codable, Swift.Sendable, Swift.Identifiable {
+    public let id: Swift.String
+    public let name: Swift.String
+    public let branding: AtomicTransact.TransactAPI.Branding?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(id: Swift.String, name: Swift.String, branding: AtomicTransact.TransactAPI.Branding? = nil)
+    #endif
+    public typealias ID = Swift.String
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct Logo : Swift.Codable, Swift.Sendable {
+    public let backgroundColor: Swift.String?
+    public let url: Swift.String?
+    public let deprecatedFileTypeUrl: Swift.String?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(backgroundColor: Swift.String? = nil, url: Swift.String? = nil, deprecatedFileTypeUrl: Swift.String? = nil)
+    #endif
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct Order : Swift.Codable, Swift.Sendable, Swift.Identifiable {
+    public let id: Swift.String
+    public let sourceId: Swift.String
+    public let date: Foundation.Date
+    public let amount: Foundation.Decimal
+    public let lineItems: [AtomicTransact.TransactAPI.Order.LineItem]
+    public let paymentMethod: AtomicTransact.TransactAPI.PaymentMethod?
+    public let paymentHistory: [AtomicTransact.TransactAPI.Order.Payment]
+    public let products: [AtomicTransact.TransactAPI.Order.Product]
+    public let returned: Swift.Bool
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(id: Swift.String, sourceId: Swift.String, date: Foundation.Date, amount: Foundation.Decimal, lineItems: [AtomicTransact.TransactAPI.Order.LineItem] = [], paymentMethod: AtomicTransact.TransactAPI.PaymentMethod? = nil, paymentHistory: [AtomicTransact.TransactAPI.Order.Payment] = [], products: [AtomicTransact.TransactAPI.Order.Product] = [], returned: Swift.Bool)
+    #endif
+    public struct Payment : Swift.Codable, Swift.Sendable {
+      public let paymentMethod: AtomicTransact.TransactAPI.PaymentMethod?
+      public let date: Foundation.Date
+      public let amount: Foundation.Decimal
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(paymentMethod: AtomicTransact.TransactAPI.PaymentMethod? = nil, date: Foundation.Date, amount: Foundation.Decimal)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct Product : Swift.Codable, Swift.Sendable {
+      public let sourceId: Swift.String?
+      public let description: Swift.String
+      public let amount: Foundation.Decimal
+      public let quantity: AtomicTransact.TransactAPI.Order.Product.Quantity?
+      public let returnBy: Foundation.Date?
+      public let imageUrl: Swift.String?
+      public let returned: Swift.Bool
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(sourceId: Swift.String? = nil, description: Swift.String, amount: Foundation.Decimal, quantity: AtomicTransact.TransactAPI.Order.Product.Quantity? = nil, returnBy: Foundation.Date? = nil, imageUrl: Swift.String? = nil, returned: Swift.Bool)
+      #endif
+      public struct Quantity : Swift.Codable, Swift.Sendable {
+        public let value: Swift.Double
+        public let unit: Swift.String?
+        #if compiler(>=5.3) && $NonescapableTypes
+        public init(value: Swift.Double, unit: Swift.String? = nil)
+        #endif
+        public func encode(to encoder: any Swift.Encoder) throws
+        public init(from decoder: any Swift.Decoder) throws
+      }
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct LineItem : Swift.Codable, Swift.Sendable {
+      public let description: Swift.String
+      public let amount: Foundation.Decimal
+      public init(description: Swift.String, amount: Foundation.Decimal)
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public typealias ID = Swift.String
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct PaymentMethod : Swift.Codable, Swift.Sendable {
+    public let type: Swift.String?
+    public let description: Swift.String?
+    public let expiry: Foundation.Date?
+    public let isPrimary: Swift.Bool?
+    public let brand: Swift.String?
+    public let lastFour: Swift.String?
+    public let accountNumber: Swift.String?
+    public let routingNumber: Swift.String?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(type: Swift.String? = nil, description: Swift.String? = nil, expiry: Foundation.Date? = nil, isPrimary: Swift.Bool? = nil, brand: Swift.String? = nil, lastFour: Swift.String? = nil, accountNumber: Swift.String? = nil, routingNumber: Swift.String? = nil)
+    #endif
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct PlanReference : Swift.Codable, Swift.Sendable {
+    public let sourceId: Swift.String
+    public let description: Swift.String?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(sourceId: Swift.String, description: Swift.String? = nil)
+    #endif
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct RecurringFinancialTransaction : Swift.Codable, Swift.Sendable, Swift.Identifiable {
+    public let id: Swift.String
+    public let accountId: Swift.String?
+    public let expenseId: Swift.String
+    public let name: Swift.String
+    public let amount: Foundation.Decimal
+    public let billingCycle: Swift.String?
+    public let source: Swift.String?
+    public let company: AtomicTransact.TransactAPI.CompanySummary?
+    public let dueDate: Foundation.Date?
+    public let financialTransactions: [AtomicTransact.TransactAPI.RecurringFinancialTransaction.FinancialTransaction]
+    public let actions: [AtomicTransact.TransactAPI.Action]
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(id: Swift.String, accountId: Swift.String? = nil, expenseId: Swift.String, name: Swift.String, amount: Foundation.Decimal, billingCycle: Swift.String? = nil, source: Swift.String? = nil, company: AtomicTransact.TransactAPI.CompanySummary? = nil, dueDate: Foundation.Date? = nil, financialTransactions: [AtomicTransact.TransactAPI.RecurringFinancialTransaction.FinancialTransaction] = [], actions: [AtomicTransact.TransactAPI.Action] = [])
+    #endif
+    public struct FinancialTransaction : Swift.Codable, Swift.Sendable {
+      public let identifier: Swift.String
+      public let description: Swift.String?
+      public let amount: Foundation.Decimal
+      public let date: Foundation.Date
+      public let source: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(identifier: Swift.String, description: Swift.String? = nil, amount: Foundation.Decimal, date: Foundation.Date, source: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public typealias ID = Swift.String
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension AtomicTransact.TransactAPI {
+  public struct Suggestion : Swift.Codable, Swift.Sendable {
+    public let userId: Swift.String
+    public let identifier: Swift.String
+    public let monthlySavings: Foundation.Decimal?
+    public let category: Swift.String
+    public let text: AtomicTransact.TransactAPI.Suggestion.Text
+    public let action: AtomicTransact.TransactAPI.Action
+    public let references: [AtomicTransact.TransactAPI.Suggestion.Reference]
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(userId: Swift.String, identifier: Swift.String, monthlySavings: Foundation.Decimal? = nil, category: Swift.String, text: AtomicTransact.TransactAPI.Suggestion.Text, action: AtomicTransact.TransactAPI.Action, references: [AtomicTransact.TransactAPI.Suggestion.Reference] = [])
+    #endif
+    public struct Text : Swift.Codable, Swift.Sendable {
+      public let listTitle: Swift.String
+      public let listDescription: Swift.String?
+      public let detailTitle: Swift.String?
+      public let detailDescription: Swift.String?
+      public let cta: Swift.String
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(listTitle: Swift.String, listDescription: Swift.String? = nil, detailTitle: Swift.String? = nil, detailDescription: Swift.String? = nil, cta: Swift.String)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct Reference : Swift.Codable, Swift.Sendable {
+      public let company: AtomicTransact.TransactAPI.CompanySummary?
+      public let account: AtomicTransact.TransactAPI.AccountReference?
+      public let bill: AtomicTransact.TransactAPI.BillReference?
+      public let plan: AtomicTransact.TransactAPI.PlanReference?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(company: AtomicTransact.TransactAPI.CompanySummary? = nil, account: AtomicTransact.TransactAPI.AccountReference? = nil, bill: AtomicTransact.TransactAPI.BillReference? = nil, plan: AtomicTransact.TransactAPI.PlanReference? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+public struct TransactAPI : Swift.Sendable {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getAccounts(companyId: Swift.String? = nil, hideDisabledActions: Swift.Bool = false, ignorePlanStatus: Swift.Bool = false, includeTestFlows: Swift.Bool = false, includeActionHistory: Swift.Bool = false, includeTaskMeta: Swift.Bool = false) async throws(AtomicTransact.TransactAPI.TransactAPIError) -> [AtomicTransact.TransactAPI.Account]
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getAccount(accountId: Swift.String, hideDisabledActions: Swift.Bool = false, ignorePlanStatus: Swift.Bool = false, includeTestFlows: Swift.Bool = false, includeActionHistory: Swift.Bool = false, includeTaskMeta: Swift.Bool = false) async throws(AtomicTransact.TransactAPI.TransactAPIError) -> AtomicTransact.TransactAPI.Account?
+  #endif
+  public func getSuggestions(hideDisabledActions: Swift.Bool = false) async throws(AtomicTransact.TransactAPI.TransactAPIError) -> [AtomicTransact.TransactAPI.Suggestion]
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getCompanies(scope: Swift.String = "pay-link", product: Swift.String? = "present", action: Swift.String? = nil, limit: Swift.Int = 50, skip: Swift.Int = 0, includeManaged: Swift.Bool = false) async throws(AtomicTransact.TransactAPI.TransactAPIError) -> AtomicTransact.TransactAPI.CompanyPage
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func searchCompanies(query: Swift.String, scopes: [Swift.String]? = nil, products: [Swift.String]? = nil, tags: [Swift.String]? = nil, excludedTags: [Swift.String]? = nil, includeManaged: Swift.Bool = false) async throws(AtomicTransact.TransactAPI.TransactAPIError) -> [AtomicTransact.TransactAPI.Company]
+  #endif
+  public func executeAction(actionId: Swift.String) async throws(AtomicTransact.TransactAPI.TransactAPIError) -> AtomicTransact.TransactAPI.ActionExecutionResult
+}
+extension AtomicTransact.TransactAPI {
+  public enum TransactAPIError : Swift.Error, Swift.Sendable {
+    case cancelled
+    case invalidURL
+    case encodingError
+    case decodingError(underlyingError: (any Swift.Error)?, responseBody: MuppetIOS.JSON?)
+    case networkError(underlyingError: any Swift.Error)
+    case invalidResponse
+    case unexpectedError(underlyingError: any Swift.Error)
+    case httpError(statusCode: Swift.Int, response: AtomicTransact.TransactAPI.TransactAPIError.Response)
+    public struct Response : Swift.Sendable {
+      public let type: Swift.String?
+      public let message: Swift.String?
+      public let code: Swift.Int?
+      public let data: MuppetIOS.JSON?
+      public let responseBody: MuppetIOS.JSON?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(type: Swift.String? = nil, message: Swift.String? = nil, code: Swift.Int? = nil, data: MuppetIOS.JSON? = nil, responseBody: MuppetIOS.JSON? = nil)
+      #endif
+    }
+  }
+}
 public enum Atomic {
   #if compiler(>=5.3) && $NonescapableTypes
   @_Concurrency.MainActor public static func presentTransact(from source: UIKit.UIViewController, config: AtomicTransact.AtomicConfig, environment: AtomicTransact.TransactEnvironment = .production, presentationStyle: UIKit.UIModalPresentationStyle = .formSheet, onInteraction: ((AtomicTransact.TransactInteraction) -> Swift.Void)? = nil, onDataRequest: ((AtomicTransact.TransactDataRequest) async -> AtomicTransact.TransactDataResponse?)? = nil, onAuthStatusUpdate: ((AtomicTransact.TransactAuthStatusUpdate) -> Swift.Void)? = nil, onTaskStatusUpdate: ((AtomicTransact.TransactTaskStatusUpdate) -> Swift.Void)? = nil, onLaunch: (() -> Swift.Void)? = nil, onCompletion: ((AtomicTransact.TransactResponse) -> Swift.Void)? = nil, onError: ((AtomicTransact.TransactError) -> Swift.Void)? = nil, onCleanup: (() -> Swift.Void)? = nil)
@@ -307,8 +987,21 @@ public struct AtomicConfig : Swift.Codable, Swift.Sendable {
     public init(from decoder: any Swift.Decoder) throws
   }
   public struct Platform : Swift.Codable, Swift.Sendable {
+    public struct HostFramework : Swift.Codable, Swift.Sendable {
+      public var name: Swift.String
+      public var version: Swift.String?
+      public var packageManager: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(name: Swift.String, version: Swift.String? = nil, packageManager: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
     public init()
     public init(suffixed platformSuffix: Swift.String)
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(suffixed platformSuffix: Swift.String, hostFramework: AtomicTransact.AtomicConfig.Platform.HostFramework?)
+    #endif
     #if compiler(>=5.3) && $NonescapableTypes
     public func encode() -> Any?
     #endif
@@ -326,7 +1019,10 @@ public struct AtomicConfig : Swift.Codable, Swift.Sendable {
   public let scope: AtomicTransact.AtomicConfig.ScopeType?
   public var theme: AtomicTransact.AtomicConfig.Theme?
   public var distribution: AtomicTransact.AtomicConfig.Distribution?
-  public var language: Swift.String
+  public var language: Swift.String {
+    get
+    set
+  }
   public var deeplink: AtomicTransact.AtomicConfig.Deeplink?
   public var metadata: [Swift.String : Swift.String]?
   public var search: AtomicTransact.AtomicConfig.Search?
@@ -366,10 +1062,10 @@ extension SwiftUICore.EnvironmentValues {
   }
   #endif
 }
-public struct TransactAuthStatusUpdate : Swift.Decodable, Swift.Sendable {
+public struct TransactAuthStatusUpdate : Swift.Codable, Swift.Sendable {
   public let company: AtomicTransact.TransactCompany
   public let status: AtomicTransact.TransactAuthStatusUpdate.AuthStatus
-  public enum AuthStatus : Swift.String, Swift.Decodable, Swift.Sendable {
+  public enum AuthStatus : Swift.String, Swift.Codable, Swift.Sendable {
     case authenticated
     #if compiler(>=5.3) && $NonescapableTypes
     public init?(rawValue: Swift.String)
@@ -380,37 +1076,43 @@ public struct TransactAuthStatusUpdate : Swift.Decodable, Swift.Sendable {
     }
   }
   public init(company: AtomicTransact.TransactCompany, status: AtomicTransact.TransactAuthStatusUpdate.AuthStatus)
+  public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
 }
-public struct TransactCompany : Swift.Decodable, Swift.Sendable {
+public struct TransactCompany : Swift.Codable, Swift.Sendable {
   public let id: Swift.String
   public let name: Swift.String
   public let branding: AtomicTransact.TransactCompany.Branding?
   #if compiler(>=5.3) && $NonescapableTypes
   public init(id: Swift.String, name: Swift.String, branding: AtomicTransact.TransactCompany.Branding? = nil)
   #endif
-  public struct Branding : Swift.Decodable, Swift.Sendable {
+  public struct Branding : Swift.Codable, Swift.Sendable {
     public let color: Swift.String
     public let logo: AtomicTransact.TransactCompany.Branding.Logo
     public init(color: Swift.String, logo: AtomicTransact.TransactCompany.Branding.Logo)
-    public struct Logo : Swift.Decodable, Swift.Sendable {
+    public struct Logo : Swift.Codable, Swift.Sendable {
       public let url: Swift.String
       public let backgroundColor: Swift.String?
       #if compiler(>=5.3) && $NonescapableTypes
       public init(url: Swift.String, backgroundColor: Swift.String? = nil)
       #endif
+      public func encode(to encoder: any Swift.Encoder) throws
       public init(from decoder: any Swift.Decoder) throws
     }
+    public func encode(to encoder: any Swift.Encoder) throws
     public init(from decoder: any Swift.Decoder) throws
   }
+  public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
 }
-public struct TransactDataRequest : Swift.Sendable {
+public struct TransactDataRequest : Swift.Codable, Swift.Sendable {
   public var taskId: Swift.String?
   public var userId: Swift.String
   public var identifier: Swift.String
   public var fields: [Swift.String]
   public var data: [Swift.String : any Swift.Sendable]
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
   #if compiler(>=5.3) && $NonescapableTypes
   public init(userId: Swift.String, identifier: Swift.String, fields: [Swift.String], taskId: Swift.String? = nil, additionalData: [Swift.String : any Swift.Sendable] = [:])
   #endif
@@ -497,11 +1199,13 @@ public enum TransactEnvironment : Swift.Sendable {
     get
   }
 }
-public struct TransactInteraction : Swift.CustomStringConvertible, Swift.Sendable {
+public struct TransactInteraction : Swift.Codable, Swift.CustomStringConvertible, Swift.Sendable {
   public var name: Swift.String
   public var identifier: Swift.String
   public var value: [Swift.String : any Swift.Sendable]
   public init(name: Swift.String, identifier: Swift.String, value: [Swift.String : any Swift.Sendable])
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
   public var description: Swift.String {
     get
   }
@@ -536,12 +1240,14 @@ public struct TransactInteraction : Swift.CustomStringConvertible, Swift.Sendabl
   }
   #endif
 }
-public enum TransactResponse : Swift.CustomStringConvertible, Swift.Sendable {
-  public struct ResponseData : Swift.Sendable {
+public enum TransactResponse : Swift.Codable, Swift.CustomStringConvertible, Swift.Sendable {
+  public struct ResponseData : Swift.Codable, Swift.Sendable {
     public init(data: [Swift.String : any Swift.Sendable])
     #if compiler(>=5.3) && $NonescapableTypes
     public init(taskId: Swift.String? = nil, handoff: Swift.String? = nil, reason: Swift.String? = nil, identifier: Swift.String = "unknown")
     #endif
+    public init(from decoder: any Swift.Decoder) throws
+    public func encode(to encoder: any Swift.Encoder) throws
     public var data: [Swift.String : any Swift.Sendable] {
       get
     }
@@ -565,13 +1271,18 @@ public enum TransactResponse : Swift.CustomStringConvertible, Swift.Sendable {
   public var description: Swift.String {
     get
   }
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
 }
-public enum TransactError : Swift.Error, Swift.Sendable {
+public enum TransactError : Swift.Error, Swift.Codable, Swift.Sendable {
   case unableToConnectToTransact
   case invalidConfig
   case transactError(data: [Swift.String : any Swift.Sendable])
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
 }
 @_hasMissingDesignatedInitializers @_Concurrency.MainActor final public class TransactSession {
+  @_Concurrency.MainActor final public let apiClient: AtomicTransact.TransactAPI
   @_Concurrency.MainActor final public var onInteraction: ((AtomicTransact.TransactInteraction) -> Swift.Void)?
   @_Concurrency.MainActor final public var onDataRequest: ((AtomicTransact.TransactDataRequest) async -> AtomicTransact.TransactDataResponse?)?
   @_Concurrency.MainActor final public var onAuthStatusUpdate: ((AtomicTransact.TransactAuthStatusUpdate) -> Swift.Void)?
@@ -584,7 +1295,10 @@ public enum TransactError : Swift.Error, Swift.Sendable {
     public var linkedAccount: Swift.String?
     public var deferredPaymentMethodStrategy: AtomicTransact.AtomicConfig.DeferredPaymentMethodStrategy?
     public var theme: AtomicTransact.AtomicConfig.Theme
-    public var language: Swift.String
+    public var language: Swift.String {
+      get
+      set
+    }
     public var sessionContext: Swift.String?
     public var deeplink: AtomicTransact.AtomicConfig.Deeplink?
     public var metadata: [Swift.String : Swift.String]?
@@ -606,7 +1320,7 @@ public enum TransactError : Swift.Error, Swift.Sendable {
   }
   @objc deinit
 }
-public struct TransactTaskStatusUpdate : Swift.Decodable, Swift.Sendable {
+public struct TransactTaskStatusUpdate : Swift.Codable, Swift.Sendable {
   public let taskId: Swift.String
   public let product: AtomicTransact.AtomicConfig.ProductType
   public let company: AtomicTransact.TransactCompany
@@ -619,12 +1333,13 @@ public struct TransactTaskStatusUpdate : Swift.Decodable, Swift.Sendable {
   #if compiler(>=5.3) && $NonescapableTypes
   public init(taskId: Swift.String, product: AtomicTransact.AtomicConfig.ProductType, company: AtomicTransact.TransactCompany, status: AtomicTransact.TransactTaskStatusUpdate.TaskStatus, failReason: Swift.String? = nil, switchData: AtomicTransact.TransactTaskStatusUpdate.SwitchData? = nil, depositData: AtomicTransact.TransactTaskStatusUpdate.DepositData? = nil, managedBy: AtomicTransact.TransactTaskStatusUpdate.ManagedBy? = nil, actionType: AtomicTransact.TransactTaskStatusUpdate.ActionType? = nil)
   #endif
-  public struct ManagedBy : Swift.Decodable, Swift.Sendable {
+  public struct ManagedBy : Swift.Codable, Swift.Sendable {
     public let company: AtomicTransact.TransactCompany
     public init(company: AtomicTransact.TransactCompany)
+    public func encode(to encoder: any Swift.Encoder) throws
     public init(from decoder: any Swift.Decoder) throws
   }
-  public enum TaskStatus : Swift.String, Swift.Decodable, Swift.Sendable {
+  public enum TaskStatus : Swift.String, Swift.Codable, Swift.Sendable {
     case completed
     case failed
     case processing
@@ -637,7 +1352,7 @@ public struct TransactTaskStatusUpdate : Swift.Decodable, Swift.Sendable {
       get
     }
   }
-  public enum ActionType : Swift.String, Swift.Decodable, Swift.Sendable {
+  public enum ActionType : Swift.String, Swift.Codable, Swift.Sendable {
     case refresh
     case connectAccount
     case disconnectAccount
@@ -652,14 +1367,14 @@ public struct TransactTaskStatusUpdate : Swift.Decodable, Swift.Sendable {
       get
     }
   }
-  public struct SwitchData : Swift.Decodable, Swift.Sendable {
+  public struct SwitchData : Swift.Codable, Swift.Sendable {
     public let paymentMethod: AtomicTransact.TransactTaskStatusUpdate.SwitchData.PaymentMethod
     public init(paymentMethod: AtomicTransact.TransactTaskStatusUpdate.SwitchData.PaymentMethod)
-    public struct PaymentMethod : Swift.Decodable, Swift.Sendable {
+    public struct PaymentMethod : Swift.Codable, Swift.Sendable {
       public let id: Swift.String
       public let title: Swift.String
       public let type: AtomicTransact.TransactTaskStatusUpdate.SwitchData.PaymentMethod.PaymentType
-      public enum PaymentType : Swift.String, Swift.Decodable, Swift.Sendable {
+      public enum PaymentType : Swift.String, Swift.Codable, Swift.Sendable {
         case card
         case bank
         #if compiler(>=5.3) && $NonescapableTypes
@@ -679,11 +1394,13 @@ public struct TransactTaskStatusUpdate : Swift.Decodable, Swift.Sendable {
       #if compiler(>=5.3) && $NonescapableTypes
       public init(id: Swift.String, title: Swift.String, type: AtomicTransact.TransactTaskStatusUpdate.SwitchData.PaymentMethod.PaymentType, expiry: Swift.String? = nil, brand: Swift.String? = nil, lastFour: Swift.String? = nil, routingNumber: Swift.String? = nil, accountType: Swift.String? = nil, lastFourAccountNumber: Swift.String? = nil)
       #endif
+      public func encode(to encoder: any Swift.Encoder) throws
       public init(from decoder: any Swift.Decoder) throws
     }
+    public func encode(to encoder: any Swift.Encoder) throws
     public init(from decoder: any Swift.Decoder) throws
   }
-  public struct DepositData : Swift.Decodable, Swift.Sendable {
+  public struct DepositData : Swift.Codable, Swift.Sendable {
     public let accountType: Swift.String?
     public let distributionAmount: Swift.Double?
     public let distributionType: Swift.String?
@@ -693,8 +1410,10 @@ public struct TransactTaskStatusUpdate : Swift.Decodable, Swift.Sendable {
     #if compiler(>=5.3) && $NonescapableTypes
     public init(accountType: Swift.String? = nil, distributionAmount: Swift.Double? = nil, distributionType: Swift.String? = nil, lastFour: Swift.String? = nil, routingNumber: Swift.String? = nil, title: Swift.String? = nil)
     #endif
+    public func encode(to encoder: any Swift.Encoder) throws
     public init(from decoder: any Swift.Decoder) throws
   }
+  public func encode(to encoder: any Swift.Encoder) throws
   public init(from decoder: any Swift.Decoder) throws
 }
 extension AtomicTransact.Atomic.PauseTransactError : Swift.Equatable {}
