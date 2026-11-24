@@ -287,7 +287,9 @@ jobs:
     if: >-
       github.event.pull_request.user.login != 'dependabot[bot]' ||
       contains(github.head_ref, '/financial.atomic-transact-')
-    runs-on: macos-latest
+    # The standard 3-core, 7 GB runner runs out of memory with an iOS 26 simulator booted, and
+    # the Simulator stalls long enough to fail specs. This runner has 5 cores and 14 GB.
+    runs-on: macos-26-xlarge
     env:
       # CocoaPods dies in Ruby's unicode normalization without a UTF-8 locale.
       LANG: en_US.UTF-8
