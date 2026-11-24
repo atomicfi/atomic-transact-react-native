@@ -117,6 +117,16 @@ class TransactReactNative: RCTEventEmitter {
 		}
 	}
 
+	// The SDK's callback models are Codable and encode to the web event's JSON, the same payload
+	// Android forwards untouched. Parsing that JSON gives the bridge Foundation types it can send.
+	private func bridgeValue<T: Encodable>(_ value: T) -> Any {
+		guard let data = try? JSONEncoder().encode(value),
+			let object = try? JSONSerialization.jsonObject(with: data, options: [.fragmentsAllowed]) else {
+			return NSNull()
+		}
+		return object
+	}
+
 	// A launch that fails before Transact presents gets no other callback, so it must reject; the
 	// JS layer delivers the rejection to onError.
 	private func rejectLaunch(_ reject: RCTPromiseRejectBlock, code: String, message: String, debugEnabled: Bool) {
@@ -169,7 +179,7 @@ class TransactReactNative: RCTEventEmitter {
 				Atomic.presentTransact(
 					from: source, config: config, environment: parsedEnvironment, presentationStyle: parsedPresentationStyle,
 					onInteraction: { interaction in
-						self.sendEvent(withName: "onInteraction", body: ["instanceId": instanceId, "data": ["name": interaction.name, "value": interaction.value]])
+						self.sendEvent(withName: "onInteraction", body: ["instanceId": instanceId, "data": self.bridgeValue(interaction)])
 					},
 					onDataRequest: { request async -> TransactDataResponse? in
 						// Create a task to handle the async request to React Native
@@ -196,14 +206,19 @@ class TransactReactNative: RCTEventEmitter {
 							}
 
 							// Send event with request data to React Native
-							self.sendEvent(withName: "onDataRequest", body: ["instanceId": instanceId, "data": request.data])
+							self.sendEvent(withName: "onDataRequest", body: ["instanceId": instanceId, "data": self.bridgeValue(request)])
 						}
 					},
 					onAuthStatusUpdate: { status in
-						self.sendEvent(withName: "onAuthStatusUpdate", body: ["instanceId": instanceId, "data": status.serialize()])
+						self.sendEvent(withName: "onAuthStatusUpdate", body: ["instanceId": instanceId, "data": self.bridgeValue(status)])
 					},
 					onTaskStatusUpdate: { status in
-						self.sendEvent(withName: "onTaskStatusUpdate", body: ["instanceId": instanceId, "data": status.serialize()])
+						// Encoding leaves out an absent failReason, which both platforms send as null.
+						var data = self.bridgeValue(status) as? [String: Any] ?? [:]
+						if data["failReason"] == nil {
+							data["failReason"] = NSNull()
+						}
+						self.sendEvent(withName: "onTaskStatusUpdate", body: ["instanceId": instanceId, "data": data])
 					},
 					onLaunch: {
 						self.sendEvent(withName: "onLaunch", body: ["instanceId": instanceId, "data": NSNull()])
@@ -325,85 +340,4 @@ class TransactReactNative: RCTEventEmitter {
 	@objc override func supportedEvents() -> [String] {
 		return ["onInteraction", "onDataRequest", "onLaunch", "onFinish", "onClose", "onCleanup", "onError", "onAuthStatusUpdate", "onTaskStatusUpdate", "onDebugLog"]
 	}
-}
-
-
-extension TransactCompany {
-	func serialize() -> [String: Any?] {
-		return [
-			"_id": id,
-			"name": name,
-			"branding": branding != nil ? [
-				"color": branding?.color,
-				"logo": [
-					"url": branding?.logo.url,
-					"backgroundColor": branding?.logo.backgroundColor
-				]
-			] : nil
-		]
-	}
-}
-
-extension TransactAuthStatusUpdate {
-    func serialize() -> [String: Any?] {
-        return [
-            "status": status.rawValue,
-            "company": company.serialize(),
-        ]
-    }
-}
-
-extension TransactTaskStatusUpdate {
-    func serialize() -> [String: Any?] {
-        var result: [String: Any?] = [
-            "taskId": taskId,
-            "product": product.rawValue,
-            "status": status.rawValue,
-            "failReason": failReason,
-            "company": company.serialize(),
-            "actionType": actionType?.rawValue
-        ]
-        
-        if let switchData = switchData {
-            var switchMap: [String: Any] = [:]
-            
-            let payment = switchData.paymentMethod
-            var paymentMap: [String: Any] = [
-                "_id": payment.id,
-                "title": payment.title,
-                "type": payment.type.rawValue
-            ]
-            
-            switch payment.type {
-            case .card:
-                paymentMap["expiry"] = payment.expiry
-                paymentMap["brand"] = payment.brand
-                paymentMap["lastFour"] = payment.lastFour
-            case .bank:
-                paymentMap["routingNumber"] = payment.routingNumber
-                paymentMap["accountType"] = payment.accountType
-                paymentMap["lastFourAccountNumber"] = payment.lastFourAccountNumber
-            }
-            
-            switchMap["paymentMethod"] = paymentMap
-            result["switchData"] = switchMap
-        }
-        
-        if let depositData = depositData {
-            result["depositData"] = [
-                "accountType": depositData.accountType,
-                "lastFour": depositData.lastFour,
-                "routingNumber": depositData.routingNumber,
-                "title": depositData.title,
-                "distributionAmount": depositData.distributionAmount,
-                "distributionType": depositData.distributionType?.description
-            ]
-        }
-        
-        if let managedBy = managedBy {
-            result["managedBy"] = ["company": managedBy.company.serialize()]
-        }
-        
-        return result
-    }
 }
