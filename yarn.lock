@@ -7023,10 +7023,10 @@ __metadata:
     expo: "npm:~58.1.0"
     expo-build-properties: "npm:~58.0.11"
     expo-clipboard: "npm:~58.0.3"
-    expo-dev-client: "npm:~58.0.14"
+    expo-dev-client: "npm:~58.0.22"
     expo-font: "npm:~58.0.9"
     expo-status-bar: "npm:~58.0.3"
-    expo-updates: "npm:~58.0.17"
+    expo-updates: "npm:~58.0.23"
     prettier: "npm:^3.8.3"
     react: "npm:19.3.0"
     react-native: "npm:0.88.1"
@@ -7139,24 +7139,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-dev-client@npm:~58.0.14":
-  version: 58.0.21
-  resolution: "expo-dev-client@npm:58.0.21"
+"expo-dev-client@npm:~58.0.22":
+  version: 58.0.22
+  resolution: "expo-dev-client@npm:58.0.22"
   dependencies:
-    expo-dev-launcher: "npm:~58.0.21"
+    expo-dev-launcher: "npm:~58.1.0"
     expo-dev-menu: "npm:~58.0.13"
     expo-dev-menu-interface: "npm:~58.0.2"
     expo-manifests: "npm:~58.0.1"
     expo-updates-interface: "npm:~58.0.1"
   peerDependencies:
     expo: "*"
-  checksum: 10/07fa17310329508651a7f40ddff46d215b28b778d1021289d8f599d0c141585d11263c69562e02fed7aa759ea9726e9bab43da6155215d9b1fb1bbac56ce7fc1
+  checksum: 10/b40f0a3074966bb53c0628a6524e6dbabf9e78ea3810ad045eb8e840c2dd3f197ff066a2f1714bfbfdf6834904c94df06b974aa880f143a379df1e6cf95ab25e
   languageName: node
   linkType: hard
 
-"expo-dev-launcher@npm:~58.0.21":
-  version: 58.0.21
-  resolution: "expo-dev-launcher@npm:58.0.21"
+"expo-dev-launcher@npm:~58.1.0":
+  version: 58.1.0
+  resolution: "expo-dev-launcher@npm:58.1.0"
   dependencies:
     "@expo/schema-utils": "npm:^58.0.3"
     expo-dev-menu: "npm:~58.0.13"
@@ -7164,7 +7164,7 @@ __metadata:
   peerDependencies:
     expo: "*"
     react-native: "*"
-  checksum: 10/13ad79254e378d96b9181afac5beb2f6054537cb29e44c2044d81d11f5b3dfd276891fa5197a2c5f7ec5ae21d0d616555285d37a3eb9e8192accbdb9a33e0eff
+  checksum: 10/29b90d380c5cbb10f5185b3ce31f88ac84b20dfb88d4d75e2bbca5c4196187e2b5bcf1d2b888f5d2f2e1cace83075b7f4d25afaa9199355a0b1f38597aee6f04
   languageName: node
   linkType: hard
 
@@ -7354,9 +7354,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-updates@npm:~58.0.17":
-  version: 58.0.22
-  resolution: "expo-updates@npm:58.0.22"
+"expo-updates@npm:~58.0.23":
+  version: 58.0.23
+  resolution: "expo-updates@npm:58.0.23"
   dependencies:
     "@expo/code-signing-certificates": "npm:^0.0.7"
     "@expo/env": "npm:^2.6.0"
@@ -7383,7 +7383,7 @@ __metadata:
       optional: true
   bin:
     expo-updates: bin/cli.js
-  checksum: 10/d54a4268253fe847cf9c1e6364263153350eb12265f1115aed89501aa38865a42132bcf6b0503243a4a3396067393977b3c4568b1256bc088269a1037097d41f
+  checksum: 10/af32ab8c61274b4ce043ca7c904551e2eb0a914faa5f4608700c94cfb25dfc44435dab19cebdc99ecebbbceda824fd188f04c05c19e480221cf28a1747da6b6c
   languageName: node
   linkType: hard
 
